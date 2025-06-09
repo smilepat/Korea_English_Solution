@@ -36,7 +36,7 @@ export function LearningTrajectory() {
                 borderWidth: 2,
               },
               {
-                label: "상위 25% 학생",
+                label: "상위 5% 학생",
                 data: [350, 450, 550, 650, 750, 850, 950, 1050, 1150, 1250],
                 borderColor: "rgb(16, 185, 129)",
                 backgroundColor: "rgba(16, 185, 129, 0.1)",
@@ -146,7 +146,7 @@ export function LearningTrajectory() {
                 fill: false,
               },
               {
-                label: "상위 25% 학생",
+                label: "상위 5% 학생",
                 data: [A1, A1, A2, A2, A2, B1, B1, B1, B2, B2].map(levelToNumber),
                 borderColor: "rgb(16, 185, 129)",
                 backgroundColor: "rgba(16, 185, 129, 0.1)",

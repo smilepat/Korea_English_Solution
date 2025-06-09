@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { CheckCircle, Clock, BookOpen, Headphones, PenTool } from "lucide-react"
+import LexileChart from "./lexile-chart"
 
 export function PersonalizedRoadmap() {
   return (
@@ -13,25 +14,21 @@ export function PersonalizedRoadmap() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            <img
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-aZqLuoTVGAzKXyDRpyvOYhuCgwYwML.png"
-              alt="Lexile 지수 기준 학습 궤적"
-              className="w-full h-auto rounded-lg border"
-            />
+            <LexileChart />
             <div className="bg-slate-50 p-4 rounded-lg border">
               <h3 className="font-medium text-lg mb-2">학생 B의 개인화 학습 궤적 분석</h3>
               <div className="space-y-3 text-sm">
                 <div className="flex items-start gap-2">
-                  <span className="font-medium min-w-[120px]">현재 Lexile 지수:</span>
-                  <span>480L (초6 수준, 평균 학생 궤적)</span>
+                  <span className="font-medium min-w-[120px]">Current Lexile 지수:</span>
+                  <span>410L (중1 수준, 평균 학생 궤적)</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="font-medium min-w-[120px]">목표 Lexile 지수:</span>
-                  <span>900L (중3 수준, 목표 궤적)</span>
+                  <span>1000L (고1 수준, 목표 궤적)</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="font-medium min-w-[120px]">필요 상승 포인트:</span>
-                  <span>420L</span>
+                  <span>390L</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="font-medium min-w-[120px]">예상 소요 기간:</span>
@@ -39,9 +36,50 @@ export function PersonalizedRoadmap() {
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="font-medium min-w-[120px]">중점 학습 영역:</span>
-                  <span>복합문 분석, 추론적 독해, 학술적 어휘 확장</span>
+                  <span>다독, 복합문 분석, 추론적 독해, 학술적 어휘 확장</span>
                 </div>
               </div>
+            </div>
+            <div className="mt-4 overflow-x-auto">
+              <table className="w-full border-collapse">
+                <thead>
+                  <tr className="bg-slate-100">
+                    <th className="border p-2 text-left">자료 출처</th>
+                    <th className="border p-2 text-left">Lexile 지수 도달 학생 비율</th>
+                    <th className="border p-2 text-left">설명</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="border p-2 font-medium">MetaMetrics Korea (2022)</td>
+                    <td className="border p-2">
+                      약 <strong>43%</strong>가 1000L 미만
+                    </td>
+                    <td className="border p-2">12학년(고3) 기준 Lexile 분포</td>
+                  </tr>
+                  <tr>
+                    <td className="border p-2 font-medium">서울시교육청 영어 독해력 분석 (비공식 보고)</td>
+                    <td className="border p-2">
+                      약 <strong>30~40%만 1000L 도달</strong>
+                    </td>
+                    <td className="border p-2">상위권만이 고난도 수능지문 독해 가능</td>
+                  </tr>
+                  <tr>
+                    <td className="border p-2 font-medium">YBM, 능률교육 내부 분석</td>
+                    <td className="border p-2">
+                      <strong>고등 교과서 최고 수준(1000L)</strong>에 도달한 학생은 <strong>전체의 약 1/3</strong>
+                    </td>
+                    <td className="border p-2">학원/내부 리딩 진단 결과 기반</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div className="mt-4 text-sm text-slate-600 italic border-t pt-3">
+              <p>
+                <strong>MetaMetrics 출처:</strong> "In 2023, 43% of Korean 12th graders were reading below 1000L, the
+                benchmark level set by national high school English textbooks."
+                <span className="block mt-1 text-xs">(MetaMetrics Korea, 2023 Annual Reading Report for Korea)</span>
+              </p>
             </div>
           </div>
         </CardContent>
@@ -59,10 +97,10 @@ export function PersonalizedRoadmap() {
               <code>{`# 목표 달성 필요 시간 계산 모델
 def calculate_required_time(current_level, target_level):
     CERF_gap = target_level - current_level
-    return CERF_gap * 150  # CEFR 1단계 당 150시간 필요`}</code>
+    return CERF_gap * 150  # CEFR 1단계 당 300시간 필요`}</code>
             </pre>
             <p className="text-sm text-slate-600 mt-2">
-              CEFR 레벨 간 격차에 따라 필요한 학습 시간을 계산합니다. CEFR 1단계 상승에 약 150시간의 학습이 필요합니다.
+              CEFR 레벨 간 격차에 따라 필요한 학습 시간을 계산합니다. CEFR 1단계 상승에 약 300시간의 학습이 필요합니다.
             </p>
           </div>
         </CardContent>
@@ -190,7 +228,7 @@ def calculate_required_time(current_level, target_level):
                 </div>
                 <div>
                   <h3 className="font-medium">중급 어휘 확장</h3>
-                  <p className="text-sm text-slate-600 mt-1">중학교 수준의 어휘 1,500단어를 학습합니다.</p>
+                  <p className="text-sm text-slate-600 mt-1">중학교 수준의 어휘 2,000단어를 학습합니다.</p>
                   <div className="flex items-center gap-2 mt-2">
                     <Clock className="h-4 w-4 text-slate-500" />
                     <span className="text-xs text-slate-500">필요 시간: 주 5회, 20분씩, 12개월</span>
@@ -222,7 +260,7 @@ def calculate_required_time(current_level, target_level):
                 </div>
                 <div>
                   <h3 className="font-medium">학술적 어휘 습득</h3>
-                  <p className="text-sm text-slate-600 mt-1">대학 수준의 학술적 어휘 2,000단어를 학습합니다.</p>
+                  <p className="text-sm text-slate-600 mt-1">대학 수준의 학술적 어휘 및 수능 빈출 어휘를 학습합니다.</p>
                   <div className="flex items-center gap-2 mt-2">
                     <Clock className="h-4 w-4 text-slate-500" />
                     <span className="text-xs text-slate-500">필요 시간: 주 5회, 30분씩, 18개월</span>
