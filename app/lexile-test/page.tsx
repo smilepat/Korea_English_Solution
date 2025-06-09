@@ -329,7 +329,7 @@ export default function LexileTest() {
   const [showResult, setShowResult] = useState(false)
   const [userLevel, setUserLevel] = useState("")
   const [progress, setProgress] = useState(0)
-  const [language, setLanguage: any] = useState<"ko" | "en">("ko")
+  const [language, setLanguage: any] = useState<"ko" | "en">("en")
 
   const currentPassage = language === "ko" ? lexilePassages[currentLevelIndex] : englishLexilePassages[currentLevelIndex]
 
@@ -349,7 +349,7 @@ export default function LexileTest() {
   // Initialize the test with the correct language on page load
   useEffect(() => {
     // You could also get the language from URL parameters or localStorage if needed
-    const initialLanguage = "ko"; // Default to Korean
+    const initialLanguage = "en"; // Default to English
     setLanguage(initialLanguage);
     setCurrentLevelIndex(0);
     setAnswers({});
