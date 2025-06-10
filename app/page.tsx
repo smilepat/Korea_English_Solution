@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -9,65 +8,104 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { PlusCircle, BookOpen, BarChart2, GraduationCap, ArrowRight } from "lucide-react"
+import { PlusCircle, BookOpen, BarChart2, GraduationCap, ArrowRight, Database, Loader2 } from "lucide-react"
+import { getProblems, addProblem, updateProblem, type Problem } from "./actions/problems"
 
 export default function Home() {
   const [showProblemsList, setShowProblemsList] = useState(false)
   const [newProblem, setNewProblem] = useState("")
-  const [problems, setProblems] = useState<Array<{ id: number; text: string; checked: boolean }>>([
-    { id: 1, text: "교육과정 목표와 실제 교육 여건의 격차가 큼 (목표 달성률 62%)", checked: false },
-    { id: 2, text: "학습자 주도적 언어 사용 기회 부족 (주당 평균 발화 시간 4.2분)", checked: false },
-    { id: 3, text: "영어 수업시간 부족 (누적 980시간, CEFR B1 달성 필요 1,200시간)", checked: false },
-    { id: 4, text: "초중고 영어 교육의 연계성 부족 (중1의 42%가 초등 필수 어휘 미달성)", checked: false },
-    { id: 5, text: "학습자 간 격차 확대 문제 (상위 10%와 하위 10% 간 Lexile 격차 450L)", checked: false },
-    { id: 6, text: "수능 시험과 교과서 난이도 차이 (수능 지문 평균 1200L vs 교과서 800L)", checked: false },
-    { id: 7, text: "기초학력 부족 학생 개인별 해결 (개인별 학습궤적 진단 및 추천도구 필요)", checked: false },
-  ])
+  const [problems, setProblems] = useState<Problem[]>([])
+  const [loading, setLoading] = useState(true)
+  const [isSupabaseConnected, setIsSupabaseConnected] = useState(false)
 
-  // 컴포넌트 마운트 시 로컬 스토리지에서 문제점 목록 불러오기
+  // Supabase에서 문제점 목록 불러오기
   useEffect(() => {
-    const savedProblems = localStorage.getItem("englishEduProblems")
-    if (savedProblems) {
-      setProblems(JSON.parse(savedProblems))
+    async function loadProblems() {
+      try {
+        setLoading(true)
+        const data = await getProblems()
+        setProblems(data)
+        setIsSupabaseConnected(true)
+      } catch (error) {
+        console.error("Failed to load problems:", error)
+        setIsSupabaseConnected(false)
+        // Fallback to localStorage if Supabase fails
+        const savedProblems = localStorage.getItem("englishEduProblems")
+        if (savedProblems) {
+          setProblems(JSON.parse(savedProblems))
+        }
+      } finally {
+        setLoading(false)
+      }
     }
-  }, [])
 
-  // problems 상태가 변경될 때마다 로컬 스토리지에 저장
-  useEffect(() => {
-    localStorage.setItem("englishEduProblems", JSON.stringify(problems))
-  }, [problems])
+    loadProblems()
+  }, [])
 
   const toggleProblemsList = () => {
     setShowProblemsList(!showProblemsList)
   }
 
-  const handleCheckboxChange = (id: number) => {
-    const updatedProblems = problems.map((problem) =>
-      problem.id === id ? { ...problem, checked: !problem.checked } : problem,
-    )
-    setProblems(updatedProblems)
-  }
+  const handleCheckboxChange = async (id: number) => {
+    const problem = problems.find((p) => p.id === id)
+    if (!problem) return
 
-  const addNewProblem = () => {
-    if (newProblem.trim() !== "") {
-      const newId = problems.length > 0 ? Math.max(...problems.map((p) => p.id)) + 1 : 1
-      const updatedProblems = [...problems, { id: newId, text: newProblem, checked: false }]
-      setProblems(updatedProblems)
-      setNewProblem("")
+    const newCheckedState = !problem.checked
 
-      // 문제점 추가 후 목록이 보이도록 합니다
-      if (!showProblemsList) {
-        setShowProblemsList(true)
+    // 낙관적 업데이트
+    setProblems((prev) => prev.map((p) => (p.id === id ? { ...p, checked: newCheckedState } : p)))
+
+    try {
+      const result = await updateProblem(id, newCheckedState)
+      if (!result.success) {
+        // 실패 시 롤백
+        setProblems((prev) => prev.map((p) => (p.id === id ? { ...p, checked: !newCheckedState } : p)))
+        console.error("Failed to update problem:", result.error)
       }
+    } catch (error) {
+      // 실패 시 롤백
+      setProblems((prev) => prev.map((p) => (p.id === id ? { ...p, checked: !newCheckedState } : p)))
+      console.error("Failed to update problem:", error)
     }
   }
 
-  // 입력 필드의 키 이벤트 처리를 위한 함수를 추가합니다
+  const addNewProblem = async () => {
+    if (newProblem.trim() === "") return
+
+    try {
+      const result = await addProblem(newProblem.trim())
+      if (result.success && result.data) {
+        setProblems((prev) => [...prev, result.data!])
+        setNewProblem("")
+
+        // 문제점 추가 후 목록이 보이도록 합니다
+        if (!showProblemsList) {
+          setShowProblemsList(true)
+        }
+      } else {
+        console.error("Failed to add problem:", result.error)
+      }
+    } catch (error) {
+      console.error("Failed to add problem:", error)
+    }
+  }
+
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault()
       addNewProblem()
     }
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-teal-700 via-teal-600 to-teal-500 flex items-center justify-center">
+        <div className="flex items-center gap-3 text-white">
+          <Loader2 className="h-6 w-6 animate-spin" />
+          <span className="text-xl">시스템을 불러오는 중...</span>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -77,7 +115,15 @@ export default function Home() {
           <div className="flex justify-between items-center">
             <div>
               <h1 className="text-3xl font-bold text-white">대한민국 영어교육 개선 시스템</h1>
-              <p className="text-white mt-1 opacity-90">데이터 기반 영어교육 혁신 플랫폼</p>
+              <div className="flex items-center gap-2 mt-1">
+                <p className="text-white opacity-90">데이터 기반 영어교육 혁신 플랫폼</p>
+                {isSupabaseConnected && (
+                  <div className="flex items-center gap-1 bg-green-500 px-2 py-1 rounded-full">
+                    <Database className="h-3 w-3 text-white" />
+                    <span className="text-xs text-white font-medium">DB 연결됨</span>
+                  </div>
+                )}
+              </div>
             </div>
             <div className="flex gap-4">
               <Button
@@ -253,7 +299,7 @@ export default function Home() {
                       className="w-full bg-purple-600 hover:bg-purple-700 text-white border-2 border-white shadow-sm"
                       asChild
                     >
-                      <a href="/lexile-test/index.tsx">테스트 시작하기</a>
+                      <a href="/lexile-test">테스트 시작하기</a>
                     </Button>
                   </CardFooter>
                 </Card>
@@ -264,7 +310,14 @@ export default function Home() {
           <div>
             <Card className="shadow-sm border bg-white">
               <CardHeader>
-                <CardTitle>해결해야 할 문제점</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  해결해야 할 문제점
+                  {isSupabaseConnected && (
+                    <div className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium">
+                      DB 연동
+                    </div>
+                  )}
+                </CardTitle>
                 <CardDescription>대한민국 영어교육에서 개선이 필요한 문제점들을 관리합니다</CardDescription>
               </CardHeader>
               <CardContent>
@@ -310,7 +363,7 @@ export default function Home() {
                         size="sm"
                         className="bg-purple-600 hover:bg-purple-700 text-white"
                         onClick={addNewProblem}
-                        title="시스템에 저장됩니다"
+                        title="데이터베이스에 저장됩니다"
                       >
                         추가
                       </Button>
@@ -322,7 +375,7 @@ export default function Home() {
                 <span>선택된 문제점: {problems.filter((p) => p.checked).length}</span>
                 <span>총 문제점: {problems.length}</span>
               </CardFooter>
-              <div className="px-6 pb-3 text-xs text-gray-400">출처: [3]</div>
+              <div className="px-6 pb-3 text-xs text-gray-400">출처: [3] | Supabase 연동 완료</div>
             </Card>
 
             <Card className="shadow-sm border bg-white mt-6">
