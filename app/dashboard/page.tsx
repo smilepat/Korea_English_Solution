@@ -52,6 +52,13 @@ export default function Dashboard() {
                 </CardHeader>
                 <CardContent>
                   <GapAnalysis />
+                  <div className="mt-4 p-3 bg-slate-50 rounded-md border border-slate-200">
+                    <p className="text-sm text-slate-600">
+                      <strong>격차 수치 설명:</strong> 각 영역별 수치는 교육과정에서 목표로 하는 성취 수준과 실제
+                      학생들의 평균 성취도 간의 차이를 백분율(%)로 나타냅니다. 높은 수치일수록 목표 대비 실제 성취도가
+                      낮음을 의미하며, 해당 영역에서 더 집중적인 교육적 개입이 필요함을 시사합니다.
+                    </p>
+                  </div>
                 </CardContent>
               </Card>
 

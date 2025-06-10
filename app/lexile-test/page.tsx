@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
-import { ArrowLeft, ArrowRight, CheckCircle, Home, Globe } from 'lucide-react'
+import { ArrowLeft, ArrowRight, CheckCircle, Home, Globe } from "lucide-react"
 import Link from "next/link"
 
 // Lexile 레벨별 지문과 빈칸 문제
@@ -329,9 +329,10 @@ export default function LexileTest() {
   const [showResult, setShowResult] = useState(false)
   const [userLevel, setUserLevel] = useState("")
   const [progress, setProgress] = useState(0)
-  const [language, setLanguage: any] = useState<"ko" | "en">("en")
+  const [language, setLanguage] = useState<"ko" | "en">("en")
 
-  const currentPassage = language === "ko" ? lexilePassages[currentLevelIndex] : englishLexilePassages[currentLevelIndex]
+  const currentPassage =
+    language === "ko" ? lexilePassages[currentLevelIndex] : englishLexilePassages[currentLevelIndex]
 
   useEffect(() => {
     // Initialize answers for the current passage
@@ -343,18 +344,20 @@ export default function LexileTest() {
     }
 
     // Update progress
-    setProgress(((currentLevelIndex + 1) / (language === "ko" ? lexilePassages.length : englishLexilePassages.length)) * 100)
+    setProgress(
+      ((currentLevelIndex + 1) / (language === "ko" ? lexilePassages.length : englishLexilePassages.length)) * 100,
+    )
   }, [currentLevelIndex, currentPassage.level, currentPassage.blanks.length, answers, language])
 
   // Initialize the test with the correct language on page load
   useEffect(() => {
     // You could also get the language from URL parameters or localStorage if needed
-    const initialLanguage = "en"; // Default to English
-    setLanguage(initialLanguage);
-    setCurrentLevelIndex(0);
-    setAnswers({});
-    setShowResult(false);
-  }, []);
+    const initialLanguage = "en" // Default to English
+    setLanguage(initialLanguage)
+    setCurrentLevelIndex(0)
+    setAnswers({})
+    setShowResult(false)
+  }, [])
 
   const handleAnswerChange = (blankIndex: number, value: string) => {
     setAnswers((prev) => ({
@@ -365,26 +368,26 @@ export default function LexileTest() {
 
   const handleNext = () => {
     // 현재 레벨의 정확도 계산
-    const currentAnswers = answers[currentPassage.level] || [];
+    const currentAnswers = answers[currentPassage.level] || []
     const correctCount = currentAnswers.reduce((count, answer, index) => {
-      return answer === currentPassage.blanks[index].word ? count + 1 : count;
-    }, 0);
-    
-    const correctPercentage = (correctCount / currentPassage.blanks.length) * 100;
-    
+      return answer === currentPassage.blanks[index].word ? count + 1 : count
+    }, 0)
+
+    const correctPercentage = (correctCount / currentPassage.blanks.length) * 100
+
     // 70% 미만의 정확도를 달성했다면 테스트 중단하고 결과 표시
     if (correctPercentage < 70) {
-      calculateResult();
-      setShowResult(true);
-      return;
+      calculateResult()
+      setShowResult(true)
+      return
     }
-    
+
     // 다음 레벨로 진행
     if (currentLevelIndex < (language === "ko" ? lexilePassages.length : englishLexilePassages.length) - 1) {
-      setCurrentLevelIndex((prev) => prev + 1);
+      setCurrentLevelIndex((prev) => prev + 1)
     } else {
-      calculateResult();
-      setShowResult(true);
+      calculateResult()
+      setShowResult(true)
     }
   }
 
@@ -395,28 +398,30 @@ export default function LexileTest() {
   }
 
   const calculateResult = () => {
-    let highestCorrectLevel = "BR";
-    let highestCorrectIndex = 0;
+    let highestCorrectLevel = "BR"
+    let highestCorrectIndex = 0
 
     // Calculate correct answers for each level
     Object.entries(answers).forEach(([level, levelAnswers]) => {
-      const passageIndex = (language === "ko" ? lexilePassages : englishLexilePassages).findIndex((p) => p.level === level);
-      if (passageIndex === -1) return;
+      const passageIndex = (language === "ko" ? lexilePassages : englishLexilePassages).findIndex(
+        (p) => p.level === level,
+      )
+      if (passageIndex === -1) return
 
-      const passage = (language === "ko" ? lexilePassages : englishLexilePassages)[passageIndex];
+      const passage = (language === "ko" ? lexilePassages : englishLexilePassages)[passageIndex]
       const correctCount = levelAnswers.reduce((count, answer, index) => {
-        return answer === passage.blanks[index].word ? count + 1 : count;
-      }, 0);
+        return answer === passage.blanks[index].word ? count + 1 : count
+      }, 0)
 
       // If at least 70% correct and higher than current highest
-      const correctPercentage = (correctCount / passage.blanks.length) * 100;
+      const correctPercentage = (correctCount / passage.blanks.length) * 100
       if (correctPercentage >= 70 && passageIndex >= highestCorrectIndex) {
-        highestCorrectLevel = level;
-        highestCorrectIndex = passageIndex;
+        highestCorrectLevel = level
+        highestCorrectIndex = passageIndex
       }
-    });
+    })
 
-    setUserLevel(highestCorrectLevel);
+    setUserLevel(highestCorrectLevel)
   }
 
   const renderPassageWithBlanks = () => {
@@ -471,20 +476,24 @@ export default function LexileTest() {
           <h2 className="text-2xl font-bold mb-2">{language === "ko" ? "테스트 완료!" : "Test Complete!"}</h2>
           <p className="text-lg mb-4">
             {language === "ko" ? (
-              <>귀하의 Lexile 레벨은 <span className="font-bold text-blue-600">{userLevel}</span> 입니다.</>
+              <>
+                귀하의 Lexile 레벨은 <span className="font-bold text-blue-600">{userLevel}</span> 입니다.
+              </>
             ) : (
-              <>Your Lexile level is <span className="font-bold text-blue-600">{userLevel}</span>.</>
+              <>
+                Your Lexile level is <span className="font-bold text-blue-600">{userLevel}</span>.
+              </>
             )}
           </p>
-        <div className="p-4 bg-blue-50 rounded-lg border border-blue-100 text-left mb-6">
-          <h3 className="font-medium mb-2">
-            {language === "ko" ? `Lexile 레벨 ${userLevel}의 의미:` : `What Lexile level ${userLevel} means:`}
-          </h3>
-          <p className="text-sm">
-            {language === "ko" ? (
-              userLevel === "BR"
-                ? "BR(Beginning Reader) 레벨은 초기 독자 수준으로, 기본적인 단어와 문장을 이해할 수 있습니다. 간단한 그림책이나 초기 독자용 도서가 적합합니다."
-                : `Lexile ${userLevel} 레벨은 ${Number.parseInt(userLevel) < 500 ? "초급" : Number.parseInt(userLevel) < 900 ? "중급" : "고급"} 독자 수준입니다. 
+          <div className="p-4 bg-blue-50 rounded-lg border border-blue-100 text-left mb-6">
+            <h3 className="font-medium mb-2">
+              {language === "ko" ? `Lexile 레벨 ${userLevel}의 의미:` : `What Lexile level ${userLevel} means:`}
+            </h3>
+            <p className="text-sm">
+              {language === "ko"
+                ? userLevel === "BR"
+                  ? "BR(Beginning Reader) 레벨은 초기 독자 수준으로, 기본적인 단어와 문장을 이해할 수 있습니다. 간단한 그림책이나 초기 독자용 도서가 적합합니다."
+                  : `Lexile ${userLevel} 레벨은 ${Number.parseInt(userLevel) < 500 ? "초급" : Number.parseInt(userLevel) < 900 ? "중급" : "고급"} 독자 수준입니다. 
                 이 수준에서는 ${
                   Number.parseInt(userLevel) < 500
                     ? "간단한 문장과 기본 어휘를 이해할 수 있습니다."
@@ -492,41 +501,39 @@ export default function LexileTest() {
                       ? "복잡한 문장 구조와 다양한 어휘를 이해할 수 있습니다."
                       : "추상적인 개념과 학술적인 내용을 이해할 수 있는 고급 수준입니다."
                 }`
-            ) : (
-              userLevel === "BR"
-                ? "BR (Beginning Reader) level indicates an early reader who can understand basic words and sentences. Simple picture books or early reader books are appropriate."
-                : `Lexile ${userLevel} level indicates a ${Number.parseInt(userLevel) < 500 ? "beginner" : Number.parseInt(userLevel) < 900 ? "intermediate" : "advanced"} reader. 
+                : userLevel === "BR"
+                  ? "BR (Beginning Reader) level indicates an early reader who can understand basic words and sentences. Simple picture books or early reader books are appropriate."
+                  : `Lexile ${userLevel} level indicates a ${Number.parseInt(userLevel) < 500 ? "beginner" : Number.parseInt(userLevel) < 900 ? "intermediate" : "advanced"} reader. 
                 At this level, you can understand ${
                   Number.parseInt(userLevel) < 500
                     ? "simple sentences and basic vocabulary."
                     : Number.parseInt(userLevel) < 900
                       ? "complex sentence structures and diverse vocabulary."
                       : "abstract concepts and academic content at an advanced level."
-                }`
-            )}
-          </p>
-        </div>
-        <div className="flex justify-center space-x-4">
-          <Button asChild>
-            <Link href="/">
-              <Home className="mr-2 h-4 w-4" />
-              {language === "ko" ? "홈으로" : "Home"}
-            </Link>
-          </Button>
-          <Button
-            onClick={() => {
-              setCurrentLevelIndex(0)
-              setShowResult(false)
-              setAnswers({})
-            }}
-          >
-            {language === "ko" ? "테스트 다시 하기" : "Retake Test"}
-          </Button>
+                }`}
+            </p>
+          </div>
+          <div className="flex justify-center space-x-4">
+            <Button asChild>
+              <Link href="/">
+                <Home className="mr-2 h-4 w-4" />
+                {language === "ko" ? "홈으로" : "Home"}
+              </Link>
+            </Button>
+            <Button
+              onClick={() => {
+                setCurrentLevelIndex(0)
+                setShowResult(false)
+                setAnswers({})
+              }}
+            >
+              {language === "ko" ? "테스트 다시 하기" : "Retake Test"}
+            </Button>
+          </div>
         </div>
       </div>
-    </div>
-  )
-}
+    )
+  }
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -538,31 +545,33 @@ export default function LexileTest() {
                 <ArrowLeft className="h-4 w-4" />
                 <span>{language === "ko" ? "홈으로" : "Home"}</span>
               </Button>
-              </Link>
-              <Link href="/vocabulary-level">
-                <Button variant="outline" size="sm" className="ml-2">
-                  {language === "ko" ? "어휘 레벨" : "Vocabulary Level"}
-                </Button>
-              </Link>
-              <Link href="/reading-standards">
-                <Button variant="outline" size="sm">
-                  {language === "ko" ? "reading 성취기준 레벨" : "Reading Standards Level"}
-                </Button>
-              </Link>
-            <h1 className="text-3xl font-bold text-slate-900">Lexile {language === "ko" ? "레벨 테스트" : "Level Test"}</h1>
+            </Link>
+            <Link href="/vocabulary-level">
+              <Button variant="outline" size="sm" className="ml-2">
+                {language === "ko" ? "어휘 레벨" : "Vocabulary Level"}
+              </Button>
+            </Link>
+            <Link href="/reading-standards">
+              <Button variant="outline" size="sm">
+                {language === "ko" ? "reading 성취기준 레벨" : "Reading Standards Level"}
+              </Button>
+            </Link>
+            <h1 className="text-3xl font-bold text-slate-900">
+              Lexile {language === "ko" ? "레벨 테스트" : "Level Test"}
+            </h1>
             <Button
               variant="outline"
               size="sm"
               className="ml-4 gap-1"
               onClick={() => {
                 // Set the language first
-                const newLanguage = language === "ko" ? "en" : "ko";
-                setLanguage(newLanguage);
-                
+                const newLanguage = language === "ko" ? "en" : "ko"
+                setLanguage(newLanguage)
+
                 // Reset the test state
-                setCurrentLevelIndex(0);
-                setAnswers({});
-                setShowResult(false);
+                setCurrentLevelIndex(0)
+                setAnswers({})
+                setShowResult(false)
               }}
             >
               <Globe className="h-4 w-4" />
@@ -625,8 +634,10 @@ export default function LexileTest() {
                     {language === "ko" ? "다음" : "Next"}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </>
+                ) : language === "ko" ? (
+                  "결과 보기"
                 ) : (
-                  language === "ko" ? "결과 보기" : "See Result"
+                  "See Result"
                 )}
               </Button>
             </CardFooter>
@@ -654,7 +665,9 @@ export default function LexileTest() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-3 bg-slate-50 rounded-lg border">
-                  <h3 className="font-medium mb-1">{language === "ko" ? "초급 독자 (BR-500L)" : "Beginning Reader (BR-500L)"}</h3>
+                  <h3 className="font-medium mb-1">
+                    {language === "ko" ? "초급 독자 (BR-500L)" : "Beginning Reader (BR-500L)"}
+                  </h3>
                   <p className="text-xs text-slate-600">
                     {language === "ko"
                       ? "기본적인 어휘와 간단한 문장 구조를 이해할 수 있습니다. 그림책, 초기 독자용 도서에 적합합니다."
@@ -663,7 +676,9 @@ export default function LexileTest() {
                 </div>
 
                 <div className="p-3 bg-slate-50 rounded-lg border">
-                  <h3 className="font-medium mb-1">{language === "ko" ? "중급 독자 (500L-900L)" : "Intermediate Reader (500L-900L)"}</h3>
+                  <h3 className="font-medium mb-1">
+                    {language === "ko" ? "중급 독자 (500L-900L)" : "Intermediate Reader (500L-900L)"}
+                  </h3>
                   <p className="text-xs text-slate-600">
                     {language === "ko"
                       ? "더 복잡한 문장과 다양한 어휘를 이해할 수 있습니다. 청소년 소설, 일반 잡지 기사에 적합합니다."
@@ -672,7 +687,9 @@ export default function LexileTest() {
                 </div>
 
                 <div className="p-3 bg-slate-50 rounded-lg border">
-                  <h3 className="font-medium mb-1">{language === "ko" ? "고급 독자 (900L-1200L)" : "Advanced Reader (900L-1200L)"}</h3>
+                  <h3 className="font-medium mb-1">
+                    {language === "ko" ? "고급 독자 (900L-1200L)" : "Advanced Reader (900L-1200L)"}
+                  </h3>
                   <p className="text-xs text-slate-600">
                     {language === "ko"
                       ? "복잡한 아이디어와 추상적인 개념을 이해할 수 있습니다. 고등학교 교과서, 대학 입시 자료에 적합합니다."
@@ -681,7 +698,9 @@ export default function LexileTest() {
                 </div>
 
                 <div className="p-3 bg-slate-50 rounded-lg border">
-                  <h3 className="font-medium mb-1">{language === "ko" ? "전문 독자 (1200L+)" : "Expert Reader (1200L+)"}</h3>
+                  <h3 className="font-medium mb-1">
+                    {language === "ko" ? "전문 독자 (1200L+)" : "Expert Reader (1200L+)"}
+                  </h3>
                   <p className="text-xs text-slate-600">
                     {language === "ko"
                       ? "학술적이고 전문적인 텍스트를 이해할 수 있습니다. 대학 교재, 학술 논문, 전문 서적에 적합합니다."
@@ -697,7 +716,11 @@ export default function LexileTest() {
       <footer className="bg-white border-t py-6 mt-8">
         <div className="container mx-auto">
           <div className="text-center text-sm text-slate-500">
-            <p>© 2025 {language === "ko" ? "대한민국 영어교육 개선 시스템" : "Korean English Education Improvement System"}. All rights reserved.</p>
+            <p>
+              © 2025{" "}
+              {language === "ko" ? "대한민국 영어교육 개선 시스템" : "Korean English Education Improvement System"}. All
+              rights reserved.
+            </p>
             <p className="mt-1">
               {language === "ko"
                 ? '출처: MetaMetrics Inc., "The Lexile Framework for Reading", 2023'
