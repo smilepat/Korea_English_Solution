@@ -6,7 +6,8 @@ import { GapAnalysis } from "@/components/gap-analysis"
 import { LearningTrajectory } from "@/components/learning-trajectory"
 import { PersonalizedRoadmap } from "@/components/personalized-roadmap"
 import { TeacherReport } from "@/components/teacher-report"
-import { Home } from "lucide-react"
+import { CurriculumAITab } from "@/components/curriculum-ai-tab"
+import { Home, Sparkles } from "lucide-react"
 
 export default function Dashboard() {
   return (
@@ -29,17 +30,14 @@ export default function Dashboard() {
 
       <div className="container py-8">
         <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-5">
             <TabsTrigger value="overview">문제 진단</TabsTrigger>
+            <TabsTrigger value="ai-curriculum" className="gap-1">
+              <Sparkles className="h-3.5 w-3.5" />
+              AI 교육과정 분석
+            </TabsTrigger>
             <TabsTrigger value="trajectory">학습 궤적</TabsTrigger>
-            <div className="flex flex-col items-center">
-              <span className="text-sm text-red-600 mb-1 border border-red-400 rounded px-2 py-1 font-medium">
-                성취기준을 제대로 측정할 수 있는 도구가 필요
-              </span>
-              <TabsTrigger value="roadmap" className="w-full">
-                개인화 로드맵
-              </TabsTrigger>
-            </div>
+            <TabsTrigger value="roadmap">개인화 로드맵</TabsTrigger>
             <TabsTrigger value="teacher">교사용 리포트</TabsTrigger>
           </TabsList>
 
@@ -209,6 +207,10 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
             </div>
+          </TabsContent>
+
+          <TabsContent value="ai-curriculum" className="mt-6">
+            <CurriculumAITab />
           </TabsContent>
 
           <TabsContent value="trajectory" className="mt-6">

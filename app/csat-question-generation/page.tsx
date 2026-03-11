@@ -1,629 +1,538 @@
+"use client"
+
+import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, BookOpen, Code2 } from "lucide-react"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Badge } from "@/components/ui/badge"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import {
+  ArrowLeft,
+  Sparkles,
+  Loader2,
+  BookOpen,
+  Trash2,
+  ChevronDown,
+  ChevronUp,
+  Code2,
+} from "lucide-react"
 import Link from "next/link"
+import { createCsatItem, getCsatItems, deleteCsatItem } from "@/app/actions/csat"
+import type { CsatItem } from "@/lib/turso"
+
+const ITEM_TYPES = [
+  "빈칸추론",
+  "순서배열",
+  "요약완성",
+  "심경분위기",
+  "주제요지",
+  "지칭추론",
+  "무관한문장",
+]
+
+const DIFFICULTY_OPTIONS = [
+  { value: "easy", label: "쉬움 (700-800L)", color: "bg-green-100 text-green-800" },
+  { value: "medium", label: "중간 (850-1000L)", color: "bg-yellow-100 text-yellow-800" },
+  { value: "hard", label: "어려움 (1000-1200L)", color: "bg-red-100 text-red-800" },
+]
+
+const LEXILE_PRESETS: Record<string, number> = {
+  easy: 750,
+  medium: 900,
+  hard: 1100,
+}
 
 export default function CSATQuestionGeneration() {
+  const [activeTab, setActiveTab] = useState("generate")
+
+  // 생성 폼 상태
+  const [selectedType, setSelectedType] = useState("빈칸추론")
+  const [inputMode, setInputMode] = useState<"passage" | "topic">("topic")
+  const [passage, setPassage] = useState("")
+  const [topic, setTopic] = useState("")
+  const [difficulty, setDifficulty] = useState("medium")
+  const [generating, setGenerating] = useState(false)
+  const [generatedItem, setGeneratedItem] = useState<CsatItem | null>(null)
+  const [error, setError] = useState("")
+
+  // 저장된 문항 목록 상태
+  const [savedItems, setSavedItems] = useState<CsatItem[]>([])
+  const [loadingItems, setLoadingItems] = useState(false)
+  const [expandedId, setExpandedId] = useState<number | null>(null)
+
+  const handleGenerate = async () => {
+    if (inputMode === "passage" && !passage.trim()) {
+      setError("지문을 입력해주세요.")
+      return
+    }
+    if (inputMode === "topic" && !topic.trim()) {
+      setError("주제를 입력해주세요.")
+      return
+    }
+
+    setGenerating(true)
+    setError("")
+    setGeneratedItem(null)
+
+    try {
+      const result = await Promise.race([
+        createCsatItem({
+          type: selectedType,
+          passage: inputMode === "passage" ? passage : undefined,
+          topic: inputMode === "topic" ? topic : undefined,
+          lexileLevel: LEXILE_PRESETS[difficulty],
+          difficulty,
+        }),
+        new Promise<never>((_, reject) => setTimeout(() => reject(new Error("timeout")), 60000)),
+      ])
+
+      if (result.success && result.item) {
+        setGeneratedItem(result.item)
+      } else {
+        setError(result.error || "문항 생성에 실패했습니다.")
+      }
+    } catch (e) {
+      setError("AI 응답 시간이 초과되었습니다. 다시 시도해주세요.")
+    } finally {
+      setGenerating(false)
+    }
+  }
+
+  const loadSavedItems = async () => {
+    setLoadingItems(true)
+    const items = await getCsatItems({ limit: 30 })
+    setSavedItems(items)
+    setLoadingItems(false)
+  }
+
+  const handleDelete = async (id: number) => {
+    const result = await deleteCsatItem(id)
+    if (result.success) {
+      setSavedItems((prev) => prev.filter((item) => item.id !== id))
+    }
+  }
+
+  const difficultyColor = (d?: string) =>
+    DIFFICULTY_OPTIONS.find((o) => o.value === d)?.color ?? "bg-gray-100 text-gray-700"
+
   return (
     <div className="min-h-screen bg-slate-50">
       <header className="bg-white border-b">
-        <div className="container mx-auto py-6 flex justify-between items-center">
-          <div>
-            <div className="flex items-center gap-2">
-              <Link href="/">
-                <Button variant="ghost" size="sm" className="gap-1">
-                  <ArrowLeft className="h-4 w-4" />
-                  <span>홈으로</span>
-                </Button>
-              </Link>
-              <h1 className="text-3xl font-bold text-slate-900">수능 문항 생성 이해하기</h1>
+        <div className="container mx-auto py-5 flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            <Link href="/">
+              <Button variant="ghost" size="sm" className="gap-1">
+                <ArrowLeft className="h-4 w-4" />
+                홈으로
+              </Button>
+            </Link>
+            <div>
+              <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                <Sparkles className="h-5 w-5 text-purple-600" />
+                수능 문항 생성 AI
+              </h1>
+              <p className="text-slate-500 text-sm mt-0.5">Claude AI가 수능 스타일 영어 문항을 생성합니다</p>
             </div>
-            <p className="text-slate-600 mt-1">
-              수능 영어 문항 생성의 원칙과 방법론을 이해하고 효과적인 문항 제작 방법을 알아봅니다
-            </p>
           </div>
           <div className="flex gap-2">
-            <Button className="bg-teal-800 hover:bg-teal-900 text-white" asChild>
-              <Link href="/vocabulary-list">수능 어휘/collocation 리스트</Link>
+            <Button variant="outline" asChild>
+              <Link href="/vocabulary-list">어휘 리스트</Link>
             </Button>
-            <Button className="bg-teal-800 hover:bg-teal-900 text-white">수능 기출문제</Button>
-            <Button className="bg-teal-800 hover:bg-teal-900 text-white">수능 문항 평가 루브릭</Button>
           </div>
         </div>
       </header>
 
       <main className="container mx-auto py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <Card className="shadow-md hover:shadow-lg transition-shadow">
-            <CardHeader className="bg-gradient-to-r from-purple-50 to-white">
-              <div className="bg-purple-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-                <BookOpen className="h-6 w-6 text-purple-700" />
-              </div>
-              <CardTitle className="text-xl">검사지 구성원칙 쉽게 이해하기</CardTitle>
-              <CardDescription>수능 영어 문항 제작의 기본 원칙과 구성 방법을 알아봅니다</CardDescription>
-            </CardHeader>
-            <CardContent className="pt-6">
-              <div className="space-y-4">
-                <div className="bg-slate-50 p-4 rounded-lg border">
-                  <h3 className="font-medium text-lg mb-2">수능 영어 문항 구성 원칙</h3>
-                  <ul className="list-disc pl-5 space-y-2 text-sm">
-                    <li>
-                      <span className="font-medium">타당도 확보:</span> 교육과정에 명시된 성취기준과 평가 목표에
-                      부합하는 문항 개발
-                    </li>
-                    <li>
-                      <span className="font-medium">신뢰도 확보:</span> 일관된 평가 결과를 얻을 수 있는 객관적 문항 설계
-                    </li>
-                    <li>
-                      <span className="font-medium">변별도 고려:</span> 학생들의 능력 차이를 적절히 구분할 수 있는
-                      난이도 설정
-                    </li>
-                    <li>
-                      <span className="font-medium">실용성 강화:</span> 실생활 및 학문적 맥락에서 활용 가능한 영어 능력
-                      평가
-                    </li>
-                  </ul>
-                </div>
+        <Tabs value={activeTab} onValueChange={(v) => {
+          setActiveTab(v)
+          if (v === "saved") loadSavedItems()
+        }}>
+          <TabsList className="mb-6">
+            <TabsTrigger value="generate" className="gap-2">
+              <Sparkles className="h-4 w-4" />
+              AI 문항 생성
+            </TabsTrigger>
+            <TabsTrigger value="saved" className="gap-2">
+              <BookOpen className="h-4 w-4" />
+              저장된 문항
+            </TabsTrigger>
+            <TabsTrigger value="guide" className="gap-2">
+              <Code2 className="h-4 w-4" />
+              출제 원칙
+            </TabsTrigger>
+          </TabsList>
 
-                <div className="bg-slate-50 p-4 rounded-lg border">
-                  <h3 className="font-medium text-lg mb-2">문항 유형별 특성</h3>
-                  <div className="space-y-3">
-                    <div>
-                      <h4 className="font-medium text-sm">듣기 문항</h4>
-                      <p className="text-xs text-slate-600 mt-1">
-                        실제 의사소통 상황을 반영한 대화 및 담화 이해 능력 평가, 다양한 억양과 속도 고려
-                      </p>
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-sm">읽기 문항</h4>
-                      <p className="text-xs text-slate-600 mt-1">
-                        다양한 장르의 글에 대한 이해력, 추론 능력, 비판적 사고력 평가
-                      </p>
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-sm">어휘/문법 문항</h4>
-                      <p className="text-xs text-slate-600 mt-1">맥락 속에서의 어휘 활용 능력과 문법적 정확성 평가</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-slate-50 p-4 rounded-lg border">
-                  <h3 className="font-medium text-lg mb-2">교육과정-수능 문항 간 격차 분석</h3>
-                  <p className="text-sm text-slate-600">
-                    교육과정에서 제시하는 성취기준과 실제 수능 문항 간의 난이도 및 내용 격차를 분석하고, 이를 해소하기
-                    위한 방안을 제시합니다.
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-8 border-t pt-6">
-                <h2 className="text-xl font-bold text-purple-800 mb-4">
-                  영어 평가 검사지 구성 원칙: 쉽게 풀어 설명하기
-                </h2>
-                <p className="text-sm text-slate-700 mb-4">
-                  영어 시험지를 어떻게 만들면 좋을지에 대한 김용명(2010)의 네 가지 원칙을, 평범한 영어교사가 바로 이해할
-                  수 있도록 비유와 실제 사례를 들어 설명합니다.
-                </p>
-
-                <hr className="my-4 border-gray-300" />
-
-                <div className="space-y-6">
-                  <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
-                    <h3 className="text-lg font-semibold text-purple-800 mb-2">
-                      1. 상보성(Complementarity): "샐러드 만들기" 비유
-                    </h3>
-
-                    <div className="mb-3">
-                      <h4 className="font-medium text-purple-700 mb-1">비유:</h4>
-                      <p className="text-sm text-slate-700">
-                        샐러드를 만들 때, 오이만 가득 넣으면 맛이 단조롭고 영양도 부족합니다. 오이, 토마토, 치즈, 양상추
-                        등 다양한 재료가 어우러져야 맛있고 건강한 샐러드가 되죠.
-                      </p>
-                    </div>
-
-                    <div>
-                      <h4 className="font-medium text-purple-700 mb-1">시험에 적용:</h4>
-                      <p className="text-sm text-slate-700">
-                        시험 문제도 마찬가지로, 다양한 유형(예: 내용 일치, 빈칸 추론, 목적 찾기 등)을 골고루 포함해야
-                        합니다. 만약 비슷한 문제(예: 주제, 제목, 요지 추론)만 반복되면, 학생의 한 가지 능력만 재는
-                        셈이어서 좋은 시험이 아닙니다.
-                      </p>
-                      <p className="text-sm font-medium text-purple-800 mt-2">
-                        즉, 여러 가지 문제 유형을 조화롭게 섞어야 학생들의 다양한 영어 능력을 고루 평가할 수 있습니다.
-                      </p>
+          {/* ── AI 문항 생성 탭 ── */}
+          <TabsContent value="generate">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* 왼쪽: 입력 패널 */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>문항 설정</CardTitle>
+                  <CardDescription>조건을 설정하고 AI로 수능 문항을 생성합니다</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-5">
+                  {/* 문항 유형 */}
+                  <div>
+                    <Label className="text-sm font-medium mb-2 block">문항 유형</Label>
+                    <div className="flex flex-wrap gap-2">
+                      {ITEM_TYPES.map((type) => (
+                        <button
+                          key={type}
+                          type="button"
+                          onClick={() => setSelectedType(type)}
+                          className={`px-3 py-1.5 rounded-full text-sm border transition-colors ${
+                            selectedType === type
+                              ? "bg-purple-600 text-white border-purple-600"
+                              : "bg-white text-slate-600 border-slate-300 hover:border-purple-400"
+                          }`}
+                        >
+                          {type}
+                        </button>
+                      ))}
                     </div>
                   </div>
 
-                  <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                    <h3 className="text-lg font-semibold text-blue-800 mb-2">
-                      2. 통합성(Integration): "운동 경기" 비유
-                    </h3>
+                  {/* 난이도 */}
+                  <div>
+                    <Label className="text-sm font-medium mb-2 block">난이도</Label>
+                    <div className="flex gap-2">
+                      {DIFFICULTY_OPTIONS.map((opt) => (
+                        <button
+                          key={opt.value}
+                          type="button"
+                          onClick={() => setDifficulty(opt.value)}
+                          className={`flex-1 py-2 rounded-lg text-sm border transition-colors ${
+                            difficulty === opt.value
+                              ? "bg-purple-600 text-white border-purple-600"
+                              : "bg-white text-slate-600 border-slate-300 hover:border-purple-400"
+                          }`}
+                        >
+                          {opt.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
 
-                    <div className="mb-3">
-                      <h4 className="font-medium text-blue-700 mb-1">비유:</h4>
-                      <p className="text-sm text-slate-700">
-                        축구 경기에서는 달리기, 패스, 슛, 협동 등 여러 기술이 한꺼번에 필요합니다. 달리기만 잘한다고
-                        축구를 잘하는 게 아니죠.
-                      </p>
+                  {/* 입력 모드 */}
+                  <div>
+                    <Label className="text-sm font-medium mb-2 block">지문 방식</Label>
+                    <div className="flex gap-2 mb-3">
+                      <button
+                        type="button"
+                        onClick={() => setInputMode("topic")}
+                        className={`px-4 py-2 rounded-lg text-sm border transition-colors ${
+                          inputMode === "topic"
+                            ? "bg-slate-800 text-white border-slate-800"
+                            : "bg-white text-slate-600 border-slate-300"
+                        }`}
+                      >
+                        주제로 자동 생성
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setInputMode("passage")}
+                        className={`px-4 py-2 rounded-lg text-sm border transition-colors ${
+                          inputMode === "passage"
+                            ? "bg-slate-800 text-white border-slate-800"
+                            : "bg-white text-slate-600 border-slate-300"
+                        }`}
+                      >
+                        지문 직접 입력
+                      </button>
                     </div>
 
-                    <div>
-                      <h4 className="font-medium text-blue-700 mb-1">시험에 적용:</h4>
-                      <p className="text-sm text-slate-700">
-                        영어도 듣기, 읽기, 말하기, 쓰기를 따로따로 평가하기보다는, 실제 상황처럼 여러 기능이 어우러진
-                        문제(예: 듣고 말하기, 읽고 쓰기 연계 문제)를 포함하는 것이 좋습니다.
-                      </p>
-                      <div className="mt-2">
-                        <h5 className="text-sm font-medium text-blue-700 mb-1">예시:</h5>
-                        <ul className="list-disc pl-5 text-sm text-slate-700">
-                          <li>듣고 대답하기(듣기+말하기)</li>
-                          <li>글을 읽고 이어질 내용을 쓰기(읽기+쓰기)</li>
-                        </ul>
+                    {inputMode === "topic" ? (
+                      <div>
+                        <Label htmlFor="topic" className="text-xs text-slate-500 mb-1 block">
+                          주제 (예: 환경 보호, 인공지능 윤리, 문화 다양성)
+                        </Label>
+                        <Input
+                          id="topic"
+                          placeholder="주제를 입력하세요..."
+                          value={topic}
+                          onChange={(e) => setTopic(e.target.value)}
+                        />
                       </div>
-                      <p className="text-sm text-slate-700 mt-2">
-                        이렇게 여러 기능을 통합한 문제는 실제 영어 사용과 더 닮아 있고, 학생들의 종합적인 영어 실력을
-                        평가할 수 있습니다.
-                      </p>
-                    </div>
+                    ) : (
+                      <div>
+                        <Label htmlFor="passage" className="text-xs text-slate-500 mb-1 block">
+                          영어 지문 붙여넣기
+                        </Label>
+                        <textarea
+                          id="passage"
+                          className="w-full h-40 p-3 text-sm border rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-purple-300"
+                          placeholder="영어 지문을 붙여넣으세요..."
+                          value={passage}
+                          onChange={(e) => setPassage(e.target.value)}
+                        />
+                      </div>
+                    )}
                   </div>
 
-                  <div className="bg-teal-50 p-4 rounded-lg border border-teal-200">
-                    <h3 className="text-lg font-semibold text-teal-800 mb-2">
-                      3. 주축성(Pivotality): "자전거 바퀴" 비유
-                    </h3>
+                  {error && <p className="text-red-500 text-sm">{error}</p>}
 
-                    <div className="mb-3">
-                      <h4 className="font-medium text-teal-700 mb-1">비유:</h4>
-                      <p className="text-sm text-slate-700">
-                        자전거 바퀴에는 중심 축(허브)과 바깥쪽 살(스포크)이 있습니다. 중심 축이 튼튼해야 자전거가 잘
-                        굴러가고, 살이 여러 개 있어야 바퀴가 다양한 충격도 견딜 수 있습니다.
-                      </p>
-                    </div>
+                  <Button
+                    className="w-full bg-purple-600 hover:bg-purple-700 text-white gap-2"
+                    onClick={handleGenerate}
+                    disabled={generating}
+                  >
+                    {generating ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        AI가 문항을 생성하는 중...
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles className="h-4 w-4" />
+                        문항 생성하기
+                      </>
+                    )}
+                  </Button>
+                </CardContent>
+              </Card>
 
-                    <div>
-                      <h4 className="font-medium text-teal-700 mb-1">시험에 적용:</h4>
-                      <p className="text-sm text-slate-700">
-                        시험 문제도 중심이 되는 '주축 문제'(예: 정답률이 일정하고, 난이도가 높아 실력을 잘 가려내는
-                        문제)가 있어야 하고, 다양한 유형의 '주변 문제'(예: 난이도나 정답률이 다양한 문제)도 있어야
-                        합니다.
-                      </p>
-                      <p className="text-sm font-medium text-teal-800 mt-2">
-                        즉, 시험의 핵심과 다양성을 모두 챙겨야 좋은 시험이 됩니다.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="bg-amber-50 p-4 rounded-lg border border-amber-200">
-                    <h3 className="text-lg font-semibold text-amber-800 mb-2">
-                      4. 위계성(Hierarchicality): "계단 오르기" 비유
-                    </h3>
-
-                    <div className="mb-3">
-                      <h4 className="font-medium text-amber-700 mb-1">비유:</h4>
-                      <p className="text-sm text-slate-700">
-                        계단을 오를 때 한 번에 너무 높은 계단을 오르면 힘들고, 낮은 계단부터 차근차근 올라야 합니다.
-                      </p>
-                    </div>
-
-                    <div>
-                      <h4 className="font-medium text-amber-700 mb-1">시험에 적용:</h4>
-                      <p className="text-sm text-slate-700">
-                        문제의 난이도도 학생들의 수준에 맞게 단계별로 구성해�� 합니다.
-                      </p>
-                      <ul className="list-disc pl-5 text-sm text-slate-700 mt-2">
-                        <li>쉬운 문제(L형)는 기초 실력을 평가하고,</li>
-                        <li>중간 난이도(M형)는 평균 학생을,</li>
-                        <li>어려운 문제(H형)는 상위권 학생을 변별할 수 있게 합니다.</li>
-                      </ul>
-                      <p className="text-sm text-slate-700 mt-2">
-                        이렇게 다양한 난이도의 문제를 섞으면, 모든 학생이 자신의 실력을 발휘할 수 있고, 시험의 공정성과
-                        신뢰성이 높아집니다.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                    <h3 className="text-lg font-semibold text-green-800 mb-2">추가: "적당한 도전" 원칙</h3>
-
-                    <div className="mb-3">
-                      <h4 className="font-medium text-green-700 mb-1">비유:</h4>
-                      <p className="text-sm text-slate-700">
-                        자전거를 처음 배울 때, 너무 어려운 코스를 주면 포기하고, 너무 쉬우면 실력이 늘지 않습니다.
-                        적당히 도전적인 과제가 필요합니다.
-                      </p>
-                    </div>
-
-                    <div>
-                      <h4 className="font-medium text-green-700 mb-1">시험에 적용:</h4>
-                      <p className="text-sm text-slate-700">
-                        학생의 현재 실력보다 약간 더 어려운 문제를 내면, 학생은 도전 의식을 가지고 성장할 수 있습니다.
-                      </p>
-                      <p className="text-sm font-medium text-green-800 mt-2">
-                        즉, 학생 수준에 맞는 과제를 단계적으로 제시하는 것이 중요합니다.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-6 bg-gray-50 p-4 rounded-lg border">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-3">요약</h3>
-                  <ul className="space-y-2">
-                    <li className="flex items-center">
-                      <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded mr-2 text-sm font-medium">
-                        샐러드
-                      </span>
-                      <span className="text-sm">다양한 문제를 골고루</span>
-                    </li>
-                    <li className="flex items-center">
-                      <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded mr-2 text-sm font-medium">
-                        운동 경기
-                      </span>
-                      <span className="text-sm">여러 기능을 통합</span>
-                    </li>
-                    <li className="flex items-center">
-                      <span className="bg-teal-100 text-teal-800 px-2 py-1 rounded mr-2 text-sm font-medium">
-                        자전거 바퀴
-                      </span>
-                      <span className="text-sm">핵심과 다양성의 균형</span>
-                    </li>
-                    <li className="flex items-center">
-                      <span className="bg-amber-100 text-amber-800 px-2 py-1 rounded mr-2 text-sm font-medium">
-                        계단 오르기
-                      </span>
-                      <span className="text-sm">난이도 단계별 구성</span>
-                    </li>
-                    <li className="flex items-center">
-                      <span className="bg-green-100 text-green-800 px-2 py-1 rounded mr-2 text-sm font-medium">
-                        자전거 코스
-                      </span>
-                      <span className="text-sm">적당한 도전 부여</span>
-                    </li>
-                  </ul>
-                  <p className="text-sm text-slate-700 mt-4">
-                    이렇게 하면, 학생들의 다양한 영어 능력을 정확하고 공정하게 평가할 수 있는 좋은 시험지를 만들 수
-                    있습니다.
-                  </p>
-                </div>
-
-                <div className="mt-6 text-xs text-slate-500">
-                  <p className="font-medium mb-1">Citations:</p>
-                  <ol className="list-decimal pl-5 space-y-1">
-                    <li>김용명(2010). 영어 평가 검사지 구성 원칙에 관한 연구.</li>
-                    <li>한국과학기술정보연구원. Korean Journal of Educational Research, v16n4.</li>
-                    <li>Frontiers in Education. Language Testing and Assessment.</li>
-                    <li>Cambridge English. Assessment and Analytical Framework.</li>
-                    <li>OECD. PISA 2018 Assessment and Analytical Framework.</li>
-                  </ol>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="shadow-md hover:shadow-lg transition-shadow">
-            <CardHeader className="bg-gradient-to-r from-blue-50 to-white">
-              <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-                <Code2 className="h-6 w-6 text-blue-700" />
-              </div>
-              <CardTitle className="text-xl">LLM을 이용한 수능문항 생성방법</CardTitle>
-              <CardDescription>인공지능 기술을 활용한 효과적인 수능 영어 문항 생성 방법을 소개합니다</CardDescription>
-            </CardHeader>
-            <CardContent className="pt-6">
+              {/* 오른쪽: 결과 패널 */}
               <div className="space-y-4">
-                <div className="bg-slate-50 p-4 rounded-lg border">
-                  <h3 className="font-medium text-lg mb-2">LLM 활용 문항 생성 프로세스</h3>
-                  <ol className="list-decimal pl-5 space-y-2 text-sm">
-                    <li>교육과정 성취기준 및 평가 목표 설정</li>
-                    <li>적절한 난이도와 주제의 지문 선정 또는 생성</li>
-                    <li>문항 유형 및 평가 요소 결정</li>
-                    <li>LLM을 활용한 초기 문항 생성</li>
-                    <li>전문가 검토 및 수정</li>
-                    <li>시험 문항 최종 확정</li>
-                  </ol>
-                </div>
+                {generating && (
+                  <Card className="border-purple-200">
+                    <CardContent className="flex items-center justify-center py-16">
+                      <div className="text-center space-y-3">
+                        <Loader2 className="h-10 w-10 animate-spin text-purple-600 mx-auto" />
+                        <p className="text-slate-600">Claude AI가 문항을 생성하고 있습니다...</p>
+                        <p className="text-xs text-slate-400">수능 기준에 맞는 지문과 선택지를 작성 중</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
 
-                <div className="bg-slate-50 p-4 rounded-lg border">
-                  <h3 className="font-medium text-lg mb-2">효과적인 프롬프트 엔지니어링</h3>
-                  <p className="text-sm text-slate-600 mb-3">
-                    LLM을 활용하여 양질의 수능 문항을 생성하기 위한 프롬프트 작성 방법과 예시를 제공합니다.
-                  </p>
-                  <div className="bg-gray-100 p-3 rounded-md text-xs font-mono">
-                    <p className="text-blue-700">{"// 예시 프롬프트"}</p>
-                    <p>{"다음 조건에 맞는 수능 영어 독해 문항을 생성해주세요:"}</p>
-                    <p>{"1. 주제: 환경 보호와 지속 가능한 발전"}</p>
-                    <p>{"2. 난이도: 상위 30% 학생 대상"}</p>
-                    <p>{"3. 문항 유형: 빈칸 추론"}</p>
-                    <p>{"4. 지문 길이: 250-300단어"}</p>
-                    <p>{"5. 평가 요소: 논리적 추론 능력, 맥락 이해 능력"}</p>
-                  </div>
-                </div>
+                {generatedItem && !generating && (
+                  <>
+                    <Card className="border-purple-200">
+                      <CardHeader className="pb-3">
+                        <div className="flex items-center justify-between">
+                          <CardTitle className="text-base">생성된 문항</CardTitle>
+                          <div className="flex gap-2">
+                            <Badge variant="outline">{generatedItem.type}</Badge>
+                            <Badge className={difficultyColor(generatedItem.difficulty)}>
+                              {DIFFICULTY_OPTIONS.find((o) => o.value === generatedItem.difficulty)?.label ?? generatedItem.difficulty}
+                            </Badge>
+                            {generatedItem.lexile_level && (
+                              <Badge variant="outline">{generatedItem.lexile_level}L</Badge>
+                            )}
+                          </div>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        {/* 지문 */}
+                        <div className="p-4 bg-slate-50 rounded-lg border text-sm leading-relaxed">
+                          <p className="font-medium text-xs text-slate-400 mb-2">지문</p>
+                          {generatedItem.passage}
+                        </div>
 
-                <div className="bg-slate-50 p-4 rounded-lg border">
-                  <h3 className="font-medium text-lg mb-2">LLM 생성 문항의 검증 방법</h3>
-                  <ul className="list-disc pl-5 space-y-2 text-sm">
-                    <li>
-                      <span className="font-medium">교육과정 부합도:</span> 성취기준과의 일치성 검토
-                    </li>
-                    <li>
-                      <span className="font-medium">난이도 적절성:</span> 목표 학생층에 맞는 난이도 확인
-                    </li>
-                    <li>
-                      <span className="font-medium">문화적 편향성:</span> 특정 문화나 배경에 편향되지 않았는지 확인
-                    </li>
-                    <li>
-                      <span className="font-medium">언어적 정확성:</span> 문법, 어휘, 표현의 정확성 검증
-                    </li>
-                  </ul>
-                </div>
-              </div>
+                        {/* 문항 */}
+                        <div>
+                          <p className="font-medium text-sm mb-2">{generatedItem.question}</p>
+                          <ol className="space-y-1.5">
+                            {generatedItem.options.map((opt, idx) => (
+                              <li
+                                key={idx}
+                                className={`p-2 rounded text-sm border ${
+                                  idx + 1 === generatedItem.answer
+                                    ? "bg-green-50 border-green-300 font-medium text-green-800"
+                                    : "bg-white border-slate-200"
+                                }`}
+                              >
+                                {opt}
+                                {idx + 1 === generatedItem.answer && (
+                                  <span className="ml-2 text-xs text-green-600">✓ 정답</span>
+                                )}
+                              </li>
+                            ))}
+                          </ol>
+                        </div>
+                      </CardContent>
+                    </Card>
 
-              <div className="mt-8 border-t pt-6">
-                <h2 className="text-xl font-bold text-blue-800 mb-4">LLM을 활용한 수능 영어 문제 출제 방법</h2>
-                <p className="text-sm text-slate-700 mb-4">
-                  LLM(대형 언어 모델)을 이용해 수능 영어 문제를 제대로 만들기 위해서는 단순히 문제를 생성하는 것을
-                  넘어서, 문제의 질과 시험지의 구조까지 신경 써야 합니다. 김용명(2010)이 제안한 네 가지 검사지 구성
-                  원칙(상보성, 통합성, 주축성, 위계성)을 LLM 활용에 적용하는 방법을 구체적으로 설명합니다.
-                </p>
-                <hr className="my-4 border-gray-300" />
-                <div className="space-y-6">
-                  <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                    <h3 className="text-lg font-semibold text-blue-800 mb-2">1. 상보성(Complementarity) 원칙 적용</h3>
-                    <div className="mb-3">
-                      <h4 className="font-medium text-blue-700 mb-1">핵심:</h4>
-                      <p className="text-sm text-slate-700">
-                        문제 유형, 평가 영역, 내용이 서로 보완적이어야 하며, 동일한 능력만 반복 측정하지 않도록 해야
-                        합니다.
-                      </p>
-                    </div>
+                    {/* 해설 */}
+                    {generatedItem.ai_analysis && (
+                      <Card>
+                        <CardHeader className="pb-2">
+                          <CardTitle className="text-sm text-slate-600">풀이 해설</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap">
+                            {generatedItem.ai_analysis}
+                          </p>
+                        </CardContent>
+                      </Card>
+                    )}
 
-                    <div>
-                      <h4 className="font-medium text-blue-700 mb-1">LLM 활용 방법:</h4>
-                      <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700">
-                        <li>
-                          다양한 유형의 문제(예: 사실적 이해, 추론적 이해, 종합적 이해 등)를 LLM에게 명확히 지시하여
-                          생성합니다.
-                        </li>
-                        <li>
-                          <p className="mb-1">예시 프롬프트:</p>
-                          <ul className="list-none pl-4 space-y-1 text-blue-600 font-mono text-xs">
-                            <li>"Create a reading comprehension question that tests factual understanding."</li>
-                            <li>"Generate an inference question based on the given passage."</li>
-                            <li>
-                              "Produce a question that requires synthesizing information from multiple sentences."
-                            </li>
-                          </ul>
-                        </li>
-                        <li>
-                          생성된 문제들이 서로 다른 읽기 능력(상향식, 하향식, 상호작용식 등)을 평가하는지 점검합니다.
-                        </li>
-                        <li>
-                          유사 유형(예: 주제, 제목, 요지 추론 등)만 반복되지 않도록 LLM이 만든 문제를 검토하고, 필요시
-                          유형별로 묶어 '메타 문항'으로 관리합니다.
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
-                    <h3 className="text-lg font-semibold text-indigo-800 mb-2">2. 통합성(Integration) 원칙 적용</h3>
-                    <div className="mb-3">
-                      <h4 className="font-medium text-indigo-700 mb-1">핵심:</h4>
-                      <p className="text-sm text-slate-700">
-                        듣기, 읽기, 말하기, 쓰기 등 언어의 여러 기능이 통합적으로 평가되어야 하며, 실제 언어 사용 상황과
-                        유사해야 합니다.
-                      </p>
-                    </div>
-
-                    <div>
-                      <h4 className="font-medium text-indigo-700 mb-1">LLM 활용 방법:</h4>
-                      <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700">
-                        <li>
-                          LLM에게 듣기와 말하기, 읽기와 쓰기 등 두 가지 이상의 기능이 결합된 문제를 만들도록 요청합니다.
-                        </li>
-                        <li>
-                          <p className="mb-1">예시 프롬프트:</p>
-                          <ul className="list-none pl-4 space-y-1 text-indigo-600 font-mono text-xs">
-                            <li>
-                              "Create a question where students must listen to a dialogue and then choose the most
-                              appropriate response (listening + speaking)."
-                            </li>
-                            <li>
-                              "Generate a reading passage followed by a writing prompt that asks students to summarize
-                              or continue the story (reading + writing)."
-                            </li>
-                          </ul>
-                        </li>
-                        <li>
-                          실제 수능 문제 유형(예: 듣고 대화에 응답, 글의 이어질 순서 등)을 참고해 연계형 문항을
-                          포함시킵니다.
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="bg-cyan-50 p-4 rounded-lg border border-cyan-200">
-                    <h3 className="text-lg font-semibold text-cyan-800 mb-2">3. 주축성(Pivotality) 원칙 적용</h3>
-                    <div className="mb-3">
-                      <h4 className="font-medium text-cyan-700 mb-1">핵심:</h4>
-                      <p className="text-sm text-slate-700">
-                        시험의 안정성과 변별력을 책임지는 '주축 문항'과, 시험의 다양성을 높이는 '주변 문항'이 균형 있게
-                        포함되어야 합니다.
-                      </p>
-                    </div>
-
-                    <div>
-                      <h4 className="font-medium text-cyan-700 mb-1">LLM 활용 방법:</h4>
-                      <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700">
-                        <li>LLM에게 평균적인 난이도와 변별력이 높은 '핵심 문항'을 우선 생성하도록 요청합니다.</li>
-                        <li>
-                          <p className="mb-1">예시 프롬프트:</p>
-                          <ul className="list-none pl-4 space-y-1 text-cyan-600 font-mono text-xs">
-                            <li>
-                              "Generate a core reading comprehension question that is moderately difficult and
-                              discriminates well among students of different ability levels."
-                            </li>
-                          </ul>
-                        </li>
-                        <li>다양한 난이도와 유형의 '주변 문항'도 함께 생성하도록 지시합니다.</li>
-                        <li>
-                          각 문항의 정답률이나 예상 난이도를 LLM에 평가하게 하거나, 샘플 데이터를 활용해 교사가 직접
-                          조정합니다.
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="bg-sky-50 p-4 rounded-lg border border-sky-200">
-                    <h3 className="text-lg font-semibold text-sky-800 mb-2">4. 위계성(Hierarchicality) 원칙 적용</h3>
-                    <div className="mb-3">
-                      <h4 className="font-medium text-sky-700 mb-1">핵심:</h4>
-                      <p className="text-sm text-slate-700">
-                        문항의 난이도와 복잡도가 학생의 실제 수행력 단계와 일치해야 하며, 쉬운 문제부터 어려운 문제까지
-                        단계적으로 배치해야 합니다.
-                      </p>
-                    </div>
-
-                    <div>
-                      <h4 className="font-medium text-sky-700 mb-1">LLM 활용 방법:</h4>
-                      <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700">
-                        <li>LLM에게 난이도(쉬움, 보통, 어려움)를 명확히 지정해 문제를 생성하도록 합니다.</li>
-                        <li>
-                          <p className="mb-1">예시 프롬프트:</p>
-                          <ul className="list-none pl-4 space-y-1 text-sky-600 font-mono text-xs">
-                            <li>"Create an easy question suitable for lower-level students."</li>
-                            <li>
-                              "Generate a challenging question that only high-level students are likely to answer
-                              correctly."
-                            </li>
-                          </ul>
-                        </li>
-                        <li>
-                          문항 반응 곡선(L형, M형, H형)에 따라 LLM이 만든 문제를 분류하거나, 샘플 풀이 결과를 바탕으로
-                          난이도를 조정합니다.
-                        </li>
-                        <li>
-                          전체 시험지에서 L/M/H형 문제 비율을 조절하여, 하위~상위권 학생 모두에게 적합한 변별력을
-                          확보합니다.
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="overflow-x-auto">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-3">실제 적용 예시</h3>
-                    <table className="min-w-full border-collapse border border-gray-300">
-                      <thead>
-                        <tr className="bg-gray-100">
-                          <th className="border border-gray-300 px-4 py-2 text-left">원칙</th>
-                          <th className="border border-gray-300 px-4 py-2 text-left">LLM 프롬프트 예시</th>
-                          <th className="border border-gray-300 px-4 py-2 text-left">점검 포인트</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="border border-gray-300 px-4 py-2 font-medium">상보성</td>
-                          <td className="border border-gray-300 px-4 py-2 text-blue-600 font-mono text-xs">
-                            "Infer the author's attitude from the passage."
-                          </td>
-                          <td className="border border-gray-300 px-4 py-2">유형 중복 없이 다양한 능력 평가</td>
-                        </tr>
-                        <tr>
-                          <td className="border border-gray-300 px-4 py-2 font-medium">통합성</td>
-                          <td className="border border-gray-300 px-4 py-2 text-blue-600 font-mono text-xs">
-                            "Listen to this audio and write a summary."
-                          </td>
-                          <td className="border border-gray-300 px-4 py-2">두 기능(듣기+쓰기) 통합</td>
-                        </tr>
-                        <tr>
-                          <td className="border border-gray-300 px-4 py-2 font-medium">주축성</td>
-                          <td className="border border-gray-300 px-4 py-2 text-blue-600 font-mono text-xs">
-                            "Create a question with moderate difficulty and high validity."
-                          </td>
-                          <td className="border border-gray-300 px-4 py-2">정답률, 난이도, 변별력 고려</td>
-                        </tr>
-                        <tr>
-                          <td className="border border-gray-300 px-4 py-2 font-medium">위계성</td>
-                          <td className="border border-gray-300 px-4 py-2 text-blue-600 font-mono text-xs">
-                            "Make three questions: easy, medium, hard."
-                          </td>
-                          <td className="border border-gray-300 px-4 py-2">난이도별 단계적 배치</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-
-                  <div className="bg-gray-50 p-4 rounded-lg border">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">추가 팁:</h3>
-                    <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700">
-                      <li>
-                        <span className="font-medium">교육과정 연계:</span> LLM에게 반드시 최신 교육과정(예: 2015 개정
-                        교육과정)과 수능 출제 범위, 어휘 수준을 반영하도록 지시합니다.
-                      </li>
-                      <li>
-                        <span className="font-medium">문항 검토 및 수정:</span> LLM이 생성한 문제는 반드시 교사가 직접
-                        검토·수정하여 실제 수능의 질적 기준에 맞는지 확인합니다.
-                      </li>
-                      <li>
-                        <span className="font-medium">메타 문항 관리:</span> 동일 능력 측정 문항은 묶어서 관리하고,
-                        필요시 교체하거나 제거합니다.
-                      </li>
-                      <li>
-                        <span className="font-medium">학생 수행력 고려:</span> 'Performability Principle'에 따라 학생의
-                        현재 수준보다 약간 높은 난이도의 과업도 포함시켜 동기와 학습 효과를 높입니다.
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-blue-50 p-5 rounded-lg border border-blue-200">
-                    <h3 className="text-lg font-semibold text-blue-800 mb-3">결론</h3>
-                    <p className="text-sm text-slate-700 mb-3">LLM을 이용한 수능 영어 문제 출제는,</p>
-                    <ul className="list-none space-y-2 mb-3">
-                      <li className="flex items-center">
-                        <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded mr-2 text-sm font-medium">
-                          다양성
-                        </span>
-                        <span className="text-sm">(상보성)</span>
-                      </li>
-                      <li className="flex items-center">
-                        <span className="bg-indigo-100 text-indigo-800 px-2 py-1 rounded mr-2 text-sm font-medium">
-                          기능 통합
-                        </span>
-                        <span className="text-sm">(통합성)</span>
-                      </li>
-                      <li className="flex items-center">
-                        <span className="bg-cyan-100 text-cyan-800 px-2 py-1 rounded mr-2 text-sm font-medium">
-                          핵심-주변 균형
-                        </span>
-                        <span className="text-sm">(주축성)</span>
-                      </li>
-                      <li className="flex items-center">
-                        <span className="bg-sky-100 text-sky-800 px-2 py-1 rounded mr-2 text-sm font-medium">
-                          난이도 위계
-                        </span>
-                        <span className="text-sm">(위계성)</span>
-                      </li>
-                    </ul>
-                    <p className="text-sm text-slate-700">
-                      을 반드시 반영해야 하며, LLM의 강점을 최대한 활용하되, 교사의 전문적 검토와 최종 조정이
-                      필수적입니다. 이 네 가지 원칙을 염두에 두고 LLM을 설계·운영하면, 실제 수능에 부합하는 고품질 영어
-                      평가 문항을 만들 수 있습니다.
+                    <p className="text-xs text-slate-400 text-center">
+                      문항은 자동으로 DB에 저장되었습니다.{" "}
+                      <button
+                        type="button"
+                        className="text-purple-600 underline"
+                        onClick={() => { setActiveTab("saved"); loadSavedItems() }}
+                      >
+                        저장된 문항 보기
+                      </button>
                     </p>
+                  </>
+                )}
+
+                {!generating && !generatedItem && (
+                  <Card className="border-dashed">
+                    <CardContent className="flex items-center justify-center py-16 text-center">
+                      <div className="space-y-2">
+                        <Sparkles className="h-10 w-10 text-slate-300 mx-auto" />
+                        <p className="text-slate-400 text-sm">왼쪽에서 조건을 설정하고<br />문항 생성 버튼을 누르세요</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
+            </div>
+          </TabsContent>
+
+          {/* ── 저장된 문항 탭 ── */}
+          <TabsContent value="saved">
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle>저장된 문항 목록</CardTitle>
+                    <CardDescription>AI가 생성하고 DB에 저장된 수능 문항입니다</CardDescription>
                   </div>
+                  <Button variant="outline" size="sm" onClick={loadSavedItems} disabled={loadingItems}>
+                    {loadingItems ? <Loader2 className="h-4 w-4 animate-spin" /> : "새로고침"}
+                  </Button>
                 </div>
-                <div className="mt-6 text-xs text-slate-500">
-                  <p className="font-medium mb-1">Citations:</p>
+              </CardHeader>
+              <CardContent>
+                {loadingItems && (
+                  <div className="flex justify-center py-10">
+                    <Loader2 className="h-6 w-6 animate-spin text-purple-600" />
+                  </div>
+                )}
+                {!loadingItems && savedItems.length === 0 && (
+                  <p className="text-center text-slate-400 py-10">저장된 문항이 없습니다. AI 문항 생성 탭에서 문항을 생성해보세요.</p>
+                )}
+                <div className="space-y-3">
+                  {savedItems.map((item) => (
+                    <div key={item.id} className="border rounded-lg overflow-hidden">
+                      <div
+                        className="flex items-center justify-between p-4 cursor-pointer hover:bg-slate-50"
+                        onClick={() => setExpandedId(expandedId === item.id ? null : item.id)}
+                      >
+                        <div className="flex items-center gap-3">
+                          <Badge variant="outline">{item.type}</Badge>
+                          <Badge className={difficultyColor(item.difficulty)}>
+                            {DIFFICULTY_OPTIONS.find((o) => o.value === item.difficulty)?.label ?? item.difficulty}
+                          </Badge>
+                          {item.lexile_level && <Badge variant="outline">{item.lexile_level}L</Badge>}
+                          <span className="text-sm text-slate-600 line-clamp-1 max-w-xs">
+                            {item.question}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs text-slate-400">
+                            {item.created_at.slice(0, 10)}
+                          </span>
+                          <button
+                            type="button"
+                            aria-label="문항 삭제"
+                            onClick={(e) => { e.stopPropagation(); handleDelete(item.id) }}
+                            className="text-slate-400 hover:text-red-500 p-1"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </button>
+                          {expandedId === item.id
+                            ? <ChevronUp className="h-4 w-4 text-slate-400" />
+                            : <ChevronDown className="h-4 w-4 text-slate-400" />}
+                        </div>
+                      </div>
+
+                      {expandedId === item.id && (
+                        <div className="border-t p-4 space-y-4 bg-slate-50">
+                          <div className="p-3 bg-white rounded border text-sm leading-relaxed">
+                            <p className="text-xs text-slate-400 mb-1 font-medium">지문</p>
+                            {item.passage}
+                          </div>
+                          <div>
+                            <p className="font-medium text-sm mb-2">{item.question}</p>
+                            <ol className="space-y-1.5">
+                              {item.options.map((opt, idx) => (
+                                <li
+                                  key={idx}
+                                  className={`p-2 rounded text-sm border ${
+                                    idx + 1 === item.answer
+                                      ? "bg-green-50 border-green-300 font-medium text-green-800"
+                                      : "bg-white border-slate-200"
+                                  }`}
+                                >
+                                  {opt}
+                                  {idx + 1 === item.answer && (
+                                    <span className="ml-2 text-xs text-green-600">✓ 정답</span>
+                                  )}
+                                </li>
+                              ))}
+                            </ol>
+                          </div>
+                          {item.ai_analysis && (
+                            <div className="p-3 bg-blue-50 rounded border border-blue-100">
+                              <p className="text-xs font-medium text-blue-700 mb-1">풀이 해설</p>
+                              <p className="text-sm text-slate-700 whitespace-pre-wrap">{item.ai_analysis}</p>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* ── 출제 원칙 탭 (기존 내용 유지) ── */}
+          <TabsContent value="guide">
+            <Card>
+              <CardHeader>
+                <CardTitle>수능 문항 출제 4대 원칙</CardTitle>
+                <CardDescription>김용명(2010) 검사지 구성 원칙 해설</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {[
+                    { bg: "bg-purple-50", border: "border-purple-200", badge: "bg-purple-100 text-purple-800", heading: "text-purple-800", title: "1. 상보성 (Complementarity)", icon: "샐러드", desc: "다양한 문항 유형을 골고루 포함해 학생의 다양한 영어 능력을 균형 있게 평가합니다." },
+                    { bg: "bg-blue-50", border: "border-blue-200", badge: "bg-blue-100 text-blue-800", heading: "text-blue-800", title: "2. 통합성 (Integration)", icon: "운동 경기", desc: "듣기·읽기·말하기·쓰기 등 여러 기능이 통합된 문항으로 실제 언어 사용 능력을 평가합니다." },
+                    { bg: "bg-teal-50", border: "border-teal-200", badge: "bg-teal-100 text-teal-800", heading: "text-teal-800", title: "3. 주축성 (Pivotality)", icon: "자전거 바퀴", desc: "변별력 높은 주축 문항과 다양성을 확보하는 주변 문항을 균형 있게 구성합니다." },
+                    { bg: "bg-amber-50", border: "border-amber-200", badge: "bg-amber-100 text-amber-800", heading: "text-amber-800", title: "4. 위계성 (Hierarchicality)", icon: "계단 오르기", desc: "쉬운 문항(L형)부터 어려운 문항(H형)까지 단계적으로 배치해 모든 수준의 학생을 평가합니다." },
+                  ].map((item) => (
+                    <div key={item.title} className={`p-4 rounded-lg border ${item.bg} ${item.border}`}>
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className={`${item.badge} px-2 py-0.5 rounded text-xs font-medium`}>
+                          {item.icon}
+                        </span>
+                        <h3 className={`font-semibold ${item.heading} text-sm`}>{item.title}</h3>
+                      </div>
+                      <p className="text-sm text-slate-700">{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-6 text-xs text-slate-500 border-t pt-4">
+                  <p className="font-medium mb-1">참고문헌</p>
                   <ol className="list-decimal pl-5 space-y-1">
                     <li>김용명(2010). 영어 평가 검사지 구성 원칙에 관한 연구.</li>
-                    <li>한국과학기술정보연구원. Korean Journal of Educational Research.</li>
-                    <li>교육부 블로그. 2015 개정 교육과정 관련 자료.</li>
                     <li>한국교육과정평가원. 수능 영어 영역 출제 방향.</li>
-                    <li>한국학술정보. 영어 평가 문항 개발에 관한 연구.</li>
+                    <li>교육부. 2022 개정 교육과정.</li>
                   </ol>
                 </div>
-                \
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </main>
     </div>
   )

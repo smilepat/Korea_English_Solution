@@ -1,25 +1,47 @@
 "use server"
 
-import { supabase } from "@/lib/supabase"
+import { db } from "@/lib/firebase"
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  orderBy,
+  query,
+  serverTimestamp,
+  Timestamp,
+} from "firebase/firestore"
 
 export interface Problem {
-  id: number
+  id: string
   text: string
   checked: boolean
   created_at: string
   updated_at: string
 }
 
+function toISOString(val: unknown): string {
+  if (val instanceof Timestamp) return val.toDate().toISOString()
+  if (typeof val === "string") return val
+  return new Date().toISOString()
+}
+
 export async function getProblems(): Promise<Problem[]> {
   try {
-    const { data, error } = await supabase.from("problems").select("*").order("created_at", { ascending: true })
-
-    if (error) {
-      console.error("Error fetching problems:", error)
-      return []
-    }
-
-    return data || []
+    const q = query(collection(db, "problems"), orderBy("created_at", "asc"))
+    const snapshot = await getDocs(q)
+    return snapshot.docs.map((d) => {
+      const data = d.data()
+      return {
+        id: d.id,
+        text: data.text,
+        checked: data.checked ?? false,
+        created_at: toISOString(data.created_at),
+        updated_at: toISOString(data.updated_at),
+      }
+    })
   } catch (error) {
     console.error("Error in getProblems:", error)
     return []
@@ -28,36 +50,30 @@ export async function getProblems(): Promise<Problem[]> {
 
 export async function addProblem(text: string): Promise<{ success: boolean; data?: Problem; error?: string }> {
   try {
-    const { data, error } = await supabase
-      .from("problems")
-      .insert([{ text, checked: false }])
-      .select()
-      .single()
-
-    if (error) {
-      console.error("Error adding problem:", error)
-      return { success: false, error: error.message }
+    const now = serverTimestamp()
+    const ref = await addDoc(collection(db, "problems"), {
+      text,
+      checked: false,
+      created_at: now,
+      updated_at: now,
+    })
+    const isoNow = new Date().toISOString()
+    return {
+      success: true,
+      data: { id: ref.id, text, checked: false, created_at: isoNow, updated_at: isoNow },
     }
-
-    return { success: true, data }
   } catch (error) {
     console.error("Error in addProblem:", error)
     return { success: false, error: "Failed to add problem" }
   }
 }
 
-export async function updateProblem(id: number, checked: boolean): Promise<{ success: boolean; error?: string }> {
+export async function updateProblem(id: string, checked: boolean): Promise<{ success: boolean; error?: string }> {
   try {
-    const { error } = await supabase
-      .from("problems")
-      .update({ checked, updated_at: new Date().toISOString() })
-      .eq("id", id)
-
-    if (error) {
-      console.error("Error updating problem:", error)
-      return { success: false, error: error.message }
-    }
-
+    await updateDoc(doc(db, "problems", id), {
+      checked,
+      updated_at: serverTimestamp(),
+    })
     return { success: true }
   } catch (error) {
     console.error("Error in updateProblem:", error)
@@ -65,15 +81,9 @@ export async function updateProblem(id: number, checked: boolean): Promise<{ suc
   }
 }
 
-export async function deleteProblem(id: number): Promise<{ success: boolean; error?: string }> {
+export async function deleteProblem(id: string): Promise<{ success: boolean; error?: string }> {
   try {
-    const { error } = await supabase.from("problems").delete().eq("id", id)
-
-    if (error) {
-      console.error("Error deleting problem:", error)
-      return { success: false, error: error.message }
-    }
-
+    await deleteDoc(doc(db, "problems", id))
     return { success: true }
   } catch (error) {
     console.error("Error in deleteProblem:", error)

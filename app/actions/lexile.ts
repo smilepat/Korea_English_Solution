@@ -1,14 +1,29 @@
 "use server"
 
-import { supabase } from "@/lib/supabase"
+import { db } from "@/lib/firebase"
+import {
+  collection,
+  getDocs,
+  addDoc,
+  orderBy,
+  query,
+  serverTimestamp,
+  Timestamp,
+} from "firebase/firestore"
 
 export interface LexileTestResult {
-  id: number
+  id: string
   user_id: string | null
   score: number | null
   level: string | null
   test_date: string
   answers: any | null
+}
+
+function toISOString(val: unknown): string {
+  if (val instanceof Timestamp) return val.toDate().toISOString()
+  if (typeof val === "string") return val
+  return new Date().toISOString()
 }
 
 export async function saveLexileTestResult(
@@ -17,25 +32,18 @@ export async function saveLexileTestResult(
   answers: any,
 ): Promise<{ success: boolean; data?: LexileTestResult; error?: string }> {
   try {
-    const { data, error } = await supabase
-      .from("lexile_test_results")
-      .insert([
-        {
-          score,
-          level,
-          answers,
-          test_date: new Date().toISOString(),
-        },
-      ])
-      .select()
-      .single()
-
-    if (error) {
-      console.error("Error saving lexile test result:", error)
-      return { success: false, error: error.message }
+    const ref = await addDoc(collection(db, "lexile_test_results"), {
+      user_id: null,
+      score,
+      level,
+      answers,
+      test_date: serverTimestamp(),
+    })
+    const isoNow = new Date().toISOString()
+    return {
+      success: true,
+      data: { id: ref.id, user_id: null, score, level, test_date: isoNow, answers },
     }
-
-    return { success: true, data }
   } catch (error) {
     console.error("Error in saveLexileTestResult:", error)
     return { success: false, error: "Failed to save test result" }
@@ -44,17 +52,19 @@ export async function saveLexileTestResult(
 
 export async function getLexileTestResults(): Promise<LexileTestResult[]> {
   try {
-    const { data, error } = await supabase
-      .from("lexile_test_results")
-      .select("*")
-      .order("test_date", { ascending: false })
-
-    if (error) {
-      console.error("Error fetching lexile test results:", error)
-      return []
-    }
-
-    return data || []
+    const q = query(collection(db, "lexile_test_results"), orderBy("test_date", "desc"))
+    const snapshot = await getDocs(q)
+    return snapshot.docs.map((d) => {
+      const data = d.data()
+      return {
+        id: d.id,
+        user_id: data.user_id ?? null,
+        score: data.score ?? null,
+        level: data.level ?? null,
+        test_date: toISOString(data.test_date),
+        answers: data.answers ?? null,
+      }
+    })
   } catch (error) {
     console.error("Error in getLexileTestResults:", error)
     return []

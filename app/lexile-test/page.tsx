@@ -4,8 +4,9 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
-import { ArrowLeft, ArrowRight, CheckCircle, Home, Globe } from "lucide-react"
+import { ArrowLeft, ArrowRight, CheckCircle, Home, Globe, Loader2, Sparkles } from "lucide-react"
 import Link from "next/link"
+import { getLexileTeachingStrategy } from "@/app/actions/lexile-ai"
 
 // Lexile 레벨별 지문과 빈칸 문제
 const lexilePassages = [
@@ -330,6 +331,14 @@ export default function LexileTest() {
   const [userLevel, setUserLevel] = useState("")
   const [progress, setProgress] = useState(0)
   const [language, setLanguage] = useState<"ko" | "en">("en")
+  const [aiStrategy, setAiStrategy] = useState<{
+    levelDescription: string
+    teachingStrategies: string[]
+    recommendedMaterials: string[]
+    nextLevelTips: string[]
+    studentMessage: string
+  } | null>(null)
+  const [loadingStrategy, setLoadingStrategy] = useState(false)
 
   const currentPassage =
     language === "ko" ? lexilePassages[currentLevelIndex] : englishLexilePassages[currentLevelIndex]
@@ -349,15 +358,7 @@ export default function LexileTest() {
     )
   }, [currentLevelIndex, currentPassage.level, currentPassage.blanks.length, answers, language])
 
-  // Initialize the test with the correct language on page load
-  useEffect(() => {
-    // You could also get the language from URL parameters or localStorage if needed
-    const initialLanguage = "en" // Default to English
-    setLanguage(initialLanguage)
-    setCurrentLevelIndex(0)
-    setAnswers({})
-    setShowResult(false)
-  }, [])
+  // Language is already initialized to "en" in useState default
 
   const handleAnswerChange = (blankIndex: number, value: string) => {
     setAnswers((prev) => ({
@@ -422,24 +423,51 @@ export default function LexileTest() {
     })
 
     setUserLevel(highestCorrectLevel)
+
+    // AI 교수 전략 로딩
+    setLoadingStrategy(true)
+    getLexileTeachingStrategy({ lexileLevel: highestCorrectLevel, language }).then((strategy) => {
+      setAiStrategy(strategy)
+      setLoadingStrategy(false)
+    }).catch(() => setLoadingStrategy(false))
   }
 
   const renderPassageWithBlanks = () => {
     const passage = currentPassage
+    // 각 blank의 위치(word index)를 미리 계산
     const words = passage.text.split(" ")
+    const blankPositions: Map<number, number> = new Map()
+
+    passage.blanks.forEach((blank, blankIdx) => {
+      // 정확한 단어 위치를 찾기 위해 순차 탐색 (이전 blank 이후부터)
+      const startFrom = blankIdx > 0 ? (blankPositions.get(blankIdx - 1) ?? 0) + 1 : 0
+      for (let i = startFrom; i < words.length; i++) {
+        // 구두점 제거 후 비교
+        const cleaned = words[i].replace(/[.,!?;:'"()]/g, "")
+        if (cleaned === blank.word) {
+          blankPositions.set(blankIdx, i)
+          break
+        }
+      }
+    })
+
+    // wordIndex → blankIndex 역매핑
+    const wordToBlank = new Map<number, number>()
+    blankPositions.forEach((wordIdx, blankIdx) => {
+      wordToBlank.set(wordIdx, blankIdx)
+    })
 
     return (
       <div className="space-y-6">
         <div className="p-4 bg-white rounded-lg border">
           {words.map((word, wordIndex) => {
-            const blankIndex = passage.blanks.findIndex(
-              (blank) => word.includes(blank.word) && !answers[passage.level]?.includes(blank.word),
-            )
+            const blankIndex = wordToBlank.get(wordIndex)
 
-            if (blankIndex !== -1 && !answers[passage.level]?.[blankIndex]) {
+            if (blankIndex !== undefined && !answers[passage.level]?.[blankIndex]) {
               return (
                 <span key={wordIndex} className="inline-block mx-1">
                   <select
+                    aria-label={`blank ${blankIndex + 1}`}
                     className="border-b-2 border-blue-500 bg-blue-50 px-1 py-0.5 rounded text-sm"
                     value={answers[passage.level]?.[blankIndex] || ""}
                     onChange={(e) => handleAnswerChange(blankIndex, e.target.value)}
@@ -525,12 +553,89 @@ export default function LexileTest() {
                 setCurrentLevelIndex(0)
                 setShowResult(false)
                 setAnswers({})
+                setAiStrategy(null)
               }}
             >
               {language === "ko" ? "테스트 다시 하기" : "Retake Test"}
             </Button>
           </div>
         </div>
+
+        {/* AI 교수 전략 섹션 */}
+        {loadingStrategy && (
+          <div className="p-6 bg-white rounded-lg border flex items-center justify-center gap-3">
+            <Loader2 className="h-5 w-5 animate-spin text-purple-600" />
+            <span className="text-slate-600 text-sm">
+              {language === "ko" ? "AI가 맞춤 학습 전략을 분석하는 중..." : "AI is analyzing personalized learning strategies..."}
+            </span>
+          </div>
+        )}
+
+        {aiStrategy && !loadingStrategy && (
+          <div className="space-y-4">
+            {/* 학생 메시지 */}
+            <div className="p-5 bg-gradient-to-r from-green-50 to-teal-50 rounded-lg border border-green-200">
+              <div className="flex items-center gap-2 mb-2">
+                <Sparkles className="h-4 w-4 text-green-600" />
+                <span className="text-sm font-semibold text-green-800">
+                  {language === "ko" ? "AI 진단 결과" : "AI Diagnosis"}
+                </span>
+              </div>
+              <p className="text-sm text-slate-700 leading-relaxed">{aiStrategy.levelDescription}</p>
+              <p className="text-sm text-green-700 font-medium mt-2 italic">"{aiStrategy.studentMessage}"</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* 교사용 교수 전략 */}
+              <div className="p-4 bg-white rounded-lg border">
+                <h4 className="text-sm font-semibold text-purple-800 mb-3 flex items-center gap-2">
+                  <span className="bg-purple-100 text-purple-700 px-2 py-0.5 rounded text-xs">교사용</span>
+                  {language === "ko" ? "교수 전략" : "Teaching Strategies"}
+                </h4>
+                <ul className="space-y-2">
+                  {aiStrategy.teachingStrategies.map((s, i) => (
+                    <li key={i} className="text-xs text-slate-700 flex gap-2">
+                      <span className="text-purple-500 font-bold shrink-0">{i + 1}.</span>
+                      {s}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* 추천 교재 */}
+              <div className="p-4 bg-white rounded-lg border">
+                <h4 className="text-sm font-semibold text-blue-800 mb-3 flex items-center gap-2">
+                  <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-xs">자료</span>
+                  {language === "ko" ? "추천 교재" : "Recommended Materials"}
+                </h4>
+                <ul className="space-y-2">
+                  {aiStrategy.recommendedMaterials.map((m, i) => (
+                    <li key={i} className="text-xs text-slate-700 flex gap-2">
+                      <span className="text-blue-400 shrink-0">•</span>
+                      {m}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* 다음 레벨 팁 */}
+              <div className="p-4 bg-white rounded-lg border">
+                <h4 className="text-sm font-semibold text-orange-800 mb-3 flex items-center gap-2">
+                  <span className="bg-orange-100 text-orange-700 px-2 py-0.5 rounded text-xs">향상</span>
+                  {language === "ko" ? "다음 단계 팁" : "Next Level Tips"}
+                </h4>
+                <ul className="space-y-2">
+                  {aiStrategy.nextLevelTips.map((t, i) => (
+                    <li key={i} className="text-xs text-slate-700 flex gap-2">
+                      <span className="text-orange-400 shrink-0">→</span>
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     )
   }
