@@ -8,7 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { PlusCircle, BookOpen, BarChart2, GraduationCap, ArrowRight, Database, Loader2, Search, Sparkles, X } from "lucide-react"
+import { PlusCircle, BookOpen, BarChart2, GraduationCap, ArrowRight, Database, Loader2, Search, Sparkles, X, MessageCircle, ClipboardList, Users } from "lucide-react"
 import { getProblems, addProblem, updateProblem, type Problem } from "./actions/problems"
 import { searchWithAI } from "./actions/ai-chat"
 
@@ -346,6 +346,78 @@ export default function Home() {
                         <Sparkles className="h-4 w-4" />
                         문항 생성 시작
                       </a>
+                    </Button>
+                  </CardFooter>
+                </Card>
+
+                <Card className="shadow-sm border-2 border-emerald-300 hover:shadow-md transition-all bg-gradient-to-b from-emerald-50 to-white">
+                  <CardHeader className="pb-2">
+                    <div className="bg-emerald-600 w-10 h-10 rounded-full flex items-center justify-center mb-2">
+                      <BookOpen className="h-5 w-5 text-white" />
+                    </div>
+                    <CardTitle className="text-lg">다독 프로그램</CardTitle>
+                    <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full w-fit">NEW AI</span>
+                  </CardHeader>
+                  <CardContent className="pb-2">
+                    <p className="text-sm text-gray-600">Lexile 수준별 읽기 자료 AI 생성 + 이해도 평가 + 읽기량 추적</p>
+                  </CardContent>
+                  <CardFooter>
+                    <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm gap-1" asChild>
+                      <a href="/reading-program"><Sparkles className="h-4 w-4" />읽기 시작</a>
+                    </Button>
+                  </CardFooter>
+                </Card>
+
+                <Card className="shadow-sm border-2 border-violet-300 hover:shadow-md transition-all bg-gradient-to-b from-violet-50 to-white">
+                  <CardHeader className="pb-2">
+                    <div className="bg-violet-600 w-10 h-10 rounded-full flex items-center justify-center mb-2">
+                      <MessageCircle className="h-5 w-5 text-white" />
+                    </div>
+                    <CardTitle className="text-lg">AI 영어 대화 연습</CardTitle>
+                    <span className="text-xs bg-violet-100 text-violet-700 px-2 py-0.5 rounded-full w-fit">NEW AI</span>
+                  </CardHeader>
+                  <CardContent className="pb-2">
+                    <p className="text-sm text-gray-600">CEFR 수준별 상황 대화 연습 + 실시간 피드백 + 성적표</p>
+                  </CardContent>
+                  <CardFooter>
+                    <Button className="w-full bg-violet-600 hover:bg-violet-700 text-white shadow-sm gap-1" asChild>
+                      <a href="/speaking-practice"><MessageCircle className="h-4 w-4" />대화 시작</a>
+                    </Button>
+                  </CardFooter>
+                </Card>
+
+                <Card className="shadow-sm border-2 border-amber-300 hover:shadow-md transition-all bg-gradient-to-b from-amber-50 to-white">
+                  <CardHeader className="pb-2">
+                    <div className="bg-amber-600 w-10 h-10 rounded-full flex items-center justify-center mb-2">
+                      <ClipboardList className="h-5 w-5 text-white" />
+                    </div>
+                    <CardTitle className="text-lg">CEFR 루브릭 생성</CardTitle>
+                    <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full w-fit">NEW AI</span>
+                  </CardHeader>
+                  <CardContent className="pb-2">
+                    <p className="text-sm text-gray-600">CEFR Can-Do 기반 수행평가 루브릭 AI 자동 생성</p>
+                  </CardContent>
+                  <CardFooter>
+                    <Button className="w-full bg-amber-600 hover:bg-amber-700 text-white shadow-sm gap-1" asChild>
+                      <a href="/assessment-tools"><Sparkles className="h-4 w-4" />루브릭 만들기</a>
+                    </Button>
+                  </CardFooter>
+                </Card>
+
+                <Card className="shadow-sm border-2 border-cyan-300 hover:shadow-md transition-all bg-gradient-to-b from-cyan-50 to-white">
+                  <CardHeader className="pb-2">
+                    <div className="bg-cyan-600 w-10 h-10 rounded-full flex items-center justify-center mb-2">
+                      <Users className="h-5 w-5 text-white" />
+                    </div>
+                    <CardTitle className="text-lg">학생 학습 추적</CardTitle>
+                    <span className="text-xs bg-cyan-100 text-cyan-700 px-2 py-0.5 rounded-full w-fit">NEW AI</span>
+                  </CardHeader>
+                  <CardContent className="pb-2">
+                    <p className="text-sm text-gray-600">학생별 Lexile·CEFR 추적 + AI 맞춤 학습 처방</p>
+                  </CardContent>
+                  <CardFooter>
+                    <Button className="w-full bg-cyan-600 hover:bg-cyan-700 text-white shadow-sm gap-1" asChild>
+                      <a href="/student-tracker"><Users className="h-4 w-4" />학생 관리</a>
                     </Button>
                   </CardFooter>
                 </Card>
