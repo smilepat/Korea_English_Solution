@@ -8,9 +8,10 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { PlusCircle, BookOpen, BarChart2, GraduationCap, ArrowRight, Database, Loader2, Search, Sparkles, X, MessageCircle, ClipboardList, Users } from "lucide-react"
+import { PlusCircle, BookOpen, BarChart2, GraduationCap, ArrowRight, Database, Loader2, Search, Sparkles, X, MessageCircle, ClipboardList, Users, HelpCircle } from "lucide-react"
 import { getProblems, addProblem, updateProblem, type Problem } from "./actions/problems"
 import { searchWithAI } from "./actions/ai-chat"
+import UserGuideModal from "@/components/user-guide-modal"
 
 export default function Home() {
   const [showProblemsList, setShowProblemsList] = useState(false)
@@ -22,6 +23,7 @@ export default function Home() {
   // AI 검색 상태
   const [searchQuery, setSearchQuery] = useState("")
   const [searchLoading, setSearchLoading] = useState(false)
+  const [showGuide, setShowGuide] = useState(false)
   const [searchResult, setSearchResult] = useState<{
     aiAnswer?: string
     documents?: Array<{ id: number; type: string; title: string; ai_summary?: string }>
@@ -134,6 +136,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-700 via-teal-600 to-teal-500">
+      {showGuide && <UserGuideModal onClose={() => setShowGuide(false)} />}
       <header className="bg-gradient-to-r from-teal-500 to-cyan-500 border-b shadow-sm">
         <div className="container mx-auto py-6">
           <div className="flex justify-between items-center">
@@ -149,17 +152,24 @@ export default function Home() {
                 )}
               </div>
             </div>
-            <div className="flex gap-4">
+            <div className="flex gap-3">
+              <Button
+                type="button"
+                onClick={() => setShowGuide(true)}
+                className="bg-white/20 text-white hover:bg-white/30 font-bold border border-white/30 gap-1.5"
+              >
+                <HelpCircle className="h-4 w-4" />
+                사용자 가이드
+              </Button>
               <Button
                 className="bg-yellow-400 text-teal-800 hover:bg-yellow-300 font-bold border-2 border-yellow-500"
                 asChild
               >
                 <a href="/lexile-test">Lexile 테스트</a>
               </Button>
-              <Button variant="outline" className="border-white text-teal-400 hover:bg-white/10 font-bold">
-                로그인
+              <Button className="bg-white text-teal-600 hover:bg-gray-100" asChild>
+                <a href="/dashboard">시작하기</a>
               </Button>
-              <Button className="bg-white text-teal-600 hover:bg-gray-100">시작하기</Button>
             </div>
           </div>
 
