@@ -55,7 +55,7 @@ export default function Home() {
     setShowProblemsList(!showProblemsList)
   }
 
-  const handleCheckboxChange = async (id: number) => {
+  const handleCheckboxChange = async (id: string) => {
     const problem = problems.find((p) => p.id === id)
     if (!problem) return
 
