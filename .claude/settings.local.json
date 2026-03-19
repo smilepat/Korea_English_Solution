@@ -6,7 +6,12 @@
       "Bash(PATH=\"$PATH:/c/Program Files/nodejs:/c/Users/user/AppData/Roaming/npm\")",
       "Bash(\"/c/Program Files/nodejs/node.exe\" scripts/run-phase4-schema.mjs)",
       "Bash(\"C:\\\\Program Files\\\\nodejs\\\\node.exe\" \"D:\\\\Korea_English_Solution\\\\scripts\\\\run-phase4-schema.mjs\")",
-      "Read(//c/Program Files/nodejs/**)"
+      "Read(//c/Program Files/nodejs/**)",
+      "Read(//tmp/**)",
+      "Bash(gh repo:*)",
+      "Bash(where gh:*)",
+      "Bash(git config:*)",
+      "Bash(curl -s -X POST https://api.github.com/user/repos -H \"Accept: application/vnd.github+json\" -d '{\"\"name\"\":\"\"stadardcoherencebased-graphdb-prd\"\",\"\"description\"\":\"\"수능 영어 기출문항 기반 Standard of Coherence 그래프 DB 구축 지침 \\(PRD\\)\"\",\"\"public\"\":true}')"
     ]
   }
 }
