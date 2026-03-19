@@ -265,8 +265,8 @@ export default function Home() {
                     </p>
                     <div className="flex justify-between items-center mt-2">
                       <span className="text-xs text-gray-400">출처: [1], [2]</span>
-                      <Button size="sm" variant="outline">
-                        자세히 보기
+                      <Button size="sm" variant="outline" asChild>
+                        <a href="/dashboard">자세히 보기</a>
                       </Button>
                     </div>
                   </div>
@@ -735,56 +735,56 @@ export default function Home() {
               <span className="text-yellow-300 text-2xl">✨</span>
               <h2 className="text-2xl font-bold">혁신적인 영어교육 솔루션</h2>
             </div>
-            <Button variant="outline" className="text-white border-white hover:bg-white/10">
-              모두 보기 <ArrowRight className="ml-2 h-4 w-4" />
+            <Button variant="outline" className="text-white border-white hover:bg-white/10" asChild>
+              <a href="/dashboard">모두 보기 <ArrowRight className="ml-2 h-4 w-4" /></a>
             </Button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Card className="bg-white text-black">
               <CardHeader>
-                <CardTitle className="text-xl">새로운 학습 경험 제공</CardTitle>
+                <CardTitle className="text-xl">다독 프로그램</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 text-sm">
-                  데이터 기반 맞춤형 학습 경로로 학생들의 영어 능력을 효과적으로 향상시킵니다.
+                  Lexile 수준별 AI 읽기 자료 생성으로 읽기 노출량 격차를 해소합니다.
                 </p>
               </CardContent>
               <CardFooter>
-                <Button className="bg-purple-600 hover:bg-purple-700 text-white">
-                  자세히 보기 <ArrowRight className="ml-2 h-4 w-4" />
+                <Button className="bg-purple-600 hover:bg-purple-700 text-white" asChild>
+                  <a href="/reading-program">자세히 보기 <ArrowRight className="ml-2 h-4 w-4" /></a>
                 </Button>
               </CardFooter>
             </Card>
 
             <Card className="bg-white text-black">
               <CardHeader>
-                <CardTitle className="text-xl">AI 기반 학습 분석</CardTitle>
+                <CardTitle className="text-xl">AI 대화 연습</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 text-sm">
-                  인공지능 기술을 활용하여 학생들의 학습 패턴을 분석하고 최적의 학습 방법을 제시합니다.
+                  CEFR 수준별 상황 대화 연습으로 말하기 능력을 향상시킵니다.
                 </p>
               </CardContent>
               <CardFooter>
-                <Button className="bg-purple-600 hover:bg-purple-700 text-white">
-                  자세히 보기 <ArrowRight className="ml-2 h-4 w-4" />
+                <Button className="bg-purple-600 hover:bg-purple-700 text-white" asChild>
+                  <a href="/speaking-practice">자세히 보기 <ArrowRight className="ml-2 h-4 w-4" /></a>
                 </Button>
               </CardFooter>
             </Card>
 
             <Card className="bg-white text-black">
               <CardHeader>
-                <CardTitle className="text-xl">교사 역량 강화</CardTitle>
+                <CardTitle className="text-xl">교사 AI 코파일럿</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 text-sm">
-                  교사들에게 필요한 도구와 자료를 제공하여 효과적인 영어 교육을 지원합니다.
+                  수업 설계, 문항 생성, 루브릭 생성 등 교사를 위한 AI 도구를 제공합니다.
                 </p>
               </CardContent>
               <CardFooter>
-                <Button className="bg-purple-600 hover:bg-purple-700 text-white">
-                  자세히 보기 <ArrowRight className="ml-2 h-4 w-4" />
+                <Button className="bg-purple-600 hover:bg-purple-700 text-white" asChild>
+                  <a href="/lesson-planner">자세히 보기 <ArrowRight className="ml-2 h-4 w-4" /></a>
                 </Button>
               </CardFooter>
             </Card>
