@@ -12,6 +12,7 @@ export async function generateReading(params: {
   topic: string
   wordCount: number
   genre: string
+  model?: string
 }): Promise<{
   success: boolean
   material?: {

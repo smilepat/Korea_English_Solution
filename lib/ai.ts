@@ -70,6 +70,53 @@ export async function searchKnowledge(query: string, limit = 5): Promise<string>
   }
 }
 
+export async function generateAndStoreEmbedding(documentId: number, content: string) {
+  try {
+    const { generateEmbedding } = await import("./gemini")
+    const embedding = await generateEmbedding(content)
+    if (embedding.length > 0) {
+      const embeddingStr = `[${embedding.join(",")}]`
+      await turso.execute({
+        sql: "UPDATE knowledge_documents SET embedding = vector32(?) WHERE id = ?",
+        args: [embeddingStr, documentId],
+      })
+    }
+  } catch (error) {
+    console.error("임베딩 생성 실패:", error)
+  }
+}
+
+export async function vectorSearch(query: string, limit: number = 5): Promise<string> {
+  try {
+    const { generateEmbedding } = await import("./gemini")
+    const queryEmbedding = await generateEmbedding(query)
+    if (queryEmbedding.length === 0) return searchKnowledge(query, limit)
+
+    const embeddingStr = `[${queryEmbedding.join(",")}]`
+    const result = await turso.execute({
+      sql: `SELECT id, type, title, ai_summary, content,
+              vector_distance_cos(embedding, vector32(?)) as distance
+            FROM knowledge_documents
+            WHERE embedding IS NOT NULL
+            ORDER BY distance ASC
+            LIMIT ?`,
+      args: [embeddingStr, limit],
+    })
+
+    if (result.rows.length === 0) return searchKnowledge(query, limit)
+
+    return result.rows
+      .map((row) => {
+        const summary = row.ai_summary || (typeof row.content === "string" ? row.content.slice(0, 200) : "")
+        return `[${row.type}] ${row.title}: ${summary}`
+      })
+      .join("\n\n")
+  } catch (error) {
+    console.error("벡터 검색 실패, 키워드 검색으로 전환:", error)
+    return searchKnowledge(query, limit)
+  }
+}
+
 // ============================================================
 // RAG: 교육과정 성취기준 검색
 // ============================================================
@@ -116,7 +163,12 @@ export async function searchCurriculumStandards(grade?: string, skill?: string):
 // ============================================================
 
 export async function interpretCurriculum(question: string): Promise<string> {
-  const knowledgeContext = await searchKnowledge(question)
+  let knowledgeContext = ""
+  try {
+    knowledgeContext = await vectorSearch(question, 5)
+  } catch {
+    knowledgeContext = await searchKnowledge(question, 5)
+  }
   const standardsContext = await searchCurriculumStandards()
 
   const contextText = [
@@ -344,4 +396,138 @@ JSON 형식으로 다음을 제공해주세요:
       keywords: title.split(" ").slice(0, 5),
     }
   }
+}
+
+// ============================================================
+// 수능 문항 구조 분석 AI
+// ============================================================
+
+export async function analyzeCsatItem(passage: string, question: string, options: string[], answer: number, type: string): Promise<{
+  passage_metrics: Record<string, unknown>
+  coherence_profile: Record<string, unknown>
+  abstractness_map: Record<string, unknown>
+  vocab_profile: Record<string, unknown>
+  structure_analysis: Record<string, unknown>
+  skills: Array<Record<string, unknown>>
+  distractor_analysis: Array<Record<string, unknown>>
+}> {
+  const optionsText = options.map((o, i) => `${i + 1}. ${o}`).join("\n")
+
+  const response = await anthropic.messages.create({
+    model: MODEL,
+    max_tokens: MAX_TOKENS,
+    system: SYSTEM_PROMPT,
+    messages: [{
+      role: "user",
+      content: `수능 영어 문항을 구조적으로 분석해주세요.
+
+[문항 유형] ${type}
+[정답] ${answer}번
+
+[지문]
+${passage}
+
+[질문]
+${question}
+
+[선택지]
+${optionsText}
+
+다음 JSON 형식으로 분석하세요:
+{
+  "passage_metrics": {
+    "word_count": 숫자,
+    "sentence_count": 숫자,
+    "avg_sentence_length": 숫자,
+    "subordinate_clause_ratio": 0~1,
+    "passive_voice_ratio": 0~1,
+    "text_complexity_score": 0~1,
+    "lexile_estimated": 숫자
+  },
+  "coherence_profile": {
+    "surface_level": 0~1,
+    "textbase_level": 0~1,
+    "situation_model_level": 0~1,
+    "connective_density": 0~1,
+    "inference_demand": "low|medium|high",
+    "gaps": [{"position": "N→N+1", "type": "단절유형", "severity": "low|medium|high"}]
+  },
+  "abstractness_map": {
+    "overall_score": 0~1,
+    "sentence_scores": [0~1, ...],
+    "pattern": "추상도 변화 패턴",
+    "types": {"conceptual": 0~1, "metaphorical": 0~1, "philosophical": 0~1}
+  },
+  "vocab_profile": {
+    "elementary_ratio": 0~1,
+    "intermediate_ratio": 0~1,
+    "advanced_ratio": 0~1,
+    "academic_word_ratio": 0~1,
+    "type_token_ratio": 0~1
+  },
+  "structure_analysis": {
+    "name": "글의 구조명",
+    "pattern": ["단계1", "단계2", ...],
+    "category": "논증형|설명형|서사형|비교대조형"
+  },
+  "skills": [
+    {"name": "능력명", "importance": "primary|secondary", "bloom_level": "기억|이해|적용|분석|평가|창조"}
+  ],
+  "distractor_analysis": [
+    {"option_number": 숫자, "type": "오답유형명", "reason": "오답 이유"}
+  ]
+}
+
+JSON만 반환하세요.`
+    }],
+  })
+
+  const text = response.content[0].type === "text" ? response.content[0].text : ""
+  const cleaned = text.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim()
+  return JSON.parse(cleaned)
+}
+
+// ============================================================
+// 수능 문항 난이도 예측 AI
+// ============================================================
+
+export async function predictDifficulty(analysis: {
+  passage_metrics: Record<string, unknown>
+  coherence_profile: Record<string, unknown>
+  abstractness_map: Record<string, unknown>
+  vocab_profile: Record<string, unknown>
+  structure_analysis: Record<string, unknown>
+}, type: string): Promise<{ predicted_answer_rate: number; reasoning: string }> {
+  const response = await anthropic.messages.create({
+    model: MODEL,
+    max_tokens: 1024,
+    system: SYSTEM_PROMPT,
+    messages: [{
+      role: "user",
+      content: `수능 영어 ${type} 유형 문항의 난이도를 예측하세요.
+
+분석 데이터:
+${JSON.stringify(analysis, null, 2)}
+
+난이도 예측 공식 (가중치):
+- 종속절 비율 (w=0.35): 높을수록 어려움
+- 응집성 textbase (w=0.25): 낮을수록 어려움
+- 추상도 (w=0.25): 높을수록 어려움
+- 고급어휘 비율 (w=0.12): 높을수록 어려움
+- 문맥단서 (w=-0.20): 많을수록 쉬움
+- 평균 문장 길이 (w=0.03): 길수록 어려움
+
+JSON으로 응답하세요:
+{
+  "predicted_answer_rate": 0~100 사이 정수 (예측 정답률),
+  "reasoning": "예측 근거 설명 (한국어 2-3문장)"
+}
+
+JSON만 반환하세요.`
+    }],
+  })
+
+  const text = response.content[0].type === "text" ? response.content[0].text : ""
+  const cleaned = text.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim()
+  return JSON.parse(cleaned)
 }

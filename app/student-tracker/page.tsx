@@ -29,8 +29,10 @@ import {
   BarChart3,
   BookOpen,
   GraduationCap,
+  Download,
 } from "lucide-react"
 import Link from "next/link"
+import { exportToPDF } from "@/lib/pdf-export"
 import {
   addStudent,
   getStudents,
@@ -816,7 +818,18 @@ export default function StudentTrackerPage() {
                     </Button>
 
                     {prescription && (
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                      <div id="export-student-report" className="mt-4">
+                        <div className="flex justify-end mb-3">
+                          <button
+                            type="button"
+                            onClick={() => exportToPDF("export-student-report", "student-report.pdf")}
+                            className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors"
+                          >
+                            <Download className="h-3.5 w-3.5" />
+                            PDF 다운로드
+                          </button>
+                        </div>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         {/* Activities */}
                         <Card className="border-sky-200 bg-sky-50/50">
                           <CardHeader className="pb-2">
@@ -879,6 +892,7 @@ export default function StudentTrackerPage() {
                             ))}
                           </CardContent>
                         </Card>
+                      </div>
                       </div>
                     )}
                   </CardContent>

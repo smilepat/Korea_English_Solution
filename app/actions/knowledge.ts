@@ -1,7 +1,7 @@
 "use server"
 
 import { turso, parseJsonField, type KnowledgeDocument, type CurriculumStandard } from "@/lib/turso"
-import { processKnowledgeDocument } from "@/lib/ai"
+import { processKnowledgeDocument, generateAndStoreEmbedding } from "@/lib/ai"
 
 // ============================================================
 // 지식 문서 CRUD
@@ -87,7 +87,14 @@ export async function addKnowledgeDocument(data: {
       ],
     })
 
-    return { success: true, id: Number(result.lastInsertRowid) }
+    const lastId = Number(result.lastInsertRowid)
+
+    // 임베딩 생성 (비동기, 실패해도 문서 저장은 유지)
+    if (typeof lastId === "number") {
+      generateAndStoreEmbedding(lastId, `${data.title} ${data.content}`).catch(console.error)
+    }
+
+    return { success: true, id: lastId }
   } catch (error) {
     console.error("지식 문서 추가 오류:", error)
     return { success: false, error: String(error) }

@@ -1,7 +1,7 @@
 "use server"
 
 import { turso, parseJsonField, type CsatItem } from "@/lib/turso"
-import { generateCsatItem } from "@/lib/ai"
+import { generateCsatItem, analyzeCsatItem, predictDifficulty } from "@/lib/ai"
 
 // ============================================================
 // 수능 문항 생성 (AI)
@@ -13,6 +13,7 @@ export async function createCsatItem(params: {
   topic?: string
   lexileLevel?: number
   difficulty?: string
+  model?: string
 }): Promise<{ success: boolean; item?: CsatItem; error?: string }> {
   try {
     const generated = await generateCsatItem(params)
@@ -113,5 +114,85 @@ export async function deleteCsatItem(id: number): Promise<{ success: boolean; er
   } catch (error) {
     console.error("수능 문항 삭제 오류:", error)
     return { success: false, error: String(error) }
+  }
+}
+
+// ============================================================
+// 수능 문항 구조 분석 (AI)
+// ============================================================
+
+export async function analyzeCsatItemAction(id: number): Promise<{ success: boolean; analysis?: any; error?: string }> {
+  try {
+    // 1. 문항 조회
+    const result = await turso.execute({ sql: "SELECT * FROM csat_items WHERE id = ?", args: [id] })
+    if (result.rows.length === 0) return { success: false, error: "문항을 찾을 수 없습니다." }
+
+    const item = result.rows[0]
+    const options = JSON.parse(item.options as string)
+
+    // 2. AI 분석
+    const analysis = await analyzeCsatItem(
+      item.passage as string,
+      item.question as string,
+      options,
+      item.answer as number,
+      item.type as string,
+    )
+
+    // 3. 분석 결과 저장
+    await turso.execute({
+      sql: `UPDATE csat_items SET
+        passage_metrics = ?,
+        coherence_profile = ?,
+        abstractness_map = ?,
+        vocab_profile = ?,
+        structure_analysis = ?,
+        skills = ?,
+        distractor_analysis = ?
+      WHERE id = ?`,
+      args: [
+        JSON.stringify(analysis.passage_metrics),
+        JSON.stringify(analysis.coherence_profile),
+        JSON.stringify(analysis.abstractness_map),
+        JSON.stringify(analysis.vocab_profile),
+        JSON.stringify(analysis.structure_analysis),
+        JSON.stringify(analysis.skills),
+        JSON.stringify(analysis.distractor_analysis),
+        id,
+      ],
+    })
+
+    return { success: true, analysis }
+  } catch (error) {
+    console.error("Error in analyzeCsatItemAction:", error)
+    return { success: false, error: "문항 분석 중 오류가 발생했습니다." }
+  }
+}
+
+// ============================================================
+// 수능 문항 난이도 예측 (AI)
+// ============================================================
+
+export async function predictDifficultyAction(id: number): Promise<{ success: boolean; prediction?: any; error?: string }> {
+  try {
+    const result = await turso.execute({ sql: "SELECT * FROM csat_items WHERE id = ?", args: [id] })
+    if (result.rows.length === 0) return { success: false, error: "문항을 찾을 수 없습니다." }
+
+    const item = result.rows[0]
+    if (!item.passage_metrics) return { success: false, error: "먼저 문항 분석을 실행해주세요." }
+
+    const analysis = {
+      passage_metrics: JSON.parse(item.passage_metrics as string),
+      coherence_profile: JSON.parse(item.coherence_profile as string),
+      abstractness_map: JSON.parse(item.abstractness_map as string),
+      vocab_profile: JSON.parse(item.vocab_profile as string),
+      structure_analysis: JSON.parse(item.structure_analysis as string),
+    }
+
+    const prediction = await predictDifficulty(analysis, item.type as string)
+    return { success: true, prediction }
+  } catch (error) {
+    console.error("Error in predictDifficultyAction:", error)
+    return { success: false, error: "난이도 예측 중 오류가 발생했습니다." }
   }
 }

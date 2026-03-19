@@ -13,6 +13,7 @@ export async function generateLessonPlan(params: {
   topic: string
   duration: string
   lexileRange?: string
+  model?: string
 }): Promise<{ success: boolean; lesson?: LessonCase; error?: string }> {
   try {
     const { grade, skill, topic, duration, lexileRange } = params

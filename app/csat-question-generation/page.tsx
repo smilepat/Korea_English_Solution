@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { type ModelName } from "@/lib/models"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -52,6 +53,7 @@ export default function CSATQuestionGeneration() {
   const [passage, setPassage] = useState("")
   const [topic, setTopic] = useState("")
   const [difficulty, setDifficulty] = useState("medium")
+  const [selectedModel, setSelectedModel] = useState<ModelName>("gemini-flash")
   const [generating, setGenerating] = useState(false)
   const [generatedItem, setGeneratedItem] = useState<CsatItem | null>(null)
   const [error, setError] = useState("")
@@ -83,6 +85,7 @@ export default function CSATQuestionGeneration() {
           topic: inputMode === "topic" ? topic : undefined,
           lexileLevel: LEXILE_PRESETS[difficulty],
           difficulty,
+          model: selectedModel,
         }),
         new Promise<never>((_, reject) => setTimeout(() => reject(new Error("timeout")), 60000)),
       ])
@@ -272,6 +275,21 @@ export default function CSATQuestionGeneration() {
                   </div>
 
                   {error && <p className="text-red-500 text-sm">{error}</p>}
+
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-slate-500">AI 모델:</span>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedModel(selectedModel === "gemini-flash" ? "claude-sonnet" : "gemini-flash")}
+                      className={`text-xs px-3 py-1 rounded-full border transition-colors ${
+                        selectedModel === "gemini-flash"
+                          ? "bg-blue-50 border-blue-300 text-blue-700"
+                          : "bg-purple-50 border-purple-300 text-purple-700"
+                      }`}
+                    >
+                      {selectedModel === "gemini-flash" ? "Gemini Flash" : "Claude Sonnet"}
+                    </button>
+                  </div>
 
                   <Button
                     className="w-full bg-purple-600 hover:bg-purple-700 text-white gap-2"

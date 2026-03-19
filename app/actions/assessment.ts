@@ -13,6 +13,7 @@ export async function generateRubricAction(params: {
   topic: string
   cefrTarget: string
   levels: number
+  model?: string
 }): Promise<{
   success: boolean
   rubric?: {

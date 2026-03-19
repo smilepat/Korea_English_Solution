@@ -255,3 +255,29 @@ Return ONLY valid JSON.`
     throw new Error("루브릭 생성 결과를 파싱할 수 없습니다.")
   }
 }
+
+export async function generateEmbedding(text: string): Promise<number[]> {
+  if (!GEMINI_API_KEY) {
+    throw new Error("GEMINI_API_KEY가 설정되지 않았습니다.")
+  }
+
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key=${GEMINI_API_KEY}`
+
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: "models/text-embedding-004",
+      content: { parts: [{ text: text.slice(0, 2000) }] },
+    }),
+    signal: AbortSignal.timeout(30000),
+  })
+
+  if (!res.ok) {
+    const errorText = await res.text()
+    throw new Error(`Embedding API 오류 (${res.status}): ${errorText}`)
+  }
+
+  const data = await res.json()
+  return data.embedding?.values ?? []
+}

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
+import { type ModelName } from "@/lib/models"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -14,8 +15,10 @@ import {
   Trophy,
   CheckCircle2,
   XCircle,
+  Download,
 } from "lucide-react"
 import Link from "next/link"
+import { exportToPDF } from "@/lib/pdf-export"
 import {
   generateReading,
   getReadingMaterials,
@@ -91,6 +94,7 @@ export default function ReadingProgramPage() {
   const [topic, setTopic] = useState("")
   const [genre, setGenre] = useState("narrative")
   const [wordCount, setWordCount] = useState(400)
+  const [selectedModel, setSelectedModel] = useState<ModelName>("gemini-flash")
   const [generating, setGenerating] = useState(false)
   const [generatedMaterial, setGeneratedMaterial] = useState<ReadingMaterial | null>(null)
   const [error, setError] = useState("")
@@ -174,6 +178,7 @@ export default function ReadingProgramPage() {
         topic: topic.trim(),
         wordCount,
         genre,
+        model: selectedModel,
       })
 
       if (result.success && result.material) {
@@ -380,6 +385,22 @@ export default function ReadingProgramPage() {
                 </Card>
               </div>
 
+              {/* AI 모델 선택 */}
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-slate-500">AI 모델:</span>
+                <button
+                  type="button"
+                  onClick={() => setSelectedModel(selectedModel === "gemini-flash" ? "claude-sonnet" : "gemini-flash")}
+                  className={`text-xs px-3 py-1 rounded-full border transition-colors ${
+                    selectedModel === "gemini-flash"
+                      ? "bg-blue-50 border-blue-300 text-blue-700"
+                      : "bg-purple-50 border-purple-300 text-purple-700"
+                  }`}
+                >
+                  {selectedModel === "gemini-flash" ? "Gemini Flash" : "Claude Sonnet"}
+                </button>
+              </div>
+
               {/* 생성 버튼 */}
               <Button
                 className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-6 text-lg"
@@ -563,7 +584,17 @@ export default function ReadingProgramPage() {
                 <Loader2 className="h-8 w-8 animate-spin text-emerald-600" />
               </div>
             ) : stats ? (
-              <div className="space-y-6">
+              <div className="space-y-6" id="export-reading-stats">
+                <div className="flex justify-end">
+                  <button
+                    type="button"
+                    onClick={() => exportToPDF("export-reading-stats", "reading-stats.pdf")}
+                    className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors"
+                  >
+                    <Download className="h-3.5 w-3.5" />
+                    PDF 다운로드
+                  </button>
+                </div>
                 {/* 통계 카드 */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <Card>

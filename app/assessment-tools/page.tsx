@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { type ModelName } from "@/lib/models"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -15,8 +16,10 @@ import {
   ChevronDown,
   ChevronUp,
   Info,
+  Download,
 } from "lucide-react"
 import Link from "next/link"
+import { exportToPDF } from "@/lib/pdf-export"
 import {
   generateRubricAction,
   getRubrics,
@@ -130,6 +133,7 @@ export default function AssessmentToolsPage() {
   const [topic, setTopic] = useState("")
   const [cefrTarget, setCefrTarget] = useState("B1")
   const [levels, setLevels] = useState(5)
+  const [selectedModel, setSelectedModel] = useState<ModelName>("gemini-flash")
   const [generating, setGenerating] = useState(false)
   const [result, setResult] = useState<RubricResult | null>(null)
   const [saved, setSaved] = useState(false)
@@ -179,7 +183,7 @@ export default function AssessmentToolsPage() {
 
     try {
       const res = await Promise.race([
-        generateRubricAction({ grade, skill, topic, cefrTarget, levels }),
+        generateRubricAction({ grade, skill, topic, cefrTarget, levels, model: selectedModel }),
         new Promise<never>((_, reject) =>
           setTimeout(() => reject(new Error("timeout")), 60000)
         ),
@@ -391,6 +395,22 @@ export default function AssessmentToolsPage() {
                   </div>
                 </div>
 
+                {/* AI 모델 선택 */}
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-slate-500">AI 모델:</span>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedModel(selectedModel === "gemini-flash" ? "claude-sonnet" : "gemini-flash")}
+                    className={`text-xs px-3 py-1 rounded-full border transition-colors ${
+                      selectedModel === "gemini-flash"
+                        ? "bg-blue-50 border-blue-300 text-blue-700"
+                        : "bg-purple-50 border-purple-300 text-purple-700"
+                    }`}
+                  >
+                    {selectedModel === "gemini-flash" ? "Gemini Flash" : "Claude Sonnet"}
+                  </button>
+                </div>
+
                 {/* 에러 */}
                 {error && (
                   <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-md px-4 py-3">
@@ -422,7 +442,7 @@ export default function AssessmentToolsPage() {
 
             {/* 결과 표시 */}
             {result && (
-              <div className="space-y-4">
+              <div className="space-y-4" id="export-rubric">
                 <Card>
                   <CardHeader>
                     <div className="flex items-center justify-between">
@@ -435,6 +455,14 @@ export default function AssessmentToolsPage() {
                         </CardDescription>
                       </div>
                       <div className="flex gap-2">
+                        <button
+                          type="button"
+                          onClick={() => exportToPDF("export-rubric", "rubric.pdf")}
+                          className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors"
+                        >
+                          <Download className="h-3.5 w-3.5" />
+                          PDF 다운로드
+                        </button>
                         <Button
                           variant="outline"
                           size="sm"

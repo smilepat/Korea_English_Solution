@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { type ModelName } from "@/lib/models"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -17,8 +18,10 @@ import {
   Save,
   ChevronDown,
   ChevronUp,
+  Download,
 } from "lucide-react"
 import Link from "next/link"
+import { exportToPDF } from "@/lib/pdf-export"
 import { generateLessonPlan, getLessonCases } from "@/app/actions/lessons"
 import type { LessonCase } from "@/lib/turso"
 
@@ -68,6 +71,7 @@ export default function LessonPlannerPage() {
   const [topic, setTopic] = useState("")
   const [duration, setDuration] = useState("1차시")
   const [lexileRange, setLexileRange] = useState("")
+  const [selectedModel, setSelectedModel] = useState<ModelName>("gemini-flash")
   const [generating, setGenerating] = useState(false)
   const [generatedLesson, setGeneratedLesson] = useState<LessonCase | null>(null)
   const [error, setError] = useState("")
@@ -88,7 +92,7 @@ export default function LessonPlannerPage() {
 
     try {
       const result = await Promise.race([
-        generateLessonPlan({ grade, skill, topic, duration, lexileRange: lexileRange || undefined }),
+        generateLessonPlan({ grade, skill, topic, duration, lexileRange: lexileRange || undefined, model: selectedModel }),
         new Promise<never>((_, reject) => setTimeout(() => reject(new Error("timeout")), 60000)),
       ])
 
@@ -267,6 +271,21 @@ export default function LessonPlannerPage() {
 
                   {error && <p className="text-red-500 text-sm">{error}</p>}
 
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-slate-500">AI 모델:</span>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedModel(selectedModel === "gemini-flash" ? "claude-sonnet" : "gemini-flash")}
+                      className={`text-xs px-3 py-1 rounded-full border transition-colors ${
+                        selectedModel === "gemini-flash"
+                          ? "bg-blue-50 border-blue-300 text-blue-700"
+                          : "bg-purple-50 border-purple-300 text-purple-700"
+                      }`}
+                    >
+                      {selectedModel === "gemini-flash" ? "Gemini Flash" : "Claude Sonnet"}
+                    </button>
+                  </div>
+
                   <Button
                     className="w-full bg-teal-600 hover:bg-teal-700 text-white gap-2"
                     onClick={handleGenerate}
@@ -328,7 +347,7 @@ export default function LessonPlannerPage() {
                 )}
 
                 {generatedLesson && !generating && (
-                  <>
+                  <div id="export-lesson" className="space-y-4">
                     {/* 헤더 */}
                     <Card className="border-teal-200">
                       <CardHeader className="pb-3">
@@ -349,7 +368,17 @@ export default function LessonPlannerPage() {
                               )}
                             </div>
                           </div>
-                          <Save className="h-4 w-4 text-teal-600 shrink-0 mt-1" title="자동 저장됨" />
+                          <div className="flex items-center gap-2 shrink-0 mt-1">
+                            <button
+                              type="button"
+                              onClick={() => exportToPDF("export-lesson", "lesson-plan.pdf")}
+                              className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors"
+                            >
+                              <Download className="h-3.5 w-3.5" />
+                              PDF 다운로드
+                            </button>
+                            <Save className="h-4 w-4 text-teal-600" title="자동 저장됨" />
+                          </div>
                         </div>
                       </CardHeader>
                     </Card>
@@ -439,7 +468,7 @@ export default function LessonPlannerPage() {
                         저장된 수업 보기
                       </button>
                     </p>
-                  </>
+                  </div>
                 )}
 
                 {!generating && !generatedLesson && (
