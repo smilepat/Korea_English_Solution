@@ -1,6 +1,6 @@
 "use client"
 import { useState } from "react"
-import { curriculumSearch, getLevels, type SearchMode, type StdResult } from "@/app/actions/curriculum-search"
+import { curriculumSearch, getStandardDetail, type SearchMode, type StdResult, type StandardDetail } from "@/app/actions/curriculum-search"
 
 const MODES: { key: SearchMode; label: string; hint: string }[] = [
   { key: "auto", label: "자동", hint: "질문 유형 자동 감지" },
@@ -23,7 +23,7 @@ export default function CurriculumSearchPage() {
   const [sql, setSql] = useState("")
   const [usedMode, setUsedMode] = useState("")
   const [loading, setLoading] = useState(false)
-  const [levels, setLevels] = useState<Record<string, any[]>>({})
+  const [details, setDetails] = useState<Record<string, StandardDetail>>({})
 
   async function run() {
     setLoading(true); setNote(""); setSql("")
@@ -35,9 +35,9 @@ export default function CurriculumSearchPage() {
     } catch (e: any) { setNote("오류: " + (e?.message ?? "")) }
     setLoading(false)
   }
-  async function toggleLevels(id: string) {
-    if (levels[id]) { const n = { ...levels }; delete n[id]; setLevels(n); return }
-    const lv = await getLevels(id); setLevels({ ...levels, [id]: lv })
+  async function toggleDetail(id: string) {
+    if (details[id]) { const n = { ...details }; delete n[id]; setDetails(n); return }
+    const d = await getStandardDetail(id); setDetails({ ...details, [id]: d })
   }
 
   return (
@@ -97,17 +97,37 @@ export default function CurriculumSearchPage() {
               {typeof r.score === "number" && <span style={{ color: "#94a3b8", fontSize: 11 }}>근접 {r.score.toFixed(3)}</span>}
             </div>
             <p style={{ margin: "8px 0 0", fontSize: 14 }}>{r.standard_text_ko}</p>
-            <button onClick={() => toggleLevels(r.standard_id)} style={{ marginTop: 6, fontSize: 12, color: "#2563eb", background: "none", border: "none", cursor: "pointer", padding: 0 }}>
-              {levels[r.standard_id] ? "성취수준 접기 ▲" : "성취수준 보기 ▼"}
+            <button onClick={() => toggleDetail(r.standard_id)} style={{ marginTop: 6, fontSize: 12, color: "#2563eb", background: "none", border: "none", cursor: "pointer", padding: 0 }}>
+              {details[r.standard_id] ? "상세 접기 ▲" : "성취수준 · 연계 어휘 보기 ▼"}
             </button>
-            {levels[r.standard_id] && (
-              <div style={{ marginTop: 6, fontSize: 13 }}>
-                {levels[r.standard_id].length === 0 ? <span style={{ color: "#999" }}>등록된 성취수준 없음</span> :
-                  levels[r.standard_id].map((l: any, i: number) => (
+            {details[r.standard_id] && (
+              <div style={{ marginTop: 8, fontSize: 13 }}>
+                {/* 성취수준 A~E / 상·중·하 */}
+                <div style={{ fontWeight: 600, color: "#334155", marginBottom: 2 }}>성취수준</div>
+                {details[r.standard_id].levels.length === 0 ? <span style={{ color: "#999" }}>등록된 성취수준 없음</span> :
+                  details[r.standard_id].levels.map((l, i) => (
                     <div key={i} style={{ padding: "3px 0", borderTop: "1px dashed #eee" }}>
-                      <b style={{ color: "#2563eb" }}>{l.level}</b> {l.cut_score ? <span style={{ color: "#999" }}>({l.cut_score})</span> : ""} {l.descriptor_ko}
+                      <b style={{ color: "#2563eb" }}>{l.level}</b>{l.cut_score ? <span style={{ color: "#999" }}> ({l.cut_score})</span> : ""} {l.descriptor_ko}
                     </div>
                   ))}
+                {/* 연계 어휘(같은 CEFR, 빈도순) */}
+                {details[r.standard_id].vocab.length > 0 && (
+                  <div style={{ marginTop: 10 }}>
+                    <div style={{ fontWeight: 600, color: "#334155", marginBottom: 4 }}>
+                      연계 어휘 <span style={{ color: "#94a3b8", fontWeight: 400 }}>(CEFR {details[r.standard_id].cefr} · 빈도순 {details[r.standard_id].vocab.length}개)</span>
+                    </div>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                      {details[r.standard_id].vocab.map((v, i) => (
+                        <span key={i} title={v.meaning_ko || ""} style={{ background: "#f0fdf4", color: "#166534", padding: "3px 8px", borderRadius: 6, fontSize: 12 }}>
+                          {v.word}{v.meaning_ko ? <span style={{ color: "#4d7c5a" }}> · {v.meaning_ko}</span> : ""}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {details[r.standard_id].vocab.length === 0 && !details[r.standard_id].cefr && (
+                  <div style={{ marginTop: 8, color: "#94a3b8", fontSize: 12 }}>CEFR 미지정 성취기준이라 연계 어휘가 없습니다.</div>
+                )}
               </div>
             )}
           </div>

@@ -204,12 +204,40 @@ export async function curriculumSearch(
   return { mode: m, results: [] }
 }
 
-// 성취기준별 성취수준 조회(상세 패널용)
+// 성취기준 상세(상세 패널용): 성취수준 A~E/상·중·하 + 같은 CEFR 연계 어휘
+export interface StandardDetail {
+  levels: { scale_type: string; level: string; descriptor_ko: string; cut_score?: string }[]
+  cefr: string | null
+  vocab: { word: string; meaning_ko: string | null }[]
+}
+export async function getStandardDetail(standardId: string): Promise<StandardDetail> {
+  const [lv, meta] = await Promise.all([
+    turso.execute({
+      sql: `SELECT scale_type, level, descriptor_ko, cut_score FROM kcsdb_levels
+            WHERE standard_id = ? ORDER BY scale_type DESC, level`,
+      args: [standardId],
+    }),
+    turso.execute({
+      sql: `SELECT cefr_alignment, curriculum_version FROM kcsdb_standards WHERE standard_id = ?`,
+      args: [standardId],
+    }),
+  ])
+  const cefr = (meta.rows[0]?.cefr_alignment as string) || null
+  const version = (meta.rows[0]?.curriculum_version as string) || null
+  let vocab: any[] = []
+  if (cefr) {
+    const v = await turso.execute({
+      sql: `SELECT word, meaning_ko FROM kcsdb_vocab
+            WHERE cefr = ? ${version ? "AND curriculum_version = ?" : ""} AND meaning_ko IS NOT NULL AND meaning_ko != ''
+            ORDER BY CAST(NULLIF(freq_rank,'') AS INTEGER) LIMIT 12`,
+      args: version ? [cefr, version] : [cefr],
+    })
+    vocab = v.rows
+  }
+  return { levels: lv.rows as any[], cefr, vocab: vocab as any[] }
+}
+
+// 하위호환
 export async function getLevels(standardId: string) {
-  const r = await turso.execute({
-    sql: `SELECT scale_type, level, descriptor_ko, cut_score FROM kcsdb_levels
-          WHERE standard_id = ? ORDER BY scale_type, level`,
-    args: [standardId],
-  })
-  return r.rows as any[]
+  return (await getStandardDetail(standardId)).levels
 }
