@@ -287,6 +287,28 @@ export default function Home() {
             <div className="mt-8">
               <h2 className="text-xl font-semibold mb-4 text-gray-900 border-b pb-2">주요 기능</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* 성취기준 검색 (정본 통합) */}
+                <Card className="shadow-sm border-2 border-indigo-300 hover:shadow-md transition-all bg-gradient-to-b from-indigo-50 to-white">
+                  <CardHeader className="pb-2">
+                    <div className="bg-indigo-600 w-10 h-10 rounded-full flex items-center justify-center mb-2">
+                      <Search className="h-5 w-5 text-white" />
+                    </div>
+                    <CardTitle className="text-lg">성취기준 검색</CardTitle>
+                    <span className="text-xs bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full w-fit">정본 672 · 4모드</span>
+                  </CardHeader>
+                  <CardContent className="pb-2">
+                    <p className="text-sm text-gray-600">2015·2022 성취기준·성취수준을 코드·키워드·의미·자연어로 검색</p>
+                  </CardContent>
+                  <CardFooter>
+                    <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm gap-1" asChild>
+                      <a href="/curriculum-search">
+                        <Search className="h-4 w-4" />
+                        검색 열기
+                      </a>
+                    </Button>
+                  </CardFooter>
+                </Card>
+
                 {/* AI 핵심 3기능 강조 카드 */}
                 <Card className="shadow-sm border-2 border-purple-300 hover:shadow-md transition-all bg-gradient-to-b from-purple-50 to-white">
                   <CardHeader className="pb-2">

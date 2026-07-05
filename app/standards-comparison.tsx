@@ -9,6 +9,10 @@ export default function StandardsComparison() {
         <div className="container mx-auto py-6">
           <h1 className="text-3xl font-bold text-slate-900">영어성취 기준(standards) 비교표</h1>
           <p className="text-slate-600 mt-1">국제 기준과 한국 교육과정의 성취 기준을 비교합니다</p>
+          <a href="/curriculum-search"
+            className="inline-flex items-center gap-1.5 mt-3 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium shadow-sm">
+            🔎 성취기준 정본 검색 (672개 · 코드·키워드·의미·자연어)
+          </a>
         </div>
       </header>
 
