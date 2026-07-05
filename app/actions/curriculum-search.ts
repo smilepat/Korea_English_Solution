@@ -85,9 +85,14 @@ async function fulltext(query: string, f: Filters, limit: number): Promise<StdRe
 
 // ── S3: 의미검색(Gemini 임베딩 + 코사인) ──
 async function semantic(query: string, limit: number): Promise<StdResult[]> {
-  const { embedQuery } = await import("@/lib/kcsdb-ai")
-  const emb = await embedQuery(query)
-  if (!emb.length) throw new Error("임베딩 실패")
+  const guard = await import("@/lib/kcsdb-guard")
+  let emb = await guard.getCachedEmbedding(query)   // 캐시 우선(비용 절감)
+  if (!emb || !emb.length) {
+    const { embedQuery } = await import("@/lib/kcsdb-ai")
+    emb = await embedQuery(query)
+    if (emb.length) guard.setCachedEmbedding(query, emb).catch(() => {})
+  }
+  if (!emb || !emb.length) throw new Error("임베딩 실패")
   const vec = `[${emb.join(",")}]`
   const r = await turso.execute({
     sql: `SELECT s.standard_id, s.curriculum_version, s.grade_band, s.domain_name_ko,
@@ -186,28 +191,43 @@ async function nl2sql(query: string): Promise<{ results: StdResult[]; sql?: stri
 export async function curriculumSearch(
   query: string, mode: SearchMode = "auto", filters: Filters = {}, limit = 30
 ): Promise<SearchResponse> {
+  const t0 = Date.now()
   const q = (query || "").trim()
+  const requested = mode
   let m = mode
   if (m === "auto") {
     if (CODE_RE.test(q)) m = "structured"
     else if (/[?？]|알려|추천|무엇|어떤|연결|만들|찾아/.test(q)) m = "nl2sql"
     else m = "fulltext"
   }
-  try {
-    if (m === "structured") return { mode: m, results: await structured(q, filters, limit) }
-    if (m === "fulltext") return { mode: m, results: await fulltext(q, filters, limit) }
-    if (m === "semantic") return { mode: m, results: await semantic(q, limit) }
-    if (m === "nl2sql") { const r = await nl2sql(q); return { mode: m, ...r } }
-  } catch (e: any) {
-    return { mode: m, results: [], note: "검색 오류: " + (e?.message ?? "") }
+  // AI 모드(S3/S4) 레이트리밋 → 초과 시 전문검색(S2)으로 우아하게 강등
+  let degraded = false
+  if (m === "semantic" || m === "nl2sql") {
+    const guard = await import("@/lib/kcsdb-guard")
+    const ip = await guard.getClientIp()
+    if (!(await guard.checkAiRate(ip))) { m = "fulltext"; degraded = true }
   }
-  return { mode: m, results: [] }
+  let resp: SearchResponse
+  try {
+    if (m === "structured") resp = { mode: m, results: await structured(q, filters, limit) }
+    else if (m === "fulltext") resp = { mode: m, results: await fulltext(q, filters, limit) }
+    else if (m === "semantic") resp = { mode: m, results: await semantic(q, limit) }
+    else if (m === "nl2sql") { const r = await nl2sql(q); resp = { mode: m, ...r } }
+    else resp = { mode: m, results: [] }
+    if (degraded) resp.note = (resp.note ? resp.note + " " : "") + "(사용량 보호로 전문검색으로 전환됨)"
+  } catch (e: any) {
+    resp = { mode: m, results: [], note: "검색 오류: " + (e?.message ?? "") }
+  }
+  // 비동기 로깅(응답 지연 없음)
+  import("@/lib/kcsdb-guard").then((g) => g.logSearch(requested + "→" + resp.mode, q, resp.results.length, resp.note || "", Date.now() - t0)).catch(() => {})
+  return resp
 }
 
 // 성취기준 상세(상세 패널용): 성취수준 A~E/상·중·하 + 같은 CEFR 연계 어휘
 export interface StandardDetail {
   levels: { scale_type: string; level: string; descriptor_ko: string; cut_score?: string }[]
   cefr: string | null
+  cefrSource: string | null   // original | inherited | estimated
   vocab: { word: string; meaning_ko: string | null }[]
 }
 export async function getStandardDetail(standardId: string): Promise<StandardDetail> {
@@ -218,11 +238,12 @@ export async function getStandardDetail(standardId: string): Promise<StandardDet
       args: [standardId],
     }),
     turso.execute({
-      sql: `SELECT cefr_alignment, curriculum_version FROM kcsdb_standards WHERE standard_id = ?`,
+      sql: `SELECT cefr_alignment, curriculum_version, cefr_source FROM kcsdb_standards WHERE standard_id = ?`,
       args: [standardId],
     }),
   ])
   const cefr = (meta.rows[0]?.cefr_alignment as string) || null
+  const cefrSource = (meta.rows[0]?.cefr_source as string) || null
   const version = (meta.rows[0]?.curriculum_version as string) || null
   let vocab: any[] = []
   if (cefr) {
@@ -234,7 +255,7 @@ export async function getStandardDetail(standardId: string): Promise<StandardDet
     })
     vocab = v.rows
   }
-  return { levels: lv.rows as any[], cefr, vocab: vocab as any[] }
+  return { levels: lv.rows as any[], cefr, cefrSource, vocab: vocab as any[] }
 }
 
 // 하위호환

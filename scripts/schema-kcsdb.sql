@@ -88,3 +88,26 @@ CREATE TABLE IF NOT EXISTS kcsdb_sources (
   license       TEXT,
   commercial_ok INTEGER
 );
+
+-- 8. 운영: 쿼리 임베딩 캐시(S3 비용 절감) · 검색 로그 · 레이트리밋
+CREATE TABLE IF NOT EXISTS kcsdb_query_cache (
+  query_norm TEXT PRIMARY KEY,
+  embedding  TEXT,
+  hit_count  INTEGER DEFAULT 0,
+  created_at TEXT DEFAULT (datetime('now'))
+);
+CREATE TABLE IF NOT EXISTS kcsdb_search_log (
+  id            INTEGER PRIMARY KEY AUTOINCREMENT,
+  mode          TEXT,
+  query         TEXT,
+  result_count  INTEGER,
+  note          TEXT,
+  latency_ms    INTEGER,
+  created_at    TEXT DEFAULT (datetime('now'))
+);
+CREATE TABLE IF NOT EXISTS kcsdb_rate (
+  ip           TEXT,
+  window_start INTEGER,
+  cnt          INTEGER,
+  PRIMARY KEY (ip, window_start)
+);

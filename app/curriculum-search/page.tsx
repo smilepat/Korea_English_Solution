@@ -45,14 +45,47 @@ export default function CurriculumSearchPage() {
     const d = await getStandardDetail(id); setDetails({ ...details, [id]: d })
   }
 
+  const [copied, setCopied] = useState(false)
+  function serialize(): { md: string; html: string } {
+    const md: string[] = ["# 영어 교육과정 성취기준 검색 결과"]
+    const ht: string[] = ["<h3>영어 교육과정 성취기준 검색 결과</h3>"]
+    if (q) { md.push(`검색어: ${q} · 모드 ${usedMode} · ${rows.length}건`); ht.push(`<p>검색어: ${q} · ${rows.length}건</p>`) }
+    for (const r of rows) {
+      const meta = `${r.curriculum_version}·${r.grade_band}${r.domain_name_ko ? "·" + r.domain_name_ko : ""}${r.cefr_alignment ? "·CEFR " + r.cefr_alignment : ""}`
+      md.push("", `## ${r.standard_id} (${meta})`, r.standard_text_ko)
+      ht.push(`<p><b>${r.standard_id}</b> <small>(${meta})</small><br>${esc(r.standard_text_ko)}`)
+      const d = details[r.standard_id]
+      if (d?.levels?.length) { md.push("성취수준:"); ht.push("성취수준:<br>"); for (const l of d.levels) { const t = `${l.level}${l.cut_score ? " (" + l.cut_score + ")" : ""}: ${l.descriptor_ko}`; md.push("- " + t); ht.push("&nbsp;&nbsp;" + esc(t) + "<br>") } }
+      if (d?.vocab?.length) { const vs = d.vocab.map((v) => v.word + (v.meaning_ko ? `(${v.meaning_ko})` : "")).join(", "); md.push(`연계 어휘(CEFR ${d.cefr}): ${vs}`); ht.push(`연계 어휘(CEFR ${d.cefr}): ${esc(vs)}`) }
+      ht.push("</p>")
+    }
+    if (reference.length) { md.push("", "## 관련 의사소통 표현"); ht.push("<p><b>관련 의사소통 표현</b><br>"); for (const f of reference) { const t = `${f.description}: ${f.examples.join(" / ")}`; md.push("- " + t); ht.push(esc(t) + "<br>") } ht.push("</p>") }
+    const src = "출처: 대한민국 영어과 교육과정(교육부 고시) · Korea-curri-standards-db"
+    md.push("", src); ht.push(`<p><small>${src}</small></p>`)
+    return { md: md.join("\n"), html: ht.join("\n") }
+  }
+  async function copyResults() {
+    const { md, html } = serialize()
+    try {
+      if (navigator.clipboard && (window as any).ClipboardItem) {
+        await navigator.clipboard.write([new (window as any).ClipboardItem({
+          "text/plain": new Blob([md], { type: "text/plain" }),
+          "text/html": new Blob([html], { type: "text/html" }),
+        })])
+      } else await navigator.clipboard.writeText(md)
+      setCopied(true); setTimeout(() => setCopied(false), 1800)
+    } catch { try { await navigator.clipboard.writeText(md); setCopied(true); setTimeout(() => setCopied(false), 1800) } catch {} }
+  }
+
   return (
     <div style={{ maxWidth: 860, margin: "0 auto", padding: "24px 16px", fontFamily: "system-ui, sans-serif" }}>
+      <style>{`@media print { .kcs-noprint { display: none !important; } a { color: #000; text-decoration: none; } @page { margin: 14mm; } }`}</style>
       <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 4 }}>영어 교육과정 성취기준 검색</h1>
       <p style={{ color: "#666", marginBottom: 16, fontSize: 14 }}>
         성취기준 672 · 성취수준(A~E/상·중·하) · 기본어휘 5,839 — 4가지 방법으로 검색 (2015·2022 개정)
       </p>
 
-      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 10 }}>
+      <div className="kcs-noprint" style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 10 }}>
         {MODES.map((m) => (
           <button key={m.key} onClick={() => setMode(m.key)} title={m.hint}
             style={{ padding: "6px 12px", borderRadius: 8, border: "1px solid #ddd", cursor: "pointer",
@@ -62,7 +95,7 @@ export default function CurriculumSearchPage() {
         ))}
       </div>
 
-      <div style={{ display: "flex", gap: 8 }}>
+      <div className="kcs-noprint" style={{ display: "flex", gap: 8 }}>
         <input value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={(e) => e.key === "Enter" && run()}
           placeholder={mode === "nl2sql" ? "예: 중3 읽기에서 추론 관련 성취기준" : mode === "semantic" ? "예: 필자의 의도를 파악하는 능력" : "코드 [9영03-04] 또는 키워드 '추론'"}
           style={{ flex: 1, padding: "10px 12px", borderRadius: 8, border: "1px solid #ccc", fontSize: 14 }} />
@@ -73,7 +106,7 @@ export default function CurriculumSearchPage() {
       </div>
 
       {(mode === "auto" || mode === "structured" || mode === "fulltext") && (
-        <div style={{ display: "flex", gap: 8, marginTop: 10 }}>
+        <div className="kcs-noprint" style={{ display: "flex", gap: 8, marginTop: 10 }}>
           <select value={ver} onChange={(e) => setVer(e.target.value)} style={selStyle}>
             <option value="">교육과정</option><option value="2015">2015</option><option value="2022">2022</option>
           </select>
@@ -87,6 +120,17 @@ export default function CurriculumSearchPage() {
       )}
 
       {usedMode && <p style={{ color: "#888", fontSize: 12, marginTop: 12 }}>모드: {usedMode} · {rows.length}건</p>}
+      {rows.length > 0 && (
+        <div className="kcs-noprint" style={{ display: "flex", gap: 8, marginTop: 8, alignItems: "center", flexWrap: "wrap" }}>
+          <button onClick={copyResults} style={{ padding: "6px 12px", borderRadius: 8, border: "1px solid #ddd", background: copied ? "#dcfce7" : "#fff", cursor: "pointer", fontSize: 13 }}>
+            {copied ? "✓ 복사됨" : "📋 결과 복사"}
+          </button>
+          <button onClick={() => window.print()} style={{ padding: "6px 12px", borderRadius: 8, border: "1px solid #ddd", background: "#fff", cursor: "pointer", fontSize: 13 }}>
+            🖨️ 인쇄 / PDF로 저장
+          </button>
+          <span style={{ fontSize: 11, color: "#94a3b8" }}>펼친 성취수준·어휘도 함께 포함됩니다</span>
+        </div>
+      )}
       {note && <p style={{ color: "#b45309", fontSize: 13, marginTop: 8 }}>{note}</p>}
       {sql && <pre style={{ background: "#f6f6f6", padding: 8, borderRadius: 6, fontSize: 11, overflowX: "auto", marginTop: 8 }}>{sql}</pre>}
 
@@ -119,7 +163,9 @@ export default function CurriculumSearchPage() {
                 {details[r.standard_id].vocab.length > 0 && (
                   <div style={{ marginTop: 10 }}>
                     <div style={{ fontWeight: 600, color: "#334155", marginBottom: 4 }}>
-                      연계 어휘 <span style={{ color: "#94a3b8", fontWeight: 400 }}>(CEFR {details[r.standard_id].cefr} · 빈도순 {details[r.standard_id].vocab.length}개)</span>
+                      연계 어휘 <span style={{ color: "#94a3b8", fontWeight: 400 }}>
+                        (CEFR {details[r.standard_id].cefr}{details[r.standard_id].cefrSource && details[r.standard_id].cefrSource !== "original" ? <span style={{ color: "#d97706" }}> ·{details[r.standard_id].cefrSource === "inherited" ? "동일 학년군 상속" : "추정"}</span> : ""} · 빈도순 {details[r.standard_id].vocab.length}개)
+                      </span>
                     </div>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                       {details[r.standard_id].vocab.map((v, i) => (
@@ -161,5 +207,6 @@ export default function CurriculumSearchPage() {
     </div>
   )
 }
+function esc(s: string) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") }
 const selStyle: React.CSSProperties = { padding: "8px 10px", borderRadius: 8, border: "1px solid #ccc", fontSize: 13 }
 const badge: React.CSSProperties = { background: "#f1f5f9", color: "#475569", padding: "2px 7px", borderRadius: 5, fontSize: 12 }
