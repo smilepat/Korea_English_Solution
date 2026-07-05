@@ -241,3 +241,31 @@ export async function getStandardDetail(standardId: string): Promise<StandardDet
 export async function getLevels(standardId: string) {
   return (await getStandardDetail(standardId)).levels
 }
+
+// 관련 의사소통 기능 + 영어 예시문(검색어 키워드 매칭). 교사가 바로 쓸 표현 제공.
+export interface RefFunction { category: string; description: string; version: string; examples: string[] }
+export async function searchReference(query: string, version?: string): Promise<RefFunction[]> {
+  const q = (query || "").trim()
+  if (!q || CODE_RE.test(q)) return []
+  const fns = await turso.execute({
+    sql: `SELECT DISTINCT id, category_l1, description_ko, curriculum_version FROM kcsdb_comm_functions
+          WHERE (description_ko LIKE '%' || ? || '%' OR category_l1 LIKE '%' || ? || '%')
+          ${version === "2015" || version === "2022" ? "AND curriculum_version = ?" : ""}
+          LIMIT 6`,
+    args: version === "2015" || version === "2022" ? [q, q, version] : [q, q],
+  })
+  const out: RefFunction[] = []
+  for (const f of fns.rows as any[]) {
+    const ex = await turso.execute({
+      sql: `SELECT example_en FROM kcsdb_comm_function_examples WHERE function_id = ? LIMIT 5`,
+      args: [f.id],
+    })
+    // 영어 예시문만(파싱 잔여 한국어 행 배제), 최대 3개
+    const examples = (ex.rows as any[])
+      .map((r) => String(r.example_en || ""))
+      .filter((e) => /[A-Za-z]/.test(e) && e.length < 90)
+      .slice(0, 3)
+    if (examples.length) out.push({ category: f.category_l1, description: f.description_ko, version: f.curriculum_version, examples })
+  }
+  return out
+}

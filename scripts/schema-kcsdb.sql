@@ -52,6 +52,13 @@ CREATE TABLE IF NOT EXISTS kcsdb_comm_functions (
   description_ko     TEXT,
   curriculum_version TEXT
 );
+CREATE TABLE IF NOT EXISTS kcsdb_comm_function_examples (
+  id                     INTEGER PRIMARY KEY AUTOINCREMENT,
+  function_id            TEXT,
+  example_en             TEXT,
+  elementary_recommended INTEGER
+);
+CREATE INDEX IF NOT EXISTS idx_kcsdb_cfe_fid ON kcsdb_comm_function_examples (function_id);
 CREATE TABLE IF NOT EXISTS kcsdb_grammar (
   id                 TEXT PRIMARY KEY,
   example_en         TEXT,

@@ -113,6 +113,9 @@ async function main() {
   // 4) 의사소통 기능 / 문법
   await batchInsert(`INSERT OR REPLACE INTO kcsdb_comm_functions (id,category_l1,description_ko,curriculum_version) VALUES (?,?,?,?)`,
     readCsv("comm_functions.csv"), r => [r.id, r.category_l1, r.description_ko, r.curriculum_version], "kcsdb_comm_functions")
+  await db.execute("DELETE FROM kcsdb_comm_function_examples")
+  await batchInsert(`INSERT INTO kcsdb_comm_function_examples (function_id,example_en,elementary_recommended) VALUES (?,?,?)`,
+    readCsv("comm_function_examples.csv"), r => [r.function_id, r.example_en, Number(r.elementary_recommended) || 0], "kcsdb_comm_function_examples")
   await batchInsert(`INSERT OR REPLACE INTO kcsdb_grammar (id,example_en,curriculum_version) VALUES (?,?,?)`,
     readCsv("grammar_items.csv"), r => [r.id, r.example_en, r.curriculum_version], "kcsdb_grammar")
 

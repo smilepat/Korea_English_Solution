@@ -1,6 +1,6 @@
 "use client"
 import { useState } from "react"
-import { curriculumSearch, getStandardDetail, type SearchMode, type StdResult, type StandardDetail } from "@/app/actions/curriculum-search"
+import { curriculumSearch, getStandardDetail, searchReference, type SearchMode, type StdResult, type StandardDetail, type RefFunction } from "@/app/actions/curriculum-search"
 
 const MODES: { key: SearchMode; label: string; hint: string }[] = [
   { key: "auto", label: "자동", hint: "질문 유형 자동 감지" },
@@ -24,14 +24,19 @@ export default function CurriculumSearchPage() {
   const [usedMode, setUsedMode] = useState("")
   const [loading, setLoading] = useState(false)
   const [details, setDetails] = useState<Record<string, StandardDetail>>({})
+  const [reference, setReference] = useState<RefFunction[]>([])
 
   async function run() {
-    setLoading(true); setNote(""); setSql("")
+    setLoading(true); setNote(""); setSql(""); setReference([])
     try {
-      const r = await curriculumSearch(q, mode, {
-        version: (ver || undefined) as any, band: (band || undefined) as any, domain: domain || undefined,
-      })
+      const [r, ref] = await Promise.all([
+        curriculumSearch(q, mode, {
+          version: (ver || undefined) as any, band: (band || undefined) as any, domain: domain || undefined,
+        }),
+        searchReference(q, ver || undefined).catch(() => [] as RefFunction[]),
+      ])
       setRows(r.results); setNote(r.note || ""); setSql(r.sql || ""); setUsedMode(r.mode)
+      setReference(ref)
     } catch (e: any) { setNote("오류: " + (e?.message ?? "")) }
     setLoading(false)
   }
@@ -133,6 +138,26 @@ export default function CurriculumSearchPage() {
           </div>
         ))}
       </div>
+
+      {reference.length > 0 && (
+        <div style={{ marginTop: 20, padding: 14, borderRadius: 12, background: "#fffbeb", border: "1px solid #fde68a" }}>
+          <div style={{ fontWeight: 700, color: "#92400e", marginBottom: 8 }}>📚 관련 의사소통 표현 <span style={{ fontWeight: 400, fontSize: 12, color: "#b45309" }}>(교육과정 [별표2] · 바로 쓰는 영어 표현)</span></div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {reference.map((f, i) => (
+              <div key={i}>
+                <div style={{ fontSize: 13, color: "#78350f" }}>
+                  <b>{f.description}</b> <span style={{ color: "#a16207", fontSize: 11 }}>· {f.category} · {f.version}</span>
+                </div>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 3 }}>
+                  {f.examples.map((e, j) => (
+                    <span key={j} style={{ background: "#fff", border: "1px solid #fde68a", color: "#713f12", padding: "2px 8px", borderRadius: 6, fontSize: 12 }}>{e}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
