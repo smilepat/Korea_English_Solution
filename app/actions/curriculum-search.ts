@@ -103,7 +103,19 @@ async function semantic(query: string, limit: number): Promise<StdResult[]> {
 // ── S4: 자연어 → SQL (Gemini 생성 + 안전검사) ──
 const SCHEMA_HINT = `테이블 kcsdb_standards(standard_id, curriculum_version['2015'|'2022'], grade_band['elementary'|'middle'|'high'], grade_level, subject_name_ko, domain_code, domain_name_ko['듣기'|'말하기'|'읽기'|'쓰기'|'이해'|'표현'], standard_text_ko, cefr_alignment, verification_status)
 테이블 kcsdb_levels(standard_id, scale_type['achievement_level'|'eval_criteria'], level['A'..'E'|'상'|'중'|'하'], descriptor_ko)
-테이블 kcsdb_vocab(word, curriculum_version, level_marker, cefr, meaning_ko)`
+테이블 kcsdb_vocab(word, curriculum_version, level_marker, cefr, meaning_ko)
+
+작성 규칙(중요):
+- 학교급은 반드시 grade_band로만 필터한다. "중1/중2/중3/중학교"→'middle', "고1/고2/고3/고등학교"→'high', "초등"→'elementary'.
+- grade_level 은 학년군 문자열('3-4','5-6','1-3','1-3학년' 등)이라 '3' 같은 단일 학년으로 매칭하면 안 된다. 웬만하면 쓰지 말 것.
+- 주제·기능·개념 키워드(추론/세부 정보/주제/요지/의도/심정/함축 등)는 반드시 standard_text_ko LIKE '%키워드%' 로 검색한다.
+- 영역(domain_name_ko): 2015는 듣기·말하기·읽기·쓰기, 2022는 이해·표현. 애매하면 domain 조건을 생략한다.
+- 항상 LIMIT 30 이하를 붙이고, standard_id 와 standard_text_ko 를 SELECT 한다.
+
+예) "중3 읽기에서 추론 관련 성취기준" →
+SELECT standard_id, standard_text_ko FROM kcsdb_standards WHERE grade_band='middle' AND domain_name_ko='읽기' AND standard_text_ko LIKE '%추론%' LIMIT 30
+예) "고등학교 빈칸추론과 연결되는 함축 의미 성취기준" →
+SELECT standard_id, standard_text_ko FROM kcsdb_standards WHERE grade_band='high' AND standard_text_ko LIKE '%함축%' LIMIT 30`
 
 function safeSelect(sql: string): string | null {
   let s = sql.trim().replace(/;+\s*$/, "").replace(/^```sql\s*/i, "").replace(/```$/,"").trim()
@@ -116,21 +128,58 @@ function safeSelect(sql: string): string | null {
   return s
 }
 
+// Gemini는 SQL을 만들지 않고, 질문에서 "구조화 조건(JSON)"만 추출한다.
+// → 우리가 안전한 파라미터 쿼리를 만들고, 0건이면 조건을 자동 완화한다(SQL 인젝션 원천 차단).
+const EXTRACT_PROMPT = (q: string) => `사용자의 한국어 질문에서 영어 교육과정 성취기준 검색조건을 JSON으로만 출력해라(설명·코드펜스 없이 JSON만).
+형식: {"band":"","version":"","domain":"","keywords":[]}
+- band: 학교급. "초등"→"elementary", "중학교/중1/중2/중3"→"middle", "고등학교/고1/고2/고3"→"high". 없으면 "".
+- version: "2015" 또는 "2022". 명시 없으면 "".
+- domain: "듣기"|"말하기"|"읽기"|"쓰기"|"이해"|"표현" 중 명확할 때만. 없으면 "". (2022는 이해·표현만 있음)
+- keywords: 주제·기능 핵심어 배열. 조사·군더더기 제거하고 데이터에 실제 나올 어간만. 예 "추론과정"→["추론"], "세부 정보 파악"→["세부 정보"], "필자의 의도"→["의도"].
+질문: ${q}`
+
 async function nl2sql(query: string): Promise<{ results: StdResult[]; sql?: string; note?: string }> {
   const { geminiGenerate } = await import("@/lib/kcsdb-ai")
-  const prompt = `다음 스키마의 SQLite DB에서 사용자 질문에 답하는 SELECT 문 하나만 출력해라(설명·코드펜스 없이 SQL만).
-반드시 kcsdb_ 테이블만 사용하고, 결과에는 가능하면 standard_id, standard_text_ko를 포함하며 LIMIT을 붙여라.
-${SCHEMA_HINT}
-질문: ${query}`
-  const raw = await geminiGenerate(prompt)
-  const sql = safeSelect(raw)
-  if (!sql) return { results: [], note: "안전한 SELECT를 생성하지 못했습니다. 다른 표현으로 시도해 주세요.", sql: raw.slice(0, 200) }
+  let f: any = {}
   try {
-    const r = await turso.execute(sql)
-    return { results: rowsToStd(r.rows as any[]), sql }
-  } catch (e: any) {
-    return { results: [], note: "쿼리 실행 오류: " + (e?.message ?? ""), sql }
+    const raw = await geminiGenerate(EXTRACT_PROMPT(query))
+    f = JSON.parse((raw.match(/\{[\s\S]*\}/) || ["{}"])[0])
+  } catch {
+    return { results: [], note: "질문을 해석하지 못했습니다. 다른 표현으로 시도해 주세요." }
   }
+  const kws: string[] = (Array.isArray(f.keywords) ? f.keywords : []).map((k: any) => String(k).trim()).filter(Boolean).slice(0, 4)
+
+  const build = (useDomain: boolean, useBand: boolean) => {
+    const where: string[] = [], args: any[] = []
+    if (useBand && f.band) { where.push("grade_band = ?"); args.push(f.band) }
+    if (f.version === "2015" || f.version === "2022") { where.push("curriculum_version = ?"); args.push(f.version) }
+    if (useDomain && f.domain) { where.push("domain_name_ko = ?"); args.push(f.domain) }
+    for (const kw of kws) { where.push("standard_text_ko LIKE '%' || ? || '%'"); args.push(kw) }
+    return {
+      sql: `SELECT ${SELECT_COLS} FROM kcsdb_standards ${where.length ? "WHERE " + where.join(" AND ") : ""} ORDER BY curriculum_version, standard_id LIMIT 30`,
+      args,
+    }
+  }
+  const cond = [f.band, f.version, f.domain, ...kws].filter(Boolean).join(" · ") || "없음"
+  // 전체조건 → 0건이면 domain 완화 → 그래도 0이면 band까지 완화
+  const relax: [boolean, boolean][] = [[true, true], [false, true], [false, false]]
+  for (let i = 0; i < relax.length; i++) {
+    const { sql, args } = build(relax[i][0], relax[i][1])
+    const r = await turso.execute({ sql, args })
+    if (r.rows.length) {
+      return {
+        results: rowsToStd(r.rows as any[]),
+        note: i === 0 ? undefined : "일부 조건을 완화해 검색했습니다.",
+        sql: `해석 조건: ${cond}`,
+      }
+    }
+  }
+  // 0건(예: 수능 용어 '빈칸추론' 등 교육과정 문구와 불일치) → 의미검색 폴백
+  try {
+    const sem = await semantic(query, 10)
+    if (sem.length) return { results: sem, note: `조건 검색 0건 → 의미검색으로 대체 (해석: ${cond})` }
+  } catch { /* 임베딩 실패 시 무시 */ }
+  return { results: [], note: `해당 조건의 성취기준을 찾지 못했습니다. (해석: ${cond})` }
 }
 
 // ── 통합 파사드 ──
