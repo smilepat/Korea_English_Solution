@@ -111,3 +111,13 @@ CREATE TABLE IF NOT EXISTS kcsdb_rate (
   cnt          INTEGER,
   PRIMARY KEY (ip, window_start)
 );
+
+-- 9. 문법 분류(LLM, classify-grammar.mjs로 채움) + 수능 유형 참고매핑(build-csat-map.mjs)
+-- kcsdb_grammar 에 item_name_ko/category/label_source 컬럼(스크립트가 ALTER로 추가)
+CREATE TABLE IF NOT EXISTS kcsdb_csat_type_map (
+  standard_id  TEXT,
+  csat_type    TEXT,
+  confidence   TEXT,
+  rationale_ko TEXT,
+  PRIMARY KEY (standard_id, csat_type)
+);

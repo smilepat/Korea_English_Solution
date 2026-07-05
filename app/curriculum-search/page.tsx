@@ -1,6 +1,6 @@
 "use client"
 import { useState } from "react"
-import { curriculumSearch, getStandardDetail, searchReference, type SearchMode, type StdResult, type StandardDetail, type RefFunction } from "@/app/actions/curriculum-search"
+import { curriculumSearch, getStandardDetail, searchReference, type SearchMode, type StdResult, type StandardDetail, type ReferenceResult } from "@/app/actions/curriculum-search"
 
 const MODES: { key: SearchMode; label: string; hint: string }[] = [
   { key: "auto", label: "자동", hint: "질문 유형 자동 감지" },
@@ -24,16 +24,16 @@ export default function CurriculumSearchPage() {
   const [usedMode, setUsedMode] = useState("")
   const [loading, setLoading] = useState(false)
   const [details, setDetails] = useState<Record<string, StandardDetail>>({})
-  const [reference, setReference] = useState<RefFunction[]>([])
+  const [reference, setReference] = useState<ReferenceResult>({ functions: [], grammar: [] })
 
   async function run() {
-    setLoading(true); setNote(""); setSql(""); setReference([])
+    setLoading(true); setNote(""); setSql(""); setReference({ functions: [], grammar: [] })
     try {
       const [r, ref] = await Promise.all([
         curriculumSearch(q, mode, {
           version: (ver || undefined) as any, band: (band || undefined) as any, domain: domain || undefined,
         }),
-        searchReference(q, ver || undefined).catch(() => [] as RefFunction[]),
+        searchReference(q, ver || undefined).catch(() => ({ functions: [], grammar: [] } as ReferenceResult)),
       ])
       setRows(r.results); setNote(r.note || ""); setSql(r.sql || ""); setUsedMode(r.mode)
       setReference(ref)
@@ -57,9 +57,11 @@ export default function CurriculumSearchPage() {
       const d = details[r.standard_id]
       if (d?.levels?.length) { md.push("성취수준:"); ht.push("성취수준:<br>"); for (const l of d.levels) { const t = `${l.level}${l.cut_score ? " (" + l.cut_score + ")" : ""}: ${l.descriptor_ko}`; md.push("- " + t); ht.push("&nbsp;&nbsp;" + esc(t) + "<br>") } }
       if (d?.vocab?.length) { const vs = d.vocab.map((v) => v.word + (v.meaning_ko ? `(${v.meaning_ko})` : "")).join(", "); md.push(`연계 어휘(CEFR ${d.cefr}): ${vs}`); ht.push(`연계 어휘(CEFR ${d.cefr}): ${esc(vs)}`) }
+      if (d?.csatTypes?.length) { const cs = d.csatTypes.map((c) => c.csat_type).join(", "); md.push(`관련 수능 유형(참고): ${cs}`); ht.push(`관련 수능 유형(참고): ${esc(cs)}`) }
       ht.push("</p>")
     }
-    if (reference.length) { md.push("", "## 관련 의사소통 표현"); ht.push("<p><b>관련 의사소통 표현</b><br>"); for (const f of reference) { const t = `${f.description}: ${f.examples.join(" / ")}`; md.push("- " + t); ht.push(esc(t) + "<br>") } ht.push("</p>") }
+    if (reference.functions.length) { md.push("", "## 관련 의사소통 표현"); ht.push("<p><b>관련 의사소통 표현</b><br>"); for (const f of reference.functions) { const t = `${f.description}: ${f.examples.join(" / ")}`; md.push("- " + t); ht.push(esc(t) + "<br>") } ht.push("</p>") }
+    if (reference.grammar.length) { md.push("", "## 관련 언어 형식(문법)"); ht.push("<p><b>관련 언어 형식(문법)</b><br>"); for (const g of reference.grammar) { const t = `${g.item}: ${g.example}`; md.push("- " + t); ht.push(esc(t) + "<br>") } ht.push("</p>") }
     const src = "출처: 대한민국 영어과 교육과정(교육부 고시) · Korea-curri-standards-db"
     md.push("", src); ht.push(`<p><small>${src}</small></p>`)
     return { md: md.join("\n"), html: ht.join("\n") }
@@ -176,6 +178,21 @@ export default function CurriculumSearchPage() {
                     </div>
                   </div>
                 )}
+                {/* 관련 수능 유형(참고·공인 아님) */}
+                {details[r.standard_id].csatTypes?.length > 0 && (
+                  <div style={{ marginTop: 10 }}>
+                    <div style={{ fontWeight: 600, color: "#334155", marginBottom: 4 }}>
+                      관련 수능 유형 <span style={{ color: "#dc2626", fontWeight: 400, fontSize: 11 }}>(규칙 기반 참고 — 공인 매핑 아님)</span>
+                    </div>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                      {details[r.standard_id].csatTypes.map((c, i) => (
+                        <span key={i} style={{ background: "#eff6ff", border: "1px solid #bfdbfe", color: "#1e40af", padding: "2px 8px", borderRadius: 6, fontSize: 12 }}>
+                          {c.csat_type}{c.confidence === "high" ? "" : " ?"}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 {details[r.standard_id].vocab.length === 0 && !details[r.standard_id].cefr && (
                   <div style={{ marginTop: 8, color: "#94a3b8", fontSize: 12 }}>CEFR 미지정 성취기준이라 연계 어휘가 없습니다.</div>
                 )}
@@ -185,23 +202,36 @@ export default function CurriculumSearchPage() {
         ))}
       </div>
 
-      {reference.length > 0 && (
+      {(reference.functions.length > 0 || reference.grammar.length > 0) && (
         <div style={{ marginTop: 20, padding: 14, borderRadius: 12, background: "#fffbeb", border: "1px solid #fde68a" }}>
-          <div style={{ fontWeight: 700, color: "#92400e", marginBottom: 8 }}>📚 관련 의사소통 표현 <span style={{ fontWeight: 400, fontSize: 12, color: "#b45309" }}>(교육과정 [별표2] · 바로 쓰는 영어 표현)</span></div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            {reference.map((f, i) => (
-              <div key={i}>
-                <div style={{ fontSize: 13, color: "#78350f" }}>
-                  <b>{f.description}</b> <span style={{ color: "#a16207", fontSize: 11 }}>· {f.category} · {f.version}</span>
-                </div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 3 }}>
-                  {f.examples.map((e, j) => (
-                    <span key={j} style={{ background: "#fff", border: "1px solid #fde68a", color: "#713f12", padding: "2px 8px", borderRadius: 6, fontSize: 12 }}>{e}</span>
-                  ))}
-                </div>
+          {reference.functions.length > 0 && (
+            <>
+              <div style={{ fontWeight: 700, color: "#92400e", marginBottom: 8 }}>📚 관련 의사소통 표현 <span style={{ fontWeight: 400, fontSize: 12, color: "#b45309" }}>(교육과정 [별표2] · 바로 쓰는 영어 표현)</span></div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                {reference.functions.map((f, i) => (
+                  <div key={i}>
+                    <div style={{ fontSize: 13, color: "#78350f" }}><b>{f.description}</b> <span style={{ color: "#a16207", fontSize: 11 }}>· {f.category} · {f.version}</span></div>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 3 }}>
+                      {f.examples.map((e, j) => (<span key={j} style={{ background: "#fff", border: "1px solid #fde68a", color: "#713f12", padding: "2px 8px", borderRadius: 6, fontSize: 12 }}>{e}</span>))}
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </>
+          )}
+          {reference.grammar.length > 0 && (
+            <div style={{ marginTop: reference.functions.length ? 12 : 0 }}>
+              <div style={{ fontWeight: 700, color: "#92400e", marginBottom: 8 }}>🔤 관련 언어 형식(문법) <span style={{ fontWeight: 400, fontSize: 12, color: "#b45309" }}>(교육과정 [별표4] · AI 분류)</span></div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                {reference.grammar.map((g, i) => (
+                  <div key={i} style={{ fontSize: 13, color: "#78350f" }}>
+                    <b>{g.item}</b>{g.category ? <span style={{ color: "#a16207", fontSize: 11 }}> · {g.category}</span> : ""}
+                    <span style={{ background: "#fff", border: "1px solid #fde68a", color: "#713f12", padding: "2px 8px", borderRadius: 6, fontSize: 12, marginLeft: 6 }}>{g.example}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

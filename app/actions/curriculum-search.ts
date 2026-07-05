@@ -229,9 +229,10 @@ export interface StandardDetail {
   cefr: string | null
   cefrSource: string | null   // original | inherited | estimated
   vocab: { word: string; meaning_ko: string | null }[]
+  csatTypes: { csat_type: string; confidence: string }[]   // 수능 유형(참고·공인 아님)
 }
 export async function getStandardDetail(standardId: string): Promise<StandardDetail> {
-  const [lv, meta] = await Promise.all([
+  const [lv, meta, ct] = await Promise.all([
     turso.execute({
       sql: `SELECT scale_type, level, descriptor_ko, cut_score FROM kcsdb_levels
             WHERE standard_id = ? ORDER BY scale_type DESC, level`,
@@ -241,6 +242,10 @@ export async function getStandardDetail(standardId: string): Promise<StandardDet
       sql: `SELECT cefr_alignment, curriculum_version, cefr_source FROM kcsdb_standards WHERE standard_id = ?`,
       args: [standardId],
     }),
+    turso.execute({
+      sql: `SELECT csat_type, confidence FROM kcsdb_csat_type_map WHERE standard_id = ?`,
+      args: [standardId],
+    }).catch(() => ({ rows: [] as any[] })),
   ])
   const cefr = (meta.rows[0]?.cefr_alignment as string) || null
   const cefrSource = (meta.rows[0]?.cefr_source as string) || null
@@ -255,7 +260,7 @@ export async function getStandardDetail(standardId: string): Promise<StandardDet
     })
     vocab = v.rows
   }
-  return { levels: lv.rows as any[], cefr, cefrSource, vocab: vocab as any[] }
+  return { levels: lv.rows as any[], cefr, cefrSource, vocab: vocab as any[], csatTypes: (ct.rows as any[]) }
 }
 
 // 하위호환
@@ -263,30 +268,32 @@ export async function getLevels(standardId: string) {
   return (await getStandardDetail(standardId)).levels
 }
 
-// 관련 의사소통 기능 + 영어 예시문(검색어 키워드 매칭). 교사가 바로 쓸 표현 제공.
+// 관련 의사소통 기능(영어 예시문) + 언어 형식(문법) — 검색어 키워드 매칭. 교사가 바로 쓸 참고자료.
 export interface RefFunction { category: string; description: string; version: string; examples: string[] }
-export async function searchReference(query: string, version?: string): Promise<RefFunction[]> {
+export interface RefGrammar { item: string; category: string | null; example: string }
+export interface ReferenceResult { functions: RefFunction[]; grammar: RefGrammar[] }
+export async function searchReference(query: string, version?: string): Promise<ReferenceResult> {
   const q = (query || "").trim()
-  if (!q || CODE_RE.test(q)) return []
-  const fns = await turso.execute({
-    sql: `SELECT DISTINCT id, category_l1, description_ko, curriculum_version FROM kcsdb_comm_functions
-          WHERE (description_ko LIKE '%' || ? || '%' OR category_l1 LIKE '%' || ? || '%')
-          ${version === "2015" || version === "2022" ? "AND curriculum_version = ?" : ""}
-          LIMIT 6`,
-    args: version === "2015" || version === "2022" ? [q, q, version] : [q, q],
-  })
-  const out: RefFunction[] = []
+  if (!q || CODE_RE.test(q)) return { functions: [], grammar: [] }
+  const [fns, gr] = await Promise.all([
+    turso.execute({
+      sql: `SELECT DISTINCT id, category_l1, description_ko, curriculum_version FROM kcsdb_comm_functions
+            WHERE (description_ko LIKE '%' || ? || '%' OR category_l1 LIKE '%' || ? || '%')
+            ${version === "2015" || version === "2022" ? "AND curriculum_version = ?" : ""} LIMIT 6`,
+      args: version === "2015" || version === "2022" ? [q, q, version] : [q, q],
+    }),
+    turso.execute({
+      sql: `SELECT item_name_ko, category, example_en FROM kcsdb_grammar
+            WHERE item_name_ko LIKE '%' || ? || '%' OR category LIKE '%' || ? || '%' LIMIT 6`,
+      args: [q, q],
+    }).catch(() => ({ rows: [] as any[] })),
+  ])
+  const functions: RefFunction[] = []
   for (const f of fns.rows as any[]) {
-    const ex = await turso.execute({
-      sql: `SELECT example_en FROM kcsdb_comm_function_examples WHERE function_id = ? LIMIT 5`,
-      args: [f.id],
-    })
-    // 영어 예시문만(파싱 잔여 한국어 행 배제), 최대 3개
-    const examples = (ex.rows as any[])
-      .map((r) => String(r.example_en || ""))
-      .filter((e) => /[A-Za-z]/.test(e) && e.length < 90)
-      .slice(0, 3)
-    if (examples.length) out.push({ category: f.category_l1, description: f.description_ko, version: f.curriculum_version, examples })
+    const ex = await turso.execute({ sql: `SELECT example_en FROM kcsdb_comm_function_examples WHERE function_id = ? LIMIT 5`, args: [f.id] })
+    const examples = (ex.rows as any[]).map((r) => String(r.example_en || "")).filter((e) => /[A-Za-z]/.test(e) && e.length < 90).slice(0, 3)
+    if (examples.length) functions.push({ category: f.category_l1, description: f.description_ko, version: f.curriculum_version, examples })
   }
-  return out
+  const grammar: RefGrammar[] = (gr.rows as any[]).map((r) => ({ item: String(r.item_name_ko || ""), category: r.category || null, example: String(r.example_en || "") })).filter((g) => g.item)
+  return { functions, grammar }
 }
