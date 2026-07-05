@@ -1,0 +1,1108 @@
+﻿id,function_id,example_en,example_ko,elementary_recommended,source_id
+1,CF-2015-1-1,That’s/It’s/They’re ... .,,1,ncic_2015_eng_byeol14_hwp
+2,CF-2015-1-1,Is this your ... ?,,1,ncic_2015_eng_byeol14_hwp
+3,CF-2015-1-1,The man over there is Mr. Kim.,,0,ncic_2015_eng_byeol14_hwp
+4,CF-2015-1-1,The small one (with the blue buttons).,,0,ncic_2015_eng_byeol14_hwp
+5,CF-2015-1-1,Ms. Anderson is the owner of the restaurant.,,0,ncic_2015_eng_byeol14_hwp
+6,CF-2015-1-2,My sister is a nurse/... .,,1,ncic_2015_eng_byeol14_hwp
+7,CF-2015-1-2,It’s on the right/left.,,1,ncic_2015_eng_byeol14_hwp
+8,CF-2015-1-2,I’m taller than ... .,,1,ncic_2015_eng_byeol14_hwp
+9,CF-2015-1-2,She runs as fast as ... .,,0,ncic_2015_eng_byeol14_hwp
+10,CF-2015-1-2,I met ... (yesterday).,,1,ncic_2015_eng_byeol14_hwp
+11,CF-2015-1-2,There is a store on the corner.,,0,ncic_2015_eng_byeol14_hwp
+12,CF-2015-1-2,The train has left.,,0,ncic_2015_eng_byeol14_hwp
+13,CF-2015-1-2,They will ... .,,1,ncic_2015_eng_byeol14_hwp
+14,CF-2015-1-2,He said the shop was closed.,,0,ncic_2015_eng_byeol14_hwp
+15,CF-2015-1-3,"No, it isn’t.",,1,ncic_2015_eng_byeol14_hwp
+16,CF-2015-1-3,(Sorry.) That’s/It’s not right.,,1,ncic_2015_eng_byeol14_hwp
+17,CF-2015-1-3,"(No,) this is MY bag.",,1,ncic_2015_eng_byeol14_hwp
+18,CF-2015-1-3,(I think) you’ve made a mistake.,,0,ncic_2015_eng_byeol14_hwp
+19,CF-2015-1-4,Do you have ... ?,,1,ncic_2015_eng_byeol14_hwp
+20,CF-2015-1-4,"She’s a teacher, isn’t she?",,1,ncic_2015_eng_byeol14_hwp
+21,CF-2015-1-4,Who is she?,,1,ncic_2015_eng_byeol14_hwp
+22,CF-2015-1-4,What do you like?,,1,ncic_2015_eng_byeol14_hwp
+23,CF-2015-1-4,Where do you live?,,1,ncic_2015_eng_byeol14_hwp
+24,CF-2015-1-4,When is your birthday?,,1,ncic_2015_eng_byeol14_hwp
+25,CF-2015-1-4,How much is it?,,1,ncic_2015_eng_byeol14_hwp
+26,CF-2015-1-4,Whose notebook is this/that?,,1,ncic_2015_eng_byeol14_hwp
+27,CF-2015-1-4,Which movie do you want to see?,,0,ncic_2015_eng_byeol14_hwp
+28,CF-2015-1-5,"Yes, I do./No, I don’t.",,1,ncic_2015_eng_byeol14_hwp
+29,CF-2015-1-5,"Yes, she is./No, she isn’t. She’s a ... .",,1,ncic_2015_eng_byeol14_hwp
+30,CF-2015-1-5,She’s my friend.,,1,ncic_2015_eng_byeol14_hwp
+31,CF-2015-1-5,I like ice cream.,,1,ncic_2015_eng_byeol14_hwp
+32,CF-2015-1-5,In Busan.,,1,ncic_2015_eng_byeol14_hwp
+33,CF-2015-1-5,August 15th.,,1,ncic_2015_eng_byeol14_hwp
+34,CF-2015-1-5,It’s two dollars.,,1,ncic_2015_eng_byeol14_hwp
+35,CF-2015-1-5,It’s Nancy’s.,,1,ncic_2015_eng_byeol14_hwp
+36,CF-2015-1-5,I want to see ... .,,0,ncic_2015_eng_byeol14_hwp
+37,CF-2015-1-5,(Because) ... .,,0,ncic_2015_eng_byeol14_hwp
+38,CF-2015-2-1,"Me, too.",,1,ncic_2015_eng_byeol14_hwp
+39,CF-2015-2-1,Same here.,,1,ncic_2015_eng_byeol14_hwp
+40,CF-2015-2-1,Okay!/Good!/Fine!/Great!,,1,ncic_2015_eng_byeol14_hwp
+41,CF-2015-2-1,"(Yes,) I agree.",,0,ncic_2015_eng_byeol14_hwp
+42,CF-2015-2-1,That’s a good idea.,,0,ncic_2015_eng_byeol14_hwp
+43,CF-2015-2-2,I don’t think/believe so.,,1,ncic_2015_eng_byeol14_hwp
+44,CF-2015-2-2,I don’t agree/disagree (with you).,,0,ncic_2015_eng_byeol14_hwp
+45,CF-2015-2-2,I’m against ... .,,0,ncic_2015_eng_byeol14_hwp
+46,CF-2015-2-3,What do you think?,,1,ncic_2015_eng_byeol14_hwp
+47,CF-2015-2-3,Don’t you agree?,,0,ncic_2015_eng_byeol14_hwp
+48,CF-2015-2-3,Would/Do you agree with me?,,0,ncic_2015_eng_byeol14_hwp
+49,CF-2015-2-4,"(No,) I didn’t.",,1,ncic_2015_eng_byeol14_hwp
+50,CF-2015-2-4,That isn’t true.,,1,ncic_2015_eng_byeol14_hwp
+51,CF-2015-2-4,That’s not right/correct.,,1,ncic_2015_eng_byeol14_hwp
+52,CF-2015-3-1,I know (about) ... .,,1,ncic_2015_eng_byeol14_hwp
+53,CF-2015-3-1,I heard/have heard (about) ... .,,0,ncic_2015_eng_byeol14_hwp
+54,CF-2015-3-1,I’ve been told (about) ... .,,0,ncic_2015_eng_byeol14_hwp
+55,CF-2015-3-1,I’m aware (of) ... .,,0,ncic_2015_eng_byeol14_hwp
+56,CF-2015-3-2,Do you know (about) ... ?,,1,ncic_2015_eng_byeol14_hwp
+57,CF-2015-3-2,Have you heard (about) ... ?,,0,ncic_2015_eng_byeol14_hwp
+58,CF-2015-3-2,"You know ... (, don’t you)?",,0,ncic_2015_eng_byeol14_hwp
+59,CF-2015-3-2,Are you aware (of) ... ?,,0,ncic_2015_eng_byeol14_hwp
+60,CF-2015-3-3,I’m curious about ... .,,0,ncic_2015_eng_byeol14_hwp
+61,CF-2015-3-3,I wonder ... .,,0,ncic_2015_eng_byeol14_hwp
+62,CF-2015-3-3,I’d be (very) interested to know ... .,,0,ncic_2015_eng_byeol14_hwp
+63,CF-2015-3-3,Can someone tell me about ... ?,,0,ncic_2015_eng_byeol14_hwp
+64,CF-2015-3-4,I don’t know.,,1,ncic_2015_eng_byeol14_hwp
+65,CF-2015-3-4,I have no idea.,,1,ncic_2015_eng_byeol14_hwp
+66,CF-2015-3-4,I haven’t got a clue.,,0,ncic_2015_eng_byeol14_hwp
+67,CF-2015-3-5,I (don’t/can’t) remember ... .,,0,ncic_2015_eng_byeol14_hwp
+68,CF-2015-3-5,I (nearly/completely) forgot (about that).,,0,ncic_2015_eng_byeol14_hwp
+69,CF-2015-3-5,I’ll never forget ... .,,0,ncic_2015_eng_byeol14_hwp
+70,CF-2015-3-6,(Do/Don’t you) remember ... ?,,0,ncic_2015_eng_byeol14_hwp
+71,CF-2015-3-6,I wonder if you remember ... .,,0,ncic_2015_eng_byeol14_hwp
+72,CF-2015-3-6,"You haven’t forgotten about ..., have you?",,0,ncic_2015_eng_byeol14_hwp
+73,CF-2015-3-7,Remember to ... .,,0,ncic_2015_eng_byeol14_hwp
+74,CF-2015-3-7,Remind me to ... .,,0,ncic_2015_eng_byeol14_hwp
+75,CF-2015-3-7,Don’t forget to ... .,,0,ncic_2015_eng_byeol14_hwp
+76,CF-2015-3-8,I’m sure.,,1,ncic_2015_eng_byeol14_hwp
+77,CF-2015-3-8,Are you sure/certain about ... ?,,0,ncic_2015_eng_byeol14_hwp
+78,CF-2015-3-8,I have no doubt.,,0,ncic_2015_eng_byeol14_hwp
+79,CF-2015-3-8,I’m (not) (quite/fairly/absolutely) sure/certain ... .,,0,ncic_2015_eng_byeol14_hwp
+80,CF-2015-3-8,How sure are you that ... ?,,0,ncic_2015_eng_byeol14_hwp
+81,CF-2015-4-1,May/Can John ... ?,,0,ncic_2015_eng_byeol14_hwp
+82,CF-2015-4-1,Is Mary likely to ... ?,,0,ncic_2015_eng_byeol14_hwp
+83,CF-2015-4-1,Is it probable/likely/possible/ impossible that ... ?,,0,ncic_2015_eng_byeol14_hwp
+84,CF-2015-4-2,... may/can be changed.,,0,ncic_2015_eng_byeol14_hwp
+85,CF-2015-4-2,Perhaps/Possibly/Maybe they will ... .,,0,ncic_2015_eng_byeol14_hwp
+86,CF-2015-4-2,They should/ought to ... .,,0,ncic_2015_eng_byeol14_hwp
+87,CF-2015-4-2,It is probable/likely/possible/ impossible that ... .,,0,ncic_2015_eng_byeol14_hwp
+88,CF-2015-4-3,Must I ... ?,,0,ncic_2015_eng_byeol14_hwp
+89,CF-2015-4-3,Do I (really) have/need to (...) ?,,0,ncic_2015_eng_byeol14_hwp
+90,CF-2015-4-3,Is it necessary to ... ?,,0,ncic_2015_eng_byeol14_hwp
+91,CF-2015-4-4,You have to/must ... .,,0,ncic_2015_eng_byeol14_hwp
+92,CF-2015-4-4,You should/ought to ... .,,0,ncic_2015_eng_byeol14_hwp
+93,CF-2015-4-4,It is required to ... .,,0,ncic_2015_eng_byeol14_hwp
+94,CF-2015-4-4,You’re expected to ... .,,0,ncic_2015_eng_byeol14_hwp
+95,CF-2015-4-5,I don’t have to ... .,,0,ncic_2015_eng_byeol14_hwp
+96,CF-2015-4-5,I don’t need to ... .,,0,ncic_2015_eng_byeol14_hwp
+97,CF-2015-4-5,There’s no reason why I should ... .,,0,ncic_2015_eng_byeol14_hwp
+98,CF-2015-4-6,May/Can I ... ?,,1,ncic_2015_eng_byeol14_hwp
+99,CF-2015-4-6,Is it all right/okay if ... ?,,0,ncic_2015_eng_byeol14_hwp
+100,CF-2015-4-6,Do you mind if ... ?,,0,ncic_2015_eng_byeol14_hwp
+101,CF-2015-4-6,I wonder if I could ... .,,0,ncic_2015_eng_byeol14_hwp
+102,CF-2015-4-7,"(Yes,) you may/can ... .",,1,ncic_2015_eng_byeol14_hwp
+103,CF-2015-4-7,Of course.,,1,ncic_2015_eng_byeol14_hwp
+104,CF-2015-4-7,Sure./Okay./All right.,,1,ncic_2015_eng_byeol14_hwp
+105,CF-2015-4-7,I don’t mind (at all).,,0,ncic_2015_eng_byeol14_hwp
+106,CF-2015-4-8,"No, you can’t.",,1,ncic_2015_eng_byeol14_hwp
+107,CF-2015-4-8,You must not/may not ... .,,0,ncic_2015_eng_byeol14_hwp
+108,CF-2015-4-8,(I’m afraid) it’s/that’s not possible.,,0,ncic_2015_eng_byeol14_hwp
+109,CF-2015-4-8,You’re not allowed/supposed to ... .,,0,ncic_2015_eng_byeol14_hwp
+110,CF-2015-4-9,Can you ... ?,,1,ncic_2015_eng_byeol14_hwp
+111,CF-2015-4-9,Do you know how to ... ?,,0,ncic_2015_eng_byeol14_hwp
+112,CF-2015-4-9,Are you good at ... ?,,0,ncic_2015_eng_byeol14_hwp
+113,CF-2015-4-10,"(Sure/Yes,) I can ... .",,1,ncic_2015_eng_byeol14_hwp
+114,CF-2015-4-10,I was able to ... .,,0,ncic_2015_eng_byeol14_hwp
+115,CF-2015-4-10,I know how to ... .,,0,ncic_2015_eng_byeol14_hwp
+116,CF-2015-4-10,I’m (pretty) good at ... .,,0,ncic_2015_eng_byeol14_hwp
+117,CF-2015-4-11,I can’t ... .,,1,ncic_2015_eng_byeol14_hwp
+118,CF-2015-4-11,I don’t know how to ... .,,0,ncic_2015_eng_byeol14_hwp
+119,CF-2015-4-11,I’m not good at ... .,,0,ncic_2015_eng_byeol14_hwp
+120,CF-2015-5-1,I want (to) ... .,,1,ncic_2015_eng_byeol14_hwp
+121,CF-2015-5-1,I’d like ... .,,1,ncic_2015_eng_byeol14_hwp
+122,CF-2015-5-1,I look/am looking forward to ... .,,0,ncic_2015_eng_byeol14_hwp
+123,CF-2015-5-1,I wish I could ... .,,0,ncic_2015_eng_byeol14_hwp
+124,CF-2015-5-2,Do you want (to) ... ?,,1,ncic_2015_eng_byeol14_hwp
+125,CF-2015-5-2,Would you like ... ?,,1,ncic_2015_eng_byeol14_hwp
+126,CF-2015-5-2,Do you wish (you could) ... ?,,0,ncic_2015_eng_byeol14_hwp
+127,CF-2015-5-2,Are you looking forward to ... ?,,0,ncic_2015_eng_byeol14_hwp
+128,CF-2015-5-3,I’ll ... .,,0,ncic_2015_eng_byeol14_hwp
+129,CF-2015-5-3,I’m going to ... .,,0,ncic_2015_eng_byeol14_hwp
+130,CF-2015-5-3,I’m thinking of ... .,,0,ncic_2015_eng_byeol14_hwp
+131,CF-2015-5-3,I’m planning to ... .,,0,ncic_2015_eng_byeol14_hwp
+132,CF-2015-5-4,Will you ... ?,,0,ncic_2015_eng_byeol14_hwp
+133,CF-2015-5-4,Are you going to ... ?,,0,ncic_2015_eng_byeol14_hwp
+134,CF-2015-5-4,Are you thinking of ... ?,,0,ncic_2015_eng_byeol14_hwp
+135,CF-2015-5-4,Are you planning to ... ?,,0,ncic_2015_eng_byeol14_hwp
+136,CF-2015-6-1,That’s great!,,1,ncic_2015_eng_byeol14_hwp
+137,CF-2015-6-1,I’m/I feel (very/so) happy/glad.,,1,ncic_2015_eng_byeol14_hwp
+138,CF-2015-6-1,I’m (very) glad/delighted to ... .,,0,ncic_2015_eng_byeol14_hwp
+139,CF-2015-6-2,How sad.,,1,ncic_2015_eng_byeol14_hwp
+140,CF-2015-6-2,I’m/I feel (very/so) sad/unhappy.,,1,ncic_2015_eng_byeol14_hwp
+141,CF-2015-6-2,That makes me (really) sad.,,0,ncic_2015_eng_byeol14_hwp
+142,CF-2015-6-3,Are you happy/sad?,,1,ncic_2015_eng_byeol14_hwp
+143,CF-2015-6-3,Are you all right?,,1,ncic_2015_eng_byeol14_hwp
+144,CF-2015-6-3,How are you feeling?,,0,ncic_2015_eng_byeol14_hwp
+145,CF-2015-6-4,What’s wrong?,,1,ncic_2015_eng_byeol14_hwp
+146,CF-2015-6-4,What’s the matter?,,0,ncic_2015_eng_byeol14_hwp
+147,CF-2015-6-4,Why are you sad/disappointed?,,0,ncic_2015_eng_byeol14_hwp
+148,CF-2015-6-5,Don’t worry.,,1,ncic_2015_eng_byeol14_hwp
+149,CF-2015-6-5,(Come on!) Cheer up!,,1,ncic_2015_eng_byeol14_hwp
+150,CF-2015-6-5,Things will be better (soon).,,0,ncic_2015_eng_byeol14_hwp
+151,CF-2015-6-5,Don’t be disappointed/discouraged.,,0,ncic_2015_eng_byeol14_hwp
+152,CF-2015-6-6,That’s too bad.,,1,ncic_2015_eng_byeol14_hwp
+153,CF-2015-6-6,I’m (so/very) sorry to hear ... .,,0,ncic_2015_eng_byeol14_hwp
+154,CF-2015-6-6,That’s a pity/shame.,,0,ncic_2015_eng_byeol14_hwp
+155,CF-2015-6-7,I hope ... .,,0,ncic_2015_eng_byeol14_hwp
+156,CF-2015-6-7,I’m looking forward to ... .,,0,ncic_2015_eng_byeol14_hwp
+157,CF-2015-6-7,I can’t wait for ... .,,0,ncic_2015_eng_byeol14_hwp
+158,CF-2015-6-8,I’m/I feel (very) disappointed.,,0,ncic_2015_eng_byeol14_hwp
+159,CF-2015-6-8,That’s very disappointing.,,0,ncic_2015_eng_byeol14_hwp
+160,CF-2015-6-8,What a pity/shame!,,0,ncic_2015_eng_byeol14_hwp
+161,CF-2015-6-9,I’m worried (about ...).,,0,ncic_2015_eng_byeol14_hwp
+162,CF-2015-6-9,I’m (rather) worried/anxious,,0,ncic_2015_eng_byeol14_hwp
+163,CF-2015-6-9,(about ...).,,0,ncic_2015_eng_byeol14_hwp
+164,CF-2015-6-9,I’m scared/frightened/terrified,,0,ncic_2015_eng_byeol14_hwp
+165,CF-2015-6-9,(to ...).,,0,ncic_2015_eng_byeol14_hwp
+166,CF-2015-6-10,Are you afraid/scared/frightened of ... ?,,0,ncic_2015_eng_byeol14_hwp
+167,CF-2015-6-10,Are you worried/concerned/anxious about ... ?,,0,ncic_2015_eng_byeol14_hwp
+168,CF-2015-6-11,Don’t be frightened.,,0,ncic_2015_eng_byeol14_hwp
+169,CF-2015-6-11,(I’m sure) everything will be okay/all right.,,0,ncic_2015_eng_byeol14_hwp
+170,CF-2015-6-12,That’s a relief.,,0,ncic_2015_eng_byeol14_hwp
+171,CF-2015-6-12,What a relief!,,0,ncic_2015_eng_byeol14_hwp
+172,CF-2015-6-12,Thank goodness.,,0,ncic_2015_eng_byeol14_hwp
+173,CF-2015-6-12,I’m relieved/glad to hear ... .,,0,ncic_2015_eng_byeol14_hwp
+174,CF-2015-6-13,I like/love (to) ... .,,1,ncic_2015_eng_byeol14_hwp
+175,CF-2015-6-13,I enjoy ... (very much).,,0,ncic_2015_eng_byeol14_hwp
+176,CF-2015-6-13,... is (very) good/nice/pleasant.,,0,ncic_2015_eng_byeol14_hwp
+177,CF-2015-6-14,I don’t like (to) ... .,,1,ncic_2015_eng_byeol14_hwp
+178,CF-2015-6-14,I hate (to) ... .,,0,ncic_2015_eng_byeol14_hwp
+179,CF-2015-6-15,Do you like ... ?,,1,ncic_2015_eng_byeol14_hwp
+180,CF-2015-6-15,What do you like?,,1,ncic_2015_eng_byeol14_hwp
+181,CF-2015-6-15,What’s your favorite ... ?,,0,ncic_2015_eng_byeol14_hwp
+182,CF-2015-6-16,I prefer X to Y.,,0,ncic_2015_eng_byeol14_hwp
+183,CF-2015-6-16,I(’d) prefer (to) ... (if possible).,,0,ncic_2015_eng_byeol14_hwp
+184,CF-2015-6-16,I think X is better than/preferable to Y.,,0,ncic_2015_eng_byeol14_hwp
+185,CF-2015-6-17,Which do you prefer?,,0,ncic_2015_eng_byeol14_hwp
+186,CF-2015-6-17,Do you prefer X to/or Y?,,0,ncic_2015_eng_byeol14_hwp
+187,CF-2015-6-17,Do you like X better/more than Y?,,0,ncic_2015_eng_byeol14_hwp
+188,CF-2015-6-18,Good!/Fine!/Excellent!,,1,ncic_2015_eng_byeol14_hwp
+189,CF-2015-6-18,I’m (very) satisfied.,,0,ncic_2015_eng_byeol14_hwp
+190,CF-2015-6-18,That’ll do.,,0,ncic_2015_eng_byeol14_hwp
+191,CF-2015-6-19,I’m not satisfied/happy (with ...).,,0,ncic_2015_eng_byeol14_hwp
+192,CF-2015-6-19,That won’t do.,,0,ncic_2015_eng_byeol14_hwp
+193,CF-2015-6-19,This won’t work.,,0,ncic_2015_eng_byeol14_hwp
+194,CF-2015-6-20,Are you satisfied/happy (with ...)?,,0,ncic_2015_eng_byeol14_hwp
+195,CF-2015-6-20,How do you like/find ... ?,,0,ncic_2015_eng_byeol14_hwp
+196,CF-2015-6-20,Is this what you want(ed)/need/ meant/had in mind?,,0,ncic_2015_eng_byeol14_hwp
+197,CF-2015-6-21,It’s not fair.,,0,ncic_2015_eng_byeol14_hwp
+198,CF-2015-6-21,I’m not happy about ... .,,0,ncic_2015_eng_byeol14_hwp
+199,CF-2015-6-21,I want to complain about ... .,,0,ncic_2015_eng_byeol14_hwp
+200,CF-2015-6-21,You can’t possibly ... .,,0,ncic_2015_eng_byeol14_hwp
+201,CF-2015-6-22,I’m/I feel angry.,,1,ncic_2015_eng_byeol14_hwp
+202,CF-2015-6-22,I’m (rather/quite/very) upset/ annoyed (about ...).,,0,ncic_2015_eng_byeol14_hwp
+203,CF-2015-6-22,I can’t stand ... .,,0,ncic_2015_eng_byeol14_hwp
+204,CF-2015-6-22,... is (very) annoying/irritating.,,0,ncic_2015_eng_byeol14_hwp
+205,CF-2015-6-23,Calm down!,,0,ncic_2015_eng_byeol14_hwp
+206,CF-2015-6-23,Don’t get so angry/worked up!,,0,ncic_2015_eng_byeol14_hwp
+207,CF-2015-6-23,There’s nothing to get angry about.,,0,ncic_2015_eng_byeol14_hwp
+208,CF-2015-6-24,I’m interested in ... .,,0,ncic_2015_eng_byeol14_hwp
+209,CF-2015-6-24,... interests me (a lot/greatly).,,0,ncic_2015_eng_byeol14_hwp
+210,CF-2015-6-24,I’m fascinated by ... .,,0,ncic_2015_eng_byeol14_hwp
+211,CF-2015-6-24,How interesting!,,0,ncic_2015_eng_byeol14_hwp
+212,CF-2015-6-25,I’m not (very) interested in ... .,,0,ncic_2015_eng_byeol14_hwp
+213,CF-2015-6-25,I don’t have any/much interest in ... .,,0,ncic_2015_eng_byeol14_hwp
+214,CF-2015-6-25,How boring!,,0,ncic_2015_eng_byeol14_hwp
+215,CF-2015-6-26,Are you interested in ... ?,,0,ncic_2015_eng_byeol14_hwp
+216,CF-2015-6-26,What are you interested in?,,0,ncic_2015_eng_byeol14_hwp
+217,CF-2015-6-26,Do you find X interesting?,,0,ncic_2015_eng_byeol14_hwp
+218,CF-2015-6-27,What a surprise!,,1,ncic_2015_eng_byeol14_hwp
+219,CF-2015-6-27,That’s/It’s surprising!,,0,ncic_2015_eng_byeol14_hwp
+220,CF-2015-6-27,I (just) can’t believe this.,,0,ncic_2015_eng_byeol14_hwp
+221,CF-2015-6-27,I’m surprised that ... .,,0,ncic_2015_eng_byeol14_hwp
+222,CF-2015-6-28,Were you surprised?,,0,ncic_2015_eng_byeol14_hwp
+223,CF-2015-6-28,Does that surprise you?,,0,ncic_2015_eng_byeol14_hwp
+224,CF-2015-6-28,Are you surprised that ... ?,,0,ncic_2015_eng_byeol14_hwp
+225,CF-2015-7-1,You should/ought to ... .,,0,ncic_2015_eng_byeol14_hwp
+226,CF-2015-7-1,It’s right/wrong to ... .,,0,ncic_2015_eng_byeol14_hwp
+227,CF-2015-7-1,You must ... .,,0,ncic_2015_eng_byeol14_hwp
+228,CF-2015-7-1,You have to/have got to ... .,,0,ncic_2015_eng_byeol14_hwp
+229,CF-2015-7-1,You’re supposed to ... .,,0,ncic_2015_eng_byeol14_hwp
+230,CF-2015-7-2,(Very) good.,,1,ncic_2015_eng_byeol14_hwp
+231,CF-2015-7-2,That’s fine/excellent.,,1,ncic_2015_eng_byeol14_hwp
+232,CF-2015-7-2,Well done!,,1,ncic_2015_eng_byeol14_hwp
+233,CF-2015-7-2,You were (quite) right to ... .,,0,ncic_2015_eng_byeol14_hwp
+234,CF-2015-7-3,That’s/It’s not (very) good/nice.,,1,ncic_2015_eng_byeol14_hwp
+235,CF-2015-7-3,You shouldn’t/oughtn’t to have done that.,,0,ncic_2015_eng_byeol14_hwp
+236,CF-2015-7-3,I don’t/can’t approve (of ...).,,0,ncic_2015_eng_byeol14_hwp
+237,CF-2015-7-3,You ought to be ashamed (of yourself).,,0,ncic_2015_eng_byeol14_hwp
+238,CF-2015-7-4,How’s this?,,1,ncic_2015_eng_byeol14_hwp
+239,CF-2015-7-4,What do you think of ... ?,,0,ncic_2015_eng_byeol14_hwp
+240,CF-2015-7-4,How do you find ... ?,,0,ncic_2015_eng_byeol14_hwp
+241,CF-2015-7-4,Do you approve (of) ... ?,,0,ncic_2015_eng_byeol14_hwp
+242,CF-2015-7-5,It’s (all) your fault.,,0,ncic_2015_eng_byeol14_hwp
+243,CF-2015-7-5,You’re to blame.,,0,ncic_2015_eng_byeol14_hwp
+244,CF-2015-7-5,It’s (all) my fault.,,0,ncic_2015_eng_byeol14_hwp
+245,CF-2015-7-5,It’s (all) because of you.,,0,ncic_2015_eng_byeol14_hwp
+246,CF-2015-7-6,It isn’t/wasn’t my fault.,,0,ncic_2015_eng_byeol14_hwp
+247,CF-2015-7-6,Don’t blame me.,,0,ncic_2015_eng_byeol14_hwp
+248,CF-2015-7-6,It was a(n honest) mistake.,,0,ncic_2015_eng_byeol14_hwp
+249,CF-2015-7-7,(I’m so/very) sorry (about that).,,1,ncic_2015_eng_byeol14_hwp
+250,CF-2015-7-7,Please forgive me.,,0,ncic_2015_eng_byeol14_hwp
+251,CF-2015-7-7,I apologize.,,0,ncic_2015_eng_byeol14_hwp
+252,CF-2015-7-8,Not at all.,,1,ncic_2015_eng_byeol14_hwp
+253,CF-2015-7-8,(That’s/It’s) okay.,,1,ncic_2015_eng_byeol14_hwp
+254,CF-2015-7-8,Forget it.,,1,ncic_2015_eng_byeol14_hwp
+255,CF-2015-7-8,It doesn’t matter.,,1,ncic_2015_eng_byeol14_hwp
+256,CF-2015-7-8,No problem.,,0,ncic_2015_eng_byeol14_hwp
+257,CF-2015-7-8,Never mind.,,0,ncic_2015_eng_byeol14_hwp
+258,CF-2015-8-1,Let’s ... .,,1,ncic_2015_eng_byeol14_hwp
+259,CF-2015-8-1,What/How about ... ?,,1,ncic_2015_eng_byeol14_hwp
+260,CF-2015-8-1,Why don’t we/you ... ?,,0,ncic_2015_eng_byeol14_hwp
+261,CF-2015-8-1,Can you make it (at ten)?,,0,ncic_2015_eng_byeol14_hwp
+262,CF-2015-8-1,You’d better ... .,,0,ncic_2015_eng_byeol14_hwp
+263,CF-2015-8-1,(I think) you should/ought to ... .,,0,ncic_2015_eng_byeol14_hwp
+264,CF-2015-8-1,Would you like (me) to ... ?,,0,ncic_2015_eng_byeol14_hwp
+265,CF-2015-8-1,I suggest (that) we ... .,,0,ncic_2015_eng_byeol14_hwp
+266,CF-2015-8-2,Can I help you?,,1,ncic_2015_eng_byeol14_hwp
+267,CF-2015-8-2,Let me help you.,,0,ncic_2015_eng_byeol14_hwp
+268,CF-2015-8-2,Can I give you a hand?,,0,ncic_2015_eng_byeol14_hwp
+269,CF-2015-8-3,"(Please,) open the door.",,1,ncic_2015_eng_byeol14_hwp
+270,CF-2015-8-3,"Can you ...(, please)?",,0,ncic_2015_eng_byeol14_hwp
+271,CF-2015-8-3,Could I ask you to ... ?,,0,ncic_2015_eng_byeol14_hwp
+272,CF-2015-8-3,Do/Would you mind closing the window?,,0,ncic_2015_eng_byeol14_hwp
+273,CF-2015-8-4,Yes!/Okay!,,1,ncic_2015_eng_byeol14_hwp
+274,CF-2015-8-4,Sure!/All right!,,1,ncic_2015_eng_byeol14_hwp
+275,CF-2015-8-4,No problem.,,1,ncic_2015_eng_byeol14_hwp
+276,CF-2015-8-4,(That) sounds good.,,1,ncic_2015_eng_byeol14_hwp
+277,CF-2015-8-4,"Sorry ..., but ... .",,1,ncic_2015_eng_byeol14_hwp
+278,CF-2015-8-4,"No, thank you.",,1,ncic_2015_eng_byeol14_hwp
+279,CF-2015-8-4,"Thank you, but ... .",,0,ncic_2015_eng_byeol14_hwp
+280,CF-2015-8-4,(I’m) sorry but I can’t.,,0,ncic_2015_eng_byeol14_hwp
+281,CF-2015-8-4,I’m afraid I can’t ... .,,0,ncic_2015_eng_byeol14_hwp
+282,CF-2015-8-5,(I think) you should/ought to ... .,,0,ncic_2015_eng_byeol14_hwp
+283,CF-2015-8-5,Why don’t you ... ?,,0,ncic_2015_eng_byeol14_hwp
+284,CF-2015-8-5,You’d better ... .,,0,ncic_2015_eng_byeol14_hwp
+285,CF-2015-8-5,"If I were you, I’d ... .",,0,ncic_2015_eng_byeol14_hwp
+286,CF-2015-8-6,Do you think I should ... ?,,0,ncic_2015_eng_byeol14_hwp
+287,CF-2015-8-6,Can I get your advice on ... ?,,0,ncic_2015_eng_byeol14_hwp
+288,CF-2015-8-6,What would you do if ... ?,,0,ncic_2015_eng_byeol14_hwp
+289,CF-2015-8-7,Don’t ... .,,1,ncic_2015_eng_byeol14_hwp
+290,CF-2015-8-7,Be careful.,,1,ncic_2015_eng_byeol14_hwp
+291,CF-2015-8-7,Watch/Look out (for ...)!,,1,ncic_2015_eng_byeol14_hwp
+292,CF-2015-8-7,Make sure you don’t ... .,,0,ncic_2015_eng_byeol14_hwp
+293,CF-2015-8-8,"May/Can I ... (, please)?",,1,ncic_2015_eng_byeol14_hwp
+294,CF-2015-8-8,Let me ... .,,0,ncic_2015_eng_byeol14_hwp
+295,CF-2015-8-8,Do you mind if ... ?,,0,ncic_2015_eng_byeol14_hwp
+296,CF-2015-8-8,Would it be possible ... ?,,0,ncic_2015_eng_byeol14_hwp
+297,CF-2015-8-8,I was wondering if I could ... ?,,0,ncic_2015_eng_byeol14_hwp
+298,CF-2015-8-9,Yes./Okay./All right.,,1,ncic_2015_eng_byeol14_hwp
+299,CF-2015-8-9,Sure./Of course.,,1,ncic_2015_eng_byeol14_hwp
+300,CF-2015-8-9,"(Yes,) you can.",,1,ncic_2015_eng_byeol14_hwp
+301,CF-2015-8-9,"(No,) you can’t.",,1,ncic_2015_eng_byeol14_hwp
+302,CF-2015-8-9,Not at all.,,0,ncic_2015_eng_byeol14_hwp
+303,CF-2015-8-9,(I’m afraid) that’s/it’s not possible.,,0,ncic_2015_eng_byeol14_hwp
+304,CF-2015-8-10,Don’t ... .,,1,ncic_2015_eng_byeol14_hwp
+305,CF-2015-8-10,You mustn’t/can’t/shouldn’t ... .,,0,ncic_2015_eng_byeol14_hwp
+306,CF-2015-8-10,You’d better not ... .,,0,ncic_2015_eng_byeol14_hwp
+307,CF-2015-9-1,Hey!,,1,ncic_2015_eng_byeol14_hwp
+308,CF-2015-9-1,"(Oh,) look/listen.",,1,ncic_2015_eng_byeol14_hwp
+309,CF-2015-9-1,"May I have your attention(, please)?",,0,ncic_2015_eng_byeol14_hwp
+310,CF-2015-9-2,Hi!/Hello!,,1,ncic_2015_eng_byeol14_hwp
+311,CF-2015-9-2,Good morning/afternoon/evening.,,1,ncic_2015_eng_byeol14_hwp
+312,CF-2015-9-2,Good/Nice to see you (again)!,,0,ncic_2015_eng_byeol14_hwp
+313,CF-2015-9-2,How do you DO?,,0,ncic_2015_eng_byeol14_hwp
+314,CF-2015-9-2,How do YOU do?,,0,ncic_2015_eng_byeol14_hwp
+315,CF-2015-9-3,How are you (today)?,,1,ncic_2015_eng_byeol14_hwp
+316,CF-2015-9-3,How’s it going?,,1,ncic_2015_eng_byeol14_hwp
+317,CF-2015-9-3,How are you doing?,,0,ncic_2015_eng_byeol14_hwp
+318,CF-2015-9-3,What's up?,,0,ncic_2015_eng_byeol14_hwp
+319,CF-2015-9-3,How have you/things been?,,0,ncic_2015_eng_byeol14_hwp
+320,CF-2015-9-4,"(I’m) okay (, thanks/thank you).",,1,ncic_2015_eng_byeol14_hwp
+321,CF-2015-9-4,"(I’m) fine/very well (, thanks/thank you).",,1,ncic_2015_eng_byeol14_hwp
+322,CF-2015-9-4,"Not (too/so) bad (, thanks/thank you).",,1,ncic_2015_eng_byeol14_hwp
+323,CF-2015-9-5,Say hello to ... (for me).,,0,ncic_2015_eng_byeol14_hwp
+324,CF-2015-9-5,Please give my regards to ... .,,0,ncic_2015_eng_byeol14_hwp
+325,CF-2015-9-5,Remember me to ... .,,0,ncic_2015_eng_byeol14_hwp
+326,CF-2015-9-6,Mr./Miss/Mrs./Ms. ...,,1,ncic_2015_eng_byeol14_hwp
+327,CF-2015-9-6,Doctor/Professor/Director Brown.,,0,ncic_2015_eng_byeol14_hwp
+328,CF-2015-9-6,How/What do you want me to call you?,,0,ncic_2015_eng_byeol14_hwp
+329,CF-2015-9-7,I’m ... .,,1,ncic_2015_eng_byeol14_hwp
+330,CF-2015-9-7,My name is ... .,,1,ncic_2015_eng_byeol14_hwp
+331,CF-2015-9-7,Let me introduce myself (to you).,,0,ncic_2015_eng_byeol14_hwp
+332,CF-2015-9-7,I’m ... .,,0,ncic_2015_eng_byeol14_hwp
+333,CF-2015-9-8,"X, this is Y.",,1,ncic_2015_eng_byeol14_hwp
+334,CF-2015-9-8,I’d like you to meet ... .,,0,ncic_2015_eng_byeol14_hwp
+335,CF-2015-9-8,I’d like to introduce ... .,,0,ncic_2015_eng_byeol14_hwp
+336,CF-2015-9-9,(It’s) nice/good to meet you.,,1,ncic_2015_eng_byeol14_hwp
+337,CF-2015-9-9,(I’m) (very) pleased to meet you.,,0,ncic_2015_eng_byeol14_hwp
+338,CF-2015-9-9,It’s a pleasure to meet/meeting you.,,0,ncic_2015_eng_byeol14_hwp
+339,CF-2015-9-9,I’ve been looking forward to meeting you.,,0,ncic_2015_eng_byeol14_hwp
+340,CF-2015-9-10,Do you know each other?,,0,ncic_2015_eng_byeol14_hwp
+341,CF-2015-9-10,Have you already met ... ?,,0,ncic_2015_eng_byeol14_hwp
+342,CF-2015-9-10,"I think you (two) know/have met each other, don’t/haven’t you?",,0,ncic_2015_eng_byeol14_hwp
+343,CF-2015-9-11,Welcome!,,1,ncic_2015_eng_byeol14_hwp
+344,CF-2015-9-11,Glad you’re here.,,0,ncic_2015_eng_byeol14_hwp
+345,CF-2015-9-11,Glad you could come.,,0,ncic_2015_eng_byeol14_hwp
+346,CF-2015-9-12,(Please) help yourself.,,1,ncic_2015_eng_byeol14_hwp
+347,CF-2015-9-12,Please go ahead.,,1,ncic_2015_eng_byeol14_hwp
+348,CF-2015-9-12,Please try some ... .,,0,ncic_2015_eng_byeol14_hwp
+349,CF-2015-9-12,Would you like some ... ?,,0,ncic_2015_eng_byeol14_hwp
+350,CF-2015-9-12,Do you want some more ... ?,,0,ncic_2015_eng_byeol14_hwp
+351,CF-2015-9-13,"(Yes,) thanks/thank you.",,1,ncic_2015_eng_byeol14_hwp
+352,CF-2015-9-13,"Yes, please.",,1,ncic_2015_eng_byeol14_hwp
+353,CF-2015-9-13,"No, thanks/thank you. (I’d rather have some ... .)",,1,ncic_2015_eng_byeol14_hwp
+354,CF-2015-9-13,That would be very nice.,,0,ncic_2015_eng_byeol14_hwp
+355,CF-2015-9-13,"Thanks, it/everything looks delicious.",,0,ncic_2015_eng_byeol14_hwp
+356,CF-2015-9-14,Thanks (a lot)/Thank you (very/so much).,,1,ncic_2015_eng_byeol14_hwp
+357,CF-2015-9-14,Thanks for ... .,,0,ncic_2015_eng_byeol14_hwp
+358,CF-2015-9-14,I (really) (do) appreciate your help/ what you’ve done.,,0,ncic_2015_eng_byeol14_hwp
+359,CF-2015-9-15,Sure.,,1,ncic_2015_eng_byeol14_hwp
+360,CF-2015-9-15,You’re welcome.,,1,ncic_2015_eng_byeol14_hwp
+361,CF-2015-9-15,No problem.,,1,ncic_2015_eng_byeol14_hwp
+362,CF-2015-9-15,(It was) my pleasure.,,1,ncic_2015_eng_byeol14_hwp
+363,CF-2015-9-15,Don’t mention it.,,0,ncic_2015_eng_byeol14_hwp
+364,CF-2015-9-16,Congratulations (on ...)!,,1,ncic_2015_eng_byeol14_hwp
+365,CF-2015-9-16,(Very) good!,,1,ncic_2015_eng_byeol14_hwp
+366,CF-2015-9-16,Good (for you)!,,1,ncic_2015_eng_byeol14_hwp
+367,CF-2015-9-16,What a nice ... !,,1,ncic_2015_eng_byeol14_hwp
+368,CF-2015-9-16,How ... she is!,,1,ncic_2015_eng_byeol14_hwp
+369,CF-2015-9-16,Great!/Excellent!,,1,ncic_2015_eng_byeol14_hwp
+370,CF-2015-9-16,(You did a) good (work/job)!,,0,ncic_2015_eng_byeol14_hwp
+371,CF-2015-9-16,How ... she is!,,0,ncic_2015_eng_byeol14_hwp
+372,CF-2015-9-17,You can do it!,,1,ncic_2015_eng_byeol14_hwp
+373,CF-2015-9-17,Don’t give up!,,0,ncic_2015_eng_byeol14_hwp
+374,CF-2015-9-17,That’s all right. (You’ll do better next time).,,0,ncic_2015_eng_byeol14_hwp
+375,CF-2015-9-18,Thanks/Thank you (very much).,,1,ncic_2015_eng_byeol14_hwp
+376,CF-2015-9-18,"You, too!",,1,ncic_2015_eng_byeol14_hwp
+377,CF-2015-9-18,I’m glad you like ... .,,0,ncic_2015_eng_byeol14_hwp
+378,CF-2015-9-18,How nice (of you)!,,0,ncic_2015_eng_byeol14_hwp
+379,CF-2015-9-19,Happy birthday/New Year/... !,,1,ncic_2015_eng_byeol14_hwp
+380,CF-2015-9-19,Good luck (with your .../the ...)!,,1,ncic_2015_eng_byeol14_hwp
+381,CF-2015-9-19,Have a good/nice ... !,,1,ncic_2015_eng_byeol14_hwp
+382,CF-2015-9-19,I’ll keep my fingers crossed!,,0,ncic_2015_eng_byeol14_hwp
+383,CF-2015-9-19,I hope/wish ... .,,0,ncic_2015_eng_byeol14_hwp
+384,CF-2015-9-20,Bye(-bye).,,1,ncic_2015_eng_byeol14_hwp
+385,CF-2015-9-20,Goodbye.,,1,ncic_2015_eng_byeol14_hwp
+386,CF-2015-9-20,Take care.,,1,ncic_2015_eng_byeol14_hwp
+387,CF-2015-9-20,(Have a) nice day/good night.,,1,ncic_2015_eng_byeol14_hwp
+388,CF-2015-9-20,See you (later/again/tomorrow).,,1,ncic_2015_eng_byeol14_hwp
+389,CF-2015-10-1,(Now) let’s talk about ... .,,0,ncic_2015_eng_byeol14_hwp
+390,CF-2015-10-1,I’d like to say something about ... .,,0,ncic_2015_eng_byeol14_hwp
+391,CF-2015-10-1,I’d like to tell you what ... .,,0,ncic_2015_eng_byeol14_hwp
+392,CF-2015-10-2,"(Well,) I think/feel/believe ... .",,1,ncic_2015_eng_byeol14_hwp
+393,CF-2015-10-2,It seems to me ... .,,0,ncic_2015_eng_byeol14_hwp
+394,CF-2015-10-2,"In my view/opinion, ... .",,0,ncic_2015_eng_byeol14_hwp
+395,CF-2015-10-3,What do you think (of/about ...)?,,0,ncic_2015_eng_byeol14_hwp
+396,CF-2015-10-3,How do you feel about ... ?,,0,ncic_2015_eng_byeol14_hwp
+397,CF-2015-10-3,What is your view/opinion?,,0,ncic_2015_eng_byeol14_hwp
+398,CF-2015-10-4,First ... . Second ... . Third ... .,,0,ncic_2015_eng_byeol14_hwp
+399,CF-2015-10-4,"First ..., then ..., then ... .",,0,ncic_2015_eng_byeol14_hwp
+400,CF-2015-10-5,It is important to/that ... .,,0,ncic_2015_eng_byeol14_hwp
+401,CF-2015-10-5,I want to stress ... .,,0,ncic_2015_eng_byeol14_hwp
+402,CF-2015-10-6,X/This means ... .,,0,ncic_2015_eng_byeol14_hwp
+403,CF-2015-10-6,The meaning of X/this is ... .,,0,ncic_2015_eng_byeol14_hwp
+404,CF-2015-10-7,"In short, ... .",,0,ncic_2015_eng_byeol14_hwp
+405,CF-2015-10-7,"In brief, ... .",,0,ncic_2015_eng_byeol14_hwp
+406,CF-2015-10-7,"To sum up, ... .",,0,ncic_2015_eng_byeol14_hwp
+407,CF-2015-10-8,"By the way, ... .",,0,ncic_2015_eng_byeol14_hwp
+408,CF-2015-10-8,Let’s move on to ... .,,0,ncic_2015_eng_byeol14_hwp
+409,CF-2015-10-8,I’d like to say something else ... .,,0,ncic_2015_eng_byeol14_hwp
+410,CF-2015-10-9,I see.,,1,ncic_2015_eng_byeol14_hwp
+411,CF-2015-10-9,I (don’t) understand.,,1,ncic_2015_eng_byeol14_hwp
+412,CF-2015-10-9,It (still) isn’t clear to me what this means.,,0,ncic_2015_eng_byeol14_hwp
+413,CF-2015-10-9,10.10 대화에 끼어들기,,0,ncic_2015_eng_byeol14_hwp
+414,CF-2015-10-9,Excuse me.,,1,ncic_2015_eng_byeol14_hwp
+415,CF-2015-10-9,Can I say something?,,0,ncic_2015_eng_byeol14_hwp
+416,CF-2015-10-9,Can I interrupt you for a moment?,,0,ncic_2015_eng_byeol14_hwp
+417,CF-2015-10-11,Hello?,,1,ncic_2015_eng_byeol14_hwp
+418,CF-2015-10-11,(This is) ... (speaking/here).,,0,ncic_2015_eng_byeol14_hwp
+419,CF-2015-10-11,"May/Can I speak to ..., please?",,0,ncic_2015_eng_byeol14_hwp
+420,CF-2015-10-11,"Who’s calling, please?",,0,ncic_2015_eng_byeol14_hwp
+421,CF-2015-10-11,"Could you put me through to ..., please?",,0,ncic_2015_eng_byeol14_hwp
+422,CF-2015-10-11,"Just a moment, please.",,0,ncic_2015_eng_byeol14_hwp
+423,CF-2015-10-11,Can I leave/take a message?,,0,ncic_2015_eng_byeol14_hwp
+424,CF-2015-10-11,"(Sorry, but) can I call you back?",,0,ncic_2015_eng_byeol14_hwp
+425,CF-2015-11-1,Too fast.,,1,ncic_2015_eng_byeol14_hwp
+426,CF-2015-11-1,"Slow down (, please).",,1,ncic_2015_eng_byeol14_hwp
+427,CF-2015-11-1,"(Can you speak) more slowly, please?",,0,ncic_2015_eng_byeol14_hwp
+428,CF-2015-11-2,(I’m) sorry?,,1,ncic_2015_eng_byeol14_hwp
+429,CF-2015-11-2,What (did you say)?,,1,ncic_2015_eng_byeol14_hwp
+430,CF-2015-11-2,(I beg your) pardon?,,1,ncic_2015_eng_byeol14_hwp
+431,CF-2015-11-2,(Sorry/I’m afraid) I don’t know what you mean/meant.,,0,ncic_2015_eng_byeol14_hwp
+432,CF-2015-11-2,"Would you say that again(, please)?",,0,ncic_2015_eng_byeol14_hwp
+433,CF-2015-11-3,(I said) X.,,1,ncic_2015_eng_byeol14_hwp
+434,CF-2015-11-3,I said that ... .,,0,ncic_2015_eng_byeol14_hwp
+435,CF-2015-11-3,What I said was X.,,0,ncic_2015_eng_byeol14_hwp
+436,CF-2015-11-4,Did you say X?,,1,ncic_2015_eng_byeol14_hwp
+437,CF-2015-11-4,Are you sure?,,1,ncic_2015_eng_byeol14_hwp
+438,CF-2015-11-4,Do/Did you mean ... ?,,0,ncic_2015_eng_byeol14_hwp
+439,CF-2015-11-4,"He lives in Seoul, doesn’t he?",,0,ncic_2015_eng_byeol14_hwp
+440,CF-2015-11-5,What is X (exactly)?,,1,ncic_2015_eng_byeol14_hwp
+441,CF-2015-11-5,What do you mean by X?,,0,ncic_2015_eng_byeol14_hwp
+442,CF-2015-11-5,Could you explain ... ?,,0,ncic_2015_eng_byeol14_hwp
+443,CF-2015-11-6,How do you spell ... ?,,1,ncic_2015_eng_byeol14_hwp
+444,CF-2015-11-6,"Could you spell that, please?",,0,ncic_2015_eng_byeol14_hwp
+445,CF-2015-11-6,"Could you write that down (for me), please?",,0,ncic_2015_eng_byeol14_hwp
+446,CF-2015-11-7,B-A-G.,,1,ncic_2015_eng_byeol14_hwp
+447,CF-2015-11-7,‘Bag’ is spelt B-A-G.,,0,ncic_2015_eng_byeol14_hwp
+448,CF-2015-11-7,It’s spelt with a capital ‘P’.,,0,ncic_2015_eng_byeol14_hwp
+449,CF-2015-11-8,What is X (in English)?,,1,ncic_2015_eng_byeol14_hwp
+450,CF-2015-11-8,Do you say ... (or ...)?,,0,ncic_2015_eng_byeol14_hwp
+451,CF-2015-11-8,I don’t know how to say it.,,0,ncic_2015_eng_byeol14_hwp
+452,CF-2015-11-8,How would/do you say this in,,0,ncic_2015_eng_byeol14_hwp
+453,CF-2015-11-8,English/Korean?,,0,ncic_2015_eng_byeol14_hwp
+454,CF-2015-11-9,X.,,1,ncic_2015_eng_byeol14_hwp
+455,CF-2015-11-9,Do you mean X?,,0,ncic_2015_eng_byeol14_hwp
+456,CF-2015-11-9,I think you mean ... ?,,0,ncic_2015_eng_byeol14_hwp
+457,CF-2015-11-9,In English/Korean we say ... .,,0,ncic_2015_eng_byeol14_hwp
+458,CF-2015-11-10,Do you understand?,,1,ncic_2015_eng_byeol14_hwp
+459,CF-2015-11-10,Do you see/know what I mean?,,0,ncic_2015_eng_byeol14_hwp
+460,CF-2015-11-10,Is this/everything clear (now)?,,0,ncic_2015_eng_byeol14_hwp
+461,CF-2015-11-11,"(No,) I mean Y (not X) ... .",,0,ncic_2015_eng_byeol14_hwp
+462,CF-2015-11-11,(I’m afraid) that’s wrong/not right.,,0,ncic_2015_eng_byeol14_hwp
+463,CF-2015-11-11,That’s not (exactly) what I meant to say.,,0,ncic_2015_eng_byeol14_hwp
+464,CF-2015-11-12,Let me see/think.,,0,ncic_2015_eng_byeol14_hwp
+465,CF-2015-11-12,Just a moment (while I think).,,0,ncic_2015_eng_byeol14_hwp
+466,CF-2015-11-12,May I think about that for a moment?,,0,ncic_2015_eng_byeol14_hwp
+467,CF-2022-1-1,(정체) 확인하기와 상술하기,,0,ncic_2022_eng_byeol14_hwp
+468,CF-2022-1-2,진술하기와 보고하기,,0,ncic_2022_eng_byeol14_hwp
+469,CF-2022-1-3,수정하기,,0,ncic_2022_eng_byeol14_hwp
+470,CF-2022-1-4,질문하고 답하기,,0,ncic_2022_eng_byeol14_hwp
+471,CF-2022-1-4,Ⅱ.,,0,ncic_2022_eng_byeol14_hwp
+472,CF-2022-1-4,태도,,0,ncic_2022_eng_byeol14_hwp
+473,CF-2022-1-4,및,,0,ncic_2022_eng_byeol14_hwp
+474,CF-2022-1-4,의견,,0,ncic_2022_eng_byeol14_hwp
+475,CF-2022-1-1,동의하기,,0,ncic_2022_eng_byeol14_hwp
+476,CF-2022-1-2,이의 제기하거나 부인하기,,0,ncic_2022_eng_byeol14_hwp
+477,CF-2022-1-3,동의나 이의 여부 묻기,,0,ncic_2022_eng_byeol14_hwp
+478,CF-2022-2-1,알거나 모름 표현하기,,0,ncic_2022_eng_byeol14_hwp
+479,CF-2022-2-2,궁금증 표현하기,,0,ncic_2022_eng_byeol14_hwp
+480,CF-2022-2-3,기억이나 망각 표현하기,,0,ncic_2022_eng_byeol14_hwp
+481,CF-2022-2-4,상기시키기,,0,ncic_2022_eng_byeol14_hwp
+482,CF-2022-2-5,확실성 정도 표현하기,,0,ncic_2022_eng_byeol14_hwp
+483,CF-2022-3-1,가능성 정도 표현하기,,0,ncic_2022_eng_byeol14_hwp
+484,CF-2022-3-2,의무 표현하기,,0,ncic_2022_eng_byeol14_hwp
+485,CF-2022-3-3,허가 표현하기,,0,ncic_2022_eng_byeol14_hwp
+486,CF-2022-3-4,능력 유무 표현하기,,0,ncic_2022_eng_byeol14_hwp
+487,CF-2022-4-1,"바람, 소원, 요망 표현하기",,0,ncic_2022_eng_byeol14_hwp
+488,CF-2022-4-2,의도 표현하기,,0,ncic_2022_eng_byeol14_hwp
+489,CF-2022-5-1,"기쁨, 즐거움 표현하기",,0,ncic_2022_eng_byeol14_hwp
+490,CF-2022-5-2,"희망, 기대 표현하기",,0,ncic_2022_eng_byeol14_hwp
+491,CF-2022-5-3,"슬픔, 화 표현하기",,0,ncic_2022_eng_byeol14_hwp
+492,CF-2022-5-4,"불만족, 실망 표현하기",,0,ncic_2022_eng_byeol14_hwp
+493,CF-2022-5-5,"걱정, 두려움 표현하기",,0,ncic_2022_eng_byeol14_hwp
+494,CF-2022-5-6,감정이나 상태 묻기,,0,ncic_2022_eng_byeol14_hwp
+495,CF-2022-5-7,위로하기와 안심시키기,,0,ncic_2022_eng_byeol14_hwp
+496,CF-2022-5-8,유감이나 동정 표현하기,,0,ncic_2022_eng_byeol14_hwp
+497,CF-2022-5-9,공감 표현하기,,0,ncic_2022_eng_byeol14_hwp
+498,CF-2022-5-10,화냄에 응대하기,,0,ncic_2022_eng_byeol14_hwp
+499,CF-2022-5-11,안도감 표현하기,,0,ncic_2022_eng_byeol14_hwp
+500,CF-2022-5-12,좋아하거나 싫어하는 것 표현하기,,0,ncic_2022_eng_byeol14_hwp
+501,CF-2022-5-13,선호 표현하기,,0,ncic_2022_eng_byeol14_hwp
+502,CF-2022-5-14,만족이나 불만족 표현하기,,0,ncic_2022_eng_byeol14_hwp
+503,CF-2022-5-15,불평하기,,0,ncic_2022_eng_byeol14_hwp
+504,CF-2022-5-16,관심이나 무관심 표현하기,,0,ncic_2022_eng_byeol14_hwp
+505,CF-2022-5-17,놀람 표현하기,,0,ncic_2022_eng_byeol14_hwp
+506,CF-2022-6-1,도덕적 의무 표현하기,,0,ncic_2022_eng_byeol14_hwp
+507,CF-2022-6-2,승인이나 거부 표현하기,,0,ncic_2022_eng_byeol14_hwp
+508,CF-2022-6-3,비난 표현하기,,0,ncic_2022_eng_byeol14_hwp
+509,CF-2022-7-1,제안⋅권유하기,,0,ncic_2022_eng_byeol14_hwp
+510,CF-2022-7-2,도움 제안이나 요청하기,,0,ncic_2022_eng_byeol14_hwp
+511,CF-2022-7-3,"(도움) 제안, 권유, 요청에 답하기",,0,ncic_2022_eng_byeol14_hwp
+512,CF-2022-7-4,충고하거나 구하기,,0,ncic_2022_eng_byeol14_hwp
+513,CF-2022-7-5,허락 요청하고 답하기,,0,ncic_2022_eng_byeol14_hwp
+514,CF-2022-7-6,행동이나 방향 지시하기,,0,ncic_2022_eng_byeol14_hwp
+515,CF-2022-7-7,경고하기,,0,ncic_2022_eng_byeol14_hwp
+516,CF-2022-7-8,금지하기,,0,ncic_2022_eng_byeol14_hwp
+517,CF-2022-7-8,Ⅲ.,,0,ncic_2022_eng_byeol14_hwp
+518,CF-2022-7-8,담화와,,0,ncic_2022_eng_byeol14_hwp
+519,CF-2022-7-8,글,,0,ncic_2022_eng_byeol14_hwp
+520,CF-2022-1-1,주의 끌기,,0,ncic_2022_eng_byeol14_hwp
+521,CF-2022-1-2,만날 때 인사하기,,0,ncic_2022_eng_byeol14_hwp
+522,CF-2022-1-3,호칭하기,,0,ncic_2022_eng_byeol14_hwp
+523,CF-2022-1-4,안부 묻고 답하기,,0,ncic_2022_eng_byeol14_hwp
+524,CF-2022-1-5,제삼자에게 안부 부탁하기,,0,ncic_2022_eng_byeol14_hwp
+525,CF-2022-1-6,소개하기와 소개에 답하기,,0,ncic_2022_eng_byeol14_hwp
+526,CF-2022-1-7,소개가 필요한지 묻기,,0,ncic_2022_eng_byeol14_hwp
+527,CF-2022-1-8,환영하기,,0,ncic_2022_eng_byeol14_hwp
+528,CF-2022-1-9,음식 권하고 답하기,,0,ncic_2022_eng_byeol14_hwp
+529,CF-2022-1-10,감사 표현하고 답하기,,0,ncic_2022_eng_byeol14_hwp
+530,CF-2022-1-11,사과하고 수용하기,,0,ncic_2022_eng_byeol14_hwp
+531,CF-2022-1-12,"축하, 칭찬하기",,0,ncic_2022_eng_byeol14_hwp
+532,CF-2022-1-13,격려하기,,0,ncic_2022_eng_byeol14_hwp
+533,CF-2022-1-14,기원하기,,0,ncic_2022_eng_byeol14_hwp
+534,CF-2022-1-15,헤어질 때 인사하기,,0,ncic_2022_eng_byeol14_hwp
+535,CF-2022-2-1,대화 시작하기,,0,ncic_2022_eng_byeol14_hwp
+536,CF-2022-2-2,내용 시작⋅전환 알리기,,0,ncic_2022_eng_byeol14_hwp
+537,CF-2022-2-3,주제 소개하기,,0,ncic_2022_eng_byeol14_hwp
+538,CF-2022-2-4,질문 요청⋅응대하기,,0,ncic_2022_eng_byeol14_hwp
+539,CF-2022-2-5,의견 묻거나 표현하기,,0,ncic_2022_eng_byeol14_hwp
+540,CF-2022-2-6,예시 들기,,0,ncic_2022_eng_byeol14_hwp
+541,CF-2022-2-7,열거하기,,0,ncic_2022_eng_byeol14_hwp
+542,CF-2022-2-8,강조하기,,0,ncic_2022_eng_byeol14_hwp
+543,CF-2022-2-9,정의하기,,0,ncic_2022_eng_byeol14_hwp
+544,CF-2022-2-10,요약하기,,0,ncic_2022_eng_byeol14_hwp
+545,CF-2022-2-11,주제 바꾸기,,0,ncic_2022_eng_byeol14_hwp
+546,CF-2022-2-12,대화에 끼어들기,,0,ncic_2022_eng_byeol14_hwp
+547,CF-2022-2-13,대화 종료하기,,0,ncic_2022_eng_byeol14_hwp
+548,CF-2022-2-14,매체 사용하기,,0,ncic_2022_eng_byeol14_hwp
+549,CF-2022-3-1,반복 요청하고 답하기,,0,ncic_2022_eng_byeol14_hwp
+550,CF-2022-3-2,확인 요청하기,,0,ncic_2022_eng_byeol14_hwp
+551,CF-2022-3-3,설명 요청하기,,0,ncic_2022_eng_byeol14_hwp
+552,CF-2022-3-4,철자⋅필기 요청하고 답하기,,0,ncic_2022_eng_byeol14_hwp
+553,CF-2022-3-5,표현 요청하기,,0,ncic_2022_eng_byeol14_hwp
+554,CF-2022-3-6,표현 제안하기,,0,ncic_2022_eng_byeol14_hwp
+555,CF-2022-3-7,이해 점검하기와 이해 상태 나타내기,,0,ncic_2022_eng_byeol14_hwp
+556,CF-2022-3-8,오해 알리기,,0,ncic_2022_eng_byeol14_hwp
+557,CF-2022-3-9,생각할 시간 요청하거나 주기,,0,ncic_2022_eng_byeol14_hwp
+558,CF-2022-3-9,나. 의사소통 기능 예시문,,0,ncic_2022_eng_byeol14_hwp
+559,CF-2022-3-9,Ⅰ. 정보 전달,,0,ncic_2022_eng_byeol14_hwp
+560,CF-2022-1-1,This is/That’s/It’s/They’re ... .,,0,ncic_2022_eng_byeol14_hwp
+561,CF-2022-1-1,The man over there is Mr. Kim.,,0,ncic_2022_eng_byeol14_hwp
+562,CF-2022-1-1,We have three cats and one dog.,,0,ncic_2022_eng_byeol14_hwp
+563,CF-2022-1-1,My father is 45 years old.,,0,ncic_2022_eng_byeol14_hwp
+564,CF-2022-1-2,My name is John.,,0,ncic_2022_eng_byeol14_hwp
+565,CF-2022-1-2,I’m from the north of Canada.,,0,ncic_2022_eng_byeol14_hwp
+566,CF-2022-1-2,I have three sisters and one brother.,,0,ncic_2022_eng_byeol14_hwp
+567,CF-2022-1-2,He goes to school at 8:30.,,0,ncic_2022_eng_byeol14_hwp
+568,CF-2022-1-2,I always go swimming on Tuesdays.,,0,ncic_2022_eng_byeol14_hwp
+569,CF-2022-1-2,On Sundays I visit my grandmother.,,0,ncic_2022_eng_byeol14_hwp
+570,CF-2022-1-2,John comes to my office every Tuesday.,,0,ncic_2022_eng_byeol14_hwp
+571,CF-2022-1-2,What time is it? A quarter to six.,,0,ncic_2022_eng_byeol14_hwp
+572,CF-2022-1-2,Do you have the time?,,0,ncic_2022_eng_byeol14_hwp
+573,CF-2022-1-2,It’s 10:45.,,0,ncic_2022_eng_byeol14_hwp
+574,CF-2022-1-2,The train leaves at three o’clock.,,0,ncic_2022_eng_byeol14_hwp
+575,CF-2022-1-2,Ann has blue eyes.,,0,ncic_2022_eng_byeol14_hwp
+576,CF-2022-1-2,Tom is tall and slim.,,0,ncic_2022_eng_byeol14_hwp
+577,CF-2022-1-2,Mary has long brown hair.,,0,ncic_2022_eng_byeol14_hwp
+578,CF-2022-1-2,It’s blue and it’s made of plastic.,,0,ncic_2022_eng_byeol14_hwp
+579,CF-2022-1-2,It has four doors.,,0,ncic_2022_eng_byeol14_hwp
+580,CF-2022-1-2,It is bigger than an elephant.,,0,ncic_2022_eng_byeol14_hwp
+581,CF-2022-1-2,Seoul is the capital city of Korea.,,0,ncic_2022_eng_byeol14_hwp
+582,CF-2022-1-2,It has 5 royal palaces and many historic sites.,,0,ncic_2022_eng_byeol14_hwp
+583,CF-2022-1-2,It’s also famous for ... .,,0,ncic_2022_eng_byeol14_hwp
+584,CF-2022-1-2,"Last week, I visited Jejudo.",,0,ncic_2022_eng_byeol14_hwp
+585,CF-2022-1-2,"It was cool, but windy.",,0,ncic_2022_eng_byeol14_hwp
+586,CF-2022-1-2,I took a taxi and ... .,,0,ncic_2022_eng_byeol14_hwp
+587,CF-2022-1-2,"Once upon a time, there lived a giant. He was ... .",,0,ncic_2022_eng_byeol14_hwp
+588,CF-2022-1-3,"No, it isn’t.",,0,ncic_2022_eng_byeol14_hwp
+589,CF-2022-1-3,(Sorry.) That’s/It’s not right.,,0,ncic_2022_eng_byeol14_hwp
+590,CF-2022-1-3,"(No,) this is MY bag.",,0,ncic_2022_eng_byeol14_hwp
+591,CF-2022-1-3,(I think) you’ve made a mistake.,,0,ncic_2022_eng_byeol14_hwp
+592,CF-2022-1-4,Is she from Egypt?,,0,ncic_2022_eng_byeol14_hwp
+593,CF-2022-1-4,Do you like dancing?,,0,ncic_2022_eng_byeol14_hwp
+594,CF-2022-1-4,Who is he?,,0,ncic_2022_eng_byeol14_hwp
+595,CF-2022-1-4,Whose notebook is this/that?,,0,ncic_2022_eng_byeol14_hwp
+596,CF-2022-1-4,What is your name?,,0,ncic_2022_eng_byeol14_hwp
+597,CF-2022-1-4,What time is it?,,0,ncic_2022_eng_byeol14_hwp
+598,CF-2022-1-4,Which movie do you want to see?,,0,ncic_2022_eng_byeol14_hwp
+599,CF-2022-1-4,Where did she go to university?,,0,ncic_2022_eng_byeol14_hwp
+600,CF-2022-1-4,When did it happen?,,0,ncic_2022_eng_byeol14_hwp
+601,CF-2022-1-4,Why are we waiting?,,0,ncic_2022_eng_byeol14_hwp
+602,CF-2022-1-4,How did they travel?,,0,ncic_2022_eng_byeol14_hwp
+603,CF-2022-1-4,How much does it cost?,,0,ncic_2022_eng_byeol14_hwp
+604,CF-2022-1-4,Ⅱ. 태도 및 의견,,0,ncic_2022_eng_byeol14_hwp
+605,CF-2022-1-1,"Me, too.",,0,ncic_2022_eng_byeol14_hwp
+606,CF-2022-1-1,Okay!/Of course!/Good!/Fine!/Great!,,0,ncic_2022_eng_byeol14_hwp
+607,CF-2022-1-1,"(Yes,) I agree.",,0,ncic_2022_eng_byeol14_hwp
+608,CF-2022-1-1,Exactly!/Certainly!,,0,ncic_2022_eng_byeol14_hwp
+609,CF-2022-1-1,That’s a good idea.,,0,ncic_2022_eng_byeol14_hwp
+610,CF-2022-1-1,That’s right.,,0,ncic_2022_eng_byeol14_hwp
+611,CF-2022-1-2,I don’t think/believe so.,,0,ncic_2022_eng_byeol14_hwp
+612,CF-2022-1-2,I don’t agree/disagree (with you).,,0,ncic_2022_eng_byeol14_hwp
+613,CF-2022-1-2,That isn’t true.,,0,ncic_2022_eng_byeol14_hwp
+614,CF-2022-1-2,That’s not right/correct.,,0,ncic_2022_eng_byeol14_hwp
+615,CF-2022-1-2,Of course not.,,0,ncic_2022_eng_byeol14_hwp
+616,CF-2022-1-2,You’re wrong.,,0,ncic_2022_eng_byeol14_hwp
+617,CF-2022-1-2,I don’t think ... .,,0,ncic_2022_eng_byeol14_hwp
+618,CF-2022-1-3,What do you think?,,0,ncic_2022_eng_byeol14_hwp
+619,CF-2022-1-3,Don’t you agree?,,0,ncic_2022_eng_byeol14_hwp
+620,CF-2022-1-3,Would/Do you agree with me?,,0,ncic_2022_eng_byeol14_hwp
+621,CF-2022-2-1,I (don’t) know (about) ... .,,0,ncic_2022_eng_byeol14_hwp
+622,CF-2022-2-1,I heard/have heard (about) ... .,,0,ncic_2022_eng_byeol14_hwp
+623,CF-2022-2-1,I’m aware (of) ... .,,0,ncic_2022_eng_byeol14_hwp
+624,CF-2022-2-1,I have no idea.,,0,ncic_2022_eng_byeol14_hwp
+625,CF-2022-2-1,I haven’t got a clue.,,0,ncic_2022_eng_byeol14_hwp
+626,CF-2022-2-1,Do you know (about) ... ?,,0,ncic_2022_eng_byeol14_hwp
+627,CF-2022-2-1,Have you heard (about) ... ?,,0,ncic_2022_eng_byeol14_hwp
+628,CF-2022-2-1,"You know ... (, don’t you)?",,0,ncic_2022_eng_byeol14_hwp
+629,CF-2022-2-1,Are you aware (of) ... ?,,0,ncic_2022_eng_byeol14_hwp
+630,CF-2022-2-2,I’m curious about ... .,,0,ncic_2022_eng_byeol14_hwp
+631,CF-2022-2-2,I wonder ... .,,0,ncic_2022_eng_byeol14_hwp
+632,CF-2022-2-2,I’d be (very) interested to know ... .,,0,ncic_2022_eng_byeol14_hwp
+633,CF-2022-2-2,Can someone tell me about ... ?,,0,ncic_2022_eng_byeol14_hwp
+634,CF-2022-2-2,I have a question.,,0,ncic_2022_eng_byeol14_hwp
+635,CF-2022-2-2,"(Please,) Tell me (about)... .",,0,ncic_2022_eng_byeol14_hwp
+636,CF-2022-2-3,I (don’t/can’t) remember ... .,,0,ncic_2022_eng_byeol14_hwp
+637,CF-2022-2-3,I (nearly/completely) forgot (about that/where I put my bag).,,0,ncic_2022_eng_byeol14_hwp
+638,CF-2022-2-3,I’ll never forget ... .,,0,ncic_2022_eng_byeol14_hwp
+639,CF-2022-2-3,Do/Don’t you remember ... ?,,0,ncic_2022_eng_byeol14_hwp
+640,CF-2022-2-3,I wonder if you remember ... .,,0,ncic_2022_eng_byeol14_hwp
+641,CF-2022-2-3,"You haven’t forgotten about ... , have you?",,0,ncic_2022_eng_byeol14_hwp
+642,CF-2022-2-4,Remember to ... .,,0,ncic_2022_eng_byeol14_hwp
+643,CF-2022-2-4,Remind me to ... .,,0,ncic_2022_eng_byeol14_hwp
+644,CF-2022-2-4,Don’t forget to ... .,,0,ncic_2022_eng_byeol14_hwp
+645,CF-2022-2-5,I’m (not) sure.,,0,ncic_2022_eng_byeol14_hwp
+646,CF-2022-2-5,Are you sure/certain about ... ?,,0,ncic_2022_eng_byeol14_hwp
+647,CF-2022-2-5,I have no doubt.,,0,ncic_2022_eng_byeol14_hwp
+648,CF-2022-2-5,I’m (not) (quite/fairly/absolutely) sure/certain ... .,,0,ncic_2022_eng_byeol14_hwp
+649,CF-2022-2-5,How sure are you that ... ?,,0,ncic_2022_eng_byeol14_hwp
+650,CF-2022-2-5,It seems ... .,,0,ncic_2022_eng_byeol14_hwp
+651,CF-2022-3-1,... may/can be changed.,,0,ncic_2022_eng_byeol14_hwp
+652,CF-2022-3-1,Perhaps/Possibly/Maybe they will ... .,,0,ncic_2022_eng_byeol14_hwp
+653,CF-2022-3-1,They should/ought to ... .,,0,ncic_2022_eng_byeol14_hwp
+654,CF-2022-3-1,It is certain/probable/likely/possible/ impossible that ... .,,0,ncic_2022_eng_byeol14_hwp
+655,CF-2022-3-1,May/Can John ... ?,,0,ncic_2022_eng_byeol14_hwp
+656,CF-2022-3-1,Is Mary likely to ... ?,,0,ncic_2022_eng_byeol14_hwp
+657,CF-2022-3-1,Is it probable/likely/possible/ impossible that ... ?,,0,ncic_2022_eng_byeol14_hwp
+658,CF-2022-3-2,You have to/must ... .,,0,ncic_2022_eng_byeol14_hwp
+659,CF-2022-3-2,You should/ought to ... .,,0,ncic_2022_eng_byeol14_hwp
+660,CF-2022-3-2,It is required to ... .,,0,ncic_2022_eng_byeol14_hwp
+661,CF-2022-3-2,You’re expected to ... .,,0,ncic_2022_eng_byeol14_hwp
+662,CF-2022-3-2,Must I ... ?,,0,ncic_2022_eng_byeol14_hwp
+663,CF-2022-3-2,Do I (really) have/need to (...)?,,0,ncic_2022_eng_byeol14_hwp
+664,CF-2022-3-2,Is it necessary to ... ?,,0,ncic_2022_eng_byeol14_hwp
+665,CF-2022-3-2,I don’t have/need to ... .,,0,ncic_2022_eng_byeol14_hwp
+666,CF-2022-3-3,May/Can I ... ?,,0,ncic_2022_eng_byeol14_hwp
+667,CF-2022-3-3,"(Yes,) You may/can ... .",,0,ncic_2022_eng_byeol14_hwp
+668,CF-2022-3-3,"(No,) You may not/can’t.",,0,ncic_2022_eng_byeol14_hwp
+669,CF-2022-3-3,Is it all right/okay if ... ?,,0,ncic_2022_eng_byeol14_hwp
+670,CF-2022-3-3,I wonder if I could ... .,,0,ncic_2022_eng_byeol14_hwp
+671,CF-2022-3-3,Do you mind if ... ?,,0,ncic_2022_eng_byeol14_hwp
+672,CF-2022-3-3,You must not/may not ... .,,0,ncic_2022_eng_byeol14_hwp
+673,CF-2022-3-3,(I’m afraid) it’s/that’s not possible.,,0,ncic_2022_eng_byeol14_hwp
+674,CF-2022-3-3,You’re not allowed/supposed to ... .,,0,ncic_2022_eng_byeol14_hwp
+675,CF-2022-3-4,I can (not) ... .,,0,ncic_2022_eng_byeol14_hwp
+676,CF-2022-3-4,I was (not) able to ... .,,0,ncic_2022_eng_byeol14_hwp
+677,CF-2022-3-4,I (don’t) know how to ... .,,0,ncic_2022_eng_byeol14_hwp
+678,CF-2022-3-4,I’m (not) good at ... .,,0,ncic_2022_eng_byeol14_hwp
+679,CF-2022-3-4,Can you ... ?,,0,ncic_2022_eng_byeol14_hwp
+680,CF-2022-3-4,Do you know how to ... ?,,0,ncic_2022_eng_byeol14_hwp
+681,CF-2022-3-4,Are you good at ... ?,,0,ncic_2022_eng_byeol14_hwp
+682,CF-2022-4-1,I want (to) ... .,,0,ncic_2022_eng_byeol14_hwp
+683,CF-2022-4-1,I’d like ... .,,0,ncic_2022_eng_byeol14_hwp
+684,CF-2022-4-1,I look/am looking forward to ... .,,0,ncic_2022_eng_byeol14_hwp
+685,CF-2022-4-1,I wish I could ... .,,0,ncic_2022_eng_byeol14_hwp
+686,CF-2022-4-1,Do you want (to) ... ?,,0,ncic_2022_eng_byeol14_hwp
+687,CF-2022-4-1,Would you like ... ?,,0,ncic_2022_eng_byeol14_hwp
+688,CF-2022-4-1,Do you wish (you could) ... ?,,0,ncic_2022_eng_byeol14_hwp
+689,CF-2022-4-1,Are you looking forward to ... ?,,0,ncic_2022_eng_byeol14_hwp
+690,CF-2022-4-2,I’m going to ... .,,0,ncic_2022_eng_byeol14_hwp
+691,CF-2022-4-2,I’m thinking of ... .,,0,ncic_2022_eng_byeol14_hwp
+692,CF-2022-4-2,I’m planning to ... .,,0,ncic_2022_eng_byeol14_hwp
+693,CF-2022-4-2,What will you do ... ?,,0,ncic_2022_eng_byeol14_hwp
+694,CF-2022-4-2,Will you ... ?,,0,ncic_2022_eng_byeol14_hwp
+695,CF-2022-4-2,Are you going to ... ?,,0,ncic_2022_eng_byeol14_hwp
+696,CF-2022-4-2,Are you thinking of ... ?,,0,ncic_2022_eng_byeol14_hwp
+697,CF-2022-4-2,Are you planning to ... ?,,0,ncic_2022_eng_byeol14_hwp
+698,CF-2022-5-1,That’s great/wonderful!,,0,ncic_2022_eng_byeol14_hwp
+699,CF-2022-5-1,I’m/I feel (very/so) happy/glad.,,0,ncic_2022_eng_byeol14_hwp
+700,CF-2022-5-1,I’m (very) glad/delighted to ... .,,0,ncic_2022_eng_byeol14_hwp
+701,CF-2022-5-1,It’s a (great) pleasure to ... .,,0,ncic_2022_eng_byeol14_hwp
+702,CF-2022-5-2,I hope ... .,,0,ncic_2022_eng_byeol14_hwp
+703,CF-2022-5-2,I’m looking forward to ... .,,0,ncic_2022_eng_byeol14_hwp
+704,CF-2022-5-2,I can’t wait for ... .,,0,ncic_2022_eng_byeol14_hwp
+705,CF-2022-5-2,I’m excited (about... )!,,0,ncic_2022_eng_byeol14_hwp
+706,CF-2022-5-3,I’m/I feel (rather/quite/very) sad/ unhappy/angry/upset/annoyed (about ...).,,0,ncic_2022_eng_byeol14_hwp
+707,CF-2022-5-3,That makes me (really) sad/angry.,,0,ncic_2022_eng_byeol14_hwp
+708,CF-2022-5-3,I’m in a bad mood (now/today).,,0,ncic_2022_eng_byeol14_hwp
+709,CF-2022-5-3,I can’t stand ... .,,0,ncic_2022_eng_byeol14_hwp
+710,CF-2022-5-3,... is (very) annoying/irritating.,,0,ncic_2022_eng_byeol14_hwp
+711,CF-2022-5-3,How sad.,,0,ncic_2022_eng_byeol14_hwp
+712,CF-2022-5-4,I’m/I feel (very) disappointed.,,0,ncic_2022_eng_byeol14_hwp
+713,CF-2022-5-4,That’s very disappointing.,,0,ncic_2022_eng_byeol14_hwp
+714,CF-2022-5-4,What a pity/shame!,,0,ncic_2022_eng_byeol14_hwp
+715,CF-2022-5-4,"Oh, my(goodness)!",,0,ncic_2022_eng_byeol14_hwp
+716,CF-2022-5-5,I’m (rather) worried/anxious (about ...).,,0,ncic_2022_eng_byeol14_hwp
+717,CF-2022-5-5,I’m scared/frightened/terrified (to ...).,,0,ncic_2022_eng_byeol14_hwp
+718,CF-2022-5-6,Are you all right/okay?,,0,ncic_2022_eng_byeol14_hwp
+719,CF-2022-5-6,How are you feeling?,,0,ncic_2022_eng_byeol14_hwp
+720,CF-2022-5-6,Are you afraid/scared/frightened of ... ?,,0,ncic_2022_eng_byeol14_hwp
+721,CF-2022-5-6,Are you worried/concerned/anxious about ... ?,,0,ncic_2022_eng_byeol14_hwp
+722,CF-2022-5-6,What are you afraid of/worry about?,,0,ncic_2022_eng_byeol14_hwp
+723,CF-2022-5-6,Why are you so happy/excited/sad/ angry?,,0,ncic_2022_eng_byeol14_hwp
+724,CF-2022-5-6,What’s wrong?,,0,ncic_2022_eng_byeol14_hwp
+725,CF-2022-5-6,What’s the matter?,,0,ncic_2022_eng_byeol14_hwp
+726,CF-2022-5-7,Don’t worry.,,0,ncic_2022_eng_byeol14_hwp
+727,CF-2022-5-7,Come on!,,0,ncic_2022_eng_byeol14_hwp
+728,CF-2022-5-7,Cheer up!,,0,ncic_2022_eng_byeol14_hwp
+729,CF-2022-5-7,Don’t worry/be afraid/be frightened.,,0,ncic_2022_eng_byeol14_hwp
+730,CF-2022-5-7,Things will be better (soon).,,0,ncic_2022_eng_byeol14_hwp
+731,CF-2022-5-7,Everything will be ok/all right.,,0,ncic_2022_eng_byeol14_hwp
+732,CF-2022-5-7,Don’t be disappointed/discouraged.,,0,ncic_2022_eng_byeol14_hwp
+733,CF-2022-5-8,That’s too bad.,,0,ncic_2022_eng_byeol14_hwp
+734,CF-2022-5-8,I’m (so/very) sorry (to hear ...).,,0,ncic_2022_eng_byeol14_hwp
+735,CF-2022-5-8,That’s a pity/shame.,,0,ncic_2022_eng_byeol14_hwp
+736,CF-2022-5-9,I feel the same way.,,0,ncic_2022_eng_byeol14_hwp
+737,CF-2022-5-9,I understand how you feel.,,0,ncic_2022_eng_byeol14_hwp
+738,CF-2022-5-9,I agree with you.,,0,ncic_2022_eng_byeol14_hwp
+739,CF-2022-5-9,I think you’re right.,,0,ncic_2022_eng_byeol14_hwp
+740,CF-2022-5-10,Calm down!,,0,ncic_2022_eng_byeol14_hwp
+741,CF-2022-5-10,Don’t get so angry!,,0,ncic_2022_eng_byeol14_hwp
+742,CF-2022-5-10,There’s nothing to get angry about.,,0,ncic_2022_eng_byeol14_hwp
+743,CF-2022-5-10,That’s too bad.,,0,ncic_2022_eng_byeol14_hwp
+744,CF-2022-5-10,I feel the same way.,,0,ncic_2022_eng_byeol14_hwp
+745,CF-2022-5-11,That’s a relief.,,0,ncic_2022_eng_byeol14_hwp
+746,CF-2022-5-11,What a relief!,,0,ncic_2022_eng_byeol14_hwp
+747,CF-2022-5-11,Thank goodness.,,0,ncic_2022_eng_byeol14_hwp
+748,CF-2022-5-11,I’m relieved/glad to hear ... .,,0,ncic_2022_eng_byeol14_hwp
+749,CF-2022-5-12,I (don’t) like/love (to) ... .,,0,ncic_2022_eng_byeol14_hwp
+750,CF-2022-5-12,I enjoy ... (very much).,,0,ncic_2022_eng_byeol14_hwp
+751,CF-2022-5-12,My favorite thing is ... .,,0,ncic_2022_eng_byeol14_hwp
+752,CF-2022-5-12,... is (very) good/nice/pleasant.,,0,ncic_2022_eng_byeol14_hwp
+753,CF-2022-5-12,I hate (to) ... .,,0,ncic_2022_eng_byeol14_hwp
+754,CF-2022-5-12,Do you like ... ?,,0,ncic_2022_eng_byeol14_hwp
+755,CF-2022-5-12,What (...) do you like?,,0,ncic_2022_eng_byeol14_hwp
+756,CF-2022-5-12,What’s/Who’s your favorite ... ?,,0,ncic_2022_eng_byeol14_hwp
+757,CF-2022-5-13,I prefer X to Y.,,0,ncic_2022_eng_byeol14_hwp
+758,CF-2022-5-13,I(’d) prefer (to) ... (if possible).,,0,ncic_2022_eng_byeol14_hwp
+759,CF-2022-5-13,I think X is better than/preferable to Y.,,0,ncic_2022_eng_byeol14_hwp
+760,CF-2022-5-13,Which do you prefer?,,0,ncic_2022_eng_byeol14_hwp
+761,CF-2022-5-13,Do you prefer X to/or Y?,,0,ncic_2022_eng_byeol14_hwp
+762,CF-2022-5-13,Do you like X better/more than Y?,,0,ncic_2022_eng_byeol14_hwp
+763,CF-2022-5-14,Good!/Fine!/Excellent!,,0,ncic_2022_eng_byeol14_hwp
+764,CF-2022-5-14,I’m (not) satisfied/happy (with ...).,,0,ncic_2022_eng_byeol14_hwp
+765,CF-2022-5-14,That’ll do.,,0,ncic_2022_eng_byeol14_hwp
+766,CF-2022-5-14,That won’t do/work.,,0,ncic_2022_eng_byeol14_hwp
+767,CF-2022-5-14,Are you satisfied/happy (with ...)?,,0,ncic_2022_eng_byeol14_hwp
+768,CF-2022-5-14,How do you like/find ... ?,,0,ncic_2022_eng_byeol14_hwp
+769,CF-2022-5-14,Is this what you want(ed)/need(ed)/ meant/had in mind?,,0,ncic_2022_eng_byeol14_hwp
+770,CF-2022-5-15,It’s not fair.,,0,ncic_2022_eng_byeol14_hwp
+771,CF-2022-5-15,I’m not happy about ... .,,0,ncic_2022_eng_byeol14_hwp
+772,CF-2022-5-15,I want to complain about ... .,,0,ncic_2022_eng_byeol14_hwp
+773,CF-2022-5-15,You can’t possibly ... .,,0,ncic_2022_eng_byeol14_hwp
+774,CF-2022-5-15,"I’m sorry, but... .",,0,ncic_2022_eng_byeol14_hwp
+775,CF-2022-5-16,I’m (not) (very) interested in ... .,,0,ncic_2022_eng_byeol14_hwp
+776,CF-2022-5-16,... interests me (a lot/greatly).,,0,ncic_2022_eng_byeol14_hwp
+777,CF-2022-5-16,I’m fascinated by ... .,,0,ncic_2022_eng_byeol14_hwp
+778,CF-2022-5-16,How interesting/boring!,,0,ncic_2022_eng_byeol14_hwp
+779,CF-2022-5-16,Are you interested in ... ?,,0,ncic_2022_eng_byeol14_hwp
+780,CF-2022-5-16,What are you interested in?,,0,ncic_2022_eng_byeol14_hwp
+781,CF-2022-5-16,Do you find X interesting?,,0,ncic_2022_eng_byeol14_hwp
+782,CF-2022-5-17,What a surprise!,,0,ncic_2022_eng_byeol14_hwp
+783,CF-2022-5-17,That’s/It’s surprising!,,0,ncic_2022_eng_byeol14_hwp
+784,CF-2022-5-17,I (just) can’t believe this.,,0,ncic_2022_eng_byeol14_hwp
+785,CF-2022-5-17,I’m surprised that ... .,,0,ncic_2022_eng_byeol14_hwp
+786,CF-2022-5-17,Does that surprise you?,,0,ncic_2022_eng_byeol14_hwp
+787,CF-2022-5-17,Are you surprised that ... ?,,0,ncic_2022_eng_byeol14_hwp
+788,CF-2022-5-17,What surprised you?,,0,ncic_2022_eng_byeol14_hwp
+789,CF-2022-6-1,You should/ought to ... .,,0,ncic_2022_eng_byeol14_hwp
+790,CF-2022-6-1,It’s right/wrong to ... .,,0,ncic_2022_eng_byeol14_hwp
+791,CF-2022-6-1,You must ... .,,0,ncic_2022_eng_byeol14_hwp
+792,CF-2022-6-1,You have to/have got to ... .,,0,ncic_2022_eng_byeol14_hwp
+793,CF-2022-6-1,You’re supposed to ... .,,0,ncic_2022_eng_byeol14_hwp
+794,CF-2022-6-2,(Very) good.,,0,ncic_2022_eng_byeol14_hwp
+795,CF-2022-6-2,That’s fine/excellent.,,0,ncic_2022_eng_byeol14_hwp
+796,CF-2022-6-2,That’s/It’s not (very) good/nice.,,0,ncic_2022_eng_byeol14_hwp
+797,CF-2022-6-2,You shouldn’t have done that.,,0,ncic_2022_eng_byeol14_hwp
+798,CF-2022-6-2,I don’t/can’t approve (of ...).,,0,ncic_2022_eng_byeol14_hwp
+799,CF-2022-6-2,How’s this?,,0,ncic_2022_eng_byeol14_hwp
+800,CF-2022-6-2,What do you think of ... ?,,0,ncic_2022_eng_byeol14_hwp
+801,CF-2022-6-2,How do you find ... ?,,0,ncic_2022_eng_byeol14_hwp
+802,CF-2022-6-2,Do you approve (of) ... ?,,0,ncic_2022_eng_byeol14_hwp
+803,CF-2022-6-3,It’s (all) your/his fault.,,0,ncic_2022_eng_byeol14_hwp
+804,CF-2022-6-3,You’re to blame.,,0,ncic_2022_eng_byeol14_hwp
+805,CF-2022-6-3,It’s (all) because of you/him.,,0,ncic_2022_eng_byeol14_hwp
+806,CF-2022-6-3,It isn’t/wasn’t my fault.,,0,ncic_2022_eng_byeol14_hwp
+807,CF-2022-6-3,Don’t blame me.,,0,ncic_2022_eng_byeol14_hwp
+808,CF-2022-6-3,It was a(n honest) mistake.,,0,ncic_2022_eng_byeol14_hwp
+809,CF-2022-7-1,Let’s ... .,,0,ncic_2022_eng_byeol14_hwp
+810,CF-2022-7-1,What/How about ... ?,,0,ncic_2022_eng_byeol14_hwp
+811,CF-2022-7-1,Why don’t we/you ... ?,,0,ncic_2022_eng_byeol14_hwp
+812,CF-2022-7-1,Can you make it (at ten)?,,0,ncic_2022_eng_byeol14_hwp
+813,CF-2022-7-1,You’d better ... .,,0,ncic_2022_eng_byeol14_hwp
+814,CF-2022-7-1,(I think) you should/ought to ... .,,0,ncic_2022_eng_byeol14_hwp
+815,CF-2022-7-1,Would you like (me) to ... ?,,0,ncic_2022_eng_byeol14_hwp
+816,CF-2022-7-1,I suggest (that) we ... .,,0,ncic_2022_eng_byeol14_hwp
+817,CF-2022-7-1,Shall we ... ?,,0,ncic_2022_eng_byeol14_hwp
+818,CF-2022-7-2,Can I help you?,,0,ncic_2022_eng_byeol14_hwp
+819,CF-2022-7-2,Let me help you.,,0,ncic_2022_eng_byeol14_hwp
+820,CF-2022-7-2,Can I give you a hand?,,0,ncic_2022_eng_byeol14_hwp
+821,CF-2022-7-2,"(Please,) open the door.",,0,ncic_2022_eng_byeol14_hwp
+822,CF-2022-7-2,"Can you ...(, please)?",,0,ncic_2022_eng_byeol14_hwp
+823,CF-2022-7-2,Could I ask you to ... ?,,0,ncic_2022_eng_byeol14_hwp
+824,CF-2022-7-2,Would you mind closing the window?,,0,ncic_2022_eng_byeol14_hwp
+825,CF-2022-7-3,Yes!/Okay!,,0,ncic_2022_eng_byeol14_hwp
+826,CF-2022-7-3,Sure!/All right!,,0,ncic_2022_eng_byeol14_hwp
+827,CF-2022-7-3,No problem.,,0,ncic_2022_eng_byeol14_hwp
+828,CF-2022-7-3,(That) sounds good.,,0,ncic_2022_eng_byeol14_hwp
+829,CF-2022-7-3,"Sorry ..., but ... .",,0,ncic_2022_eng_byeol14_hwp
+830,CF-2022-7-3,"No, thank you.",,0,ncic_2022_eng_byeol14_hwp
+831,CF-2022-7-3,"Thank you, but ... .",,0,ncic_2022_eng_byeol14_hwp
+832,CF-2022-7-3,I’m afraid I can’t ... .,,0,ncic_2022_eng_byeol14_hwp
+833,CF-2022-7-4,(I think) you should ... .,,0,ncic_2022_eng_byeol14_hwp
+834,CF-2022-7-4,Why don’t you ... ?,,0,ncic_2022_eng_byeol14_hwp
+835,CF-2022-7-4,You’d better ... .,,0,ncic_2022_eng_byeol14_hwp
+836,CF-2022-7-4,"If I were you, I’d ... .",,0,ncic_2022_eng_byeol14_hwp
+837,CF-2022-7-4,Do you think I should ... ?,,0,ncic_2022_eng_byeol14_hwp
+838,CF-2022-7-4,Could you give me some advice?,,0,ncic_2022_eng_byeol14_hwp
+839,CF-2022-7-4,What would you do if ... ?,,0,ncic_2022_eng_byeol14_hwp
+840,CF-2022-7-5,"May/Can I ... (, please)?",,0,ncic_2022_eng_byeol14_hwp
+841,CF-2022-7-5,Let me ... .,,0,ncic_2022_eng_byeol14_hwp
+842,CF-2022-7-5,Do you mind if ... ?,,0,ncic_2022_eng_byeol14_hwp
+843,CF-2022-7-5,Would it be possible ... ?,,0,ncic_2022_eng_byeol14_hwp
+844,CF-2022-7-5,I was wondering if I could ... ?,,0,ncic_2022_eng_byeol14_hwp
+845,CF-2022-7-5,(I’m afraid) that’s/it’s not possible.,,0,ncic_2022_eng_byeol14_hwp
+846,CF-2022-7-6,Stand up.,,0,ncic_2022_eng_byeol14_hwp
+847,CF-2022-7-6,Come to the front.,,0,ncic_2022_eng_byeol14_hwp
+848,CF-2022-7-6,Flip the card.,,0,ncic_2022_eng_byeol14_hwp
+849,CF-2022-7-6,Turn on the light.,,0,ncic_2022_eng_byeol14_hwp
+850,CF-2022-7-6,The museum is on the left.,,0,ncic_2022_eng_byeol14_hwp
+851,CF-2022-7-6,Go to the end of the street and turn right.,,0,ncic_2022_eng_byeol14_hwp
+852,CF-2022-7-6,Where is the supermarket?,,0,ncic_2022_eng_byeol14_hwp
+853,CF-2022-7-6,It’s straight ahead.,,0,ncic_2022_eng_byeol14_hwp
+854,CF-2022-7-7,Don’t ... .,,0,ncic_2022_eng_byeol14_hwp
+855,CF-2022-7-7,Be careful.,,0,ncic_2022_eng_byeol14_hwp
+856,CF-2022-7-7,Watch/Look out (for ...)!,,0,ncic_2022_eng_byeol14_hwp
+857,CF-2022-7-7,Make sure you don’t ... .,,0,ncic_2022_eng_byeol14_hwp
+858,CF-2022-7-7,Mind your head/step!,,0,ncic_2022_eng_byeol14_hwp
+859,CF-2022-7-8,Don’t ... .,,0,ncic_2022_eng_byeol14_hwp
+860,CF-2022-7-8,You mustn’t/can’t/shouldn’t ... .,,0,ncic_2022_eng_byeol14_hwp
+861,CF-2022-7-8,You’d better not ... .,,0,ncic_2022_eng_byeol14_hwp
+862,CF-2022-7-8,Ⅲ. 담화와 글,,0,ncic_2022_eng_byeol14_hwp
+863,CF-2022-1-1,Hey!/Hello!,,0,ncic_2022_eng_byeol14_hwp
+864,CF-2022-1-1,"(Oh,) look/listen.",,0,ncic_2022_eng_byeol14_hwp
+865,CF-2022-1-1,"May I have your attention(, please)?",,0,ncic_2022_eng_byeol14_hwp
+866,CF-2022-1-1,Excuse me.,,0,ncic_2022_eng_byeol14_hwp
+867,CF-2022-1-2,Hi!/Hello!,,0,ncic_2022_eng_byeol14_hwp
+868,CF-2022-1-2,Good morning/afternoon/evening.,,0,ncic_2022_eng_byeol14_hwp
+869,CF-2022-1-2,Good/Nice to see you (again)!,,0,ncic_2022_eng_byeol14_hwp
+870,CF-2022-1-2,How do you DO?,,0,ncic_2022_eng_byeol14_hwp
+871,CF-2022-1-2,-How do YOU do?,,0,ncic_2022_eng_byeol14_hwp
+872,CF-2022-1-2,It’s been a long time.,,0,ncic_2022_eng_byeol14_hwp
+873,CF-2022-1-3,Mr./Miss/Mrs./Ms. ...,,0,ncic_2022_eng_byeol14_hwp
+874,CF-2022-1-3,Doctor/Professor/Director Brown,,0,ncic_2022_eng_byeol14_hwp
+875,CF-2022-1-3,How/What do you want me to call you?,,0,ncic_2022_eng_byeol14_hwp
+876,CF-2022-1-4,How are you (today)?,,0,ncic_2022_eng_byeol14_hwp
+877,CF-2022-1-4,How’s it going?,,0,ncic_2022_eng_byeol14_hwp
+878,CF-2022-1-4,How are you doing?,,0,ncic_2022_eng_byeol14_hwp
+879,CF-2022-1-4,What's up?,,0,ncic_2022_eng_byeol14_hwp
+880,CF-2022-1-4,How have you/things been?,,0,ncic_2022_eng_byeol14_hwp
+881,CF-2022-1-4,"(I’m) okay (, thanks/thank you).",,0,ncic_2022_eng_byeol14_hwp
+882,CF-2022-1-4,"(I’m) fine/very well (, thanks/thank you).",,0,ncic_2022_eng_byeol14_hwp
+883,CF-2022-1-4,"Not (too/so) bad (, thanks/thank you).",,0,ncic_2022_eng_byeol14_hwp
+884,CF-2022-1-5,Say hello to ... (for me).,,0,ncic_2022_eng_byeol14_hwp
+885,CF-2022-1-5,Please give my regards to ... .,,0,ncic_2022_eng_byeol14_hwp
+886,CF-2022-1-5,Remember me to ... .,,0,ncic_2022_eng_byeol14_hwp
+887,CF-2022-1-6,I’m ... .,,0,ncic_2022_eng_byeol14_hwp
+888,CF-2022-1-6,My name is ... .,,0,ncic_2022_eng_byeol14_hwp
+889,CF-2022-1-6,I’m ... .,,0,ncic_2022_eng_byeol14_hwp
+890,CF-2022-1-6,Please call me ... .,,0,ncic_2022_eng_byeol14_hwp
+891,CF-2022-1-6,"X, this is Y. Y, this is X.",,0,ncic_2022_eng_byeol14_hwp
+892,CF-2022-1-6,I’d like you to meet ... .,,0,ncic_2022_eng_byeol14_hwp
+893,CF-2022-1-6,I’d like to introduce ... .,,0,ncic_2022_eng_byeol14_hwp
+894,CF-2022-1-6,(It’s) nice/good to meet you.,,0,ncic_2022_eng_byeol14_hwp
+895,CF-2022-1-6,(I’m) (very) pleased to meet you.,,0,ncic_2022_eng_byeol14_hwp
+896,CF-2022-1-6,It’s a pleasure to meet/meeting you.,,0,ncic_2022_eng_byeol14_hwp
+897,CF-2022-1-6,I’ve been looking forward to meeting you.,,0,ncic_2022_eng_byeol14_hwp
+898,CF-2022-1-7,Do you know each other?,,0,ncic_2022_eng_byeol14_hwp
+899,CF-2022-1-7,Have you already met ... ?,,0,ncic_2022_eng_byeol14_hwp
+900,CF-2022-1-7,"I think you (two) know/have met each other, don’t/haven’t you?",,0,ncic_2022_eng_byeol14_hwp
+901,CF-2022-1-7,"X, can I introduce Y?",,0,ncic_2022_eng_byeol14_hwp
+902,CF-2022-1-8,Welcome!,,0,ncic_2022_eng_byeol14_hwp
+903,CF-2022-1-8,Glad you’re here.,,0,ncic_2022_eng_byeol14_hwp
+904,CF-2022-1-8,Glad you could come.,,0,ncic_2022_eng_byeol14_hwp
+905,CF-2022-1-9,(Please) help yourself.,,0,ncic_2022_eng_byeol14_hwp
+906,CF-2022-1-9,Please go ahead.,,0,ncic_2022_eng_byeol14_hwp
+907,CF-2022-1-9,Please try some ... .,,0,ncic_2022_eng_byeol14_hwp
+908,CF-2022-1-9,Would you like some ... ?,,0,ncic_2022_eng_byeol14_hwp
+909,CF-2022-1-9,Do you want some more(...)?,,0,ncic_2022_eng_byeol14_hwp
+910,CF-2022-1-9,"Yes, please/thanks/thank you.",,0,ncic_2022_eng_byeol14_hwp
+911,CF-2022-1-9,"No, thanks/thank you. (I’m full./I’d rather have some ... .)",,0,ncic_2022_eng_byeol14_hwp
+912,CF-2022-1-9,That would be very nice.,,0,ncic_2022_eng_byeol14_hwp
+913,CF-2022-1-9,It/everything looks delicious.,,0,ncic_2022_eng_byeol14_hwp
+914,CF-2022-1-10,Thanks (a lot)/Thank you (very/so much).,,0,ncic_2022_eng_byeol14_hwp
+915,CF-2022-1-10,Thanks for ... .,,0,ncic_2022_eng_byeol14_hwp
+916,CF-2022-1-10,I (really) (do) appreciate your help/ what you’ve done.,,0,ncic_2022_eng_byeol14_hwp
+917,CF-2022-1-10,Sure.,,0,ncic_2022_eng_byeol14_hwp
+918,CF-2022-1-10,You’re welcome.,,0,ncic_2022_eng_byeol14_hwp
+919,CF-2022-1-10,No problem.,,0,ncic_2022_eng_byeol14_hwp
+920,CF-2022-1-10,(It was) my pleasure.,,0,ncic_2022_eng_byeol14_hwp
+921,CF-2022-1-10,Don’t mention it.,,0,ncic_2022_eng_byeol14_hwp
+922,CF-2022-1-10,Not a big deal.,,0,ncic_2022_eng_byeol14_hwp
+923,CF-2022-1-11,(I’m so/very) sorry (about that).,,0,ncic_2022_eng_byeol14_hwp
+924,CF-2022-1-11,Please forgive me.,,0,ncic_2022_eng_byeol14_hwp
+925,CF-2022-1-11,I apologize.,,0,ncic_2022_eng_byeol14_hwp
+926,CF-2022-1-11,Not at all.,,0,ncic_2022_eng_byeol14_hwp
+927,CF-2022-1-11,(That’s/It’s) okay.,,0,ncic_2022_eng_byeol14_hwp
+928,CF-2022-1-11,That’s all right.,,0,ncic_2022_eng_byeol14_hwp
+929,CF-2022-1-11,Forget it.,,0,ncic_2022_eng_byeol14_hwp
+930,CF-2022-1-11,It doesn’t matter.,,0,ncic_2022_eng_byeol14_hwp
+931,CF-2022-1-11,No problem.,,0,ncic_2022_eng_byeol14_hwp
+932,CF-2022-1-11,Never mind.,,0,ncic_2022_eng_byeol14_hwp
+933,CF-2022-1-12,Congratulations (on ...)!,,0,ncic_2022_eng_byeol14_hwp
+934,CF-2022-1-12,(Very) good!,,0,ncic_2022_eng_byeol14_hwp
+935,CF-2022-1-12,Good (for you)!,,0,ncic_2022_eng_byeol14_hwp
+936,CF-2022-1-12,What a nice ... !,,0,ncic_2022_eng_byeol14_hwp
+937,CF-2022-1-12,How ... she is!,,0,ncic_2022_eng_byeol14_hwp
+938,CF-2022-1-12,Great!/Excellent!,,0,ncic_2022_eng_byeol14_hwp
+939,CF-2022-1-12,(You did a) good (work/job)!,,0,ncic_2022_eng_byeol14_hwp
+940,CF-2022-1-12,I like ... !,,0,ncic_2022_eng_byeol14_hwp
+941,CF-2022-1-12,Thanks/Thank you (very much).,,0,ncic_2022_eng_byeol14_hwp
+942,CF-2022-1-12,"You, too!",,0,ncic_2022_eng_byeol14_hwp
+943,CF-2022-1-12,I’m glad you like ... .,,0,ncic_2022_eng_byeol14_hwp
+944,CF-2022-1-12,How nice (of you)!,,0,ncic_2022_eng_byeol14_hwp
+945,CF-2022-1-13,You can do it!,,0,ncic_2022_eng_byeol14_hwp
+946,CF-2022-1-13,Don’t give up!,,0,ncic_2022_eng_byeol14_hwp
+947,CF-2022-1-13,That’s all right. (You’ll do better next time).,,0,ncic_2022_eng_byeol14_hwp
+948,CF-2022-1-13,Come on.,,0,ncic_2022_eng_byeol14_hwp
+949,CF-2022-1-13,Keep (on) going.,,0,ncic_2022_eng_byeol14_hwp
+950,CF-2022-1-13,Thanks/Thank you (very much).,,0,ncic_2022_eng_byeol14_hwp
+951,CF-2022-1-13,"You, too!",,0,ncic_2022_eng_byeol14_hwp
+952,CF-2022-1-13,How nice (of you)!,,0,ncic_2022_eng_byeol14_hwp
+953,CF-2022-1-14,Happy birthday/New Year/... !,,0,ncic_2022_eng_byeol14_hwp
+954,CF-2022-1-14,Good luck (with your .../the ...)!,,0,ncic_2022_eng_byeol14_hwp
+955,CF-2022-1-14,Bless you.,,0,ncic_2022_eng_byeol14_hwp
+956,CF-2022-1-14,Have a good/nice ... !,,0,ncic_2022_eng_byeol14_hwp
+957,CF-2022-1-14,I’ll keep my fingers crossed!,,0,ncic_2022_eng_byeol14_hwp
+958,CF-2022-1-14,I hope/wish ... .,,0,ncic_2022_eng_byeol14_hwp
+959,CF-2022-1-15,Bye(-bye).,,0,ncic_2022_eng_byeol14_hwp
+960,CF-2022-1-15,Goodbye.,,0,ncic_2022_eng_byeol14_hwp
+961,CF-2022-1-15,Take care.,,0,ncic_2022_eng_byeol14_hwp
+962,CF-2022-1-15,(Have a) nice day/good night.,,0,ncic_2022_eng_byeol14_hwp
+963,CF-2022-1-15,See you (later/again/tomorrow).,,0,ncic_2022_eng_byeol14_hwp
+964,CF-2022-2-1,"May I have your attention, please?",,0,ncic_2022_eng_byeol14_hwp
+965,CF-2022-2-1,"Excuse me, can I talk to you for a minute?",,0,ncic_2022_eng_byeol14_hwp
+966,CF-2022-2-1,Excuse me. I wonder if you could help me.,,0,ncic_2022_eng_byeol14_hwp
+967,CF-2022-2-1,"Hello everyone, I’m very happy to be speaking with you today.",,0,ncic_2022_eng_byeol14_hwp
+968,CF-2022-2-1,"My name is ... , and I’m  ... .",,0,ncic_2022_eng_byeol14_hwp
+969,CF-2022-2-1,"Today, I'd like to talk about ... .",,0,ncic_2022_eng_byeol14_hwp
+970,CF-2022-2-1,We will discuss ... .,,0,ncic_2022_eng_byeol14_hwp
+971,CF-2022-2-1,I am going to talk about.,,0,ncic_2022_eng_byeol14_hwp
+972,CF-2022-2-1,The purpose of this presentation is ... .,,0,ncic_2022_eng_byeol14_hwp
+973,CF-2022-2-2,Let’s get started.,,0,ncic_2022_eng_byeol14_hwp
+974,CF-2022-2-2,Let me begin by looking at ... .,,0,ncic_2022_eng_byeol14_hwp
+975,CF-2022-2-2,Let me start with some ... .,,0,ncic_2022_eng_byeol14_hwp
+976,CF-2022-2-3,(Now) let’s talk about ... .,,0,ncic_2022_eng_byeol14_hwp
+977,CF-2022-2-3,I’d like to say something about ... .,,0,ncic_2022_eng_byeol14_hwp
+978,CF-2022-2-3,I’d like to tell you what ... .,,0,ncic_2022_eng_byeol14_hwp
+979,CF-2022-2-4,"If you have any questions, feel free to ask me.",,0,ncic_2022_eng_byeol14_hwp
+980,CF-2022-2-4,Does anyone have any questions or comments?,,0,ncic_2022_eng_byeol14_hwp
+981,CF-2022-2-4,Please stop me if you have any questions.,,0,ncic_2022_eng_byeol14_hwp
+982,CF-2022-2-4,Do you have any questions before I move on?,,0,ncic_2022_eng_byeol14_hwp
+983,CF-2022-2-4,"Thank you for your question, Ann.",,0,ncic_2022_eng_byeol14_hwp
+984,CF-2022-2-4,That's an interesting/great question.,,0,ncic_2022_eng_byeol14_hwp
+985,CF-2022-2-4,Does that answer your question?,,0,ncic_2022_eng_byeol14_hwp
+986,CF-2022-2-4,"Please email me at email@address.com, if you have any question.",,0,ncic_2022_eng_byeol14_hwp
+987,CF-2022-2-5,What do you think (of/about ...)?,,0,ncic_2022_eng_byeol14_hwp
+988,CF-2022-2-5,How do you feel about ... ?,,0,ncic_2022_eng_byeol14_hwp
+989,CF-2022-2-5,What is your view/opinion?,,0,ncic_2022_eng_byeol14_hwp
+990,CF-2022-2-5,I think/feel/believe ... .,,0,ncic_2022_eng_byeol14_hwp
+991,CF-2022-2-5,It seems to me ... .,,0,ncic_2022_eng_byeol14_hwp
+992,CF-2022-2-5,"In my view/opinion, ... .",,0,ncic_2022_eng_byeol14_hwp
+993,CF-2022-2-6,For example ... .,,0,ncic_2022_eng_byeol14_hwp
+994,CF-2022-2-6,A good example of this is ... .,,0,ncic_2022_eng_byeol14_hwp
+995,CF-2022-2-6,To illustrate this point ... .,,0,ncic_2022_eng_byeol14_hwp
+996,CF-2022-2-6,This reminds me of ... .,,0,ncic_2022_eng_byeol14_hwp
+997,CF-2022-2-6,To give you an example ... .,,0,ncic_2022_eng_byeol14_hwp
+998,CF-2022-2-7,"A, B, and C.",,0,ncic_2022_eng_byeol14_hwp
+999,CF-2022-2-7,There are three things to consider. First ... . Second ... . Third ... .,,0,ncic_2022_eng_byeol14_hwp
+1000,CF-2022-2-7,There are two kinds of ... . The first is ... . The second is ... .,,0,ncic_2022_eng_byeol14_hwp
+1001,CF-2022-2-7,"We can see four advantages and two disadvantages. First, advantages ... .",,0,ncic_2022_eng_byeol14_hwp
+1002,CF-2022-2-7,"One is ... . Another is ... . A third advantage is ... . Finally(Lastly), ... .",,0,ncic_2022_eng_byeol14_hwp
+1003,CF-2022-2-7,There are (four) different stages to the process.,,0,ncic_2022_eng_byeol14_hwp
+1004,CF-2022-2-7,"First ... , then ... , next ... , after that ... , then  x, after x there’s y.",,0,ncic_2022_eng_byeol14_hwp
+1005,CF-2022-2-7,There are two steps involved. The first step is ... . The second step is ... .,,0,ncic_2022_eng_byeol14_hwp
+1006,CF-2022-2-7,There are four stages to the project.,,0,ncic_2022_eng_byeol14_hwp
+1007,CF-2022-2-7,At the beginning / later / then / finally ... .,,0,ncic_2022_eng_byeol14_hwp
+1008,CF-2022-2-8,It is important to/that ... .,,0,ncic_2022_eng_byeol14_hwp
+1009,CF-2022-2-8,I want to stress ... .,,0,ncic_2022_eng_byeol14_hwp
+1010,CF-2022-2-8,My point is ... .,,0,ncic_2022_eng_byeol14_hwp
+1011,CF-2022-2-8,I DO love my family.,,0,ncic_2022_eng_byeol14_hwp
+1012,CF-2022-2-8,This is important because ... .,,0,ncic_2022_eng_byeol14_hwp
+1013,CF-2022-2-8,I’d like to emphasize that ... .,,0,ncic_2022_eng_byeol14_hwp
+1014,CF-2022-2-8,We have to remember that ... .,,0,ncic_2022_eng_byeol14_hwp
+1015,CF-2022-2-8,"In other words, ... .",,0,ncic_2022_eng_byeol14_hwp
+1016,CF-2022-2-8,"To put it more simply, ... .",,0,ncic_2022_eng_byeol14_hwp
+1017,CF-2022-2-8,What I’m saying is that ... .,,0,ncic_2022_eng_byeol14_hwp
+1018,CF-2022-2-8,What I want to say... .,,0,ncic_2022_eng_byeol14_hwp
+1019,CF-2022-2-9,X/This means ... .,,0,ncic_2022_eng_byeol14_hwp
+1020,CF-2022-2-9,The meaning of X/this is ... .,,0,ncic_2022_eng_byeol14_hwp
+1021,CF-2022-2-10,"In short, ... .",,0,ncic_2022_eng_byeol14_hwp
+1022,CF-2022-2-10,"In brief, ... .",,0,ncic_2022_eng_byeol14_hwp
+1023,CF-2022-2-10,"To sum up, ... .",,0,ncic_2022_eng_byeol14_hwp
+1024,CF-2022-2-11,"By the way, ... .",,0,ncic_2022_eng_byeol14_hwp
+1025,CF-2022-2-11,Let’s move on to ... .,,0,ncic_2022_eng_byeol14_hwp
+1026,CF-2022-2-11,I’d like to say something else ... .,,0,ncic_2022_eng_byeol14_hwp
+1027,CF-2022-2-12,Excuse me.,,0,ncic_2022_eng_byeol14_hwp
+1028,CF-2022-2-12,Can I say something?,,0,ncic_2022_eng_byeol14_hwp
+1029,CF-2022-2-12,Can I interrupt you for a moment?,,0,ncic_2022_eng_byeol14_hwp
+1030,CF-2022-2-13,Thanks for listening.,,0,ncic_2022_eng_byeol14_hwp
+1031,CF-2022-2-13,Thank you for your attention/time.,,0,ncic_2022_eng_byeol14_hwp
+1032,CF-2022-2-13,It was nice talking(to you).,,0,ncic_2022_eng_byeol14_hwp
+1033,CF-2022-2-13,That’s all I want to say about ... .,,0,ncic_2022_eng_byeol14_hwp
+1034,CF-2022-2-13,"To sum up, ... .",,0,ncic_2022_eng_byeol14_hwp
+1035,CF-2022-2-13,That's it for today.,,0,ncic_2022_eng_byeol14_hwp
+1036,CF-2022-2-13,"So, now I’d be very interested to hear your comments.",,0,ncic_2022_eng_byeol14_hwp
+1037,CF-2022-2-13,This is the end of this presentation.,,0,ncic_2022_eng_byeol14_hwp
+1038,CF-2022-2-13,"Anyway, I should get back to work.",,0,ncic_2022_eng_byeol14_hwp
+1039,CF-2022-2-13,"I’m sorry, I have to go now.",,0,ncic_2022_eng_byeol14_hwp
+1040,CF-2022-2-13,"I must go, see you later.",,0,ncic_2022_eng_byeol14_hwp
+1041,CF-2022-2-14,Hello?,,0,ncic_2022_eng_byeol14_hwp
+1042,CF-2022-2-14,(This is) ... (speaking/here).,,0,ncic_2022_eng_byeol14_hwp
+1043,CF-2022-2-14,"May/Can I speak to ... , please?",,0,ncic_2022_eng_byeol14_hwp
+1044,CF-2022-2-14,"Who’s calling, please?",,0,ncic_2022_eng_byeol14_hwp
+1045,CF-2022-2-14,Can I leave/take a message?,,0,ncic_2022_eng_byeol14_hwp
+1046,CF-2022-2-14,"(Sorry, but) can I call you back?",,0,ncic_2022_eng_byeol14_hwp
+1047,CF-2022-2-14,"Dear Mr. Kim,",,0,ncic_2022_eng_byeol14_hwp
+1048,CF-2022-2-14,"Best regards/Sincerely,",,0,ncic_2022_eng_byeol14_hwp
+1049,CF-2022-2-14,Can you hear/see me?,,0,ncic_2022_eng_byeol14_hwp
+1050,CF-2022-2-14,Is the audio/video working?,,0,ncic_2022_eng_byeol14_hwp
+1051,CF-2022-2-14,Turn on/off your video.,,0,ncic_2022_eng_byeol14_hwp
+1052,CF-2022-2-14,"Please, mute/turn off the microphone.",,0,ncic_2022_eng_byeol14_hwp
+1053,CF-2022-2-14,I can’t see the people at the sides of the room.,,0,ncic_2022_eng_byeol14_hwp
+1054,CF-2022-2-14,Thank you for talking with me today.,,0,ncic_2022_eng_byeol14_hwp
+1055,CF-2022-2-14,Thank you for taking the time to talk with me today.,,0,ncic_2022_eng_byeol14_hwp
+1056,CF-2022-3-1,Excuse me?,,0,ncic_2022_eng_byeol14_hwp
+1057,CF-2022-3-1,(I’m) sorry?,,0,ncic_2022_eng_byeol14_hwp
+1058,CF-2022-3-1,What (did you say)?,,0,ncic_2022_eng_byeol14_hwp
+1059,CF-2022-3-1,(I beg your) pardon?,,0,ncic_2022_eng_byeol14_hwp
+1060,CF-2022-3-1,"Would you say that again(, please)?",,0,ncic_2022_eng_byeol14_hwp
+1061,CF-2022-3-1,-(I said) X.,,0,ncic_2022_eng_byeol14_hwp
+1062,CF-2022-3-1,-I said that ... .,,0,ncic_2022_eng_byeol14_hwp
+1063,CF-2022-3-1,Can you repeat that?,,0,ncic_2022_eng_byeol14_hwp
+1064,CF-2022-3-1,Can you speak (more) slowly?,,0,ncic_2022_eng_byeol14_hwp
+1065,CF-2022-3-2,Did you say X?,,0,ncic_2022_eng_byeol14_hwp
+1066,CF-2022-3-2,Are you sure?,,0,ncic_2022_eng_byeol14_hwp
+1067,CF-2022-3-2,Do/Did you mean ... ?,,0,ncic_2022_eng_byeol14_hwp
+1068,CF-2022-3-2,"He lives in Seoul, doesn’t he?",,0,ncic_2022_eng_byeol14_hwp
+1069,CF-2022-3-3,What is X (exactly)?,,0,ncic_2022_eng_byeol14_hwp
+1070,CF-2022-3-3,What do you mean by X?,,0,ncic_2022_eng_byeol14_hwp
+1071,CF-2022-3-3,Could you explain ... ?,,0,ncic_2022_eng_byeol14_hwp
+1072,CF-2022-3-4,How do you spell ... ?,,0,ncic_2022_eng_byeol14_hwp
+1073,CF-2022-3-4,"Could you spell that, please?",,0,ncic_2022_eng_byeol14_hwp
+1074,CF-2022-3-4,"Could you write that down (for me), please?",,0,ncic_2022_eng_byeol14_hwp
+1075,CF-2022-3-4,-B-A-G.,,0,ncic_2022_eng_byeol14_hwp
+1076,CF-2022-3-4,-‘Bag’ is spelled B-A-G.,,0,ncic_2022_eng_byeol14_hwp
+1077,CF-2022-3-4,-It’s spelled with a capital ‘P’.,,0,ncic_2022_eng_byeol14_hwp
+1078,CF-2022-3-5,What is X (in English)?,,0,ncic_2022_eng_byeol14_hwp
+1079,CF-2022-3-5,Do you say ... (or ...)?,,0,ncic_2022_eng_byeol14_hwp
+1080,CF-2022-3-5,I don’t know how to say/write it.,,0,ncic_2022_eng_byeol14_hwp
+1081,CF-2022-3-5,How would/do you say this in English/Korean?,,0,ncic_2022_eng_byeol14_hwp
+1082,CF-2022-3-6,X.,,0,ncic_2022_eng_byeol14_hwp
+1083,CF-2022-3-6,Do you mean X?,,0,ncic_2022_eng_byeol14_hwp
+1084,CF-2022-3-6,I think you mean ... .,,0,ncic_2022_eng_byeol14_hwp
+1085,CF-2022-3-6,In English/Korean we say ... .,,0,ncic_2022_eng_byeol14_hwp
+1086,CF-2022-3-7,Do you understand?,,0,ncic_2022_eng_byeol14_hwp
+1087,CF-2022-3-7,Do you see/know what I mean?,,0,ncic_2022_eng_byeol14_hwp
+1088,CF-2022-3-7,Is this/everything clear (now)?,,0,ncic_2022_eng_byeol14_hwp
+1089,CF-2022-3-7,Do you follow me?,,0,ncic_2022_eng_byeol14_hwp
+1090,CF-2022-3-7,"I’m sorry, did you say “...”?",,0,ncic_2022_eng_byeol14_hwp
+1091,CF-2022-3-7,I’m not sure I understand. Are you saying that ...?,,0,ncic_2022_eng_byeol14_hwp
+1092,CF-2022-3-7,Do you mean ...?,,0,ncic_2022_eng_byeol14_hwp
+1093,CF-2022-3-7,Are you with me?,,0,ncic_2022_eng_byeol14_hwp
+1094,CF-2022-3-7,I see./Okay.,,0,ncic_2022_eng_byeol14_hwp
+1095,CF-2022-3-7,I (don’t) understand.,,0,ncic_2022_eng_byeol14_hwp
+1096,CF-2022-3-7,"Please, go on.",,0,ncic_2022_eng_byeol14_hwp
+1097,CF-2022-3-7,It (still) isn’t clear to me what this means.,,0,ncic_2022_eng_byeol14_hwp
+1098,CF-2022-3-7,(Sorry/I’m afraid) I don’t know what   you mean/meant.,,0,ncic_2022_eng_byeol14_hwp
+1099,CF-2022-3-8,"(No,) I mean Y (not X) ... .",,0,ncic_2022_eng_byeol14_hwp
+1100,CF-2022-3-8,(I’m afraid) that’s wrong/not right.,,0,ncic_2022_eng_byeol14_hwp
+1101,CF-2022-3-8,That’s not (exactly) what I meant to say.,,0,ncic_2022_eng_byeol14_hwp
+1102,CF-2022-3-9,Let me see/think.,,0,ncic_2022_eng_byeol14_hwp
+1103,CF-2022-3-9,Just a moment (while I think).,,0,ncic_2022_eng_byeol14_hwp
+1104,CF-2022-3-9,May I think about that for a moment?,,0,ncic_2022_eng_byeol14_hwp
+1105,CF-2022-3-9,Take your time (to think).,,0,ncic_2022_eng_byeol14_hwp
+1106,CF-2022-3-9,You have five minutes.,,0,ncic_2022_eng_byeol14_hwp
+1107,CF-2022-3-9,I’ll give you five (more) minutes.,,0,ncic_2022_eng_byeol14_hwp
