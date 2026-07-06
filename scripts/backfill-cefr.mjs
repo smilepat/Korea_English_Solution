@@ -38,6 +38,27 @@ async function main() {
     if (src === "inherited") inherited++; else estimated++
   }
   console.log(`[backfill] 완료: 상속 ${inherited} · 추정(학년군기본값) ${estimated}`)
+
+  // 4) 고교 과목별 CEFR 정교화(overlay). data/kcsdb/cefr_hs_refine.csv 근거표 기반.
+  //    학년군 기본값(high→B1) 일괄추정을 과목 성격에 맞게 A2/B2로 조정하거나
+  //    동일 과목 원본이 있으면 상속으로 승격. 원본(original)은 절대 덮지 않는다.
+  const refinePath = join(ROOT, "data", "kcsdb", "cefr_hs_refine.csv")
+  if (existsSync(refinePath)) {
+    const lines = readFileSync(refinePath, "utf8").replace(/^﻿/, "").split(/\r?\n/).filter(Boolean)
+    let refined = 0
+    for (const line of lines.slice(1)) {
+      const [ver, subj, cefr, src] = line.split(",")  // rationale(5번째)는 문서용, 미사용
+      if (!ver || !subj || !cefr) continue
+      const r = await db.execute({
+        // 자동 추정(estimated) 또는 이전 정교화(inherited) 대상만 갱신 → original 보호, 재실행 멱등
+        sql: "UPDATE kcsdb_standards SET cefr_alignment=?, cefr_source=? WHERE curriculum_version=? AND subject_name_ko=? AND grade_band='high' AND cefr_source!='original'",
+        args: [cefr.trim(), src.trim(), ver.trim(), subj.trim()],
+      })
+      refined += r.rowsAffected || 0
+    }
+    console.log(`[backfill] 과목별 정교화(overlay): ${refined}행 갱신`)
+  }
+
   for (const r of await Q("SELECT cefr_source, COUNT(*) n FROM kcsdb_standards GROUP BY cefr_source"))
     console.log(`   ${r.cefr_source}: ${r.n}`)
   process.exit(0)

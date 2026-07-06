@@ -11,6 +11,7 @@ export interface StdResult {
   grade_band: string
   domain_name_ko: string
   cefr_alignment: string | null
+  cefr_source?: string | null
   standard_text_ko: string
   score?: number
 }
@@ -23,7 +24,7 @@ export interface SearchResponse {
 
 const CODE_RE = /^\s*\[.+\]\s*$/
 const SELECT_COLS =
-  "standard_id, curriculum_version, grade_band, domain_name_ko, cefr_alignment, standard_text_ko"
+  "standard_id, curriculum_version, grade_band, domain_name_ko, cefr_alignment, cefr_source, standard_text_ko"
 
 function rowsToStd(rows: any[]): StdResult[] {
   return rows.map((r) => ({
@@ -32,6 +33,7 @@ function rowsToStd(rows: any[]): StdResult[] {
     grade_band: String(r.grade_band ?? ""),
     domain_name_ko: String(r.domain_name_ko ?? ""),
     cefr_alignment: r.cefr_alignment ?? null,
+    cefr_source: r.cefr_source ?? null,
     standard_text_ko: String(r.standard_text_ko ?? ""),
     score: typeof r.distance === "number" ? r.distance : undefined,
   }))
@@ -96,7 +98,7 @@ async function semantic(query: string, limit: number): Promise<StdResult[]> {
   const vec = `[${emb.join(",")}]`
   const r = await turso.execute({
     sql: `SELECT s.standard_id, s.curriculum_version, s.grade_band, s.domain_name_ko,
-                 s.cefr_alignment, s.standard_text_ko,
+                 s.cefr_alignment, s.cefr_source, s.standard_text_ko,
                  vector_distance_cos(v.embedding, vector32(?)) AS distance
           FROM kcsdb_vec v JOIN kcsdb_standards s ON s.standard_id = v.standard_id
           ORDER BY distance ASC LIMIT ?`,

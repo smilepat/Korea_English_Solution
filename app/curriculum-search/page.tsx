@@ -144,7 +144,10 @@ export default function CurriculumSearchPage() {
               <span style={badge}>{r.curriculum_version}</span>
               <span style={badge}>{r.grade_band}</span>
               {r.domain_name_ko && <span style={badge}>{r.domain_name_ko}</span>}
-              {r.cefr_alignment && <span style={{ ...badge, background: "#ecfeff", color: "#0e7490" }}>{r.cefr_alignment}</span>}
+              {r.cefr_alignment && <span style={{ ...badge, background: "#ecfeff", color: "#0e7490" }} title={r.cefr_source === "original" ? "교육과정 원본 CEFR" : r.cefr_source === "inherited" ? "동일 학년군/과목 상속(참고)" : r.cefr_source === "estimated" ? "과목 성격 기반 추정 — 공인 아님" : ""}>
+                CEFR {r.cefr_alignment}
+                {r.cefr_source && r.cefr_source !== "original" && <span style={{ marginLeft: 4, fontSize: 10, color: "#b45309" }}>{r.cefr_source === "inherited" ? "상속" : "추정"}</span>}
+              </span>}
               {typeof r.score === "number" && <span style={{ color: "#94a3b8", fontSize: 11 }}>근접 {r.score.toFixed(3)}</span>}
             </div>
             <p style={{ margin: "8px 0 0", fontSize: 14 }}>{r.standard_text_ko}</p>
