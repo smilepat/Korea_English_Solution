@@ -21,6 +21,17 @@ const SORTS: { key: SortKey; label: string }[] = [
   { key: "band", label: "학교급순" },
   { key: "cefr", label: "CEFR순" },
 ]
+// 자주 쓰는 검색어: 성취기준 본문 실측 빈도 기반(로그가 아닌 코퍼스 등장 횟수). 괄호=매칭 성취기준 수.
+const FREQ_GROUPS: { group: string; terms: { term: string; n: number }[] }[] = [
+  { group: "읽기·이해", terms: [
+    { term: "주제", n: 260 }, { term: "요지", n: 31 }, { term: "추론", n: 58 }, { term: "세부 정보", n: 57 },
+    { term: "목적", n: 59 }, { term: "의도", n: 35 }, { term: "심정", n: 30 }, { term: "함축", n: 21 }, { term: "요약", n: 31 },
+  ] },
+  { group: "표현·소통", terms: [
+    { term: "의견", n: 48 }, { term: "발표", n: 11 }, { term: "토론", n: 21 }, { term: "비교", n: 33 }, { term: "감정", n: 28 },
+  ] },
+  { group: "문화", terms: [{ term: "문화", n: 56 }] },
+]
 
 const MODES: { key: SearchMode; label: string; hint: string }[] = [
   { key: "auto", label: "자동", hint: "질문 유형 자동 감지" },
@@ -46,6 +57,13 @@ export default function CurriculumSearchPage() {
   const [details, setDetails] = useState<Record<string, StandardDetail>>({})
   const [reference, setReference] = useState<ReferenceResult>({ functions: [], grammar: [] })
   const [sortKey, setSortKey] = useState<SortKey>("relevance")
+  const [preset, setPreset] = useState("")  // 자주 쓰는 검색어 드롭다운("" = 직접 입력)
+
+  function pickPreset(term: string) {
+    if (!term) { setPreset(""); return }        // "직접 입력" 선택 → 입력창 자유 입력
+    setQ(term); setPreset("")                    // 드롭다운은 다시 "직접 입력"으로 복귀
+    run({ q: term })                             // 상태 비동기 우회 위해 override로 즉시 검색
+  }
 
   const sortedRows = useMemo(() => {
     if (sortKey === "relevance") return rows
@@ -56,17 +74,18 @@ export default function CurriculumSearchPage() {
     return a
   }, [rows, sortKey])
 
-  async function run(over?: { mode?: SearchMode; ver?: string; band?: string; domain?: string }) {
-    // 상태 업데이트는 비동기라 빈결과 재검색 버튼에서 넘긴 override를 즉시 반영한다.
+  async function run(over?: { q?: string; mode?: SearchMode; ver?: string; band?: string; domain?: string }) {
+    // 상태 업데이트는 비동기라 재검색/자주쓰는검색어에서 넘긴 override를 즉시 반영한다.
+    const query = over?.q ?? q
     const m = over?.mode ?? mode
     const v = over?.ver ?? ver, b = over?.band ?? band, dm = over?.domain ?? domain
     setLoading(true); setNote(""); setSql(""); setReference({ functions: [], grammar: [] })
     try {
       const [r, ref] = await Promise.all([
-        curriculumSearch(q, m, {
+        curriculumSearch(query, m, {
           version: (v || undefined) as any, band: (b || undefined) as any, domain: dm || undefined,
         }),
-        searchReference(q, v || undefined).catch(() => ({ functions: [], grammar: [] } as ReferenceResult)),
+        searchReference(query, v || undefined).catch(() => ({ functions: [], grammar: [] } as ReferenceResult)),
       ])
       setRows(r.results); setNote(r.note || ""); setSql(r.sql || ""); setUsedMode(r.mode)
       setReference(ref)
@@ -139,8 +158,21 @@ export default function CurriculumSearchPage() {
         ))}
       </div>
 
+      <div className="kcs-noprint" style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8, flexWrap: "wrap" }}>
+        <label style={{ fontSize: 12, color: "#64748b" }}>자주 쓰는 검색어</label>
+        <select value={preset} onChange={(e) => pickPreset(e.target.value)} style={{ ...selStyle, fontSize: 13, maxWidth: "100%" }} aria-label="자주 쓰는 검색어 선택">
+          <option value="">직접 입력</option>
+          {FREQ_GROUPS.map((g) => (
+            <optgroup key={g.group} label={g.group}>
+              {g.terms.map((t) => <option key={t.term} value={t.term}>{t.term} ({t.n})</option>)}
+            </optgroup>
+          ))}
+        </select>
+        <span style={{ fontSize: 11, color: "#94a3b8" }}>괄호=해당 어휘가 나오는 성취기준 수</span>
+      </div>
+
       <div className="kcs-noprint kcs-searchrow">
-        <input value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={(e) => e.key === "Enter" && run()}
+        <input value={q} onChange={(e) => { setQ(e.target.value); if (preset) setPreset("") }} onKeyDown={(e) => e.key === "Enter" && run()}
           placeholder={mode === "nl2sql" ? "예: 중3 읽기에서 추론 관련 성취기준" : mode === "semantic" ? "예: 필자의 의도를 파악하는 능력" : "코드 [9영03-04] 또는 키워드 '추론'"}
           style={{ padding: "10px 12px", borderRadius: 8, border: "1px solid #ccc", fontSize: 14 }} />
         <button type="button" onClick={() => run()} disabled={loading}
