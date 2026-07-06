@@ -34,12 +34,12 @@ const FREQ_GROUPS: { group: string; terms: { term: string; n: number }[] }[] = [
   { group: "문화", terms: [{ term: "문화", n: 56 }] },
 ]
 
-const MODES: { key: SearchMode; label: string; hint: string }[] = [
-  { key: "auto", label: "자동", hint: "질문 유형 자동 감지" },
-  { key: "structured", label: "코드·필터", hint: "[9영03-04] / 조건" },
-  { key: "fulltext", label: "전문검색", hint: "키워드 부분일치" },
-  { key: "semantic", label: "의미검색", hint: "뜻으로 찾기(AI)" },
-  { key: "nl2sql", label: "자연어", hint: "문장으로 질문(AI)" },
+const MODES: { key: SearchMode; label: string; hint: string; guide: string; example: string }[] = [
+  { key: "auto", label: "자동", hint: "질문 유형 자동 감지", guide: "입력을 보고 방법을 자동으로 고릅니다. 코드·질문·키워드 무엇이든 입력하고 검색하세요.", example: "추론" },
+  { key: "structured", label: "코드·필터", hint: "[9영03-04] / 조건", guide: "성취기준 코드를 정확히 입력하세요. 아래 필터(개정·학교급·영역·CEFR)로 조건 검색도 됩니다.", example: "[9영03-04]" },
+  { key: "fulltext", label: "전문검색", hint: "키워드 부분일치", guide: "성취기준 본문에 들어간 키워드를 부분일치로 찾습니다. 2자 이상 입력하세요.", example: "세부 정보" },
+  { key: "semantic", label: "의미검색", hint: "뜻으로 찾기(AI)", guide: "표현이 달라도 뜻이 비슷한 성취기준을 AI가 찾아 줍니다.", example: "필자의 의도를 파악하는 능력" },
+  { key: "nl2sql", label: "자연어", hint: "문장으로 질문(AI)", guide: "완성된 문장으로 질문하세요. AI가 조건을 해석해 검색합니다.", example: "중3 읽기에서 추론 관련 성취기준" },
 ]
 const BANDS = [["", "학교급"], ["elementary", "초"], ["middle", "중"], ["high", "고"]]
 const DOMAINS = ["", "듣기", "말하기", "읽기", "쓰기", "이해", "표현"]
@@ -154,14 +154,29 @@ export default function CurriculumSearchPage() {
         성취기준 672 · 성취수준(A~E/상·중·하) · 기본어휘 5,839 — 4가지 방법으로 검색 (2015·2022 개정)
       </p>
 
-      <div className="kcs-noprint" style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 10 }}>
-        {MODES.map((m) => (
-          <button key={m.key} onClick={() => setMode(m.key)} title={m.hint}
-            style={{ padding: "6px 12px", borderRadius: 8, border: "1px solid #ddd", cursor: "pointer",
-              background: mode === m.key ? "#2563eb" : "#fff", color: mode === m.key ? "#fff" : "#333", fontSize: 13 }}>
-            {m.label}
-          </button>
-        ))}
+      <div className="kcs-noprint" style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "flex-start", marginBottom: 10 }}>
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+          {MODES.map((m) => (
+            <button key={m.key} onClick={() => setMode(m.key)} title={m.hint}
+              style={{ padding: "6px 12px", borderRadius: 8, border: "1px solid #ddd", cursor: "pointer",
+                background: mode === m.key ? "#2563eb" : "#fff", color: mode === m.key ? "#fff" : "#333", fontSize: 13 }}>
+              {m.label}
+            </button>
+          ))}
+        </div>
+        {(() => {
+          const cur = MODES.find((m) => m.key === mode)!
+          return (
+            <div style={{ flex: "1 1 240px", minWidth: 200, background: "#eff6ff", border: "1px solid #bfdbfe", borderRadius: 10, padding: "10px 12px" }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "#1d4ed8", marginBottom: 3 }}>💡 {cur.label} 검색이란?</div>
+              <div style={{ fontSize: 12.5, color: "#334155", lineHeight: 1.5 }}>{cur.guide}</div>
+              <div style={{ fontSize: 12, color: "#475569", marginTop: 5 }}>
+                예시 <button type="button" onClick={() => { setQ(cur.example); if (preset) setPreset("") }} title="예시를 검색창에 넣기"
+                  style={{ background: "#dbeafe", color: "#1e40af", border: "1px solid #bfdbfe", borderRadius: 6, padding: "1px 7px", fontSize: 12, cursor: "pointer" }}>{cur.example}</button>
+              </div>
+            </div>
+          )
+        })()}
       </div>
 
       <div className="kcs-noprint" style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8, flexWrap: "wrap" }}>
