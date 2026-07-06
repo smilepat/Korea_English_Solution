@@ -71,18 +71,24 @@ async function structured(query: string, f: Filters, limit: number): Promise<Std
 // ── S2: 전문검색(FTS5 우선, 실패 시 LIKE) ──
 async function fulltext(query: string, f: Filters, limit: number): Promise<StdResult[]> {
   try {
+    const cols = SELECT_COLS.split(", ").map((c) => "s." + c.trim()).join(", ")
+    // 모든 필터를 바인드 파라미터로(version/band뿐 아니라 domain·cefr까지 일관 적용).
+    const where = ["kcsdb_standards_fts MATCH ?"]
+    const args: any[] = [`"${query.replace(/"/g, "")}"`]
+    if (f.version) { where.push("s.curriculum_version = ?"); args.push(f.version) }
+    if (f.band) { where.push("s.grade_band = ?"); args.push(f.band) }
+    if (f.domain) { where.push("(s.domain_name_ko = ? OR s.domain_code = ?)"); args.push(f.domain, f.domain) }
+    if (f.cefr) { where.push("s.cefr_alignment = ?"); args.push(f.cefr) }
+    args.push(limit)
     const r = await turso.execute({
-      sql: `SELECT s.${SELECT_COLS.split(", ").map((c) => "s." + c.trim()).join(", ")}
-            FROM kcsdb_standards_fts f JOIN kcsdb_standards s ON s.standard_id = f.standard_id
-            WHERE kcsdb_standards_fts MATCH ?
-            ${f.version ? "AND s.curriculum_version = :v" : ""}
-            ${f.band ? "AND s.grade_band = :b" : ""}
-            LIMIT ?`.replace(":v", "'" + (f.version || "") + "'").replace(":b", "'" + (f.band || "") + "'"),
-      args: [`"${query.replace(/"/g, "")}"`, limit],
+      sql: `SELECT ${cols}
+            FROM kcsdb_standards_fts JOIN kcsdb_standards s ON s.standard_id = kcsdb_standards_fts.standard_id
+            WHERE ${where.join(" AND ")} LIMIT ?`,
+      args,
     })
     if (r.rows.length) return rowsToStd(r.rows as any[])
   } catch { /* trigram은 3자 미만 등에서 실패 → LIKE 폴백 */ }
-  return structured(query, f, limit) // LIKE 폴백
+  return structured(query, f, limit) // LIKE 폴백(structured가 동일 필터 전부 적용)
 }
 
 // ── S3: 의미검색(Gemini 임베딩 + 코사인) ──

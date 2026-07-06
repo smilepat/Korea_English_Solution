@@ -42,6 +42,7 @@ const MODES: { key: SearchMode; label: string; hint: string }[] = [
 ]
 const BANDS = [["", "학교급"], ["elementary", "초"], ["middle", "중"], ["high", "고"]]
 const DOMAINS = ["", "듣기", "말하기", "읽기", "쓰기", "이해", "표현"]
+const CEFRS = ["", "A1", "A2", "B1", "B2", "C1"]
 
 export default function CurriculumSearchPage() {
   const [q, setQ] = useState("")
@@ -49,6 +50,7 @@ export default function CurriculumSearchPage() {
   const [ver, setVer] = useState("")
   const [band, setBand] = useState("")
   const [domain, setDomain] = useState("")
+  const [cefr, setCefr] = useState("")
   const [rows, setRows] = useState<StdResult[]>([])
   const [note, setNote] = useState("")
   const [sql, setSql] = useState("")
@@ -74,16 +76,16 @@ export default function CurriculumSearchPage() {
     return a
   }, [rows, sortKey])
 
-  async function run(over?: { q?: string; mode?: SearchMode; ver?: string; band?: string; domain?: string }) {
+  async function run(over?: { q?: string; mode?: SearchMode; ver?: string; band?: string; domain?: string; cefr?: string }) {
     // 상태 업데이트는 비동기라 재검색/자주쓰는검색어에서 넘긴 override를 즉시 반영한다.
     const query = over?.q ?? q
     const m = over?.mode ?? mode
-    const v = over?.ver ?? ver, b = over?.band ?? band, dm = over?.domain ?? domain
+    const v = over?.ver ?? ver, b = over?.band ?? band, dm = over?.domain ?? domain, ce = over?.cefr ?? cefr
     setLoading(true); setNote(""); setSql(""); setReference({ functions: [], grammar: [] })
     try {
       const [r, ref] = await Promise.all([
         curriculumSearch(query, m, {
-          version: (v || undefined) as any, band: (b || undefined) as any, domain: dm || undefined,
+          version: (v || undefined) as any, band: (b || undefined) as any, domain: dm || undefined, cefr: ce || undefined,
         }),
         searchReference(query, v || undefined).catch(() => ({ functions: [], grammar: [] } as ReferenceResult)),
       ])
@@ -108,7 +110,7 @@ export default function CurriculumSearchPage() {
       ht.push(`<p><b>${r.standard_id}</b> <small>(${meta})</small><br>${esc(r.standard_text_ko)}`)
       const d = details[r.standard_id]
       if (d?.levels?.length) { md.push("성취수준:"); ht.push("성취수준:<br>"); for (const l of d.levels) { const t = `${l.level}${l.cut_score ? " (" + l.cut_score + ")" : ""}: ${l.descriptor_ko}`; md.push("- " + t); ht.push("&nbsp;&nbsp;" + esc(t) + "<br>") } }
-      if (d?.vocab?.length) { const vs = d.vocab.map((v) => v.word + (v.meaning_ko ? `(${v.meaning_ko})` : "")).join(", "); md.push(`연계 어휘(CEFR ${d.cefr}): ${vs}`); ht.push(`연계 어휘(CEFR ${d.cefr}): ${esc(vs)}`) }
+      if (d?.vocab?.length) { const vs = d.vocab.map((v) => v.word + (v.meaning_ko ? `(${v.meaning_ko})` : "")).join(", "); md.push(`수준별 기본어휘(CEFR ${d.cefr} 등급·내용 연계 아님): ${vs}`); ht.push(`수준별 기본어휘(CEFR ${d.cefr} 등급·내용 연계 아님): ${esc(vs)}`) }
       if (d?.csatTypes?.length) { const cs = d.csatTypes.map((c) => c.csat_type).join(", "); md.push(`관련 수능 유형(참고): ${cs}`); ht.push(`관련 수능 유형(참고): ${esc(cs)}`) }
       ht.push("</p>")
     }
@@ -168,7 +170,7 @@ export default function CurriculumSearchPage() {
             </optgroup>
           ))}
         </select>
-        <span style={{ fontSize: 11, color: "#94a3b8" }}>괄호=해당 어휘가 나오는 성취기준 수</span>
+        <span style={{ fontSize: 11, color: "#94a3b8" }}>괄호=전체 성취기준 중 해당 어휘 포함 수(필터 무관)</span>
       </div>
 
       <div className="kcs-noprint kcs-searchrow">
@@ -191,6 +193,9 @@ export default function CurriculumSearchPage() {
           </select>
           <select value={domain} onChange={(e) => setDomain(e.target.value)} style={selStyle}>
             {DOMAINS.map((d) => <option key={d} value={d}>{d || "영역"}</option>)}
+          </select>
+          <select value={cefr} onChange={(e) => setCefr(e.target.value)} style={selStyle} aria-label="CEFR 등급 필터" title="CEFR 등급으로 필터(원본·상속·추정 포함)">
+            {CEFRS.map((c) => <option key={c} value={c}>{c || "CEFR"}</option>)}
           </select>
         </div>
       )}
@@ -232,7 +237,7 @@ export default function CurriculumSearchPage() {
             </div>
             <p style={{ margin: "8px 0 0", fontSize: 14 }}>{highlight(r.standard_text_ko, q)}</p>
             <button onClick={() => toggleDetail(r.standard_id)} style={{ marginTop: 6, fontSize: 12, color: "#2563eb", background: "none", border: "none", cursor: "pointer", padding: 0 }}>
-              {details[r.standard_id] ? "상세 접기 ▲" : "성취수준 · 연계 어휘 보기 ▼"}
+              {details[r.standard_id] ? "상세 접기 ▲" : "성취수준 · 수준별 어휘 보기 ▼"}
             </button>
             {details[r.standard_id] && (
               <div style={{ marginTop: 8, fontSize: 13 }}>
@@ -244,12 +249,12 @@ export default function CurriculumSearchPage() {
                       <b style={{ color: "#2563eb" }}>{l.level}</b>{l.cut_score ? <span style={{ color: "#999" }}> ({l.cut_score})</span> : ""} {l.descriptor_ko}
                     </div>
                   ))}
-                {/* 연계 어휘(같은 CEFR, 빈도순) */}
+                {/* 수준별 기본어휘: 성취기준 내용 연계가 아니라 같은 CEFR 등급의 기본어휘를 빈도순으로 제시 */}
                 {details[r.standard_id].vocab.length > 0 && (
                   <div style={{ marginTop: 10 }}>
                     <div style={{ fontWeight: 600, color: "#334155", marginBottom: 4 }}>
-                      연계 어휘 <span style={{ color: "#94a3b8", fontWeight: 400 }}>
-                        (CEFR {details[r.standard_id].cefr}{details[r.standard_id].cefrSource && details[r.standard_id].cefrSource !== "original" ? <span style={{ color: "#d97706" }}> ·{details[r.standard_id].cefrSource === "inherited" ? "동일 학년군 상속" : "추정"}</span> : ""} · 빈도순 {details[r.standard_id].vocab.length}개)
+                      수준별 기본어휘 <span style={{ color: "#94a3b8", fontWeight: 400 }} title="성취기준 내용과 직접 연계된 어휘가 아니라, 같은 CEFR 등급의 기본어휘를 빈도순으로 제시합니다.">
+                        (CEFR {details[r.standard_id].cefr}{details[r.standard_id].cefrSource && details[r.standard_id].cefrSource !== "original" ? <span style={{ color: "#d97706" }}> ·{details[r.standard_id].cefrSource === "inherited" ? "동일 학년군 상속" : "추정"}</span> : ""} 등급 · 빈도순 {details[r.standard_id].vocab.length}개 · 내용 연계 아님)
                       </span>
                     </div>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
@@ -291,7 +296,7 @@ export default function CurriculumSearchPage() {
           <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap" }}>
             {mode !== "semantic" && <button type="button" onClick={() => { setMode("semantic"); run({ mode: "semantic" }) }} style={emptyBtn}>🔎 의미로 다시 검색</button>}
             {mode !== "nl2sql" && <button type="button" onClick={() => { setMode("nl2sql"); run({ mode: "nl2sql" }) }} style={emptyBtn}>💬 자연어로 다시 검색</button>}
-            {(ver || band || domain) && <button type="button" onClick={() => { setVer(""); setBand(""); setDomain(""); run({ ver: "", band: "", domain: "" }) }} style={emptyBtn}>🔄 필터 해제 후 재검색</button>}
+            {(ver || band || domain || cefr) && <button type="button" onClick={() => { setVer(""); setBand(""); setDomain(""); setCefr(""); run({ ver: "", band: "", domain: "", cefr: "" }) }} style={emptyBtn}>🔄 필터 해제 후 재검색</button>}
           </div>
           <div style={{ fontSize: 11, color: "#94a3b8", marginTop: 10 }}>코드는 <code>[9영03-04]</code> 형식, 키워드는 2자 이상이 정확합니다.</div>
         </div>
