@@ -1,6 +1,26 @@
 "use client"
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { curriculumSearch, getStandardDetail, searchReference, type SearchMode, type StdResult, type StandardDetail, type ReferenceResult } from "@/app/actions/curriculum-search"
+
+// 검색어 토큰을 결과 본문에 <mark> 강조(순수 표현 계층). query는 사용자 입력 → React 노드로 안전 렌더.
+function highlight(text: string, query: string): React.ReactNode {
+  const q = (query || "").trim()
+  if (!q || !text) return text
+  const toks = Array.from(new Set([q, ...q.split(/\s+/)])).filter((t) => t.length >= 2).map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+  if (!toks.length) return text
+  const parts = text.split(new RegExp(`(${toks.join("|")})`, "gi"))
+  return parts.map((p, i) => (i % 2 === 1 ? <mark key={i} style={{ background: "#fef08a", color: "inherit", padding: "0 1px", borderRadius: 2 }}>{p}</mark> : p))
+}
+
+const BAND_ORDER: Record<string, number> = { elementary: 0, middle: 1, high: 2 }
+const CEFR_ORDER: Record<string, number> = { A1: 0, A2: 1, B1: 2, B2: 3, C1: 4, C2: 5 }
+type SortKey = "relevance" | "code" | "band" | "cefr"
+const SORTS: { key: SortKey; label: string }[] = [
+  { key: "relevance", label: "관련도순" },
+  { key: "code", label: "코드순" },
+  { key: "band", label: "학교급순" },
+  { key: "cefr", label: "CEFR순" },
+]
 
 const MODES: { key: SearchMode; label: string; hint: string }[] = [
   { key: "auto", label: "자동", hint: "질문 유형 자동 감지" },
@@ -25,15 +45,28 @@ export default function CurriculumSearchPage() {
   const [loading, setLoading] = useState(false)
   const [details, setDetails] = useState<Record<string, StandardDetail>>({})
   const [reference, setReference] = useState<ReferenceResult>({ functions: [], grammar: [] })
+  const [sortKey, setSortKey] = useState<SortKey>("relevance")
 
-  async function run() {
+  const sortedRows = useMemo(() => {
+    if (sortKey === "relevance") return rows
+    const a = [...rows]
+    if (sortKey === "code") a.sort((x, y) => x.standard_id.localeCompare(y.standard_id, "ko"))
+    else if (sortKey === "band") a.sort((x, y) => (BAND_ORDER[x.grade_band] ?? 9) - (BAND_ORDER[y.grade_band] ?? 9) || x.standard_id.localeCompare(y.standard_id, "ko"))
+    else if (sortKey === "cefr") a.sort((x, y) => (CEFR_ORDER[x.cefr_alignment || ""] ?? 9) - (CEFR_ORDER[y.cefr_alignment || ""] ?? 9) || x.standard_id.localeCompare(y.standard_id, "ko"))
+    return a
+  }, [rows, sortKey])
+
+  async function run(over?: { mode?: SearchMode; ver?: string; band?: string; domain?: string }) {
+    // 상태 업데이트는 비동기라 빈결과 재검색 버튼에서 넘긴 override를 즉시 반영한다.
+    const m = over?.mode ?? mode
+    const v = over?.ver ?? ver, b = over?.band ?? band, dm = over?.domain ?? domain
     setLoading(true); setNote(""); setSql(""); setReference({ functions: [], grammar: [] })
     try {
       const [r, ref] = await Promise.all([
-        curriculumSearch(q, mode, {
-          version: (ver || undefined) as any, band: (band || undefined) as any, domain: domain || undefined,
+        curriculumSearch(q, m, {
+          version: (v || undefined) as any, band: (b || undefined) as any, domain: dm || undefined,
         }),
-        searchReference(q, ver || undefined).catch(() => ({ functions: [], grammar: [] } as ReferenceResult)),
+        searchReference(q, v || undefined).catch(() => ({ functions: [], grammar: [] } as ReferenceResult)),
       ])
       setRows(r.results); setNote(r.note || ""); setSql(r.sql || ""); setUsedMode(r.mode)
       setReference(ref)
@@ -49,8 +82,8 @@ export default function CurriculumSearchPage() {
   function serialize(): { md: string; html: string } {
     const md: string[] = ["# 영어 교육과정 성취기준 검색 결과"]
     const ht: string[] = ["<h3>영어 교육과정 성취기준 검색 결과</h3>"]
-    if (q) { md.push(`검색어: ${q} · 모드 ${usedMode} · ${rows.length}건`); ht.push(`<p>검색어: ${q} · ${rows.length}건</p>`) }
-    for (const r of rows) {
+    if (q) { md.push(`검색어: ${q} · 모드 ${usedMode} · ${sortedRows.length}건`); ht.push(`<p>검색어: ${q} · ${sortedRows.length}건</p>`) }
+    for (const r of sortedRows) {
       const meta = `${r.curriculum_version}·${r.grade_band}${r.domain_name_ko ? "·" + r.domain_name_ko : ""}${r.cefr_alignment ? "·CEFR " + r.cefr_alignment : ""}`
       md.push("", `## ${r.standard_id} (${meta})`, r.standard_text_ko)
       ht.push(`<p><b>${r.standard_id}</b> <small>(${meta})</small><br>${esc(r.standard_text_ko)}`)
@@ -81,7 +114,16 @@ export default function CurriculumSearchPage() {
 
   return (
     <div style={{ maxWidth: 860, margin: "0 auto", padding: "24px 16px", fontFamily: "system-ui, sans-serif" }}>
-      <style>{`@media print { .kcs-noprint { display: none !important; } a { color: #000; text-decoration: none; } @page { margin: 14mm; } }`}</style>
+      <style>{`
+        @media print { .kcs-noprint { display: none !important; } a { color: #000; text-decoration: none; } @page { margin: 14mm; } }
+        .kcs-searchrow { display: flex; gap: 8px; flex-wrap: wrap; }
+        .kcs-searchrow input { flex: 1 1 200px; min-width: 0; }
+        .kcs-filterrow { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+        @media (max-width: 520px) {
+          .kcs-searchrow button { flex: 1 1 100%; }
+          .kcs-filterrow select { flex: 1 1 30%; }
+        }
+      `}</style>
       <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 4 }}>영어 교육과정 성취기준 검색</h1>
       <p style={{ color: "#666", marginBottom: 16, fontSize: 14 }}>
         성취기준 672 · 성취수준(A~E/상·중·하) · 기본어휘 5,839 — 4가지 방법으로 검색 (2015·2022 개정)
@@ -97,18 +139,18 @@ export default function CurriculumSearchPage() {
         ))}
       </div>
 
-      <div className="kcs-noprint" style={{ display: "flex", gap: 8 }}>
+      <div className="kcs-noprint kcs-searchrow">
         <input value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={(e) => e.key === "Enter" && run()}
           placeholder={mode === "nl2sql" ? "예: 중3 읽기에서 추론 관련 성취기준" : mode === "semantic" ? "예: 필자의 의도를 파악하는 능력" : "코드 [9영03-04] 또는 키워드 '추론'"}
-          style={{ flex: 1, padding: "10px 12px", borderRadius: 8, border: "1px solid #ccc", fontSize: 14 }} />
-        <button onClick={run} disabled={loading}
-          style={{ padding: "10px 18px", borderRadius: 8, border: "none", background: "#2563eb", color: "#fff", cursor: "pointer" }}>
+          style={{ padding: "10px 12px", borderRadius: 8, border: "1px solid #ccc", fontSize: 14 }} />
+        <button type="button" onClick={() => run()} disabled={loading}
+          style={{ padding: "10px 18px", borderRadius: 8, border: "none", background: "#2563eb", color: "#fff", cursor: "pointer", minHeight: 40 }}>
           {loading ? "검색중…" : "검색"}
         </button>
       </div>
 
       {(mode === "auto" || mode === "structured" || mode === "fulltext") && (
-        <div className="kcs-noprint" style={{ display: "flex", gap: 8, marginTop: 10 }}>
+        <div className="kcs-noprint kcs-filterrow">
           <select value={ver} onChange={(e) => setVer(e.target.value)} style={selStyle}>
             <option value="">교육과정</option><option value="2015">2015</option><option value="2022">2022</option>
           </select>
@@ -130,6 +172,12 @@ export default function CurriculumSearchPage() {
           <button onClick={() => window.print()} style={{ padding: "6px 12px", borderRadius: 8, border: "1px solid #ddd", background: "#fff", cursor: "pointer", fontSize: 13 }}>
             🖨️ 인쇄 / PDF로 저장
           </button>
+          <label style={{ fontSize: 12, color: "#64748b", display: "flex", alignItems: "center", gap: 4 }}>
+            정렬
+            <select value={sortKey} onChange={(e) => setSortKey(e.target.value as SortKey)} style={{ ...selStyle, padding: "6px 8px", fontSize: 12 }} aria-label="결과 정렬 기준">
+              {SORTS.map((s) => <option key={s.key} value={s.key}>{s.label}</option>)}
+            </select>
+          </label>
           <span style={{ fontSize: 11, color: "#94a3b8" }}>펼친 성취수준·어휘도 함께 포함됩니다</span>
         </div>
       )}
@@ -137,10 +185,10 @@ export default function CurriculumSearchPage() {
       {sql && <pre style={{ background: "#f6f6f6", padding: 8, borderRadius: 6, fontSize: 11, overflowX: "auto", marginTop: 8 }}>{sql}</pre>}
 
       <div style={{ marginTop: 12, display: "flex", flexDirection: "column", gap: 8 }}>
-        {rows.map((r) => (
+        {sortedRows.map((r) => (
           <div key={r.standard_id} style={{ border: "1px solid #eee", borderRadius: 10, padding: 12 }}>
             <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
-              <code style={{ background: "#eef2ff", color: "#3730a3", padding: "2px 6px", borderRadius: 5, fontSize: 13 }}>{r.standard_id}</code>
+              <code style={{ background: "#eef2ff", color: "#3730a3", padding: "2px 6px", borderRadius: 5, fontSize: 13 }}>{highlight(r.standard_id, q)}</code>
               <span style={badge}>{r.curriculum_version}</span>
               <span style={badge}>{r.grade_band}</span>
               {r.domain_name_ko && <span style={badge}>{r.domain_name_ko}</span>}
@@ -150,7 +198,7 @@ export default function CurriculumSearchPage() {
               </span>}
               {typeof r.score === "number" && <span style={{ color: "#94a3b8", fontSize: 11 }}>근접 {r.score.toFixed(3)}</span>}
             </div>
-            <p style={{ margin: "8px 0 0", fontSize: 14 }}>{r.standard_text_ko}</p>
+            <p style={{ margin: "8px 0 0", fontSize: 14 }}>{highlight(r.standard_text_ko, q)}</p>
             <button onClick={() => toggleDetail(r.standard_id)} style={{ marginTop: 6, fontSize: 12, color: "#2563eb", background: "none", border: "none", cursor: "pointer", padding: 0 }}>
               {details[r.standard_id] ? "상세 접기 ▲" : "성취수준 · 연계 어휘 보기 ▼"}
             </button>
@@ -205,6 +253,18 @@ export default function CurriculumSearchPage() {
         ))}
       </div>
 
+      {!loading && q && usedMode && rows.length === 0 && (
+        <div className="kcs-noprint" style={{ marginTop: 16, padding: 16, borderRadius: 12, background: "#f8fafc", border: "1px dashed #cbd5e1", textAlign: "center" }}>
+          <div style={{ fontSize: 14, color: "#475569", marginBottom: 10 }}>‘{q}’에 대한 성취기준을 찾지 못했습니다.</div>
+          <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap" }}>
+            {mode !== "semantic" && <button type="button" onClick={() => { setMode("semantic"); run({ mode: "semantic" }) }} style={emptyBtn}>🔎 의미로 다시 검색</button>}
+            {mode !== "nl2sql" && <button type="button" onClick={() => { setMode("nl2sql"); run({ mode: "nl2sql" }) }} style={emptyBtn}>💬 자연어로 다시 검색</button>}
+            {(ver || band || domain) && <button type="button" onClick={() => { setVer(""); setBand(""); setDomain(""); run({ ver: "", band: "", domain: "" }) }} style={emptyBtn}>🔄 필터 해제 후 재검색</button>}
+          </div>
+          <div style={{ fontSize: 11, color: "#94a3b8", marginTop: 10 }}>코드는 <code>[9영03-04]</code> 형식, 키워드는 2자 이상이 정확합니다.</div>
+        </div>
+      )}
+
       {(reference.functions.length > 0 || reference.grammar.length > 0) && (
         <div style={{ marginTop: 20, padding: 14, borderRadius: 12, background: "#fffbeb", border: "1px solid #fde68a" }}>
           {reference.functions.length > 0 && (
@@ -247,3 +307,4 @@ export default function CurriculumSearchPage() {
 function esc(s: string) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") }
 const selStyle: React.CSSProperties = { padding: "8px 10px", borderRadius: 8, border: "1px solid #ccc", fontSize: 13 }
 const badge: React.CSSProperties = { background: "#f1f5f9", color: "#475569", padding: "2px 7px", borderRadius: 5, fontSize: 12 }
+const emptyBtn: React.CSSProperties = { padding: "8px 14px", borderRadius: 8, border: "1px solid #cbd5e1", background: "#fff", cursor: "pointer", fontSize: 13, minHeight: 40 }
