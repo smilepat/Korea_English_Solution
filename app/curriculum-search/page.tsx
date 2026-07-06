@@ -148,7 +148,10 @@ export default function CurriculumSearchPage() {
       `}</style>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: 8 }}>
         <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 4 }}>영어 교육과정 성취기준 검색</h1>
-        <a href="/curriculum-search/guide" className="kcs-noprint" style={{ fontSize: 13, color: "#4f46e5", textDecoration: "none", whiteSpace: "nowrap" }}>📖 사용 가이드</a>
+        <div className="kcs-noprint" style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
+          <a href="/" style={{ fontSize: 13, fontWeight: 600, color: "#fff", background: "#0d9488", padding: "6px 12px", borderRadius: 8, textDecoration: "none", whiteSpace: "nowrap" }}>🏠 홈화면</a>
+          <a href="/curriculum-search/guide" style={{ fontSize: 13, color: "#4f46e5", textDecoration: "none", whiteSpace: "nowrap" }}>📖 사용 가이드</a>
+        </div>
       </div>
       <p style={{ color: "#666", marginBottom: 16, fontSize: 14 }}>
         성취기준 672 · 성취수준(A~E/상·중·하) · 기본어휘 5,839 — 4가지 방법으로 검색 (2015·2022 개정)
