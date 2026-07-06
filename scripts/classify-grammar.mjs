@@ -17,12 +17,48 @@ async function gen(p) {
   return (await r.json()).candidates[0].content.parts[0].text
 }
 
+// 사람 전수 검수 오버라이드(정본화). data/kcsdb/grammar_verified.csv 있으면 우선 적용,
+// 해당 항목은 LLM 재분류를 건너뛰고 label_source='verified' 로 표기(예문은 [별표4] 정본).
+function loadVerified() {
+  const p = join(ROOT, "data", "kcsdb", "grammar_verified.csv")
+  if (!existsSync(p)) return new Map()
+  const lines = readFileSync(p, "utf8").replace(/^﻿/, "").split(/\r?\n/).filter(Boolean)
+  const map = new Map()
+  for (const line of lines.slice(1)) {
+    // id,category,item_name_ko  — item_name_ko 에 쉼표 없음(현 데이터). 앞 2개만 split.
+    const i1 = line.indexOf(","); const i2 = line.indexOf(",", i1 + 1)
+    if (i1 < 0 || i2 < 0) continue
+    const id = line.slice(0, i1).trim()
+    const category = line.slice(i1 + 1, i2).trim()
+    const item = line.slice(i2 + 1).trim().replace(/^"|"$/g, "")
+    if (id && item) map.set(id, { category: category || null, item })
+  }
+  return map
+}
+
 async function main() {
   try { await db.execute("ALTER TABLE kcsdb_grammar ADD COLUMN item_name_ko TEXT") } catch {}
   try { await db.execute("ALTER TABLE kcsdb_grammar ADD COLUMN category TEXT") } catch {}
   try { await db.execute("ALTER TABLE kcsdb_grammar ADD COLUMN label_source TEXT") } catch {}
 
-  const rows = (await db.execute("SELECT id, example_en FROM kcsdb_grammar ORDER BY id")).rows
+  const verified = loadVerified()
+  if (verified.size) {
+    let v = 0
+    for (const [id, o] of verified) {
+      await db.execute({ sql: "UPDATE kcsdb_grammar SET item_name_ko=?, category=?, label_source='verified' WHERE id=?", args: [o.item, o.category, id] })
+      v++
+    }
+    console.log(`[grammar] ${v} 검수 오버라이드 적용(label_source=verified)`)
+  }
+
+  // 검수되지 않은 나머지만 LLM 분류 대상.
+  const rows = (await db.execute("SELECT id, example_en FROM kcsdb_grammar WHERE id NOT IN (SELECT id FROM kcsdb_grammar WHERE label_source='verified') ORDER BY id")).rows
+  if (!rows.length) {
+    console.log("[grammar] 전 항목 검수 완료 — LLM 분류 생략")
+    for (const c of (await db.execute("SELECT category, COUNT(*) n FROM kcsdb_grammar WHERE category IS NOT NULL GROUP BY 1 ORDER BY 2 DESC")).rows)
+      console.log(`   ${c.category}: ${c.n}`)
+    process.exit(0)
+  }
   const GROUPS = "문장구조|시제|조동사|관계사|준동사|가정법|비교|수동태|접속사·연결|대명사·한정사|전치사|화법·의문|기타"
   let n = 0
   for (let b = 0; b < rows.length; b += 20) {

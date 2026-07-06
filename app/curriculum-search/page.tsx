@@ -221,11 +221,15 @@ export default function CurriculumSearchPage() {
           )}
           {reference.grammar.length > 0 && (
             <div style={{ marginTop: reference.functions.length ? 12 : 0 }}>
-              <div style={{ fontWeight: 700, color: "#92400e", marginBottom: 8 }}>🔤 관련 언어 형식(문법) <span style={{ fontWeight: 400, fontSize: 12, color: "#b45309" }}>(교육과정 [별표4] · AI 분류)</span></div>
+              <div style={{ fontWeight: 700, color: "#92400e", marginBottom: 8 }}>🔤 관련 언어 형식(문법) <span style={{ fontWeight: 400, fontSize: 12, color: "#b45309" }}>(예문 = 교육과정 [별표4] 정본 · 항목명 = 검수/분류 라벨)</span></div>
               <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                 {reference.grammar.map((g, i) => (
                   <div key={i} style={{ fontSize: 13, color: "#78350f" }}>
-                    <b>{g.item}</b>{g.category ? <span style={{ color: "#a16207", fontSize: 11 }}> · {g.category}</span> : ""}
+                    <b>{g.item}</b>
+                    {g.labelSource === "verified"
+                      ? <span title="사람 전수 검수 완료(항목명은 표준 문법 용어 해석)" style={{ color: "#15803d", fontSize: 10, marginLeft: 5, border: "1px solid #86efac", borderRadius: 4, padding: "1px 4px" }}>검수</span>
+                      : <span title="AI 분류(미검수) — 참고용" style={{ color: "#b45309", fontSize: 10, marginLeft: 5, border: "1px solid #fdba74", borderRadius: 4, padding: "1px 4px" }}>AI 분류</span>}
+                    {g.category ? <span style={{ color: "#a16207", fontSize: 11 }}> · {g.category}</span> : ""}
                     <span style={{ background: "#fff", border: "1px solid #fde68a", color: "#713f12", padding: "2px 8px", borderRadius: 6, fontSize: 12, marginLeft: 6 }}>{g.example}</span>
                   </div>
                 ))}

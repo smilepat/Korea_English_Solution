@@ -270,7 +270,7 @@ export async function getLevels(standardId: string) {
 
 // 관련 의사소통 기능(영어 예시문) + 언어 형식(문법) — 검색어 키워드 매칭. 교사가 바로 쓸 참고자료.
 export interface RefFunction { category: string; description: string; version: string; examples: string[] }
-export interface RefGrammar { item: string; category: string | null; example: string }
+export interface RefGrammar { item: string; category: string | null; example: string; labelSource: string }
 export interface ReferenceResult { functions: RefFunction[]; grammar: RefGrammar[] }
 export async function searchReference(query: string, version?: string): Promise<ReferenceResult> {
   const q = (query || "").trim()
@@ -283,7 +283,7 @@ export async function searchReference(query: string, version?: string): Promise<
       args: version === "2015" || version === "2022" ? [q, q, version] : [q, q],
     }),
     turso.execute({
-      sql: `SELECT item_name_ko, category, example_en FROM kcsdb_grammar
+      sql: `SELECT item_name_ko, category, example_en, label_source FROM kcsdb_grammar
             WHERE item_name_ko LIKE '%' || ? || '%' OR category LIKE '%' || ? || '%' LIMIT 6`,
       args: [q, q],
     }).catch(() => ({ rows: [] as any[] })),
@@ -294,6 +294,6 @@ export async function searchReference(query: string, version?: string): Promise<
     const examples = (ex.rows as any[]).map((r) => String(r.example_en || "")).filter((e) => /[A-Za-z]/.test(e) && e.length < 90).slice(0, 3)
     if (examples.length) functions.push({ category: f.category_l1, description: f.description_ko, version: f.curriculum_version, examples })
   }
-  const grammar: RefGrammar[] = (gr.rows as any[]).map((r) => ({ item: String(r.item_name_ko || ""), category: r.category || null, example: String(r.example_en || "") })).filter((g) => g.item)
+  const grammar: RefGrammar[] = (gr.rows as any[]).map((r) => ({ item: String(r.item_name_ko || ""), category: r.category || null, example: String(r.example_en || ""), labelSource: String(r.label_source || "llm") })).filter((g) => g.item)
   return { functions, grammar }
 }
