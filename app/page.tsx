@@ -299,11 +299,17 @@ export default function Home() {
                   <CardContent className="pb-2">
                     <p className="text-sm text-gray-600">2015·2022 성취기준·성취수준을 코드·키워드·의미·자연어로 검색</p>
                   </CardContent>
-                  <CardFooter>
+                  <CardFooter className="flex-col gap-2 items-stretch">
                     <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm gap-1" asChild>
                       <a href="/curriculum-search">
                         <Search className="h-4 w-4" />
                         검색 열기
+                      </a>
+                    </Button>
+                    <Button variant="outline" className="w-full border-indigo-300 text-indigo-700 hover:bg-indigo-50 gap-1" asChild>
+                      <a href="/curriculum-search/guide">
+                        <HelpCircle className="h-4 w-4" />
+                        사용 가이드
                       </a>
                     </Button>
                   </CardFooter>
