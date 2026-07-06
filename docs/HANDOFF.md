@@ -52,6 +52,7 @@
 ---
 
 ## 3. 코드 지도
+- `app/curriculum-search/guide/page.tsx` — **사용 가이드**(4모드·필터·CEFR출처·문항생성·정직성 안내). 공개(OPEN_PREFIXES prefix 매칭). 홈 '성취기준 검색' 카드 + 검색 페이지 헤더에서 진입.
 - `app/curriculum-search/page.tsx` — 검색 UI(모드토글·필터·결과·상세펼침·복사/인쇄). 공개 페이지. **UX: 검색어 하이라이트(highlight)·정렬(관련도/코드/학교급/CEFR, sortedRows)·빈결과 재검색 안내·모바일 반응형(.kcs-searchrow/.kcs-filterrow)·자주 쓰는 검색어 드롭다운(FREQ_GROUPS, 코퍼스 빈도 기반+"직접 입력")**. run(over?)는 재검색·프리셋 시 setState 비동기 우회용 override 인자(q/mode/ver/band/domain). ⚠️ FREQ_GROUPS 빈도수는 하드코딩 — 성취기준 재시드로 본문이 바뀌면 재측정 필요.
 - `app/actions/curriculum-search.ts` — 서버액션:
   - `curriculumSearch(q, mode, filters)` — 4모드 파사드(+레이트리밋·강등·로깅)
