@@ -51,7 +51,7 @@
 ---
 
 ## 3. 코드 지도
-- `app/curriculum-search/page.tsx` — 검색 UI(모드토글·필터·결과·상세펼침·복사/인쇄). 공개 페이지.
+- `app/curriculum-search/page.tsx` — 검색 UI(모드토글·필터·결과·상세펼침·복사/인쇄). 공개 페이지. **UX: 검색어 하이라이트(highlight)·정렬(관련도/코드/학교급/CEFR, sortedRows)·빈결과 재검색 안내·모바일 반응형(.kcs-searchrow/.kcs-filterrow)**. run(over?)는 재검색 시 setState 비동기 우회용 override 인자.
 - `app/actions/curriculum-search.ts` — 서버액션:
   - `curriculumSearch(q, mode, filters)` — 4모드 파사드(+레이트리밋·강등·로깅)
   - `getStandardDetail(id)` — 성취수준+연계어휘(CEFR)+수능유형
