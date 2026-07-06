@@ -121,3 +121,20 @@ CREATE TABLE IF NOT EXISTS kcsdb_csat_type_map (
   rationale_ko TEXT,
   PRIMARY KEY (standard_id, csat_type)
 );
+
+-- 10. 성취기준 기반 AI 생성 문항(교사 검수 필요, source='ai'). 고시 정본 아님.
+CREATE TABLE IF NOT EXISTS kcsdb_generated_items (
+  id                 INTEGER PRIMARY KEY AUTOINCREMENT,
+  standard_id        TEXT,
+  curriculum_version TEXT,
+  grade_band         TEXT,
+  domain_name_ko     TEXT,
+  cefr               TEXT,
+  item_type          TEXT,   -- mcq4 | mcq5 | short | essay
+  difficulty         TEXT,   -- easy | medium | hard
+  payload            TEXT,   -- 유형별 JSON(지문/발문/선지/정답/해설 또는 모범답안/루브릭)
+  model              TEXT,   -- gemini-2.5-flash
+  source             TEXT DEFAULT 'ai',
+  created_at         TEXT DEFAULT (datetime('now'))
+);
+CREATE INDEX IF NOT EXISTS idx_kcsdb_geni_std ON kcsdb_generated_items(standard_id, created_at DESC);

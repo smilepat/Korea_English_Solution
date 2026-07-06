@@ -1,6 +1,7 @@
 "use client"
 import { useState, useMemo } from "react"
 import { curriculumSearch, getStandardDetail, searchReference, type SearchMode, type StdResult, type StandardDetail, type ReferenceResult } from "@/app/actions/curriculum-search"
+import { generateCurriculumItem, getCurriculumItems, deleteCurriculumItem, type ItemType, type Difficulty, type GeneratedItem } from "@/app/actions/curriculum-items"
 
 // 검색어 토큰을 결과 본문에 <mark> 강조(순수 표현 계층). query는 사용자 입력 → React 노드로 안전 렌더.
 function highlight(text: string, query: string): React.ReactNode {
@@ -286,6 +287,7 @@ export default function CurriculumSearchPage() {
                 )}
               </div>
             )}
+            <ItemGenPanel std={r} />
           </div>
         ))}
       </div>
@@ -337,6 +339,127 @@ export default function CurriculumSearchPage() {
             </div>
           )}
         </div>
+      )}
+    </div>
+  )
+}
+// ── 성취기준 기반 AI 문항 생성 패널(카드별) ──
+const ITEM_TYPES: { key: ItemType; label: string }[] = [
+  { key: "mcq4", label: "선택형 4지선다" },
+  { key: "mcq5", label: "선택형 5지선다(수능형)" },
+  { key: "short", label: "서술형 단답" },
+  { key: "essay", label: "서술형 논술·영작" },
+]
+const DIFFS: { key: Difficulty; label: string }[] = [
+  { key: "easy", label: "쉬움" }, { key: "medium", label: "중간" }, { key: "hard", label: "어려움" },
+]
+function ItemGenPanel({ std }: { std: StdResult }) {
+  const isProductive = std.domain_name_ko === "쓰기" || std.domain_name_ko === "표현"
+  const [open, setOpen] = useState(false)
+  const [itemType, setItemType] = useState<ItemType>(isProductive ? "short" : "mcq4")
+  const [diff, setDiff] = useState<Difficulty>(std.grade_band === "elementary" ? "easy" : std.grade_band === "high" ? "hard" : "medium")
+  const [loading, setLoading] = useState(false)
+  const [items, setItems] = useState<GeneratedItem[]>([])
+  const [err, setErr] = useState("")
+  const [loaded, setLoaded] = useState(false)
+
+  async function toggle() {
+    const next = !open; setOpen(next)
+    if (next && !loaded) { try { setItems(await getCurriculumItems(std.standard_id)) } catch {} setLoaded(true) }
+  }
+  async function generate() {
+    setLoading(true); setErr("")
+    try {
+      const r = await generateCurriculumItem({ standardId: std.standard_id, itemType, difficulty: diff })
+      if (r.ok && r.item) setItems((p) => [r.item!, ...p]); else setErr(r.error || "생성에 실패했습니다.")
+    } catch (e: any) { setErr("오류: " + (e?.message ?? "")) }
+    setLoading(false)
+  }
+  async function remove(id: number) { try { await deleteCurriculumItem(id) } catch {}; setItems((p) => p.filter((i) => i.id !== id)) }
+
+  return (
+    <div style={{ marginTop: 8 }}>
+      <button type="button" onClick={toggle} className="kcs-noprint" style={{ fontSize: 12, color: "#7c3aed", background: "none", border: "none", cursor: "pointer", padding: 0 }}>
+        {open ? "문항 만들기 접기 ▲" : "✏️ 이 성취기준으로 문항 만들기 ▼"}
+      </button>
+      {open && (
+        <div style={{ marginTop: 8, padding: 12, borderRadius: 10, background: "#faf5ff", border: "1px solid #e9d5ff" }}>
+          <div style={{ fontSize: 11, color: "#b45309", background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 6, padding: "6px 8px", marginBottom: 10 }}>
+            ⚠️ AI 생성 문항입니다 · <b>교사 검수 필요</b>(정답·선지·채점기준 오류 가능). 교육과정 고시 정본이 아닙니다.
+          </div>
+          <div className="kcs-noprint" style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center", marginBottom: 8 }}>
+            <select value={itemType} onChange={(e) => setItemType(e.target.value as ItemType)} style={{ ...selStyle, fontSize: 12 }} aria-label="문항 유형">
+              {ITEM_TYPES.map((t) => <option key={t.key} value={t.key}>{t.label}</option>)}
+            </select>
+            <select value={diff} onChange={(e) => setDiff(e.target.value as Difficulty)} style={{ ...selStyle, fontSize: 12 }} aria-label="난이도">
+              {DIFFS.map((d) => <option key={d.key} value={d.key}>난이도: {d.label}</option>)}
+            </select>
+            <button type="button" onClick={generate} disabled={loading}
+              style={{ padding: "7px 14px", borderRadius: 8, border: "none", background: "#7c3aed", color: "#fff", cursor: "pointer", fontSize: 12, minHeight: 36 }}>
+              {loading ? "생성 중…" : "✨ 생성"}
+            </button>
+          </div>
+          {err && <div style={{ color: "#dc2626", fontSize: 12, marginBottom: 8 }}>{err}</div>}
+          {items.length === 0 && !loading && <div style={{ color: "#a78bda", fontSize: 12 }}>유형·난이도를 고르고 생성하세요. 생성된 문항은 저장되어 다시 볼 수 있습니다.</div>}
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {items.map((it) => <GeneratedItemView key={it.id} it={it} onDelete={() => remove(it.id)} />)}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+const TYPE_KO: Record<ItemType, string> = { mcq4: "선택형 4지선다", mcq5: "선택형 5지선다(수능형)", short: "서술형 단답", essay: "서술형 논술·영작" }
+const DIFF_KO: Record<Difficulty, string> = { easy: "쉬움", medium: "중간", hard: "어려움" }
+function GeneratedItemView({ it, onDelete }: { it: GeneratedItem; onDelete: () => void }) {
+  const p = it.payload || {}
+  const isMcq = it.itemType === "mcq4" || it.itemType === "mcq5"
+  return (
+    <div style={{ background: "#fff", border: "1px solid #e9d5ff", borderRadius: 8, padding: 10, fontSize: 13 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+        <span style={{ fontSize: 11, color: "#7c3aed" }}>{TYPE_KO[it.itemType]} · 난이도 {DIFF_KO[it.difficulty]} · <span style={{ color: "#b45309" }}>AI 생성</span></span>
+        <button type="button" onClick={onDelete} className="kcs-noprint" aria-label="문항 삭제" style={{ fontSize: 11, color: "#94a3b8", background: "none", border: "none", cursor: "pointer" }}>삭제</button>
+      </div>
+      {isMcq && (
+        <>
+          {p.passage && <p style={{ background: "#f8fafc", border: "1px solid #eef2f7", borderRadius: 6, padding: 8, margin: "0 0 6px", lineHeight: 1.6 }}>{p.passage}</p>}
+          <p style={{ fontWeight: 600, margin: "0 0 6px" }}>{p.question}</p>
+          <ol style={{ margin: 0, paddingLeft: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 4 }}>
+            {(p.options || []).map((o: string, i: number) => (
+              <li key={i} style={{ padding: "4px 8px", borderRadius: 6, border: "1px solid", borderColor: i + 1 === p.answer ? "#86efac" : "#e5e7eb", background: i + 1 === p.answer ? "#f0fdf4" : "#fff", color: i + 1 === p.answer ? "#166534" : "#334155", fontWeight: i + 1 === p.answer ? 600 : 400 }}>
+                {o}{i + 1 === p.answer && <span style={{ marginLeft: 6, fontSize: 11 }}>✓ 정답</span>}
+              </li>
+            ))}
+          </ol>
+          {p.explanation && <p style={{ marginTop: 6, color: "#475569", fontSize: 12, whiteSpace: "pre-wrap" }}><b>해설</b> {p.explanation}</p>}
+        </>
+      )}
+      {it.itemType === "short" && (
+        <>
+          {p.prompt && <p style={{ background: "#f8fafc", border: "1px solid #eef2f7", borderRadius: 6, padding: 8, margin: "0 0 6px", lineHeight: 1.6 }}>{p.prompt}</p>}
+          <p style={{ fontWeight: 600, margin: "0 0 6px" }}>{p.question}</p>
+          <p style={{ margin: "0 0 4px", color: "#166534" }}><b>모범답안</b> {p.model_answer}</p>
+          {Array.isArray(p.scoring_points) && p.scoring_points.length > 0 && (
+            <div style={{ margin: "0 0 4px" }}><b style={{ fontSize: 12 }}>채점 포인트</b>
+              <ul style={{ margin: "2px 0 0", paddingLeft: 18, color: "#475569", fontSize: 12 }}>{p.scoring_points.map((s: string, i: number) => <li key={i}>{s}</li>)}</ul>
+            </div>
+          )}
+          {p.explanation && <p style={{ marginTop: 4, color: "#475569", fontSize: 12 }}><b>유의점</b> {p.explanation}</p>}
+        </>
+      )}
+      {it.itemType === "essay" && (
+        <>
+          <p style={{ fontWeight: 600, margin: "0 0 6px" }}>{p.task}</p>
+          {p.guidance && <p style={{ margin: "0 0 6px", color: "#475569", fontSize: 12 }}><b>작성 안내</b> {p.guidance}</p>}
+          {Array.isArray(p.rubric) && p.rubric.length > 0 && (
+            <div style={{ margin: "0 0 6px" }}><b style={{ fontSize: 12 }}>채점 루브릭</b>
+              <ul style={{ margin: "2px 0 0", paddingLeft: 18, color: "#475569", fontSize: 12 }}>
+                {p.rubric.map((rb: any, i: number) => <li key={i}><b>{rb.criterion}</b>: {rb.descriptor}</li>)}
+              </ul>
+            </div>
+          )}
+          {p.sample_answer && <p style={{ margin: 0, background: "#f8fafc", border: "1px solid #eef2f7", borderRadius: 6, padding: 8, color: "#166534", lineHeight: 1.6 }}><b>예시 답안</b><br />{p.sample_answer}</p>}
+        </>
       )}
     </div>
   )

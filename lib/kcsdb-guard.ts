@@ -4,6 +4,7 @@ import { headers } from "next/headers"
 
 const WINDOW = 60          // 초
 const AI_LIMIT = 25        // IP당 60초 내 S3/S4(AI) 허용 횟수
+const GEN_LIMIT = 8        // IP당 60초 내 AI 문항 생성 허용 횟수(생성은 무거워 더 낮게)
 
 export async function getClientIp(): Promise<string> {
   try {
@@ -25,6 +26,22 @@ export async function checkAiRate(ip: string): Promise<boolean> {
     const r = await turso.execute({ sql: `SELECT cnt FROM kcsdb_rate WHERE ip=? AND window_start=?`, args: [ip, win] })
     return Number(r.rows[0]?.cnt ?? 0) <= AI_LIMIT
   } catch { return true }   // 방어 로직 실패가 기능을 막지 않도록
+}
+
+// AI 문항 생성 레이트리밋: kcsdb_rate 재사용, 'gen:' 네임스페이스로 검색과 분리. 한도 이내면 true.
+export async function checkGenRate(ip: string): Promise<boolean> {
+  const now = Math.floor(Date.now() / 1000)
+  const win = now - (now % WINDOW)
+  const key = "gen:" + ip
+  try {
+    await turso.execute({
+      sql: `INSERT INTO kcsdb_rate (ip, window_start, cnt) VALUES (?,?,1)
+            ON CONFLICT(ip, window_start) DO UPDATE SET cnt = cnt + 1`,
+      args: [key, win],
+    })
+    const r = await turso.execute({ sql: `SELECT cnt FROM kcsdb_rate WHERE ip=? AND window_start=?`, args: [key, win] })
+    return Number(r.rows[0]?.cnt ?? 0) <= GEN_LIMIT
+  } catch { return true }
 }
 
 // 쿼리 임베딩 캐시(교사 검색 중복률 높음 → S3 비용 절감)
