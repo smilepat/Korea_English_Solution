@@ -36,27 +36,30 @@ if (url && authToken) {
   db = createClient({ url: "file:./local.db" })
 }
 
-const sqlPath = join(__dir, "005-kes-core-schema.sql")
-const sql = readFileSync(sqlPath, "utf8")
-
-// 주석을 제거하고 세미콜론 단위로 분리한다.
-// (이 스키마에는 문자열 리터럴 안의 세미콜론이 없으므로 단순 분할로 충분하다)
-const statements = sql
-  .split("\n")
-  .filter((line) => !line.trim().startsWith("--"))
-  .join("\n")
-  .split(";")
-  .map((s) => s.trim())
-  .filter(Boolean)
+// 모든 kes_ 마이그레이션을 순서대로 적용한다(멱등이라 반복 안전).
+const MIGRATIONS = ["005-kes-core-schema.sql", "006-kes-cat-sessions.sql"]
 
 let applied = 0
-for (const stmt of statements) {
-  try {
-    await db.execute(stmt)
-    applied++
-  } catch (err) {
-    console.error(`\n[kes-schema] 실패한 구문:\n${stmt}\n`)
-    throw err
+for (const file of MIGRATIONS) {
+  const sql = readFileSync(join(__dir, file), "utf8")
+  // 주석 제거 후 세미콜론 단위 분리
+  // (이 스키마들에는 문자열 리터럴 안의 세미콜론이 없어 단순 분할로 충분하다)
+  const statements = sql
+    .split("\n")
+    .filter((line) => !line.trim().startsWith("--"))
+    .join("\n")
+    .split(";")
+    .map((s) => s.trim())
+    .filter(Boolean)
+
+  for (const stmt of statements) {
+    try {
+      await db.execute(stmt)
+      applied++
+    } catch (err) {
+      console.error(`\n[kes-schema] ${file} 실패한 구문:\n${stmt}\n`)
+      throw err
+    }
   }
 }
 
@@ -69,6 +72,7 @@ const expected = [
   "kes_diagnosis_snapshots",
   "kes_lexile_results",
   "kes_problems",
+  "kes_cat_sessions",
 ]
 const found = await db.execute(
   `SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'kes_%' ORDER BY name`,

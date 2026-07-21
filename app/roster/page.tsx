@@ -34,7 +34,9 @@ import { getClasses } from "@/app/actions/students"
 import {
   importRosterCsv,
   getClassRoster,
+  getClassDiagnosisBoard,
   type ClassRoster,
+  type ClassDiagnosisBoard,
 } from "@/app/actions/roster"
 
 // 초·중·고를 전부 가르치므로 학교급은 반마다 명시적으로 고른다(기본값 없음).
@@ -63,6 +65,7 @@ interface ClassSummary {
 export default function RosterPage() {
   const [classes, setClasses] = useState<ClassSummary[]>([])
   const [selected, setSelected] = useState<ClassRoster | null>(null)
+  const [board, setBoard] = useState<ClassDiagnosisBoard | null>(null)
   const [loading, setLoading] = useState(false)
 
   // 등록 폼 상태
@@ -125,15 +128,23 @@ export default function RosterPage() {
   }
 
   async function openClass(classId: string) {
-    const roster = await getClassRoster(classId)
+    const [roster, b] = await Promise.all([
+      getClassRoster(classId),
+      getClassDiagnosisBoard(classId),
+    ])
     setSelected(roster)
+    setBoard(b)
     if (roster) {
-      // 인쇄 미리보기로 스크롤
       setTimeout(() => {
-        document.getElementById("join-cards")?.scrollIntoView({ behavior: "smooth" })
+        document.getElementById("class-detail")?.scrollIntoView({ behavior: "smooth" })
       }, 100)
     }
   }
+
+  const studentUrl =
+    selected && typeof window !== "undefined"
+      ? `${window.location.origin}/s/${selected.classCode}`
+      : ""
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
@@ -285,6 +296,109 @@ export default function RosterPage() {
             </div>
           )}
         </div>
+
+        {/* ── 진단 현황 보드 (수업 중 뷰) ── */}
+        {selected && board && (
+          <div id="class-detail" className="no-print mb-8">
+            <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+              <h2 className="text-lg font-semibold text-slate-700">
+                {board.className} 진단 현황
+              </h2>
+              <div className="flex items-center gap-2 text-sm">
+                <span className="rounded-full bg-teal-50 px-3 py-1 text-teal-700">
+                  응시 {board.testedCount}/{board.total}
+                </span>
+              </div>
+            </div>
+
+            {/* 학생 진입 링크 — 교실 화면에 띄우거나 공유 */}
+            <div className="mb-4 flex flex-wrap items-center gap-2 rounded-lg bg-slate-50 px-3 py-2 text-sm">
+              <span className="text-slate-500">학생 진입:</span>
+              <code className="rounded bg-white px-2 py-0.5 font-mono text-slate-800">
+                {studentUrl}
+              </code>
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={() => navigator.clipboard?.writeText(studentUrl)}
+              >
+                복사
+              </Button>
+              <span className="text-slate-400">· 반 코드 {selected.classCode}</span>
+            </div>
+
+            {/* CEFR 분포 */}
+            {Object.keys(board.cefrDistribution).length > 0 && (
+              <div className="mb-4 flex flex-wrap gap-2">
+                {["A1", "A2", "B1", "B2", "C1", "C2"]
+                  .filter((c) => board.cefrDistribution[c])
+                  .map((c) => (
+                    <Badge key={c} variant="outline">
+                      {c}: {board.cefrDistribution[c]}명
+                    </Badge>
+                  ))}
+              </div>
+            )}
+
+            {/* 학생별 표 */}
+            <div className="overflow-x-auto rounded-lg border">
+              <table className="w-full text-sm">
+                <thead className="bg-slate-50 text-left text-xs text-slate-500">
+                  <tr>
+                    <th className="px-3 py-2">번호</th>
+                    <th className="px-3 py-2">이름</th>
+                    <th className="px-3 py-2">어휘(CEFR)</th>
+                    <th className="px-3 py-2">Lexile</th>
+                    <th className="px-3 py-2">상태</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {board.rows.map((r) => (
+                    <tr
+                      key={r.studentId}
+                      className={`border-t ${r.tested ? "" : "bg-amber-50/40"}`}
+                    >
+                      <td className="px-3 py-2 text-slate-400">{r.seatNo ?? "-"}</td>
+                      <td className="px-3 py-2 font-medium text-slate-800">{r.name}</td>
+                      <td className="px-3 py-2">
+                        {r.vocabCefr ? (
+                          <span className="text-slate-700">
+                            {r.vocabCefr}
+                            {r.vocabTheta != null && (
+                              <span className="ml-1 text-xs text-slate-400">
+                                θ{r.vocabTheta.toFixed(1)}
+                              </span>
+                            )}
+                          </span>
+                        ) : (
+                          <span className="text-slate-300">–</span>
+                        )}
+                      </td>
+                      <td className="px-3 py-2">
+                        {r.lexileText ? (
+                          <span className="text-slate-700">{r.lexileText}</span>
+                        ) : (
+                          <span className="text-slate-300">–</span>
+                        )}
+                      </td>
+                      <td className="px-3 py-2">
+                        {r.tested ? (
+                          <Badge className="bg-teal-100 text-teal-700 hover:bg-teal-100">
+                            응시
+                          </Badge>
+                        ) : (
+                          <Badge variant="outline" className="border-amber-300 text-amber-600">
+                            아직 안 봄
+                          </Badge>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
 
         {/* ── 조인 카드 (인쇄 대상) ── */}
         {selected && (
