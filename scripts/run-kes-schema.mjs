@@ -42,6 +42,7 @@ const MIGRATIONS = [
   "006-kes-cat-sessions.sql",
   "007-kes-content-schema.sql",
   "008-kes-assignment-schema.sql",
+  "009-kes-passage-review.sql",
 ]
 
 let applied = 0
@@ -62,6 +63,9 @@ for (const file of MIGRATIONS) {
       await db.execute(stmt)
       applied++
     } catch (err) {
+      // ALTER TABLE ADD COLUMN 은 멱등이 아니라 재실행 시 "duplicate column" 이 난다
+      // — 이미 적용된 것이므로 건너뛴다.
+      if (/duplicate column name/i.test(String(err?.message ?? ""))) continue
       console.error(`\n[kes-schema] ${file} 실패한 구문:\n${stmt}\n`)
       throw err
     }

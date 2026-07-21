@@ -45,7 +45,11 @@ import {
   type Prescription,
   type ClassReport,
 } from "@/app/actions/students"
-import { prescribeWordlistAssignment } from "@/app/actions/assignments"
+import {
+  prescribeWordlistAssignment,
+  getStudentStandardMastery,
+  type StandardMastery,
+} from "@/app/actions/assignments"
 
 // ============================================================
 // Constants
@@ -152,6 +156,7 @@ export default function StudentTrackerPage() {
   const [prescription, setPrescription] = useState<Prescription | null>(null)
   const [assigning, setAssigning] = useState(false)
   const [assignMsg, setAssignMsg] = useState("")
+  const [mastery, setMastery] = useState<StandardMastery[]>([])
   const [editLexileTab2, setEditLexileTab2] = useState("")
   const [editSkillKey, setEditSkillKey] = useState("")
   const [editSkillValue, setEditSkillValue] = useState("")
@@ -223,6 +228,15 @@ export default function StudentTrackerPage() {
   // --------------------------------------------------------
 
   const selectedStudent = students.find((s) => s.id === selectedStudentId)
+
+  // 선택 학생의 성취기준별 숙달도 로드(과제 시도가 쌓이면 채워진다)
+  useEffect(() => {
+    if (!selectedStudentId) {
+      setMastery([])
+      return
+    }
+    getStudentStandardMastery(selectedStudentId).then(setMastery)
+  }, [selectedStudentId])
 
   const handleGeneratePrescription = async () => {
     if (!selectedStudent) return
@@ -812,6 +826,49 @@ export default function StudentTrackerPage() {
                     })}
                   </CardContent>
                 </Card>
+
+                {/* 성취기준별 숙달도 (과제 시도에서 집계) */}
+                {mastery.length > 0 && (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-lg">
+                        <BarChart3 className="h-5 w-5 text-teal-600" />
+                        성취기준별 숙달도
+                      </CardTitle>
+                      <CardDescription>
+                        과제 시도에서 집계 · 약한 기준부터 표시
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      {mastery.map((m) => {
+                        const pct = Math.round(m.accuracy * 100)
+                        const tone =
+                          pct < 50 ? "bg-red-500" : pct < 75 ? "bg-amber-500" : "bg-teal-500"
+                        return (
+                          <div key={m.standardId} className="space-y-1">
+                            <div className="flex items-center justify-between gap-2 text-sm">
+                              <span className="font-mono text-xs text-teal-700">
+                                {m.standardId}
+                              </span>
+                              <span className="text-slate-500">
+                                {m.correct}/{m.attempts} · {pct}%
+                              </span>
+                            </div>
+                            <p className="line-clamp-1 text-xs text-slate-500">
+                              {m.standardText}
+                            </p>
+                            <div className="h-2 rounded-full bg-slate-100">
+                              <div
+                                className={`h-2 rounded-full ${tone}`}
+                                style={{ width: `${pct}%` }}
+                              />
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </CardContent>
+                  </Card>
+                )}
 
                 {/* AI prescription */}
                 <Card>

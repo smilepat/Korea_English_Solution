@@ -108,12 +108,17 @@ export default function WorksheetStudio() {
               <ArrowLeft className="mr-1 h-4 w-4" /> 홈
             </Button>
           </Link>
-          <div>
+          <div className="flex-1">
             <h1 className="text-2xl font-bold text-slate-800">워크시트 · 단어장 스튜디오</h1>
             <p className="text-sm text-slate-500">
               교육과정 어휘·창작 지문에서 학생 수준에 맞춰 인쇄물을 만듭니다.
             </p>
           </div>
+          <Link href="/content-review">
+            <Button variant="outline" size="sm">
+              AI 지문 검토
+            </Button>
+          </Link>
         </div>
 
         <Tabs defaultValue="wordlist" className="no-print">

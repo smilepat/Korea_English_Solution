@@ -1,11 +1,37 @@
-import Anthropic from "@anthropic-ai/sdk"
 import { turso, parseJsonField } from "./turso"
+import { callGemini } from "./gemini"
 
-export const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY!,
-})
+// ============================================================
+// Anthropic 키가 2026 중반 사망 → 기존 `anthropic.messages.create` 인터페이스를
+// Gemini 로 백킹하는 얇은 shim. lib/ai.ts 를 쓰는 9개 라우트(csat/knowledge/
+// lessons/lexile-ai/assessment-tools/lesson-planner/reading-program 등)를
+// 호출부 수정 없이 전부 복구한다. (프롬프트가 JSON 을 요구하면 JSON 모드)
+// ============================================================
+function extractText(content: unknown): string {
+  if (typeof content === "string") return content
+  if (Array.isArray(content))
+    return content.map((c: any) => (typeof c === "string" ? c : c?.text ?? "")).join("\n")
+  return String(content ?? "")
+}
 
-const MODEL = "claude-sonnet-4-6"
+export const anthropic = {
+  messages: {
+    create: async (opts: any) => {
+      const system = opts.system ? String(opts.system) : undefined
+      const userText = (opts.messages ?? [])
+        .map((m: any) => extractText(m.content))
+        .join("\n\n")
+      const wantsJson = /JSON/i.test(userText) || /JSON/i.test(system ?? "")
+      const text = await callGemini(userText, system, {
+        maxOutputTokens: opts.max_tokens ?? 2048,
+        json: wantsJson,
+      })
+      return { content: [{ type: "text" as const, text }] }
+    },
+  },
+}
+
+const MODEL = "gemini-2.5-flash" // shim 이 무시하지만 호환 위해 유지
 const MAX_TOKENS = 2048
 
 // ============================================================
