@@ -29,6 +29,21 @@ export function cefrToLexile(cefr: string | null | undefined): number | null {
   return CEFR_LEXILE[cefr.toUpperCase()] ?? null
 }
 
+/** Lexile → 가장 가까운 CEFR 밴드(추정). 처방용 단어 수준 결정에 쓴다. */
+export function lexileToCefr(lexile: number | null | undefined): string | null {
+  if (lexile == null || !Number.isFinite(lexile)) return null
+  let best: string | null = null
+  let bestDist = Infinity
+  for (const [cefr, mid] of Object.entries(CEFR_LEXILE)) {
+    const d = Math.abs(lexile - mid)
+    if (d < bestDist) {
+      bestDist = d
+      best = cefr
+    }
+  }
+  return best
+}
+
 export interface LexilePoint {
   scale: "lexile" | "theta_2pl" | "cefr"
   valueNum?: number | null

@@ -2,6 +2,8 @@
 
 import { turso } from "@/lib/turso"
 import { ulid } from "@/lib/kes-ids"
+import { queryWordlist, saveWorksheet } from "@/app/actions/content"
+import { lexileToCefr } from "@/lib/lexile-window"
 
 // ============================================================
 // 과제/처방 루프 — 배정 → 학생 풀이 → 채점 → 완료
@@ -24,13 +26,25 @@ interface WorksheetItem {
  * 대상 학생마다 assignment_status 행을 미리 만들어 "누가 안 했나"를 즉시 조회 가능.
  */
 export async function createAssignment(params: {
-  classId: string
+  classId?: string // 없고 studentId 만 있으면 학생의 반에서 도출
   studentId?: string // 없으면 반 전체
   worksheetId: string
   origin?: string
   dueAt?: string
 }): Promise<{ ok: boolean; id?: string; error?: string }> {
   try {
+    // classId 도출: 개인 처방 배정 시 학생의 (활성) 반을 찾는다
+    let classId = params.classId
+    if (!classId && params.studentId) {
+      const cls = await turso.execute({
+        sql: `SELECT class_id FROM kes_enrollments
+              WHERE student_id = ? AND active = 1 LIMIT 1`,
+        args: [params.studentId],
+      })
+      if (cls.rows.length > 0) classId = String(cls.rows[0].class_id)
+    }
+    if (!classId) return { ok: false, error: "반을 특정할 수 없습니다." }
+
     const ws = await turso.execute({
       sql: `SELECT id, title, kind, spec FROM kes_worksheets WHERE id = ?`,
       args: [params.worksheetId],
@@ -77,7 +91,7 @@ export async function createAssignment(params: {
               VALUES (?,?,?,?,?,?,?,?,?)`,
         args: [
           id,
-          params.classId,
+          classId,
           params.studentId ?? null,
           kind,
           params.worksheetId,
@@ -96,7 +110,7 @@ export async function createAssignment(params: {
     } else {
       const roster = await turso.execute({
         sql: `SELECT student_id FROM kes_enrollments WHERE class_id = ? AND active = 1`,
-        args: [params.classId],
+        args: [classId],
       })
       targets = roster.rows.map((r) => String(r.student_id))
     }
@@ -356,6 +370,56 @@ export async function getClassAssignments(
   } catch (error) {
     console.error("Error in getClassAssignments:", error)
     return []
+  }
+}
+
+// ── 처방 → 과제 원클릭 (진단→개입 루프의 마지막 연결) ──────
+/**
+ * 학생 진단 수준에 맞춘 교육과정 단어장을 생성해 그 학생에게 바로 배정한다.
+ * origin='recommendation' 으로 처방 유래를 추적한다.
+ * cefr 를 주면 그 수준, 없으면 lexile 에서 추정한다.
+ */
+export async function prescribeWordlistAssignment(params: {
+  studentId: string
+  studentName: string
+  cefr?: string
+  lexile?: number
+  count?: number
+}): Promise<{ ok: boolean; assignmentId?: string; cefr?: string; wordCount?: number; error?: string }> {
+  try {
+    const cefr = params.cefr || lexileToCefr(params.lexile) || "A2"
+    const limit = Math.min(params.count ?? 15, 40)
+
+    // 학생 수준의 교육과정 어휘를 뽑는다
+    const words = await queryWordlist({ cefr: [cefr], curriculumOnly: true, limit })
+    if (words.length === 0) {
+      return { ok: false, error: `${cefr} 수준 교육과정 어휘를 찾지 못했습니다.` }
+    }
+
+    // 단어장으로 저장(provenance = original)
+    const saved = await saveWorksheet({
+      title: `${params.studentName} 맞춤 단어장 (${cefr})`,
+      kind: "wordlist",
+      spec: { words: words.map((w) => w.word), items: words },
+      provenance: [
+        { source: "vocab-graph-db@efl-data-hub", license: "original" },
+        { source: "vocab-context", license: "original" },
+      ],
+    })
+    if (!saved.ok || !saved.id) return { ok: false, error: saved.error ?? "단어장 저장 실패" }
+
+    // 그 학생에게 배정(classId 는 학생 반에서 도출)
+    const asg = await createAssignment({
+      studentId: params.studentId,
+      worksheetId: saved.id,
+      origin: "recommendation:cefr-wordlist",
+    })
+    if (!asg.ok) return { ok: false, error: asg.error }
+
+    return { ok: true, assignmentId: asg.id, cefr, wordCount: words.length }
+  } catch (error) {
+    console.error("Error in prescribeWordlistAssignment:", error)
+    return { ok: false, error: "맞춤 과제 배정에 실패했습니다." }
   }
 }
 
