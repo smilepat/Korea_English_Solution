@@ -28,6 +28,10 @@ jobs:
       - name: No-Firebase gate
         run: pnpm check:no-firebase
 
+      # 저작권 방화벽 — 워크시트 지문 풀에 기출 문항이 새어들지 않았는지.
+      - name: No-Kichul (기출) gate
+        run: pnpm check:no-kichul
+
       - name: Typecheck
         run: pnpm typecheck
 

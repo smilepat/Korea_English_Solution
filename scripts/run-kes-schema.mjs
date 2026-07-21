@@ -37,7 +37,11 @@ if (url && authToken) {
 }
 
 // 모든 kes_ 마이그레이션을 순서대로 적용한다(멱등이라 반복 안전).
-const MIGRATIONS = ["005-kes-core-schema.sql", "006-kes-cat-sessions.sql"]
+const MIGRATIONS = [
+  "005-kes-core-schema.sql",
+  "006-kes-cat-sessions.sql",
+  "007-kes-content-schema.sql",
+]
 
 let applied = 0
 for (const file of MIGRATIONS) {
@@ -73,6 +77,10 @@ const expected = [
   "kes_lexile_results",
   "kes_problems",
   "kes_cat_sessions",
+  "kes_passages",
+  "kes_vocab_master",
+  "kes_vocab_cards",
+  "kes_worksheets",
 ]
 const found = await db.execute(
   `SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'kes_%' ORDER BY name`,
