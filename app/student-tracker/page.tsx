@@ -45,6 +45,7 @@ import {
   type Prescription,
   type ClassReport,
 } from "@/app/actions/students"
+import { prescribeWordlistAssignment } from "@/app/actions/assignments"
 
 // ============================================================
 // Constants
@@ -149,6 +150,8 @@ export default function StudentTrackerPage() {
   const [selectedStudentId, setSelectedStudentId] = useState("")
   const [prescriptionLoading, setPrescriptionLoading] = useState(false)
   const [prescription, setPrescription] = useState<Prescription | null>(null)
+  const [assigning, setAssigning] = useState(false)
+  const [assignMsg, setAssignMsg] = useState("")
   const [editLexileTab2, setEditLexileTab2] = useState("")
   const [editSkillKey, setEditSkillKey] = useState("")
   const [editSkillValue, setEditSkillValue] = useState("")
@@ -236,6 +239,24 @@ export default function StudentTrackerPage() {
       setPrescription(result.data)
     }
     setPrescriptionLoading(false)
+  }
+
+  const handlePrescribeAssign = async () => {
+    if (!selectedStudent) return
+    setAssigning(true)
+    setAssignMsg("")
+    const r = await prescribeWordlistAssignment({
+      studentId: selectedStudent.id,
+      studentName: selectedStudent.name,
+      cefr: selectedStudent.skills?.reading || undefined,
+      lexile: selectedStudent.lexile_level || undefined,
+    })
+    setAssigning(false)
+    setAssignMsg(
+      r.ok
+        ? `✓ ${r.cefr} 맞춤 단어장 ${r.wordCount}개를 ${selectedStudent.name}에게 배정했습니다`
+        : r.error ?? "배정 실패",
+    )
   }
 
   const handleUpdateLexileTab2 = async () => {
@@ -805,18 +826,37 @@ export default function StudentTrackerPage() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <Button
-                      onClick={handleGeneratePrescription}
-                      disabled={prescriptionLoading}
-                      className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600"
-                    >
-                      {prescriptionLoading ? (
-                        <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                      ) : (
-                        <Sparkles className="h-4 w-4 mr-2" />
-                      )}
-                      AI 학습 처방 생성
-                    </Button>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <Button
+                        onClick={handleGeneratePrescription}
+                        disabled={prescriptionLoading}
+                        className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600"
+                      >
+                        {prescriptionLoading ? (
+                          <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                        ) : (
+                          <Sparkles className="h-4 w-4 mr-2" />
+                        )}
+                        AI 학습 처방 생성
+                      </Button>
+                      {/* 진단→처방→과제 원클릭(P-B): 학생 수준 맞춤 단어장 즉시 배정 */}
+                      <Button
+                        variant="outline"
+                        onClick={handlePrescribeAssign}
+                        disabled={assigning}
+                        className="border-teal-300 text-teal-700 hover:bg-teal-50"
+                      >
+                        {assigning ? (
+                          <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                        ) : (
+                          <BookOpen className="h-4 w-4 mr-2" />
+                        )}
+                        맞춤 단어장 배정
+                      </Button>
+                    </div>
+                    {assignMsg && (
+                      <p className="text-sm text-teal-700">{assignMsg}</p>
+                    )}
 
                     {prescription && (
                       <div id="export-student-report" className="mt-4">

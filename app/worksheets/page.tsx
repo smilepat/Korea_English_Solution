@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react"
 import Link from "next/link"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
@@ -36,6 +36,7 @@ import {
   type WorksheetItem,
 } from "@/app/actions/content"
 import { createAssignment } from "@/app/actions/assignments"
+import { curriculumSearch, type StdResult } from "@/app/actions/curriculum-search"
 
 // 저장 후 반에 배정하는 공용 바.
 function AssignBar({
@@ -332,10 +333,41 @@ function WorksheetBuilder() {
   const [gen, setGen] = useState(false)
   const [saveMsg, setSaveMsg] = useState("")
   const [savedId, setSavedId] = useState("")
+  // 성취기준 정렬 (P-A: 교육과정 기반 문항의 중심축)
+  const [stdQuery, setStdQuery] = useState("")
+  const [stdResults, setStdResults] = useState<StdResult[]>([])
+  const [stdSelected, setStdSelected] = useState<Record<string, StdResult>>({})
+  const [stdLoading, setStdLoading] = useState(false)
 
   useEffect(() => {
     getClasses().then((cs) => setClasses(cs.map((c) => ({ id: c.id, name: c.name, gradeBand: c.gradeBand }))))
   }, [])
+
+  const searchStandards = useCallback(
+    async (gb?: string) => {
+      setStdLoading(true)
+      const band = (gb || gradeBand || undefined) as
+        | "elementary"
+        | "middle"
+        | "high"
+        | undefined
+      // 2022 개정 우선, 학교급 필터. 빈 검색어면 학교급 성취기준 목록.
+      const resp = await curriculumSearch(stdQuery, "structured", { band, version: "2022" }, 25)
+      setStdResults(resp.results)
+      setStdLoading(false)
+    },
+    [stdQuery, gradeBand],
+  )
+
+  function toggleStandard(s: StdResult) {
+    setStdSelected((prev) => {
+      const next = { ...prev }
+      if (next[s.standard_id]) delete next[s.standard_id]
+      else next[s.standard_id] = s
+      return next
+    })
+  }
+  const chosenStandards = Object.values(stdSelected)
 
   async function applyClass(id: string) {
     setClassId(id)
@@ -348,6 +380,8 @@ function WorksheetBuilder() {
     const cls = classes.find((c) => c.id === id)
     if (cls) setGradeBand(cls.gradeBand)
     await loadPassages(w ?? undefined, cls?.gradeBand)
+    // 학교급에 맞는 성취기준 목록을 미리 띄운다
+    if (cls?.gradeBand) await searchStandards(cls.gradeBand)
   }
 
   const loadPassages = useCallback(
@@ -373,7 +407,12 @@ function WorksheetBuilder() {
     if (!selected) return
     setGen(true)
     setItems([])
-    const r = await generatePassageWorksheet({ textId: selected.textId, numItems: 4 })
+    // 선택한 성취기준에 정렬된 문항 생성(P-A)
+    const r = await generatePassageWorksheet({
+      textId: selected.textId,
+      standardIds: chosenStandards.map((s) => s.standard_id),
+      numItems: 4,
+    })
     setGen(false)
     if (r.ok && r.items) setItems(r.items)
   }
@@ -381,6 +420,7 @@ function WorksheetBuilder() {
   async function save() {
     if (!selected) return
     setSaveMsg("")
+    const stdIds = chosenStandards.map((s) => s.standard_id)
     const r = await saveWorksheet({
       classId: classId || undefined,
       title: `워크시트 ${selected.topic ?? selected.textId}`,
@@ -389,6 +429,7 @@ function WorksheetBuilder() {
       targetLexileMin: lexWindow?.min,
       targetLexileMax: lexWindow?.max,
       spec: { passageId: selected.textId, items },
+      standardIds: stdIds.length ? stdIds : undefined,
       provenance: [
         { source: selected.license === "original" ? "lexile_textdb_original" : selected.license, license: selected.license },
         ...(items.length ? [{ source: "gemini", license: "generated" }] : []),
@@ -451,6 +492,66 @@ function WorksheetBuilder() {
                   ))}
                 </SelectContent>
               </Select>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* 성취기준 정렬 (P-A) */}
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base">
+              성취기준 정렬
+              {chosenStandards.length > 0 && (
+                <span className="ml-1 text-xs text-teal-600">{chosenStandards.length} 선택</span>
+              )}
+            </CardTitle>
+            <CardDescription className="text-xs">
+              2022 개정 성취기준을 골라 문항을 정렬합니다.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            <div className="flex gap-1">
+              <Input
+                className="h-8 text-xs"
+                placeholder="성취기준 검색 (예: 요지, [9영])"
+                value={stdQuery}
+                onChange={(e) => setStdQuery(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && searchStandards()}
+              />
+              <Button size="sm" className="h-8 shrink-0" onClick={() => searchStandards()} disabled={stdLoading}>
+                {stdLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
+              </Button>
+            </div>
+            {chosenStandards.length > 0 && (
+              <div className="flex flex-wrap gap-1">
+                {chosenStandards.map((s) => (
+                  <Badge
+                    key={s.standard_id}
+                    className="cursor-pointer bg-teal-100 text-xs text-teal-700 hover:bg-teal-200"
+                    onClick={() => toggleStandard(s)}
+                  >
+                    {s.standard_id} ✕
+                  </Badge>
+                ))}
+              </div>
+            )}
+            <div className="max-h-40 space-y-1 overflow-y-auto">
+              {stdResults.map((s) => {
+                const on = Boolean(stdSelected[s.standard_id])
+                return (
+                  <button
+                    key={s.standard_id}
+                    onClick={() => toggleStandard(s)}
+                    className={`w-full rounded border px-2 py-1.5 text-left text-xs hover:border-teal-400 ${
+                      on ? "border-teal-500 bg-teal-50" : ""
+                    }`}
+                  >
+                    <span className="font-mono text-teal-700">{s.standard_id}</span>
+                    <span className="ml-1 text-slate-400">{s.domain_name_ko}</span>
+                    <p className="mt-0.5 line-clamp-2 text-slate-600">{s.standard_text_ko}</p>
+                  </button>
+                )
+              })}
             </div>
           </CardContent>
         </Card>
@@ -529,6 +630,11 @@ function WorksheetBuilder() {
                   <p className="text-xs text-slate-400">
                     Lexile {selected.lexileScore}L · {selected.genre} · {selected.wordCount}단어
                   </p>
+                  {chosenStandards.length > 0 && (
+                    <p className="mt-1 text-xs text-teal-600">
+                      성취기준: {chosenStandards.map((s) => s.standard_id).join(", ")}
+                    </p>
+                  )}
                 </div>
                 <p className="whitespace-pre-wrap leading-relaxed text-slate-800">
                   {selected.textBody}
