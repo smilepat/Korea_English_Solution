@@ -41,6 +41,7 @@ const MIGRATIONS = [
   "005-kes-core-schema.sql",
   "006-kes-cat-sessions.sql",
   "007-kes-content-schema.sql",
+  "008-kes-assignment-schema.sql",
 ]
 
 let applied = 0
@@ -81,6 +82,9 @@ const expected = [
   "kes_vocab_master",
   "kes_vocab_cards",
   "kes_worksheets",
+  "kes_assignments",
+  "kes_attempts",
+  "kes_assignment_status",
 ]
 const found = await db.execute(
   `SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'kes_%' ORDER BY name`,

@@ -35,6 +35,52 @@ import {
   type PassageRow,
   type WorksheetItem,
 } from "@/app/actions/content"
+import { createAssignment } from "@/app/actions/assignments"
+
+// 저장 후 반에 배정하는 공용 바.
+function AssignBar({
+  worksheetId,
+  classes,
+  defaultClassId,
+}: {
+  worksheetId: string
+  classes: Array<{ id: string; name: string }>
+  defaultClassId?: string
+}) {
+  const [classId, setClassId] = useState(defaultClassId ?? "")
+  const [busy, setBusy] = useState(false)
+  const [msg, setMsg] = useState("")
+
+  async function assign() {
+    if (!classId) return
+    setBusy(true)
+    setMsg("")
+    const r = await createAssignment({ classId, worksheetId })
+    setBusy(false)
+    setMsg(r.ok ? "반 전체에 배정됨 ✓" : r.error ?? "배정 실패")
+  }
+
+  return (
+    <div className="mt-2 flex items-center gap-2 rounded-md bg-amber-50 px-2 py-2">
+      <Select value={classId} onValueChange={setClassId}>
+        <SelectTrigger className="h-8 text-xs">
+          <SelectValue placeholder="반 선택" />
+        </SelectTrigger>
+        <SelectContent>
+          {classes.map((c) => (
+            <SelectItem key={c.id} value={c.id}>
+              {c.name}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      <Button size="sm" className="h-8 shrink-0" disabled={!classId || busy} onClick={assign}>
+        배정
+      </Button>
+      {msg && <span className="shrink-0 text-xs text-amber-700">{msg}</span>}
+    </div>
+  )
+}
 
 const CEFR_LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"]
 const GRADE_BANDS = [
@@ -99,6 +145,12 @@ function WordlistBuilder() {
   const [selected, setSelected] = useState<Record<string, WordlistItem>>({})
   const [loading, setLoading] = useState(false)
   const [saveMsg, setSaveMsg] = useState("")
+  const [savedId, setSavedId] = useState("")
+  const [classes, setClasses] = useState<Array<{ id: string; name: string }>>([])
+
+  useEffect(() => {
+    getClasses().then((cs) => setClasses(cs.map((c) => ({ id: c.id, name: c.name }))))
+  }, [])
 
   const run = useCallback(async () => {
     setLoading(true)
@@ -138,6 +190,7 @@ function WordlistBuilder() {
       ],
     })
     setSaveMsg(res.ok ? "저장됨 ✓" : res.error ?? "저장 실패")
+    if (res.ok && res.id) setSavedId(res.id)
   }
 
   return (
@@ -239,6 +292,7 @@ function WordlistBuilder() {
               </div>
             </CardTitle>
             {saveMsg && <p className="text-xs text-teal-600">{saveMsg}</p>}
+            {savedId && <AssignBar worksheetId={savedId} classes={classes} />}
           </CardHeader>
           <CardContent>
             {chosen.length === 0 ? (
@@ -277,6 +331,7 @@ function WorksheetBuilder() {
   const [loading, setLoading] = useState(false)
   const [gen, setGen] = useState(false)
   const [saveMsg, setSaveMsg] = useState("")
+  const [savedId, setSavedId] = useState("")
 
   useEffect(() => {
     getClasses().then((cs) => setClasses(cs.map((c) => ({ id: c.id, name: c.name, gradeBand: c.gradeBand }))))
@@ -340,6 +395,7 @@ function WorksheetBuilder() {
       ],
     })
     setSaveMsg(r.ok ? "저장됨 ✓" : r.error ?? "저장 실패")
+    if (r.ok && r.id) setSavedId(r.id)
   }
 
   return (
@@ -457,6 +513,9 @@ function WorksheetBuilder() {
               )}
             </CardTitle>
             {saveMsg && <p className="text-xs text-teal-600">{saveMsg}</p>}
+            {savedId && (
+              <AssignBar worksheetId={savedId} classes={classes} defaultClassId={classId} />
+            )}
           </CardHeader>
           <CardContent>
             {!selected ? (

@@ -5,7 +5,14 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Progress } from "@/components/ui/progress"
-import { Loader2, BookOpen, CheckCircle2, GraduationCap, Sparkles } from "lucide-react"
+import {
+  Loader2,
+  BookOpen,
+  CheckCircle2,
+  GraduationCap,
+  Sparkles,
+  ClipboardCheck,
+} from "lucide-react"
 import {
   peekClass,
   resolveStudentByPick,
@@ -18,12 +25,20 @@ import {
   type CatStep,
 } from "@/app/actions/diagnosis"
 import {
+  getStudentAssignments,
+  openAssignment,
+  recordAttempt,
+  completeAssignment,
+  type StudentAssignment,
+  type AssignmentView,
+} from "@/app/actions/assignments"
+import {
   getStudentSession,
   setStudentSession,
   clearStudentSession,
 } from "@/lib/student-identity"
 
-type Phase = "loading" | "notfound" | "identify" | "menu" | "cat"
+type Phase = "loading" | "notfound" | "identify" | "menu" | "cat" | "assignment"
 
 export default function StudentEntry({
   params,
@@ -36,6 +51,7 @@ export default function StudentEntry({
   const [cls, setCls] = useState<ClassPeek | null>(null)
   const [studentId, setStudentId] = useState<string | null>(null)
   const [studentName, setStudentName] = useState<string>("")
+  const [activeAssignment, setActiveAssignment] = useState<string | null>(null)
 
   const loadClass = useCallback(async () => {
     const peek = await peekClass(classCode)
@@ -117,6 +133,10 @@ export default function StudentEntry({
             gradeLabel={cls.gradeLabel ?? ""}
             classCode={classCode}
             onStartCat={() => setPhase("cat")}
+            onOpenAssignment={(id) => {
+              setActiveAssignment(id)
+              setPhase("assignment")
+            }}
             onSwitch={switchStudent}
           />
         )}
@@ -126,6 +146,14 @@ export default function StudentEntry({
             studentId={studentId}
             gradeBand={cls.gradeBand ?? ""}
             gradeLabel={cls.gradeLabel ?? ""}
+            onDone={() => setPhase("menu")}
+          />
+        )}
+
+        {phase === "assignment" && studentId && activeAssignment && (
+          <AssignmentRunner
+            assignmentId={activeAssignment}
+            studentId={studentId}
             onDone={() => setPhase("menu")}
           />
         )}
@@ -238,6 +266,7 @@ function MenuStep({
   studentId,
   classCode,
   onStartCat,
+  onOpenAssignment,
   onSwitch,
 }: {
   studentName: string
@@ -246,8 +275,17 @@ function MenuStep({
   gradeLabel: string
   classCode: string
   onStartCat: () => void
+  onOpenAssignment: (id: string) => void
   onSwitch: () => void
 }) {
+  const [assignments, setAssignments] = useState<StudentAssignment[]>([])
+
+  useEffect(() => {
+    getStudentAssignments(studentId).then(setAssignments)
+  }, [studentId])
+
+  const open = assignments.filter((a) => a.status !== "completed")
+
   return (
     <div className="space-y-3">
       <Card>
@@ -261,6 +299,35 @@ function MenuStep({
           </Button>
         </CardContent>
       </Card>
+
+      {/* 내 과제 */}
+      {open.length > 0 && (
+        <div className="space-y-2">
+          <p className="px-1 text-sm font-semibold text-slate-600">
+            내 과제 ({open.length})
+          </p>
+          {open.map((a) => (
+            <Card
+              key={a.id}
+              className="cursor-pointer border-amber-200 transition hover:border-amber-400 hover:shadow-md"
+              onClick={() => onOpenAssignment(a.id)}
+            >
+              <CardContent className="flex items-center gap-3 py-4">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-100">
+                  <ClipboardCheck className="h-5 w-5 text-amber-600" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate font-medium text-slate-800">{a.title}</p>
+                  <p className="text-xs text-slate-500">
+                    {a.kind === "worksheet" ? `문항 ${a.itemCount}개` : "단어장"}
+                    {a.status === "started" && " · 진행 중"}
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
 
       <Card className="cursor-pointer transition hover:border-sky-400 hover:shadow-md" onClick={onStartCat}>
         <CardContent className="flex items-center gap-3 py-5">
@@ -439,6 +506,206 @@ function CatRunner({
           모르겠어요
         </Button>
       </div>
+    </div>
+  )
+}
+
+// ── 과제 러너 ─────────────────────────────────────────────
+function AssignmentRunner({
+  assignmentId,
+  studentId,
+  onDone,
+}: {
+  assignmentId: string
+  studentId: string
+  onDone: () => void
+}) {
+  const [view, setView] = useState<AssignmentView | null>(null)
+  const [idx, setIdx] = useState(0)
+  const [busy, setBusy] = useState(true)
+  const [err, setErr] = useState("")
+  const [answered, setAnswered] = useState<Record<number, { chosen: number; correct: boolean | null }>>({})
+  const [textResp, setTextResp] = useState("")
+  const [tStart, setTStart] = useState(0)
+  const [finalScore, setFinalScore] = useState<number | null | undefined>(undefined)
+
+  const load = useCallback(async () => {
+    setBusy(true)
+    const r = await openAssignment({ assignmentId, studentId })
+    setBusy(false)
+    if (r.ok && r.view) {
+      setView(r.view)
+      setTStart(performance.now())
+    } else setErr(r.error ?? "열기 실패")
+  }, [assignmentId, studentId])
+
+  useEffect(() => {
+    load()
+  }, [load])
+
+  const items = view?.items ?? []
+  const item = items[idx]
+
+  async function submitMcq(chosenIndex: number) {
+    if (busy) return
+    setBusy(true)
+    const rt = Math.max(0, Math.round(performance.now() - tStart))
+    const r = await recordAttempt({ assignmentId, studentId, itemIndex: idx, chosenIndex, timeMs: rt })
+    setBusy(false)
+    if (r.ok) setAnswered((p) => ({ ...p, [idx]: { chosen: chosenIndex, correct: r.correct ?? null } }))
+  }
+
+  async function submitShort() {
+    if (busy) return
+    setBusy(true)
+    await recordAttempt({ assignmentId, studentId, itemIndex: idx, textResponse: textResp })
+    setBusy(false)
+    setAnswered((p) => ({ ...p, [idx]: { chosen: -1, correct: null } }))
+  }
+
+  function next() {
+    setTextResp("")
+    setTStart(performance.now())
+    if (idx < items.length - 1) setIdx(idx + 1)
+    else finish()
+  }
+
+  async function finish() {
+    setBusy(true)
+    const r = await completeAssignment({ assignmentId, studentId })
+    setBusy(false)
+    setFinalScore(r.ok ? r.score ?? null : null)
+  }
+
+  if (busy && !view) {
+    return (
+      <div className="flex justify-center py-16 text-slate-400">
+        <Loader2 className="h-6 w-6 animate-spin" />
+      </div>
+    )
+  }
+  if (err) {
+    return (
+      <Card>
+        <CardContent className="py-8 text-center">
+          <p className="mb-3 text-red-500">{err}</p>
+          <Button variant="outline" onClick={onDone}>돌아가기</Button>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  // 완료 화면
+  if (finalScore !== undefined) {
+    return (
+      <Card>
+        <CardContent className="py-8 text-center">
+          <CheckCircle2 className="mx-auto mb-3 h-12 w-12 text-emerald-500" />
+          <p className="mb-1 text-lg font-bold text-slate-800">제출 완료!</p>
+          {finalScore != null && (
+            <p className="mb-4 text-sm text-slate-500">
+              점수 {Math.round(finalScore * 100)}점
+            </p>
+          )}
+          <Button className="w-full" onClick={onDone}>돌아가기</Button>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  // 단어장(문항 없음): 학습 후 완료 표시
+  if (view && items.length === 0) {
+    return (
+      <div>
+        <Card className="mb-4">
+          <CardContent className="py-5">
+            <p className="mb-3 font-semibold text-slate-800">{view.title}</p>
+            {view.words && Array.isArray(view.words) && (
+              <div className="grid grid-cols-2 gap-1 text-sm">
+                {view.words.map((w: string, i: number) => (
+                  <span key={i} className="rounded bg-slate-50 px-2 py-1">{w}</span>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+        <Button className="w-full" onClick={finish} disabled={busy}>
+          다 외웠어요 · 완료
+        </Button>
+      </div>
+    )
+  }
+
+  const done = answered[idx] !== undefined
+
+  return (
+    <div>
+      <div className="mb-3 flex items-center justify-between text-sm">
+        <span className="font-medium text-slate-600">{view?.title}</span>
+        <span className="text-slate-400">{idx + 1}/{items.length}</span>
+      </div>
+
+      {view?.passageBody && idx === 0 && (
+        <Card className="mb-4">
+          <CardContent className="py-4">
+            {view.passageTopic && <p className="mb-1 font-semibold text-slate-700">{view.passageTopic}</p>}
+            <p className="whitespace-pre-wrap text-sm leading-relaxed text-slate-700">
+              {view.passageBody}
+            </p>
+          </CardContent>
+        </Card>
+      )}
+
+      <Card className="mb-4">
+        <CardContent className="py-5">
+          <p className="mb-3 font-medium text-slate-800">{idx + 1}. {item?.question}</p>
+
+          {item?.type === "mcq" && item.options ? (
+            <div className="grid gap-2">
+              {item.options.map((opt, j) => {
+                const picked = answered[idx]?.chosen === j
+                return (
+                  <Button
+                    key={j}
+                    variant={picked ? "default" : "outline"}
+                    disabled={busy || done}
+                    className="h-auto justify-start whitespace-normal py-3 text-left"
+                    onClick={() => submitMcq(j)}
+                  >
+                    {opt}
+                  </Button>
+                )
+              })}
+            </div>
+          ) : (
+            <div className="space-y-2">
+              <Input
+                placeholder="답을 입력하세요"
+                value={textResp}
+                disabled={done}
+                onChange={(e) => setTextResp(e.target.value)}
+              />
+              {!done && (
+                <Button size="sm" onClick={submitShort} disabled={busy || !textResp}>
+                  제출
+                </Button>
+              )}
+            </div>
+          )}
+
+          {done && answered[idx]?.correct != null && (
+            <p className={`mt-3 text-sm ${answered[idx].correct ? "text-emerald-600" : "text-red-500"}`}>
+              {answered[idx].correct ? "정답!" : "다시 볼까요"}
+            </p>
+          )}
+        </CardContent>
+      </Card>
+
+      {done && (
+        <Button className="w-full" onClick={next} disabled={busy}>
+          {idx < items.length - 1 ? "다음" : "제출하기"}
+        </Button>
+      )}
     </div>
   )
 }
