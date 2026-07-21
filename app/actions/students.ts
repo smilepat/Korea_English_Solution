@@ -400,14 +400,27 @@ export async function generateStudentPrescription(params: {
     let attemptStr = ""
     if (params.studentId) {
       try {
-        const { getStudentAttemptSummary } = await import("@/app/actions/assignments")
-        const s = await getStudentAttemptSummary(params.studentId)
+        const { getStudentAttemptSummary, getStudentStandardMastery } = await import(
+          "@/app/actions/assignments"
+        )
+        const [s, mastery] = await Promise.all([
+          getStudentAttemptSummary(params.studentId),
+          getStudentStandardMastery(params.studentId),
+        ])
         if (s.gradedAttempts > 0) {
           const acc = s.accuracy != null ? Math.round(s.accuracy * 100) : null
           const recent = s.recentCompleted
             .map((r) => `${r.title}(${r.score != null ? Math.round(r.score * 100) + "점" : "미채점"})`)
             .join(", ")
           attemptStr = `\n실제 과제 수행: 채점 문항 ${s.gradedAttempts}개, 정답률 ${acc}%\n최근 완료 과제: ${recent || "없음"}`
+        }
+        // 성취기준별 약점(정답률 낮은 순 최대 3개) → 교육과정 기반 처방
+        const weak = mastery.filter((m) => m.attempts >= 2).slice(0, 3)
+        if (weak.length > 0) {
+          const w = weak
+            .map((m) => `${m.standardId}(${Math.round(m.accuracy * 100)}%) ${m.standardText}`)
+            .join("; ")
+          attemptStr += `\n약한 성취기준: ${w}`
         }
       } catch {
         /* 시도 데이터가 없어도 처방은 진행 */

@@ -46,7 +46,7 @@ export async function createAssignment(params: {
     if (!classId) return { ok: false, error: "반을 특정할 수 없습니다." }
 
     const ws = await turso.execute({
-      sql: `SELECT id, title, kind, spec FROM kes_worksheets WHERE id = ?`,
+      sql: `SELECT id, title, kind, spec, standard_ids FROM kes_worksheets WHERE id = ?`,
       args: [params.worksheetId],
     })
     if (ws.rows.length === 0) return { ok: false, error: "워크시트를 찾을 수 없습니다." }
@@ -57,6 +57,15 @@ export async function createAssignment(params: {
       spec = JSON.parse(String(w.spec))
     } catch {
       spec = {}
+    }
+    // 성취기준 태그 — 시도 기록에 실어 나중에 성취기준별 숙달도 분석이 가능하게.
+    // (시도는 소급 태깅 불가하므로 배정 시점에 payload 로 굳혀 둔다)
+    let standardIds: string[] = []
+    try {
+      const raw = w.standard_ids ? JSON.parse(String(w.standard_ids)) : []
+      if (Array.isArray(raw)) standardIds = raw.map(String)
+    } catch {
+      standardIds = []
     }
 
     // 워크시트면 지문 본문도 스냅샷에 포함(학생이 읽어야 하므로)
@@ -81,6 +90,7 @@ export async function createAssignment(params: {
       passageBody,
       items: (spec.items ?? []) as WorksheetItem[],
       words: spec.words ?? null, // 단어장
+      standardIds, // 성취기준 태그(시도 채점 시 실린다)
     }
 
     const id = ulid()
@@ -276,15 +286,22 @@ export async function recordAttempt(params: {
       response = params.textResponse ?? null // 서술형: 채점 안 함
     }
 
+    // 이 과제의 성취기준을 시도에 태그 → 나중에 성취기준별 숙달도 집계 가능
+    const skillTags =
+      Array.isArray(payload.standardIds) && payload.standardIds.length > 0
+        ? JSON.stringify(payload.standardIds)
+        : null
+
     await turso.execute({
       sql: `INSERT INTO kes_attempts
-              (id, assignment_id, student_id, item_index, correct, response, time_ms)
-            VALUES (?,?,?,?,?,?,?)`,
+              (id, assignment_id, student_id, item_index, skill_tags, correct, response, time_ms)
+            VALUES (?,?,?,?,?,?,?,?)`,
       args: [
         ulid(),
         params.assignmentId,
         params.studentId,
         params.itemIndex,
+        skillTags,
         correct === null ? null : correct ? 1 : 0,
         response,
         params.timeMs ?? null,
@@ -429,6 +446,77 @@ export interface AttemptSummary {
   gradedAttempts: number
   accuracy: number | null
   recentCompleted: Array<{ title: string; score: number | null; at: string }>
+}
+
+// ── 성취기준별 숙달도 (시도 태그 집계) ────────────────────
+export interface StandardMastery {
+  standardId: string
+  standardText: string
+  attempts: number
+  correct: number
+  accuracy: number
+}
+
+/**
+ * 학생의 성취기준별 정답률. 시도(kes_attempts.skill_tags)를 성취기준으로 펼쳐
+ * 집계하고 성취기준 텍스트를 붙인다. "이 학생이 어느 교육과정 기준에서 약한가"를
+ * 보여주는 개별화의 근거. (데이터는 학생이 과제를 풀수록 쌓인다)
+ */
+export async function getStudentStandardMastery(
+  studentId: string,
+): Promise<StandardMastery[]> {
+  try {
+    const rows = await turso.execute({
+      sql: `SELECT skill_tags, correct FROM kes_attempts
+            WHERE student_id = ? AND skill_tags IS NOT NULL AND correct IS NOT NULL`,
+      args: [studentId],
+    })
+    // skill_tags(JSON 배열)를 성취기준별로 펼쳐 집계
+    const agg = new Map<string, { attempts: number; correct: number }>()
+    for (const r of rows.rows) {
+      let ids: string[] = []
+      try {
+        ids = JSON.parse(String(r.skill_tags))
+      } catch {
+        continue
+      }
+      const isCorrect = Number(r.correct) === 1
+      for (const id of ids) {
+        const cur = agg.get(id) ?? { attempts: 0, correct: 0 }
+        cur.attempts++
+        if (isCorrect) cur.correct++
+        agg.set(id, cur)
+      }
+    }
+    if (agg.size === 0) return []
+
+    // 성취기준 텍스트 조인
+    const ids = [...agg.keys()]
+    const texts = await turso.execute({
+      sql: `SELECT standard_id, standard_text_ko FROM kcsdb_standards
+            WHERE standard_id IN (${ids.map(() => "?").join(",")})`,
+      args: ids as never[],
+    })
+    const textMap = new Map(
+      texts.rows.map((r) => [String(r.standard_id), String(r.standard_text_ko ?? "")]),
+    )
+
+    return ids
+      .map((id) => {
+        const a = agg.get(id)!
+        return {
+          standardId: id,
+          standardText: textMap.get(id) ?? "",
+          attempts: a.attempts,
+          correct: a.correct,
+          accuracy: a.attempts > 0 ? a.correct / a.attempts : 0,
+        }
+      })
+      .sort((x, y) => x.accuracy - y.accuracy) // 약한 기준부터
+  } catch (error) {
+    console.error("Error in getStudentStandardMastery:", error)
+    return []
+  }
 }
 
 /** 학생의 최근 시도 통계 — AI 처방 프롬프트에 주입한다. */
