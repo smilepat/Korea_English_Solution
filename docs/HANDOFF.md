@@ -1,121 +1,95 @@
-# HANDOFF — 교육과정 성취기준 검색(/curriculum-search) 통합
+# HANDOFF — Korea English Solution (다른 PC 재개용)
 
-> 이 문서 하나로 다른 PC/세션에서 재개 가능. 마지막 작업: 2026-07-06 · main HEAD `4ec7f69`.
+> 이 문서 하나로 다른 PC/세션에서 재개 가능. 마지막 작업: **2026-07-21 · main HEAD `b9a023b`**.
+> 운영·env 상세는 [DEPLOYMENT.md](./DEPLOYMENT.md) 참고.
 
 ## 0. 한 줄 요약
-기존 교사 앱 **Korea_English_Solution**(Next.js15 + Turso + Vercel)에 **대한민국 영어 교육과정 성취기준 4모드 검색**을 추가해 배포. 정본 데이터는 `smilepat/Korea-curri-standards-db`에서 가져와 Turso `kcsdb_*` 테이블로 시드.
 
-- **라이브(공개)**: <https://korea-english-solution.vercel.app/curriculum-search>
-- 레포: `smilepat/Korea_English_Solution` (main 브랜치, Vercel 팀 `prompt-improvement-dm-pat`)
-- 홈 `/`·`standards-comparison`에 검색 링크(로그인 뒤), 검색 페이지 자체는 미들웨어 공개(`OPEN_PREFIXES`).
+한국 영어교사 1인용 **통합 앱** — 국가 교육과정 성취기준 기반으로 워크시트·단어장·문항을 만들고, 학생을 **진단→개입**까지 관리(AI). Next.js 15 + Turso + Gemini, Vercel 자동 배포.
 
----
+- **라이브**: <https://korea-english-solution.vercel.app> (데모 로그인 `demo@korea-english.com` / `demo1234`)
+- 레포: `smilepat/Korea_English_Solution` (main), Vercel 팀 `prompt-improvement-dm-pat`
+- 코드: `C:\tmp\Korea_English_Solution`
 
-## 1. ⚠️ 자격증명 (가장 중요 — 여기서 시간 많이 씀)
+## 1. ⚠️ 다른 PC에서 부트스트랩 (순서대로)
 
-### Turso DB
-- DB 이름: **`korea-english-solution-2026`**, URL `libsql://korea-english-solution-2026-connectedu.aws-ap-northeast-1.turso.io`
-- ⚠️ **이 DB는 `connectedu` 조직에 있음**(개인 `smilepat` 아님). 토큰 발급:
-  ```bash
-  # WSL 안에서 (~/.turso/turso 설치됨). 윈도우 네이티브 turso CLI 바이너리는 존재하지 않음.
-  ~/.turso/turso auth login --headless      # WSL엔 브라우저 없어 --headless 필수
-  ~/.turso/turso org switch connectedu       # ← 반드시 org 전환
-  ~/.turso/turso db tokens create korea-english-solution-2026 > /mnt/c/tmp/token.txt
-  ```
-  - scoop의 `turso`는 **다른 도구**(`tursodb` 로컬엔진). 대시보드 <https://app.turso.tech> 에서 발급도 가능(단 org 선택 주의).
-- Vercel 저장 값은 stale해질 수 있음. `.env.local`은 `vercel env pull --environment=production`로 취득하되, **값에 리터럴 `\r\n` 섞여 오는 버그** 있으니 사용 전 정제: `tr -cd 'A-Za-z0-9._-'`(토큰), URL은 알려진 값으로 하드코딩 권장.
+```bash
+git clone https://github.com/smilepat/Korea_English_Solution && cd Korea_English_Solution
+corepack pnpm install                 # ⚠️ pnpm 은 `corepack pnpm` (9.12.0)
+cp .env.local.example .env.local      # 그리고 실제 키 입력 (아래 2절)
+node scripts/run-kes-schema.mjs       # kes_ 15테이블 (멱등)
+node scripts/seed-content.mjs         # 지문663+어휘9,291+카드6,302 (committed 스냅샷, 원천레포 불필요)
+corepack pnpm dev                     # http://localhost:3000
+```
 
-### API 키
-- **GEMINI_API_KEY**: 앱 원본 키가 무효(만료)라 **`C:\tmp\csat-reasoning-bridge-builder\.env.local`의 Gemini 키로 교체**함(사용자 소유). 모델: **gemini-embedding-001**(768d, S3), **gemini-2.5-flash**(S4·문법분류). ⚠️ `text-embedding-004`·`gemini-2.0-flash`는 이 키로 안 됨.
-- **ANTHROPIC_API_KEY**: 앱 원본 무효. 현재 기능은 Anthropic 미사용(전부 Gemini).
-- Vercel production/preview env에 위 값들 반영됨. 재배포 전 유효성 확인.
+- ✅ **시드는 자립적**: `data/passages/*.jsonl`·`data/vocab/*.jsonl`·`data/kcsdb/*.csv` 전부 committed. 원천 레포(lexile_based_reading_textDB 등) 없이 seed 가능.
+- `kcsdb_*`(성취기준672·어휘5,839·임베딩)는 이미 원격 Turso 에 적재됨 — 같은 DB 쓰면 재시드 불필요. 새 DB 면 `node scripts/seed-kcsdb.mjs` 추가 실행.
 
----
+## 2. ⚠️ 자격증명 (여기서 시간 많이 씀)
 
-## 2. 데이터 (Turso `kcsdb_*` 테이블)
-| 테이블 | 행 | 내용 |
+`.env.local` 에 3개만 있으면 된다 (Firebase·Anthropic 제거됨):
+
+| 변수 | 획득 |
+|---|---|
+| `TURSO_DATABASE_URL` | `turso db show korea-english-solution-2026` |
+| `TURSO_AUTH_TOKEN` | `turso db tokens create korea-english-solution-2026` |
+| `GEMINI_API_KEY` | https://aistudio.google.com/app/apikey |
+
+- ⚠️ **Turso DB 는 `connectedu` org 소속**(smilepat 아님). 토큰 발급 전 `turso org switch connectedu`. 이걸 몰라 헤매기 쉬움.
+- 기존 PC 의 `.env.local` 에 작동하는 키가 이미 있음(같은 PC면 그대로).
+
+## 3. 현재 상태 (전 기능 동작)
+
+명부 → 진단(어휘CAT+Lexile) → 성취기준 정렬 콘텐츠 → 배정 → 서버채점 → 데이터 기반 처방 → 숙달도 추적, **전 경로 동작·라이브 검증됨**.
+
+| 화면 | 경로 | 비고 |
 |---|---|---|
-| kcsdb_standards | 672 | 성취기준(2015 360+2022 312). cefr_alignment 672/672(원본334+상속86+추정252), **cefr_source** 컬럼. 고교 추정 과목별 정교화 완료(A2/B1/B2, 근거표 `data/kcsdb/cefr_hs_refine.csv`) |
-| kcsdb_levels | 2313 | 성취수준 A~E/상중하 + cut_score |
-| kcsdb_vec | 672 | 768d 임베딩(gemini-embedding-001) |
-| kcsdb_vocab | 5839 | 기본어휘 + cefr·freq_rank·meaning_ko |
-| kcsdb_comm_functions / _examples | 188 / 1107 | 의사소통 기능 + 영어 예시문 |
-| kcsdb_grammar | 40 | 언어형식(2015). **item_name_ko·category**. 40건 전수 사람검수 완료 → **label_source=verified**(정본 오버라이드 `data/kcsdb/grammar_verified.csv`). 예문은 [별표4] 정본, 항목명은 검수된 표준용어 라벨 |
-| kcsdb_csat_type_map | 91 | 성취기준↔수능유형(규칙, 참고·공인아님) |
-| kcsdb_sources | 42 | provenance |
-| kcsdb_standards_fts | 672 | FTS5(trigram) 전문검색 |
-| kcsdb_query_cache / _search_log / _rate | — | 운영(임베딩캐시·로그·레이트리밋. _rate는 검색 AI와 생성('gen:' 네임스페이스) 공유) |
-| kcsdb_generated_items | 가변 | **성취기준 기반 AI 생성 문항**(mcq4/mcq5/short/essay, payload=JSON, source='ai'). 교사 검수 필요·정본 아님. migrate-generated-items.mjs로 생성 |
+| 학급 명부 | `/roster` | CSV등록→조인카드 + 진단·과제 현황보드 |
+| 워크시트·단어장 | `/worksheets` | 반선택→Lexile 자동타겟 + 성취기준 정렬 문항 |
+| AI 지문 검토 | `/content-review` | AI생성 지문 승인/거부 |
+| 학생 관리 | `/student-tracker` | 진단추적+숙달도+AI처방(맞춤단어장 원클릭) |
+| 학생 진입 | `/s/[반코드]` | 무인증, 서버채점(정답 미유출) |
 
-정본 CSV는 `data/kcsdb/*.csv`(git 커밋됨). 시드 원천.
+## 4. 핵심 설계 (건드리기 전 알 것)
 
----
+- **DB**: Turso 단일. `kes_*` 15테이블(앱 데이터) + `kcsdb_*`(교육과정 정본). 스키마 = `scripts/005~009-*.sql`, 러너 `run-kes-schema.mjs`(멱등).
+- **AI**: Gemini 단일(`gemini-2.5-flash`). `lib/gemini.ts` `callGemini(prompt, system, {json})` + `parseGeminiJson`(서두 견딤). 구 Claude 경로(`lib/ai.ts`)는 Gemini shim 으로 백킹.
+- **정답 미유출**: 어휘CAT·과제 모두 정답을 서버만 보유, 학생엔 보기만 전달, 서버 채점.
+- **저작권 방화벽(3중)**: 지문 export 화이트리스트 + `check-no-kichul` CI + saveWorksheet license assert. 수능 기출은 구조적 차단.
+- **학생 신원**: 교사 명부에서만 해석(자유입력 금지). ULID + 6자 조인토큰(혼동문자 배제).
 
-## 3. 코드 지도
-- `app/curriculum-search/guide/page.tsx` — **사용 가이드**(4모드·필터·CEFR출처·문항생성·정직성 안내). 공개(OPEN_PREFIXES prefix 매칭). 홈 '성취기준 검색' 카드 + 검색 페이지 헤더에서 진입.
-- `app/curriculum-search/page.tsx` — 검색 UI(모드토글·필터·결과·상세펼침·복사/인쇄). 공개 페이지. **UX: 검색어 하이라이트(highlight)·정렬(관련도/코드/학교급/CEFR, sortedRows)·빈결과 재검색 안내·모바일 반응형(.kcs-searchrow/.kcs-filterrow)·자주 쓰는 검색어 드롭다운(FREQ_GROUPS, 코퍼스 빈도 기반+"직접 입력")**. run(over?)는 재검색·프리셋 시 setState 비동기 우회용 override 인자(q/mode/ver/band/domain). ⚠️ FREQ_GROUPS 빈도수는 하드코딩 — 성취기준 재시드로 본문이 바뀌면 재측정 필요.
-- `app/actions/curriculum-search.ts` — 서버액션:
-  - `curriculumSearch(q, mode, filters)` — 4모드 파사드(+레이트리밋·강등·로깅)
-  - `getStandardDetail(id)` — 성취수준+연계어휘(CEFR)+수능유형
-  - `searchReference(q, ver)` — 관련 의사소통표현 + 문법
-- `lib/kcsdb-ai.ts` — Gemini 호출(embedQuery=gemini-embedding-001, geminiGenerate=gemini-2.5-flash. geminiGenerate는 maxOutputTokens·thinkingBudget·5xx재시도 옵션 지원. **구조화 생성은 thinkingBudget:0 필수** — 안 끄면 사고토큰이 출력예산 잠식해 JSON 잘림)
-- `app/actions/curriculum-items.ts` — **성취기준 기반 AI 문항 생성**: generateCurriculumItem(유형별 프롬프트·검증·1회 재시도) / getCurriculumItems / deleteCurriculumItem. 유형 mcq4·mcq5·short·essay
-- `app/curriculum-search/page.tsx` `ItemGenPanel`/`GeneratedItemView` — 결과 카드 인라인 문항 생성 패널(정직성 배너·저장목록·삭제)
-- `lib/kcsdb-guard.ts` — IP·레이트리밋·임베딩캐시·검색로그
-- `middleware.ts` — `OPEN_PREFIXES=["/curriculum-search"]` 공개
-- `scripts/` — schema-kcsdb.sql · seed-kcsdb.mjs · embed-kcsdb.mjs · backfill-cefr.mjs · classify-grammar.mjs · build-csat-map.mjs
+## 5. 함정 (실측)
 
-## 4. 검색 4모드 + 부가
-- **S1 구조화**: 코드조회([9영03-04]) + version/band/domain/cefr 필터
-- **S2 전문**: FTS5(trigram, 3자+) → 2자 등은 LIKE 폴백
-- **S3 의미**: 질의 임베딩(캐시) → `vector_distance_cos`
-- **S4 자연어**: Gemini가 **JSON조건 추출**→파라미터쿼리→0건시 조건완화→의미검색 폴백 (raw SQL 아님, 인젝션 없음)
-- 상세: 성취수준·**수준별 기본어휘**(CEFR 등급 매칭·빈도순, **내용 연계 아님**을 UI 명시)·수능유형(참고). 하단: 의사소통표현·문법. 복사(HWP)·PDF(print).
-- **필터**: 개정/학교급/영역 + **CEFR 등급(A1~C1)**. fulltext()는 바인드 파라미터로 version/band/domain/cefr 전부 일관 적용(FTS 히트·LIKE 폴백 동일).
+- pnpm 은 `corepack pnpm`(직접 `pnpm` 없음).
+- 로컬 빌드 시 node 프로세스 20+ 누적 → webpack OOM. `taskkill //F //IM node.exe` 후 재빌드.
+- 성취기준 SQL 린트(T-SQL) 오탐 — `CREATE TABLE IF NOT EXISTS` 는 정상 SQLite.
+- Vercel env CLI 함정: 대시보드에서 env 확인 권장.
+- ⚠️ **도그푸딩 교훈**: 유닛/타입체크/빌드가 못 잡는 런타임 통합버그(죽은 API모델·LLM출력형식) 존재 → 배포 전 `pnpm dev` + 브라우저로 실제 AI 생성 1회 확인.
 
----
+## 6. CI·검증
 
-## 5. 재현 파이프라인 (DB 재시드 시)
 ```bash
-# .env.local 준비(TURSO_DATABASE_URL/AUTH_TOKEN, GEMINI_API_KEY)
-npm install                                    # @libsql/client 등
-node scripts/seed-kcsdb.mjs                     # kcsdb_* 코어 시드(CSV→Turso, FTS 포함)
-GEMINI_KEY 불필요 (env에서 읽음)
-node scripts/embed-kcsdb.mjs                    # S3 벡터 672(gemini-embedding-001)
-node scripts/backfill-cefr.mjs                  # CEFR 결측 백필(+cefr_source)
-node scripts/classify-grammar.mjs              # 문법 40 LLM 분류
-node scripts/build-csat-map.mjs                # 수능유형 규칙 매핑
-# 운영 테이블(query_cache/search_log/rate)은 schema-kcsdb.sql에 포함, seed가 생성
-node scripts/migrate-generated-items.mjs        # kcsdb_generated_items(AI 문항 저장). 라이브 일회성. 재시드 시 schema가 생성
+corepack pnpm test            # vitest 48
+corepack pnpm typecheck
+corepack pnpm check:no-firebase
+corepack pnpm check:no-kichul
+corepack pnpm build           # 21 라우트
 ```
-> ⚠️ 재시드는 kcsdb_standards를 DELETE+INSERT하므로 `cefr_source`가 초기화됨 → **backfill-cefr.mjs 재실행 필수**(Stage4가 `cefr_hs_refine.csv` overlay 자동 재적용). 마찬가지로 grammar 분류(검수는 `grammar_verified.csv` 자동 보존)·csat맵도 재실행.
 
-## 6. 배포
-```bash
-cd Korea_English_Solution
-vercel --prod --yes        # 로컬 브랜치 → production(빌드는 Vercel). 실패해도 라이브 유지
-```
-- next.config: `eslint.ignoreDuringBuilds=true`, `typescript.ignoreBuildErrors=true` (인라인스타일/타입 경고 무시).
+CI(`.github/workflows/ci.yml`)가 PR 마다 위 전부 실행. Vercel 자동 배포.
 
----
+## 7. 이번 세션 히스토리 (PR #1~#8, 전부 merged)
 
-## 7. 정직성 원칙 (일관 준수)
-heuristic·추정·AI·규칙 산출물은 **출처 컬럼 + UI 표기**로 고시 원문 정본과 구분:
-- CEFR 상속/추정 → "동일 학년군 상속"/"추정" 표기 (cefr_source)
-- 문법 분류 → "[별표4]·AI 분류" 표기 (label_source=llm)
-- 수능 유형 → **"규칙 기반 참고 — 공인 매핑 아님"** 필수 표기
-- 수준별 기본어휘 → "CEFR 등급 매칭·내용 연계 아님" 표기(성취기준 특정 어휘 아님)
-- **AI 생성 문항 → "AI 생성 · 교사 검수 필요, 정본 아님" 배너**(source='ai', kcsdb_generated_items)
+1. #1~#4 학생척추·진단배선·워크시트/단어장 스튜디오·처방루프·성취기준 정렬·처방 원클릭
+2. #5 Gemini 생성 복구(죽은모델 gemini-2.0-flash→2.5 + JSON 서두)
+3. #6 지문 중복제거(764→639)+초등 지문 24개
+4. #7 성취기준별 숙달도 태그
+5. #8 Anthropic 경로 복구(9라우트 Gemini shim)+서술형채점+숙달도UI+검토UI+학생레이아웃+DEPLOYMENT.md
 
-## 8. 알려진 한계 · 다음 단계
-- `csat_items`(앱 원본) = 1행(샘플) → 수능 **예시 문항** 표시 불가. 실물 필요 시 별도 시딩.
-- kcsdb_grammar 40 = 2015 [별표4] 부분 커버(●학교급 마커 미복원). 학년군 단위 연계가 정직한 한계. LLM 라벨 **전수 검수 완료**(2026-07-06, label_source=verified, 정정 4건: GR-024/035/019/027). 정본 오버라이드=`data/kcsdb/grammar_verified.csv` → 재시드 후에도 `classify-grammar.mjs`가 자동 보존.
-- CEFR estimated 252(고교 일반/진로 선택 B1 유지분+심화 B2). 2026-07-06 과목별 정교화 완료: 심화·독해작문→B2, 기본영어→A2 상속, 근거표 `data/kcsdb/cefr_hs_refine.csv`. 남은 estimated 87건(일반/진로 선택)은 앵커 부재로 B1 유지 — 추가 근거 확보 시 정교화 여지.
-- **다음 개선은 `kcsdb_search_log` 데이터 기반으로**: 0건 쿼리·S4 폴백률 분석 → 동의어 사전/규칙 보강. (Fable5 계획 `docs/IMPROVEMENT_PLAN.md` 참조)
+## 8. 다음 작업 후보 (우선순위)
 
-## 9. 커밋 이력(이 통합)
-4모드검색 → 홈/비교 링크·공개 → S4 재설계 → 성취수준+어휘 → 의사소통표현 → main 머지 → 복사/PDF+비용방어+CEFR백필 → 문법+수능유형. 상세는 `git log`.
-
-## 10. 관련 정본 레포
-- `smilepat/Korea-curri-standards-db` — 성취기준 정본 DB(이 데이터의 원천). `data/*.csv`.
-- `smilepat/efl-data-hub` — SSoT 허브(achievement_standards_kr pin).
+- **실제 반 도그푸딩** (사용자) → 숙달도·적응 기능은 시도 데이터 축적 후 유의미
+- 숙달도 대시보드 확장(반 단위 rollup)
+- 문항 품질 게이트(ebs-demo criteria-engine 이식, ⚠pnpm workspace 전환 리스크)
+- 여러 교사 인증 전환(현재 단일 데모쿠키) — `app/actions/auth.ts` + 반/학생 teacher_id 소유권
+- 초등 지문 추가 생성(`npm run gen:elementary`)→`/content-review` 검토
