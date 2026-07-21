@@ -377,7 +377,9 @@ export default function LessonPlannerPage() {
                               <Download className="h-3.5 w-3.5" />
                               PDF 다운로드
                             </button>
-                            <Save className="h-4 w-4 text-teal-600" title="자동 저장됨" />
+                            <span title="자동 저장됨">
+                              <Save className="h-4 w-4 text-teal-600" />
+                            </span>
                           </div>
                         </div>
                       </CardHeader>

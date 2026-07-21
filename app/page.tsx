@@ -451,11 +451,14 @@ export default function Home() {
                     <span className="text-xs bg-cyan-100 text-cyan-700 px-2 py-0.5 rounded-full w-fit">NEW AI</span>
                   </CardHeader>
                   <CardContent className="pb-2">
-                    <p className="text-sm text-gray-600">학생별 Lexile·CEFR 추적 + AI 맞춤 학습 처방</p>
+                    <p className="text-sm text-gray-600">학급 명부 등록 → 학생별 Lexile·CEFR 추적 + AI 맞춤 학습 처방</p>
                   </CardContent>
-                  <CardFooter>
-                    <Button className="w-full bg-cyan-600 hover:bg-cyan-700 text-white shadow-sm gap-1" asChild>
+                  <CardFooter className="flex gap-2">
+                    <Button className="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white shadow-sm gap-1" asChild>
                       <a href="/student-tracker"><Users className="h-4 w-4" />학생 관리</a>
+                    </Button>
+                    <Button variant="outline" className="flex-1 gap-1" asChild>
+                      <a href="/roster"><Users className="h-4 w-4" />학급 명부</a>
                     </Button>
                   </CardFooter>
                 </Card>
