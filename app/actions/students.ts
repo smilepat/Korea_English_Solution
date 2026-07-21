@@ -385,6 +385,7 @@ export async function generateStudentPrescription(params: {
   lexileLevel: number
   lexileHistory: Array<{ date: string; level: number }>
   skills: Record<string, string>
+  studentId?: string // 있으면 실제 과제 시도 데이터를 처방에 반영
 }): Promise<{ success: boolean; data?: Prescription; error?: string }> {
   try {
     const historyStr = params.lexileHistory
@@ -395,11 +396,29 @@ export async function generateStudentPrescription(params: {
       .map(([k, v]) => `${k}: ${v || "미측정"}`)
       .join(", ")
 
+    // 실제 과제 수행 데이터 주입(감이 아니라 시도 기록에서 처방)
+    let attemptStr = ""
+    if (params.studentId) {
+      try {
+        const { getStudentAttemptSummary } = await import("@/app/actions/assignments")
+        const s = await getStudentAttemptSummary(params.studentId)
+        if (s.gradedAttempts > 0) {
+          const acc = s.accuracy != null ? Math.round(s.accuracy * 100) : null
+          const recent = s.recentCompleted
+            .map((r) => `${r.title}(${r.score != null ? Math.round(r.score * 100) + "점" : "미채점"})`)
+            .join(", ")
+          attemptStr = `\n실제 과제 수행: 채점 문항 ${s.gradedAttempts}개, 정답률 ${acc}%\n최근 완료 과제: ${recent || "없음"}`
+        }
+      } catch {
+        /* 시도 데이터가 없어도 처방은 진행 */
+      }
+    }
+
     const prompt = `학생 "${params.name}"에 대한 맞춤형 영어 학습 처방을 생성해주세요.
 
 현재 Lexile 수준: ${params.lexileLevel}L
 Lexile 변화 이력: ${historyStr || "없음"}
-기능별 CEFR 수준: ${skillsStr}
+기능별 CEFR 수준: ${skillsStr}${attemptStr}
 
 다음 JSON 형식으로 응답해주세요:
 {

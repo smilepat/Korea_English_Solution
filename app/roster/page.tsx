@@ -38,6 +38,10 @@ import {
   type ClassRoster,
   type ClassDiagnosisBoard,
 } from "@/app/actions/roster"
+import {
+  getClassAssignments,
+  type AssignmentBoardRow,
+} from "@/app/actions/assignments"
 
 // 초·중·고를 전부 가르치므로 학교급은 반마다 명시적으로 고른다(기본값 없음).
 const GRADE_BANDS = [
@@ -66,6 +70,7 @@ export default function RosterPage() {
   const [classes, setClasses] = useState<ClassSummary[]>([])
   const [selected, setSelected] = useState<ClassRoster | null>(null)
   const [board, setBoard] = useState<ClassDiagnosisBoard | null>(null)
+  const [assignments, setAssignments] = useState<AssignmentBoardRow[]>([])
   const [loading, setLoading] = useState(false)
 
   // 등록 폼 상태
@@ -128,12 +133,14 @@ export default function RosterPage() {
   }
 
   async function openClass(classId: string) {
-    const [roster, b] = await Promise.all([
+    const [roster, b, asgn] = await Promise.all([
       getClassRoster(classId),
       getClassDiagnosisBoard(classId),
+      getClassAssignments(classId),
     ])
     setSelected(roster)
     setBoard(b)
+    setAssignments(asgn)
     if (roster) {
       setTimeout(() => {
         document.getElementById("class-detail")?.scrollIntoView({ behavior: "smooth" })
@@ -396,6 +403,50 @@ export default function RosterPage() {
                   ))}
                 </tbody>
               </table>
+            </div>
+          </div>
+        )}
+
+        {/* ── 과제 현황 ── */}
+        {selected && assignments.length > 0 && (
+          <div className="no-print mb-8">
+            <h2 className="mb-3 text-lg font-semibold text-slate-700">과제 현황</h2>
+            <div className="space-y-2">
+              {assignments.map((a) => {
+                const pct = a.total > 0 ? Math.round((a.completed / a.total) * 100) : 0
+                return (
+                  <div
+                    key={a.id}
+                    className="flex items-center gap-3 rounded-lg border px-3 py-2.5"
+                  >
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate font-medium text-slate-800">{a.title}</p>
+                      <p className="text-xs text-slate-400">
+                        {a.kind === "worksheet" ? "워크시트" : "단어장"} ·{" "}
+                        {a.assignedAt.slice(0, 10)}
+                      </p>
+                    </div>
+                    <div className="w-28 shrink-0">
+                      <div className="mb-1 flex justify-between text-xs">
+                        <span className="text-slate-500">
+                          {a.completed}/{a.total}
+                        </span>
+                        {a.avgScore != null && (
+                          <span className="text-teal-600">
+                            평균 {Math.round(a.avgScore * 100)}점
+                          </span>
+                        )}
+                      </div>
+                      <div className="h-1.5 rounded-full bg-slate-100">
+                        <div
+                          className="h-1.5 rounded-full bg-teal-500"
+                          style={{ width: `${pct}%` }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
           </div>
         )}

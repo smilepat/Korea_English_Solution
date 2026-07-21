@@ -230,6 +230,7 @@ export default function StudentTrackerPage() {
       lexileLevel: selectedStudent.lexile_level,
       lexileHistory: selectedStudent.lexile_history,
       skills: selectedStudent.skills,
+      studentId: selectedStudent.id, // 실제 과제 시도 데이터 반영
     })
     if (result.success && result.data) {
       setPrescription(result.data)
