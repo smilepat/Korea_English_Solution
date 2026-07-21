@@ -11,7 +11,10 @@
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
     "db:schema": "node scripts/run-kes-schema.mjs",
-    "check:no-firebase": "node scripts/check-no-firebase.mjs"
+    "db:seed-content": "node scripts/seed-content.mjs",
+    "export:content": "node scripts/export-content.mjs",
+    "check:no-firebase": "node scripts/check-no-firebase.mjs",
+    "check:no-kichul": "node scripts/check-no-kichul.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",

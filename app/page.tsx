@@ -453,12 +453,15 @@ export default function Home() {
                   <CardContent className="pb-2">
                     <p className="text-sm text-gray-600">학급 명부 등록 → 학생별 Lexile·CEFR 추적 + AI 맞춤 학습 처방</p>
                   </CardContent>
-                  <CardFooter className="flex gap-2">
+                  <CardFooter className="flex flex-wrap gap-2">
                     <Button className="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white shadow-sm gap-1" asChild>
                       <a href="/student-tracker"><Users className="h-4 w-4" />학생 관리</a>
                     </Button>
                     <Button variant="outline" className="flex-1 gap-1" asChild>
                       <a href="/roster"><Users className="h-4 w-4" />학급 명부</a>
+                    </Button>
+                    <Button variant="outline" className="w-full gap-1" asChild>
+                      <a href="/worksheets"><BookOpen className="h-4 w-4" />워크시트·단어장 만들기</a>
                     </Button>
                   </CardFooter>
                 </Card>
