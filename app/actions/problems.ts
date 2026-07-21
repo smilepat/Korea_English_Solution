@@ -1,18 +1,7 @@
 "use server"
 
-import { db } from "@/lib/firebase"
-import {
-  collection,
-  getDocs,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  doc,
-  orderBy,
-  query,
-  serverTimestamp,
-  Timestamp,
-} from "firebase/firestore"
+import { turso } from "@/lib/turso"
+import { ulid } from "@/lib/kes-ids"
 
 export interface Problem {
   id: string
@@ -22,45 +11,46 @@ export interface Problem {
   updated_at: string
 }
 
-function toISOString(val: unknown): string {
-  if (val instanceof Timestamp) return val.toDate().toISOString()
-  if (typeof val === "string") return val
-  return new Date().toISOString()
+function toProblem(row: Record<string, unknown>): Problem {
+  return {
+    id: String(row.id),
+    text: String(row.text ?? ""),
+    checked: Number(row.checked ?? 0) === 1,
+    created_at: String(row.created_at ?? ""),
+    updated_at: String(row.updated_at ?? ""),
+  }
 }
 
 export async function getProblems(): Promise<Problem[]> {
   try {
-    const q = query(collection(db, "problems"), orderBy("created_at", "asc"))
-    const snapshot = await getDocs(q)
-    return snapshot.docs.map((d) => {
-      const data = d.data()
-      return {
-        id: d.id,
-        text: data.text,
-        checked: data.checked ?? false,
-        created_at: toISOString(data.created_at),
-        updated_at: toISOString(data.updated_at),
-      }
-    })
+    const r = await turso.execute(
+      `SELECT id, text, checked, created_at, updated_at
+       FROM kes_problems ORDER BY created_at ASC`,
+    )
+    return r.rows.map((row) => toProblem(row as unknown as Record<string, unknown>))
   } catch (error) {
     console.error("Error in getProblems:", error)
     return []
   }
 }
 
-export async function addProblem(text: string): Promise<{ success: boolean; data?: Problem; error?: string }> {
+export async function addProblem(
+  text: string,
+): Promise<{ success: boolean; data?: Problem; error?: string }> {
   try {
-    const now = serverTimestamp()
-    const ref = await addDoc(collection(db, "problems"), {
-      text,
-      checked: false,
-      created_at: now,
-      updated_at: now,
+    const id = ulid()
+    await turso.execute({
+      sql: "INSERT INTO kes_problems (id, text, checked) VALUES (?, ?, 0)",
+      args: [id, text],
     })
-    const isoNow = new Date().toISOString()
+    const r = await turso.execute({
+      sql: `SELECT id, text, checked, created_at, updated_at
+            FROM kes_problems WHERE id = ?`,
+      args: [id],
+    })
     return {
       success: true,
-      data: { id: ref.id, text, checked: false, created_at: isoNow, updated_at: isoNow },
+      data: toProblem(r.rows[0] as unknown as Record<string, unknown>),
     }
   } catch (error) {
     console.error("Error in addProblem:", error)
@@ -68,11 +58,16 @@ export async function addProblem(text: string): Promise<{ success: boolean; data
   }
 }
 
-export async function updateProblem(id: string, checked: boolean): Promise<{ success: boolean; error?: string }> {
+export async function updateProblem(
+  id: string,
+  checked: boolean,
+): Promise<{ success: boolean; error?: string }> {
   try {
-    await updateDoc(doc(db, "problems", id), {
-      checked,
-      updated_at: serverTimestamp(),
+    await turso.execute({
+      sql: `UPDATE kes_problems
+            SET checked = ?, updated_at = datetime('now')
+            WHERE id = ?`,
+      args: [checked ? 1 : 0, id],
     })
     return { success: true }
   } catch (error) {
@@ -81,9 +76,11 @@ export async function updateProblem(id: string, checked: boolean): Promise<{ suc
   }
 }
 
-export async function deleteProblem(id: string): Promise<{ success: boolean; error?: string }> {
+export async function deleteProblem(
+  id: string,
+): Promise<{ success: boolean; error?: string }> {
   try {
-    await deleteDoc(doc(db, "problems", id))
+    await turso.execute({ sql: "DELETE FROM kes_problems WHERE id = ?", args: [id] })
     return { success: true }
   } catch (error) {
     console.error("Error in deleteProblem:", error)

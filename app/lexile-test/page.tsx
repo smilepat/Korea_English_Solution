@@ -7,6 +7,7 @@ import { Progress } from "@/components/ui/progress"
 import { ArrowLeft, ArrowRight, CheckCircle, Home, Globe, Loader2, Sparkles } from "lucide-react"
 import Link from "next/link"
 import { getLexileTeachingStrategy } from "@/app/actions/lexile-ai"
+import { saveDiagnosis } from "@/app/actions/diagnosis"
 
 // Lexile 레벨별 지문과 빈칸 문제
 const lexilePassages = [
@@ -339,6 +340,16 @@ export default function LexileTest() {
     studentMessage: string
   } | null>(null)
   const [loadingStrategy, setLoadingStrategy] = useState(false)
+  // 학생 자가진단(/s/[classCode])에서 넘어온 경우 결과를 그 학생에게 귀속시킨다.
+  const [studentId, setStudentId] = useState<string | null>(null)
+  const [saveState, setSaveState] = useState<"idle" | "saving" | "saved" | "error">("idle")
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    const sp = new URLSearchParams(window.location.search)
+    const sid = sp.get("student")
+    if (sid) setStudentId(sid)
+  }, [])
 
   const currentPassage =
     language === "ko" ? lexilePassages[currentLevelIndex] : englishLexilePassages[currentLevelIndex]
@@ -424,6 +435,23 @@ export default function LexileTest() {
 
     setUserLevel(highestCorrectLevel)
 
+    // 학생 컨텍스트가 있으면 진단 스냅샷으로 저장(교사 대시보드에 즉시 반영).
+    // BR(Beginning Reader)은 0L 로 기록한다.
+    if (studentId) {
+      const valueNum = highestCorrectLevel === "BR" ? 0 : Number(highestCorrectLevel) || 0
+      setSaveState("saving")
+      saveDiagnosis({
+        studentId,
+        kind: "lexile",
+        valueNum,
+        valueText: `${highestCorrectLevel}L`,
+        detail: { answers, language },
+        source: "in-app-lexile",
+      })
+        .then((r) => setSaveState(r.ok ? "saved" : "error"))
+        .catch(() => setSaveState("error"))
+    }
+
     // AI 교수 전략 로딩
     setLoadingStrategy(true)
     getLexileTeachingStrategy({ lexileLevel: highestCorrectLevel, language }).then((strategy) => {
@@ -502,6 +530,15 @@ export default function LexileTest() {
             <CheckCircle className="h-10 w-10 text-green-600" />
           </div>
           <h2 className="text-2xl font-bold mb-2">{language === "ko" ? "테스트 완료!" : "Test Complete!"}</h2>
+          {studentId && (
+            <p className="mb-2 text-sm">
+              {saveState === "saving" && <span className="text-slate-400">선생님께 제출 중…</span>}
+              {saveState === "saved" && <span className="text-green-600">✓ 선생님께 제출되었습니다</span>}
+              {saveState === "error" && (
+                <span className="text-red-500">제출에 실패했어요. 새로고침 후 다시 시도하세요.</span>
+              )}
+            </p>
+          )}
           <p className="text-lg mb-4">
             {language === "ko" ? (
               <>
