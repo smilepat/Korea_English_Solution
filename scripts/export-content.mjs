@@ -59,7 +59,17 @@ async function exportPassagesAsync() {
     ORDER BY lexile_score, text_id
   `)
 
-  const lines = res.rows.map((r) => {
+  // 원천 데이터에 동일 본문이 -001/-002/-003 접미사로 중복돼 있다(764행 중 125행).
+  // 본문 기준으로 중복을 제거하고 첫(가장 낮은 text_id) 하나만 남긴다.
+  const seenBody = new Set()
+  const deduped = res.rows.filter((r) => {
+    const key = String(r.text_body ?? "")
+    if (seenBody.has(key)) return false
+    seenBody.add(key)
+    return true
+  })
+
+  const lines = deduped.map((r) => {
     const o = {
       text_id: r.text_id,
       lexile_score: r.lexile_score,

@@ -44,8 +44,11 @@ async function seedBatch(rows, sql, toArgs, label) {
   return done
 }
 
-// ── 지문 ──
+// ── 지문 (창작 원본 + AI 생성 초등 보강 lane) ──
 const passages = readJsonl("data/passages/passages.jsonl")
+if (existsSync(join(ROOT, "data/passages/generated_elementary.jsonl"))) {
+  passages.push(...readJsonl("data/passages/generated_elementary.jsonl"))
+}
 await seedBatch(
   passages,
   `INSERT OR REPLACE INTO kes_passages

@@ -13,6 +13,7 @@
     "db:schema": "node scripts/run-kes-schema.mjs",
     "db:seed-content": "node scripts/seed-content.mjs",
     "export:content": "node scripts/export-content.mjs",
+    "gen:elementary": "node scripts/generate-elementary-passages.mjs",
     "check:no-firebase": "node scripts/check-no-firebase.mjs",
     "check:no-kichul": "node scripts/check-no-kichul.mjs"
   },
