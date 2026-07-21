@@ -2,7 +2,7 @@
 
 import { turso } from "@/lib/turso"
 import { ulid, generateUniqueCode } from "@/lib/kes-ids"
-import { callGemini } from "@/lib/gemini"
+import { callGemini, parseGeminiJson } from "@/lib/gemini"
 
 // ============================================================
 // Types
@@ -442,12 +442,8 @@ Lexile 변화 이력: ${historyStr || "없음"}
 각 카테고리별 3개씩 추천해주세요. 학생의 현재 수준과 이력을 고려한 구체적이고 실현 가능한 처방을 작성해주세요.
 Return ONLY valid JSON, no markdown formatting.`
 
-    const text = await callGemini(prompt, TEACHER_SYSTEM)
-    const cleaned = text
-      .replace(/```json\n?/g, "")
-      .replace(/```\n?/g, "")
-      .trim()
-    const data = JSON.parse(cleaned) as Prescription
+    const text = await callGemini(prompt, TEACHER_SYSTEM, { json: true })
+    const data = parseGeminiJson<Prescription>(text)
     return { success: true, data }
   } catch (error) {
     console.error("Error in generateStudentPrescription:", error)
@@ -506,12 +502,8 @@ ${studentInfo}
 수준별로 2-4개 그룹으로 나누고, 각 그룹에 맞는 구체적인 교수전략을 제시해주세요.
 Return ONLY valid JSON, no markdown formatting.`
 
-    const text = await callGemini(prompt, TEACHER_SYSTEM)
-    const cleaned = text
-      .replace(/```json\n?/g, "")
-      .replace(/```\n?/g, "")
-      .trim()
-    const data = JSON.parse(cleaned) as ClassReport
+    const text = await callGemini(prompt, TEACHER_SYSTEM, { json: true })
+    const data = parseGeminiJson<ClassReport>(text)
     return { success: true, data }
   } catch (error) {
     console.error("Error in generateClassReport:", error)
