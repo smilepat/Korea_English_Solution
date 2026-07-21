@@ -4,7 +4,10 @@ if (!GEMINI_API_KEY) {
   console.warn("GEMINI_API_KEY 환경변수가 설정되지 않았습니다.")
 }
 
-const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
+// 모델은 env 로 교체 가능. gemini-2.0-flash 는 2026 중반 퇴역(404)했으므로
+// 현행 안정 모델 gemini-2.5-flash 를 기본값으로 둔다.
+const GEMINI_MODEL = process.env.GEMINI_MODEL?.trim() || "gemini-2.5-flash"
+const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`
 
 interface GeminiResponse {
   candidates?: Array<{
@@ -14,17 +17,33 @@ interface GeminiResponse {
   }>
 }
 
-export async function callGemini(prompt: string, systemInstruction?: string): Promise<string> {
+export interface GeminiOpts {
+  /** true 면 responseMimeType=application/json 으로 순수 JSON 을 강제한다.
+   *  gemini-2.5-flash 는 지시만으로는 한국어 서두를 붙이는 경우가 있어, JSON 을
+   *  기대하는 호출은 이 옵션을 켜야 안전하다. */
+  json?: boolean
+  temperature?: number
+  maxOutputTokens?: number
+}
+
+export async function callGemini(
+  prompt: string,
+  systemInstruction?: string,
+  opts?: GeminiOpts,
+): Promise<string> {
   if (!GEMINI_API_KEY) {
     throw new Error("GEMINI_API_KEY가 설정되지 않았습니다.")
   }
 
+  const generationConfig: Record<string, unknown> = {
+    temperature: opts?.temperature ?? 0.7,
+    maxOutputTokens: opts?.maxOutputTokens ?? 4096,
+  }
+  if (opts?.json) generationConfig.responseMimeType = "application/json"
+
   const body: Record<string, unknown> = {
     contents: [{ parts: [{ text: prompt }] }],
-    generationConfig: {
-      temperature: 0.7,
-      maxOutputTokens: 4096,
-    },
+    generationConfig,
   }
 
   if (systemInstruction) {
@@ -47,6 +66,27 @@ export async function callGemini(prompt: string, systemInstruction?: string): Pr
   const text = data.candidates?.[0]?.content?.parts?.[0]?.text
   if (!text) throw new Error("Gemini 응답이 비어있습니다.")
   return text
+}
+
+/**
+ * 모델 응답에서 JSON 을 관대하게 추출·파싱한다.
+ * 코드펜스(```json)와 앞뒤 서두 텍스트를 제거하고, 첫 균형 잡힌 [...] 또는
+ * {...} 블록을 파싱한다. responseMimeType=json 을 못 쓰는 경로의 안전망.
+ */
+export function parseGeminiJson<T = unknown>(raw: string): T {
+  let s = raw.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim()
+  // 첫 JSON 여는 괄호부터 마지막 닫는 괄호까지 잘라낸다(서두/후미 텍스트 제거)
+  const firstArr = s.indexOf("[")
+  const firstObj = s.indexOf("{")
+  const start =
+    firstArr === -1 ? firstObj : firstObj === -1 ? firstArr : Math.min(firstArr, firstObj)
+  if (start > 0) {
+    const openChar = s[start]
+    const closeChar = openChar === "[" ? "]" : "}"
+    const end = s.lastIndexOf(closeChar)
+    if (end > start) s = s.slice(start, end + 1)
+  }
+  return JSON.parse(s) as T
 }
 
 const TEACHER_SYSTEM = `당신은 대한민국 영어교사를 지원하는 AI 어시스턴트입니다.
@@ -91,10 +131,9 @@ Respond in JSON format:
 
 Return ONLY valid JSON, no markdown formatting.`
 
-  const text = await callGemini(prompt, TEACHER_SYSTEM)
+  const text = await callGemini(prompt, TEACHER_SYSTEM, { json: true })
   try {
-    const cleaned = text.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim()
-    return JSON.parse(cleaned)
+    return parseGeminiJson(text)
   } catch {
     throw new Error("읽기 자료 생성 결과를 파싱할 수 없습니다.")
   }
@@ -135,10 +174,9 @@ Respond in JSON:
 If the student's English is perfect, corrections can be empty array.
 Return ONLY valid JSON.`
 
-  const text = await callGemini(prompt, TEACHER_SYSTEM)
+  const text = await callGemini(prompt, TEACHER_SYSTEM, { json: true })
   try {
-    const cleaned = text.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim()
-    return JSON.parse(cleaned)
+    return parseGeminiJson(text)
   } catch {
     throw new Error("대화 응답을 파싱할 수 없습니다.")
   }
@@ -179,10 +217,9 @@ Provide evaluation in JSON:
 
 Scores are 0-100. Return ONLY valid JSON.`
 
-  const text = await callGemini(prompt, TEACHER_SYSTEM)
+  const text = await callGemini(prompt, TEACHER_SYSTEM, { json: true })
   try {
-    const cleaned = text.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim()
-    return JSON.parse(cleaned)
+    return parseGeminiJson(text)
   } catch {
     throw new Error("대화 평가를 파싱할 수 없습니다.")
   }
@@ -247,10 +284,9 @@ Respond in JSON:
 
 Return ONLY valid JSON.`
 
-  const text = await callGemini(prompt, TEACHER_SYSTEM)
+  const text = await callGemini(prompt, TEACHER_SYSTEM, { json: true })
   try {
-    const cleaned = text.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim()
-    return JSON.parse(cleaned)
+    return parseGeminiJson(text)
   } catch {
     throw new Error("루브릭 생성 결과를 파싱할 수 없습니다.")
   }

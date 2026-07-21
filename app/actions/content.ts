@@ -2,7 +2,7 @@
 
 import { turso } from "@/lib/turso"
 import { ulid } from "@/lib/kes-ids"
-import { callGemini } from "@/lib/gemini"
+import { callGemini, parseGeminiJson } from "@/lib/gemini"
 import { deriveLexileWindow, pointToLexile } from "@/lib/lexile-window"
 
 // ============================================================
@@ -280,9 +280,8 @@ JSON 배열로만 응답:
 ]
 Return ONLY valid JSON.`
 
-    const text = await callGemini(prompt, TEACHER_SYSTEM)
-    const cleaned = text.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim()
-    const items = JSON.parse(cleaned) as WorksheetItem[]
+    const text = await callGemini(prompt, TEACHER_SYSTEM, { json: true })
+    const items = parseGeminiJson<WorksheetItem[]>(text)
     if (!Array.isArray(items)) return { ok: false, error: "생성 형식 오류" }
     return { ok: true, items }
   } catch (error) {
