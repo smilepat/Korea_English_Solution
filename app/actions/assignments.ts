@@ -4,6 +4,31 @@ import { turso } from "@/lib/turso"
 import { ulid } from "@/lib/kes-ids"
 import { queryWordlist, saveWorksheet } from "@/app/actions/content"
 import { lexileToCefr } from "@/lib/lexile-window"
+import { callGemini, parseGeminiJson } from "@/lib/gemini"
+
+// 서술형 답안 AI 채점(관대). EFL 초·중학생 대상이라 철자 사소 오류는 허용하고
+// 핵심 의미가 맞으면 정답으로 본다. 실패 시 null(미채점)로 폴백.
+async function gradeShortAnswer(
+  question: string,
+  modelAnswer: string,
+  studentResponse: string,
+): Promise<boolean | null> {
+  if (!studentResponse.trim() || !modelAnswer.trim()) return null
+  try {
+    const prompt = `영어 학습자(한국 초·중학생)의 서술형 답안을 관대하게 채점하세요.
+문항: ${question}
+모범답안: ${modelAnswer}
+학생답안: ${studentResponse}
+
+핵심 의미가 맞으면 정답입니다. 사소한 철자·문법 오류는 허용합니다.
+JSON 만 반환: {"correct": true 또는 false}`
+    const text = await callGemini(prompt, undefined, { json: true, temperature: 0 })
+    const r = parseGeminiJson<{ correct?: boolean }>(text)
+    return typeof r.correct === "boolean" ? r.correct : null
+  } catch {
+    return null // 채점 실패해도 제출은 기록된다
+  }
+}
 
 // ============================================================
 // 과제/처방 루프 — 배정 → 학생 풀이 → 채점 → 완료
@@ -283,7 +308,11 @@ export async function recordAttempt(params: {
       correct = params.chosenIndex === Number(item.answer)
       response = item.options?.[params.chosenIndex] ?? String(params.chosenIndex)
     } else {
-      response = params.textResponse ?? null // 서술형: 채점 안 함
+      // 서술형: 모범답안이 있으면 AI 로 관대하게 채점
+      response = params.textResponse ?? null
+      if (response && item.answer != null) {
+        correct = await gradeShortAnswer(item.question, String(item.answer), response)
+      }
     }
 
     // 이 과제의 성취기준을 시도에 태그 → 나중에 성취기준별 숙달도 집계 가능

@@ -155,6 +155,9 @@ export async function listPassages(filter: PassageFilter): Promise<PassageRow[]>
       const q = `%${filter.search.trim()}%`
       args.push(q, q)
     }
+    // 거부된 지문은 워크시트 피커에서 제외(검토 거버넌스)
+    where.push("review_status != 'rejected'")
+
     const limit = Math.min(filter.limit ?? 40, 100)
     const r = await turso.execute({
       sql: `SELECT text_id, lexile_score, lexile_band, grade_band, grade_hint, genre, topic,
@@ -335,6 +338,52 @@ export async function saveWorksheet(params: {
   } catch (error) {
     console.error("Error in saveWorksheet:", error)
     return { ok: false, error: "저장에 실패했습니다." }
+  }
+}
+
+// ── AI 생성 콘텐츠 검토 (거버넌스) ─────────────────────────
+export interface PendingPassage extends PassageRow {
+  source: string
+}
+
+/** 검토 대기(pending) AI 생성 지문 목록. */
+export async function listPendingPassages(): Promise<PendingPassage[]> {
+  try {
+    const r = await turso.execute(
+      `SELECT text_id, lexile_score, lexile_band, grade_band, grade_hint, genre, topic,
+              word_count, intended_use, text_body, license, source
+       FROM kes_passages
+       WHERE review_status = 'pending'
+       ORDER BY lexile_score, text_id
+       LIMIT 200`,
+    )
+    return r.rows.map((row) => ({
+      ...toPassage(row as unknown as Record<string, unknown>),
+      source: String(row.source ?? ""),
+    }))
+  } catch (error) {
+    console.error("Error in listPendingPassages:", error)
+    return []
+  }
+}
+
+/** 지문 검토 결정. status: approved | rejected. */
+export async function reviewPassage(params: {
+  textId: string
+  status: "approved" | "rejected"
+}): Promise<{ ok: boolean; error?: string }> {
+  if (params.status !== "approved" && params.status !== "rejected") {
+    return { ok: false, error: "잘못된 상태" }
+  }
+  try {
+    await turso.execute({
+      sql: "UPDATE kes_passages SET review_status = ? WHERE text_id = ?",
+      args: [params.status, params.textId],
+    })
+    return { ok: true }
+  } catch (error) {
+    console.error("Error in reviewPassage:", error)
+    return { ok: false, error: "검토 처리에 실패했습니다." }
   }
 }
 

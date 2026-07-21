@@ -1,5 +1,4 @@
-import Anthropic from "@anthropic-ai/sdk"
-import { callGemini } from "./gemini"
+import { callGemini, parseGeminiJson } from "./gemini"
 
 // ── 타입 정의 ──────────────────────────────────────────────
 
@@ -24,26 +23,22 @@ export function getDefaultModel(): ModelName {
   return "gemini-flash" // 기본값: Gemini (빠르고 무료 티어)
 }
 
-// ── Claude Provider ─────────────────────────────────────────
-
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY || "" })
-
+// ── Claude Provider (키 사망 → Gemini 로 백킹) ──────────────
+// Anthropic 키가 죽어 있어 "claude-sonnet" 선택 시에도 실제로는 Gemini 로
+// 처리한다. 향후 Claude 키가 살아나면 이 provider 만 교체하면 된다.
 class AnthropicProvider implements AIProvider {
   async generateText(prompt: string, options?: AIOptions): Promise<string> {
-    const response = await anthropic.messages.create({
-      model: "claude-sonnet-4-6",
-      max_tokens: options?.maxTokens ?? 2048,
-      system: options?.systemPrompt ?? TEACHER_SYSTEM,
-      messages: [{ role: "user", content: prompt }],
+    return callGemini(prompt, options?.systemPrompt ?? TEACHER_SYSTEM, {
+      maxOutputTokens: options?.maxTokens ?? 2048,
     })
-    const block = response.content[0]
-    return block.type === "text" ? block.text : ""
   }
 
   async generateJSON<T>(prompt: string, options?: AIOptions): Promise<T> {
-    const text = await this.generateText(prompt, options)
-    const cleaned = text.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim()
-    return JSON.parse(cleaned) as T
+    const text = await callGemini(prompt, options?.systemPrompt ?? TEACHER_SYSTEM, {
+      maxOutputTokens: options?.maxTokens ?? 2048,
+      json: true,
+    })
+    return parseGeminiJson<T>(text)
   }
 }
 
