@@ -9,6 +9,9 @@ on:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    # CI 가 멈추면 GitHub 기본 한도(360분)를 그대로 태운다.
+    # 그 한 번이 계정 Actions 예산을 밀어 다른 레포 CI 까지 세운 적이 있다(2026-08-19).
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
 
