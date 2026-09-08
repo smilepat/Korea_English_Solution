@@ -138,3 +138,17 @@ CREATE TABLE IF NOT EXISTS kcsdb_generated_items (
   created_at         TEXT DEFAULT (datetime('now'))
 );
 CREATE INDEX IF NOT EXISTS idx_kcsdb_geni_std ON kcsdb_generated_items(standard_id, created_at DESC);
+
+-- 11. 성취수준을 루브릭의 축으로 쓸 수 있는지에 대한 판정(정본에서 계산해 옴).
+--     kcsdb_standards.verification_status 는 성취기준 '문장'에 대한 검증이고,
+--     kcsdb_levels 의 '기술 문장'은 그 검증 밖이라 따로 판정한다.
+--     gate_status: usable | no_levels | incomplete | polluted | text_mismatch
+CREATE TABLE IF NOT EXISTS kcsdb_level_gate (
+  standard_id   TEXT PRIMARY KEY,
+  level_count   INTEGER NOT NULL,
+  broken_cells  INTEGER NOT NULL,
+  align_score   REAL,
+  gate_status   TEXT NOT NULL,
+  reason        TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_kcsdb_gate_status ON kcsdb_level_gate(gate_status);

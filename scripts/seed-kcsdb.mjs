@@ -74,7 +74,7 @@ async function main() {
   }
 
   console.log("[seed] 기존 kcsdb_ 데이터 초기화...")
-  for (const t of ["kcsdb_standards","kcsdb_levels","kcsdb_vocab","kcsdb_comm_functions","kcsdb_grammar","kcsdb_sources"])
+  for (const t of ["kcsdb_standards","kcsdb_levels","kcsdb_vocab","kcsdb_comm_functions","kcsdb_grammar","kcsdb_sources","kcsdb_level_gate"])
     await db.execute(`DELETE FROM ${t}`)
   await db.execute("DELETE FROM kcsdb_standards_fts")
 
@@ -119,15 +119,26 @@ async function main() {
   await batchInsert(`INSERT OR REPLACE INTO kcsdb_grammar (id,example_en,curriculum_version) VALUES (?,?,?)`,
     readCsv("grammar_items.csv"), r => [r.id, r.example_en, r.curriculum_version], "kcsdb_grammar")
 
+  // 4-1) 성취수준 품질 게이트(정본 계산 결과). 축으로 쓸 수 있는 성취기준을 앱이 직접 셀 수 있게 한다
+  await batchInsert(
+    `INSERT OR REPLACE INTO kcsdb_level_gate (standard_id,level_count,broken_cells,align_score,gate_status,reason) VALUES (?,?,?,?,?,?)`,
+    readCsv("level_gate.csv"),
+    r => [r.standard_id, Number(r.level_count) || 0, Number(r.broken_cells) || 0,
+          r.align_score === "" ? null : Number(r.align_score), r.gate_status, r.reason || null],
+    "kcsdb_level_gate")
+
   // 5) 소스
   await batchInsert(`INSERT OR REPLACE INTO kcsdb_sources (source_id,title,url,license,commercial_ok) VALUES (?,?,?,?,?)`,
     readCsv("source_registry.csv"), r => [r.source_id, r.title, r.url, r.license, Number(r.commercial_ok) || 0], "kcsdb_sources")
 
   // 요약
-  for (const t of ["kcsdb_standards","kcsdb_levels","kcsdb_vocab","kcsdb_comm_functions","kcsdb_grammar","kcsdb_sources"]) {
+  for (const t of ["kcsdb_standards","kcsdb_levels","kcsdb_vocab","kcsdb_comm_functions","kcsdb_grammar","kcsdb_sources","kcsdb_level_gate"]) {
     const n = (await db.execute(`SELECT COUNT(*) c FROM ${t}`)).rows[0].c
     console.log(`   ${t} = ${n}`)
   }
+  const usable = (await db.execute(
+    "SELECT COUNT(*) c FROM kcsdb_level_gate WHERE gate_status='usable'")).rows[0].c
+  console.log(`   └ 루브릭 축으로 쓸 수 있는 성취기준 = ${usable}`)
   console.log("[seed] 완료. 다음: node scripts/embed-kcsdb.mjs (S3 벡터)")
 }
 main().catch(e => { console.error(e); process.exit(1) })
