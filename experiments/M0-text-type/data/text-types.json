@@ -1,0 +1,106 @@
+{
+  "version": "1.0.0",
+  "extracted": "2026-09-12",
+  "source": {
+    "document": "(2022개정) 초·중등학교 교육과정 [별책14] 영어과 — 국가교육위원회 고시 제2024-3호 (2024.08.16.)",
+    "publisher": "국가교육위원회 / NCIC 국가교육과정정보센터",
+    "local_path": "Korea-curri-standards-db/data/sources/2022_초ㆍ중등학교(2024.08)_(2022개정)초·중등학교교육과정[별책14]영어과_국가교육위원회고시제2024-3호(2024.08.16.).pdf",
+    "pages": 306,
+    "license_note": "고시 원문의 성취기준 텍스트는 저작권법 제7조에 따른 비보호 저작물. 공공누리 제2유형."
+  },
+
+  "_note": "두 축 모두 고시 원문이 직접 나열한 것이다. 앱이 지어낸 축이 아니다. page 는 PDF 0-based 인덱스.",
+
+  "axis_a": {
+    "name": "담화 및 글의 유형",
+    "role": "교사에게 보여 주는 이름. 성취기준을 붙이는 고리.",
+    "structure": "고시는 유형을 낱개로 나열하지 않고 목적 4범주로 묶은 뒤 학교급별 예시를 든다. 그래서 판정도 목적을 먼저 정하고 그 안에서 구체 유형을 고른다.",
+    "purposes": [
+      { "id": "narrative", "name_ko": "이야기나 서사 및 운문", "purpose_ko": "겪은 일과 지어낸 일을 시간 흐름으로 들려준다" },
+      { "id": "social", "name_ko": "친교나 사회적 목적의 담화와 글", "purpose_ko": "사람 사이의 관계를 맺고 이어 간다" },
+      { "id": "informative", "name_ko": "정보 전달·교환 목적의 담화와 글", "purpose_ko": "사실·절차·자료를 알려 주고 주고받는다" },
+      { "id": "argumentative", "name_ko": "의견 전달·교환이나 주장 목적의 담화와 글", "purpose_ko": "의견을 내세우고 남을 설득한다" }
+    ],
+    "by_level": [
+      {
+        "level": "elementary_3_4", "label": "초등 3~4학년", "domain": "이해", "page": 12,
+        "types": {
+          "narrative": ["동화", "그림책", "만화", "노래", "시"],
+          "social": ["대화", "편지", "이메일"],
+          "informative": ["표지판", "메모", "묘사", "안내"],
+          "argumentative": []
+        },
+        "_note": "이 학교급에는 의견·주장 범주가 고시에 없다. 빈 배열은 누락이 아니라 고시 그대로다."
+      },
+      {
+        "level": "elementary_5_6", "label": "초등 5~6학년", "domain": "이해", "page": 12,
+        "types": {
+          "narrative": ["동화", "그림책", "만화", "노래", "시", "일기"],
+          "social": ["대화", "편지", "초대장", "이메일"],
+          "informative": ["공지", "안내", "묘사", "설명", "광고"],
+          "argumentative": ["포스터", "감상문"]
+        }
+      },
+      {
+        "level": "middle_1_3", "label": "중학교 1~3학년", "domain": "이해", "page": 12,
+        "types": {
+          "narrative": ["수필", "단편소설", "대본", "시", "전기문", "여행 일지"],
+          "social": ["이메일", "소셜 미디어", "인터뷰", "초대장"],
+          "informative": ["공지", "안내", "설명", "보고", "기사", "광고"],
+          "argumentative": ["논설", "연설"]
+        }
+      },
+      {
+        "level": "high_common", "label": "고등 공통영어1·2", "domain": "이해", "page": 48,
+        "types": {
+          "narrative": ["영화", "연극 대본", "노래 가사", "수필", "기행문", "소설", "시"],
+          "social": ["전화", "편지", "이메일", "소셜 미디어", "메모"],
+          "informative": ["공지", "안내", "설명서", "보고서", "기사", "광고"],
+          "argumentative": ["연설", "사설", "논설문"]
+        },
+        "_also_on_pages": [54]
+      },
+      {
+        "level": "high_elective", "label": "고등 영어Ⅰ·Ⅱ", "domain": "이해", "page": 92,
+        "types": {
+          "narrative": ["일기", "수필", "기행문", "소설", "대본", "노래 가사", "시"],
+          "social": ["대화", "전화", "이야기", "편지", "이메일", "소셜 미디어"],
+          "informative": ["공지문", "안내문", "설명서", "보고서", "기사", "광고"],
+          "argumentative": ["사설", "논설", "연설"]
+        },
+        "_also_on_pages": [108]
+      }
+    ]
+  },
+
+  "axis_b": {
+    "name": "말이나 글의 전개 방식",
+    "role": "활동을 고르는 열쇠. 이 축을 파악하는 것 자체가 성취기준이다.",
+    "verbatim": "서사, 분류, 인과, 정의, 상세화, 예시, 비교, 대조, 문제와 해결 등 다양한 말이나 글의 전개 방식 및 문단 구성의 구조에 대한 이해를 바탕으로 말이나 글의 내용을 전체적 맥락과 틀을 통해 파악할 수 있도록 한다.",
+    "pages": [48, 55],
+    "methods": [
+      { "id": "narration",   "name_ko": "서사", "gloss_ko": "일이 일어난 차례로 풀어 간다", "signals_en": ["past tense chain", "time adverbials", "named participants"] },
+      { "id": "classification", "name_ko": "분류", "gloss_ko": "여럿을 기준에 따라 갈래로 나눈다", "signals_en": ["types of", "categories", "falls into"] },
+      { "id": "cause_effect", "name_ko": "인과", "gloss_ko": "원인과 결과로 잇는다", "signals_en": ["because", "as a result", "therefore", "leads to"] },
+      { "id": "definition",  "name_ko": "정의", "gloss_ko": "무엇인지 규정한다", "signals_en": ["is defined as", "refers to", "is a kind of"] },
+      { "id": "elaboration", "name_ko": "상세화", "gloss_ko": "한 가지를 더 자세히 풀어 놓는다", "signals_en": ["in other words", "more specifically", "that is"] },
+      { "id": "exemplification", "name_ko": "예시", "gloss_ko": "보기를 들어 보인다", "signals_en": ["for example", "for instance", "such as", "consider"] },
+      { "id": "comparison",  "name_ko": "비교", "gloss_ko": "닮은 점을 견준다", "signals_en": ["similarly", "likewise", "both", "as ... as"] },
+      { "id": "contrast",    "name_ko": "대조", "gloss_ko": "다른 점을 맞세운다", "signals_en": ["however", "in contrast", "whereas", "unlike", "on the other hand"] },
+      { "id": "problem_solution", "name_ko": "문제와 해결", "gloss_ko": "문제를 세우고 답을 내놓는다", "signals_en": ["problem", "challenge", "solution", "to solve this", "one way to"] }
+    ],
+    "linked_standards": [
+      { "id": "[10공영1-01-06]", "text_ko": "말이나 글의 전개 방식이나 구조를 파악한다.", "page": 47 },
+      { "id": "[10공영2-01-06]", "text_ko": "말이나 글의 전개 방식이나 구조를 파악한다.", "page": 54 },
+      { "id": "[10기영1-01-06]", "text_ko": "말이나 글의 전개 방식이나 구조를 파악한다.", "page": 68 },
+      { "id": "[12영Ⅰ-01-06]", "text_ko": "말이나 글의 전개 방식이나 구조를 파악한다.", "page": 91 },
+      { "id": "[12영Ⅱ-01-06]", "text_ko": "다양한 유형의 말이나 글의 전개 방식이나 구조를 파악한다.", "page": 107 },
+      { "id": "[12영독01-06]", "text_ko": "글의 전개 방식이나 구조를 파악한다.", "page": 122 }
+    ],
+    "_why_this_matters": "축 B 를 판정하는 일이 곧 이 성취기준들의 도달 활동이다. 그래서 활동을 축 B 에 매달면 활동이 자동으로 성취기준에 붙는다."
+  },
+
+  "_superseded": {
+    "aku_8_types": "aku/db/aku.db 의 representations 8종(explanation·example·experiment·analogy·historical_case·argument·narrative·description)은 fable-5 가 만든 축이다(lineage actor='fable-5'). 고시가 직접 정한 9종이 있으므로 정본에서 물러난다. 교차 검증용으로만 쓴다."
+  }
+}
