@@ -183,6 +183,12 @@ function render() {
     </article>`;
   }).join("");
 
+  refresh();
+}
+
+// 리스너는 딱 한 번만 붙인다. render() 안에 두면 '처음부터'를 누를 때마다
+// 핸들러가 겹쳐 붙어 클릭이 두 번 처리되고 선택이 곧바로 취소된다.
+function bind() {
   document.getElementById("cards").addEventListener("click", e => {
     const lab = e.target.closest(".opt");
     if (!lab) return;
@@ -207,7 +213,6 @@ function render() {
     answers[gid].note = e.target.value;
     save();
   });
-  refresh();
 }
 
 document.getElementById("save").addEventListener("click", () => {
@@ -243,10 +248,11 @@ document.getElementById("reset").addEventListener("click", () => {
 if (window.GOLD_SET) {
   DATA = window.GOLD_SET;
   render();
+  bind();
 } else {
   fetch("../data/gold-set.json")
     .then(r => r.json())
-    .then(d => { DATA = d; render(); })
+    .then(d => { DATA = d; render(); bind(); })
     .catch(() => {
       document.getElementById("cards").innerHTML =
         '<div class="note"><p style="margin:0"><b>지문을 못 읽었습니다.</b> ' +
