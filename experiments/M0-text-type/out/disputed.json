@@ -1,0 +1,141 @@
+{
+  "_ask": "이 두 갈래를 교실에서 서로 다르게 다루십니까, 같은 활동을 쓰십니까?",
+  "_note": "정답을 정해 달라는 것이 아니라, 활동을 가를 필요가 있는지를 묻는 것이다.",
+  "n_total": 30,
+  "n_disputed": 11,
+  "items": [
+    {
+      "gid": "G03",
+      "votes": {
+        "m-flash": "elaboration",
+        "m-pro": "exemplification",
+        "m-g38": "elaboration"
+      },
+      "pair": [
+        "elaboration",
+        "exemplification"
+      ]
+    },
+    {
+      "gid": "G06",
+      "votes": {
+        "m-flash": "contrast",
+        "m-pro": "contrast",
+        "m-g38": "definition"
+      },
+      "pair": [
+        "contrast",
+        "definition"
+      ]
+    },
+    {
+      "gid": "G07",
+      "votes": {
+        "m-flash": "problem_solution",
+        "m-pro": "problem_solution",
+        "m-g38": "cause_effect"
+      },
+      "pair": [
+        "cause_effect",
+        "problem_solution"
+      ]
+    },
+    {
+      "gid": "G10",
+      "votes": {
+        "m-flash": "elaboration",
+        "m-pro": "problem_solution",
+        "m-g38": "exemplification"
+      },
+      "pair": [
+        "elaboration",
+        "exemplification",
+        "problem_solution"
+      ]
+    },
+    {
+      "gid": "G13",
+      "votes": {
+        "m-flash": "cause_effect",
+        "m-pro": "cause_effect",
+        "m-g38": "exemplification"
+      },
+      "pair": [
+        "cause_effect",
+        "exemplification"
+      ]
+    },
+    {
+      "gid": "G14",
+      "votes": {
+        "m-flash": "elaboration",
+        "m-pro": "contrast",
+        "m-g38": "elaboration"
+      },
+      "pair": [
+        "contrast",
+        "elaboration"
+      ]
+    },
+    {
+      "gid": "G16",
+      "votes": {
+        "m-flash": "elaboration",
+        "m-pro": "contrast",
+        "m-g38": "contrast"
+      },
+      "pair": [
+        "contrast",
+        "elaboration"
+      ]
+    },
+    {
+      "gid": "G19",
+      "votes": {
+        "m-flash": "cause_effect",
+        "m-pro": "cause_effect",
+        "m-g38": "exemplification"
+      },
+      "pair": [
+        "cause_effect",
+        "exemplification"
+      ]
+    },
+    {
+      "gid": "G24",
+      "votes": {
+        "m-flash": "elaboration",
+        "m-pro": "exemplification",
+        "m-g38": "exemplification"
+      },
+      "pair": [
+        "elaboration",
+        "exemplification"
+      ]
+    },
+    {
+      "gid": "G26",
+      "votes": {
+        "m-flash": "problem_solution",
+        "m-pro": "narration",
+        "m-g38": "narration"
+      },
+      "pair": [
+        "narration",
+        "problem_solution"
+      ]
+    },
+    {
+      "gid": "G28",
+      "votes": {
+        "m-flash": "elaboration",
+        "m-pro": "exemplification",
+        "m-g38": "exemplification"
+      },
+      "pair": [
+        "elaboration",
+        "exemplification"
+      ]
+    }
+  ]
+}
