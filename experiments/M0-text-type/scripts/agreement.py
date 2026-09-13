@@ -27,7 +27,9 @@ RETEST = ("flash", "flash-r2")                   # 같은 모델, 선택지 순�
 
 
 def load(rid):
-    p = os.path.join(HERE, "out", f"pred-{rid}.json")
+    # SET_TAG=set2 → out/pred-<rid>.set2.json
+    tag = os.environ.get("SET_TAG", "")
+    p = os.path.join(HERE, "out", f"pred-{rid}{('.' + tag) if tag else ''}.json")
     if not os.path.exists(p):
         return None
     d = json.load(open(p, encoding="utf-8"))

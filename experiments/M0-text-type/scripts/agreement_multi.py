@@ -23,7 +23,9 @@ RATERS = ["m-flash", "m-pro", "m-g38"]
 
 
 def load(rid):
-    p = os.path.join(HERE, "out", f"multi-{rid}.json")
+    # SET_TAG=set2 → out/multi-<rid>.set2.json
+    tag = os.environ.get("SET_TAG", "")
+    p = os.path.join(HERE, "out", f"multi-{rid}{('.' + tag) if tag else ''}.json")
     if not os.path.exists(p):
         return None
     d = json.load(open(p, encoding="utf-8"))

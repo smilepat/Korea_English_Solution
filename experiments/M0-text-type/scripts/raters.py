@@ -163,15 +163,17 @@ def main():
     if not key:
         raise SystemExit("GEMINI_API_KEY 없음")
     tt = json.load(open(os.path.join(HERE, "data", "text-types.json"), encoding="utf-8"))
-    src = json.load(open(os.path.join(HERE, "data", "gold-set.json"), encoding="utf-8"))
+    # GOLD_SET=gold-set-2.json SET_TAG=set2  →  data/gold-set-2.json 을 읽고 out/pred-<rid>.set2.json 에 쓴다
+    src = json.load(open(os.path.join(HERE, "data", os.environ.get("GOLD_SET", "gold-set.json")), encoding="utf-8"))
+    tag = os.environ.get("SET_TAG", "")
     valid_p = {p["id"] for p in tt["axis_a"]["purposes"]}
     valid_m = {m["id"] for m in tt["axis_b"]["methods"]}
 
     for rid, model, seed in RATERS:
         if args.only and args.only != rid:
             continue
-        print(f"\n{rid} · {model} · 선택지 seed {seed}")
-        run(rid, model, seed, tt, src, key, valid_p, valid_m)
+        print(f"\n{rid} · {model} · 선택지 seed {seed}" + (f" · {tag}" if tag else ""))
+        run(rid + (f".{tag}" if tag else ""), model, seed, tt, src, key, valid_p, valid_m)
 
 
 if __name__ == "__main__":

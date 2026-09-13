@@ -102,10 +102,13 @@ def call(model, key, prompt, retries=4):
 def main():
     key = load_key()
     tt = json.load(open(os.path.join(HERE, "data", "text-types.json"), encoding="utf-8"))
-    src = json.load(open(os.path.join(HERE, "data", "gold-set.json"), encoding="utf-8"))
+    # GOLD_SET=gold-set-2.json SET_TAG=set2  →  data/gold-set-2.json 을 읽고 out/multi-<rid>.set2.json 에 쓴다
+    src = json.load(open(os.path.join(HERE, "data", os.environ.get("GOLD_SET", "gold-set.json")), encoding="utf-8"))
+    tag = os.environ.get("SET_TAG", "")
     ids = [m["id"] for m in tt["axis_b"]["methods"]]
 
     for rid, model, seed in RATERS:
+        rid = rid + (f".{tag}" if tag else "")
         print(f"\n{rid} · {model}")
         preds = []
         for p in src["passages"]:
