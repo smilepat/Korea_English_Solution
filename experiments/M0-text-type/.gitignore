@@ -6,3 +6,6 @@ data/gold-set-2.json
 out/gold-set-2.js
 data/gold-set-3.json
 data/gold-set-4.json
+# 교과서·개방 자료 표본의 판정 파일은 근거 인용문을 담으므로 넣지 않는다
+out/pred-*.set3.json
+out/pred-*.set4.json
