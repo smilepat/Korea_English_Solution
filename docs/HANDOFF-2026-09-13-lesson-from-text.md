@@ -12,7 +12,7 @@
 |---|---|---|
 | 계획 | 완료 2026-09-12 | `docs/PLAN-lesson-from-text.md` · 아티팩트 "지문에서 수업으로" (v2, M0 반영) |
 | **M0** 축 확정 + K1 킬 실험 | **완료 2026-09-13** | `experiments/M0-text-type/RESULTS.md` ← **재개는 이것부터** |
-| M1 판정 엔진 | **엔진 완료 2026-09-14**, UI 탭 미착수 | `lib/text-type/` (아래) · 서버 액션 `app/actions/text-type.ts` |
+| M1 판정 엔진 + UI | **완료 2026-09-14** | `lib/text-type/` (아래) · `app/actions/text-type.ts` · `components/text-type-panel.tsx` · lesson-planner '지문으로 시작' 탭 |
 | M2~M6 | 미착수 | 계획서 §8 |
 
 ## M1 엔진 (2026-09-14) — `lib/text-type/`
@@ -71,12 +71,14 @@ index.ts      analyzePassage(text, {grade}) → 전부
 
 ```text
 1. (완료) lib/text-type/ 판정 엔진 · fit · standards · 서버 액션 analyzeTextType
-2. app/lesson-planner 에 '지문' 탭 — 기존 '주제' 탭은 그대로. 결과 화면:
-   겉모양 배지 → 목적(되물음이면 a/b 선택) → 방식 집합 칩(상세화·인과는 흐리게) →
-   학년 적합 경고 → 성취기준 후보. 지문 원문은 저장하지 않는다(해시만).
+2. (완료) lesson-planner '지문으로 시작' 탭 — 기존 '주제' 탭은 그대로.
+   아직 안 한 것: 브라우저에서 실제로 눌러 본 적이 없다(next build 만 통과).
+   로컬 npm run dev 로 편지 1편·산문 1편 붙여 넣어 화면을 한 번 확인할 것.
 3. M2 레시피 원장: content/recipes/*.json + 무의존 검증기.
    worksWith(방식 집합) / worksWithForm(편지·대화·안내·광고) / worksWithPurpose.
-   상세화·인과 전용 레시피는 만들지 않는다.
+   상세화·인과 전용 레시피는 만들지 않는다. 시드는 activity-inventory 70개.
+4. M3 조립: 레시피 slot 을 지문으로 채우기 + 학생지/교사지 인쇄.
+5. main 머지는 M1 화면 확인 뒤 PR 로.
 ```
 
 편지 질문은 답이 났다 — 겉모양(편지)이 활동을 정한다. 교사에게 묻지 않는다.
