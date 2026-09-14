@@ -13,7 +13,16 @@
 | 계획 | 완료 2026-09-12 | `docs/PLAN-lesson-from-text.md` · 아티팩트 "지문에서 수업으로" (v2, M0 반영) |
 | **M0** 축 확정 + K1 킬 실험 | **완료 2026-09-13** | `experiments/M0-text-type/RESULTS.md` ← **재개는 이것부터** |
 | M1 판정 엔진 + UI | **완료 2026-09-14** | `lib/text-type/` (아래) · `app/actions/text-type.ts` · `components/text-type-panel.tsx` · lesson-planner '지문으로 시작' 탭 |
-| M2~M6 | 미착수 | 계획서 §8 |
+| M2 레시피 원장 | **완료 2026-09-14**, K2 통과 | `content/recipes/` 32개 · `docs/RECIPE-SPEC.md` · `scripts/validate-recipes.mjs` · `lib/recipes/` |
+| M3~M6 | 미착수 | 계획서 §8 |
+
+## M2 (2026-09-14) — 레시피 원장
+
+세 갈고리(`forms` / `purposes` / `methods`)로 건다. 상세화·인과는 검증기가 막는다.
+`npm run validate:recipes` 가 계약·커버리지(방식 7종×2, 형식 4, 목적 4, 단계별 3, 범용 ≤6)를 센다.
+`lib/recipes/select.ts` 는 AI 없이 seed 고정으로 pre 1 · while 1~2 · post 1 · home 1 을 고른다.
+K2: 서사문 vs 논증문 세트 Jaccard < 0.5 통과. 방식 집합이 빈 편지도 편지 활동으로 채워진다.
+아직 없는 것: **slot 채우기(M3)** — 레시피의 빈칸을 지문 내용으로 채우는 AI 단계와 인쇄.
 
 ## M1 엔진 (2026-09-14) — `lib/text-type/`
 
@@ -74,11 +83,12 @@ index.ts      analyzePassage(text, {grade}) → 전부
 2. (완료) lesson-planner '지문으로 시작' 탭 — 기존 '주제' 탭은 그대로.
    아직 안 한 것: 브라우저에서 실제로 눌러 본 적이 없다(next build 만 통과).
    로컬 npm run dev 로 편지 1편·산문 1편 붙여 넣어 화면을 한 번 확인할 것.
-3. M2 레시피 원장: content/recipes/*.json + 무의존 검증기.
-   worksWith(방식 집합) / worksWithForm(편지·대화·안내·광고) / worksWithPurpose.
-   상세화·인과 전용 레시피는 만들지 않는다. 시드는 activity-inventory 70개.
-4. M3 조립: 레시피 slot 을 지문으로 채우기 + 학생지/교사지 인쇄.
-5. main 머지는 M1 화면 확인 뒤 PR 로.
+3. (완료) M2 레시피 원장 32개 + 검증기 + select.ts. K2 통과.
+4. M3 조립: lib/recipes/fill.ts — slot 을 지문으로 채운다. from:passage 는 채운 뒤
+   지문에 실재하는지 결정론 검증(isGrounded 재사용), from:generated 만 AI 가 쓴다.
+   그 다음 서버 액션 buildLesson(analysis → selectLesson → fill) 과
+   lesson-planner 지문 탭에 '활동 만들기' 버튼 + 학생지/교사지 인쇄(print 라우트).
+5. main 머지는 화면 확인 뒤 PR 로.
 ```
 
 편지 질문은 답이 났다 — 겉모양(편지)이 활동을 정한다. 교사에게 묻지 않는다.
