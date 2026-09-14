@@ -10,6 +10,9 @@ import { Badge } from "@/components/ui/badge"
 import { Textarea } from "@/components/ui/textarea"
 import { Loader2, FileText, AlertTriangle, CheckCircle2, HelpCircle, ChevronDown, ChevronUp } from "lucide-react"
 import { analyzeTextType, type AnalyzeTextTypeResult } from "@/app/actions/text-type"
+import { buildLesson, type BuiltLesson } from "@/app/actions/lesson-build"
+import { LessonBuildView, STORAGE_KEY } from "@/components/lesson-build-view"
+import { Printer, Wand2 } from "lucide-react"
 
 const GRADES = [
   { value: "middle1", label: "중1" }, { value: "middle2", label: "중2" }, { value: "middle3", label: "중3" },
@@ -41,6 +44,34 @@ export function TextTypePanel() {
   const [result, setResult] = useState<AnalyzeTextTypeResult | null>(null)
   const [chosenPurpose, setChosenPurpose] = useState<string | null>(null)
   const [showRaters, setShowRaters] = useState(false)
+  const [building, setBuilding] = useState(false)
+  const [built, setBuilt] = useState<BuiltLesson | null>(null)
+  const [buildError, setBuildError] = useState("")
+  const [buildView, setBuildView] = useState<"teacher" | "student">("teacher")
+
+  async function build() {
+    if (!result) return
+    setBuilding(true); setBuildError(""); setBuilt(null)
+    try {
+      const t = result.analysis.type
+      const r = await buildLesson({
+        text,
+        selection: {
+          form: result.analysis.form.form,
+          purpose: (chosenPurpose ?? t.purpose) as typeof t.purpose,
+          methodsPresent: t.methodsPresent, alwaysOn: t.alwaysOn, grade,
+        },
+      })
+      if (r.ok) {
+        setBuilt(r)
+        try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(r)) } catch {}
+      } else setBuildError(r.error)
+    } catch {
+      setBuildError("활동을 만드는 중 연결이 끊겼습니다.")
+    } finally {
+      setBuilding(false)
+    }
+  }
 
   const words = text.match(/[A-Za-z][A-Za-z'-]*/g)?.length ?? 0
 
@@ -215,6 +246,33 @@ export function TextTypePanel() {
                   ))}
                 </CardContent>
               </Card>
+            )}
+
+            {/* 활동 만들기 (M3) */}
+            <Card className="border-teal-200">
+              <CardContent className="pt-5 space-y-3">
+                <Button className="w-full bg-teal-600 hover:bg-teal-700 text-white gap-2" onClick={build} disabled={building || ask}>
+                  {building ? <><Loader2 className="h-4 w-4 animate-spin" /> 레시피를 고르고 빈칸을 채우는 중… (30초쯤)</> : <><Wand2 className="h-4 w-4" /> 이 판정으로 활동 만들기</>}
+                </Button>
+                {ask && <p className="text-xs text-amber-700">위에서 목적을 먼저 골라 주세요.</p>}
+                {buildError && <p className="text-red-500 text-sm">{buildError}</p>}
+                <p className="text-xs text-slate-400">도입 1 · 전개 1~2 · 정리 1 · 숙제 1. 활동의 뼈대는 검토된 레시피이고 AI 는 빈칸만 채웁니다. 지문에 없는 문장은 싣지 않습니다.</p>
+              </CardContent>
+            </Card>
+
+            {built && (
+              <div className="space-y-3">
+                <div className="flex flex-wrap items-center gap-2">
+                  <Badge variant="outline">수업 {built.minutes}분</Badge>
+                  <div className="ml-auto flex gap-1">
+                    <button type="button" onClick={() => setBuildView("teacher")} className={`text-xs px-2.5 py-1 rounded border ${buildView === "teacher" ? "bg-teal-600 text-white border-teal-600" : "bg-white border-slate-300"}`}>교사 보기</button>
+                    <button type="button" onClick={() => setBuildView("student")} className={`text-xs px-2.5 py-1 rounded border ${buildView === "student" ? "bg-teal-600 text-white border-teal-600" : "bg-white border-slate-300"}`}>학생 보기</button>
+                    <a href="/lesson-planner/print?view=student" target="_blank" rel="noreferrer" className="text-xs px-2.5 py-1 rounded border border-slate-300 bg-white flex items-center gap-1"><Printer className="h-3 w-3" /> 학생지</a>
+                    <a href="/lesson-planner/print?view=teacher" target="_blank" rel="noreferrer" className="text-xs px-2.5 py-1 rounded border border-slate-300 bg-white flex items-center gap-1"><Printer className="h-3 w-3" /> 교사지</a>
+                  </div>
+                </div>
+                <LessonBuildView built={built} view={buildView} />
+              </div>
             )}
 
             {/* 판정자 원자료 */}

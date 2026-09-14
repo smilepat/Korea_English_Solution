@@ -1,0 +1,19 @@
+{
+  "id": "letter-ask-and-reason",
+  "titleKo": "바라는 것과 그 까닭",
+  "titleEn": "What is asked, and why",
+  "stage": "while",
+  "skill": "reading",
+  "grades": ["middle1", "middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 10,
+  "grouping": "pair",
+  "layer": "comprehension-check",
+  "hooks": { "forms": ["letter"], "purposes": [], "methods": [] },
+  "slots": [
+    { "key": "asks", "kind": "sentence_list", "n": 2, "from": "passage", "rule": "보낸 이가 받는 이에게 바라는 것(부탁·물음·초대·제안)을 담은 문장. 원문 그대로. 1~2개." },
+    { "key": "reasons", "kind": "sentence_list", "n": 2, "from": "passage", "rule": "왜 그것을 바라는지 까닭을 담은 문장. 원문 그대로. 1~2개." }
+  ],
+  "studentText": "편지에서 두 가지를 찾아 표에 옮기세요.\n왼쪽 '바라는 것': {{asks}}\n오른쪽 '까닭': {{reasons}}\n짝과 확인한 뒤, 받는 이가 '아니오'라고 답한다면 어느 까닭이 제일 아쉬울지 정하세요.",
+  "teacherNote": "편지의 목적(수능 18번)은 '바라는 것'이고, 편지의 설득력은 '까닭'에 있다. 둘을 떼어 보게 하는 것이 활동이다. 안부·감사 편지라 까닭이 없으면 '바라는 것'만 채우고 그렇다고 말해 준다.",
+  "source": { "inventoryId": "msal-short-answer", "repo": "MSAL" }
+}

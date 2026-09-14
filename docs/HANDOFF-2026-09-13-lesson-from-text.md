@@ -14,7 +14,25 @@
 | **M0** 축 확정 + K1 킬 실험 | **완료 2026-09-13** | `experiments/M0-text-type/RESULTS.md` ← **재개는 이것부터** |
 | M1 판정 엔진 + UI | **완료 2026-09-14** | `lib/text-type/` (아래) · `app/actions/text-type.ts` · `components/text-type-panel.tsx` · lesson-planner '지문으로 시작' 탭 |
 | M2 레시피 원장 | **완료 2026-09-14**, K2 통과 | `content/recipes/` 32개 · `docs/RECIPE-SPEC.md` · `scripts/validate-recipes.mjs` · `lib/recipes/` |
-| M3~M6 | 미착수 | 계획서 §8 |
+| M3 빈칸 채우기·조립·인쇄 | **완료 2026-09-14** | `lib/recipes/fill.ts` · `app/actions/lesson-build.ts` · `components/lesson-build-view.tsx` · `app/lesson-planner/print` |
+| M4~M6 | 미착수 | 계획서 §8 (M4 의 '지문 탭'은 M1 에서 이미 함 → 남은 M4 = 자료실 저장·다시 열기) |
+
+## M3 (2026-09-14) — 빈칸 채우기·조립·인쇄
+
+AI 가 하는 일은 레시피의 **빈칸 채우기뿐**이다. `from:"passage"` slot 은 채운 뒤
+지문에 실재하는지 결정론으로 확인하고(`groundedIn`), 없는 것은 버린다(`dropped`).
+`from:"generated"` 만 AI 가 쓴다. 필수 slot 이 덜 찼으면 `complete:false` → 화면에
+"교사가 채울 것" 표시. 렌더링은 순수 함수(`renderTemplate`) — 목록은 줄 머리면 "- ",
+문장 안이면 ", ".
+
+`buildLesson` 서버 액션: seed 를 지문 해시에서 뽑아 `selectLesson` → 레시피마다 `fillRecipe`
+병렬. 지문 원문은 저장하지 않는다. 결과는 클라이언트 sessionStorage 에만 두고
+`/lesson-planner/print?view=student|teacher` 가 그것을 읽어 인쇄한다(Ctrl+P → PDF).
+
+실측(편지 1·산문 1, seed 42): 9개 레시피 중 8개 완전 채움, 지문에 없는 문장 걸러짐.
+편지에 '전개' 레시피가 없어 범용이 끼던 것 → `letter-ask-and-reason` 추가(33개).
+
+⚠ 여전히 브라우저에서 눌러 본 적 없다. `npm run dev` → 지문 탭 → 판정 → 활동 만들기 → 인쇄까지 한 번.
 
 ## M2 (2026-09-14) — 레시피 원장
 
@@ -84,11 +102,10 @@ index.ts      analyzePassage(text, {grade}) → 전부
    아직 안 한 것: 브라우저에서 실제로 눌러 본 적이 없다(next build 만 통과).
    로컬 npm run dev 로 편지 1편·산문 1편 붙여 넣어 화면을 한 번 확인할 것.
 3. (완료) M2 레시피 원장 32개 + 검증기 + select.ts. K2 통과.
-4. M3 조립: lib/recipes/fill.ts — slot 을 지문으로 채운다. from:passage 는 채운 뒤
-   지문에 실재하는지 결정론 검증(isGrounded 재사용), from:generated 만 AI 가 쓴다.
-   그 다음 서버 액션 buildLesson(analysis → selectLesson → fill) 과
-   lesson-planner 지문 탭에 '활동 만들기' 버튼 + 학생지/교사지 인쇄(print 라우트).
-5. main 머지는 화면 확인 뒤 PR 로.
+4. (완료) M3 fill.ts · buildLesson · 활동 만들기 버튼 · 인쇄.
+5. **화면 확인** (사람 또는 Playwright): 지문 탭 → 판정 → 활동 만들기 → 학생지/교사지 인쇄.
+6. M4 남은 것: 만든 활동을 자료실(lesson_cases 또는 새 표)에 저장·다시 열기. 지문은 해시만.
+7. main PR. 그 뒤 M5(학생 배정·루브릭) · M6(실사용 2차시, K3 수정률).
 ```
 
 편지 질문은 답이 났다 — 겉모양(편지)이 활동을 정한다. 교사에게 묻지 않는다.
