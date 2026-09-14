@@ -12,8 +12,30 @@
 |---|---|---|
 | 계획 | 완료 2026-09-12 | `docs/PLAN-lesson-from-text.md` · 아티팩트 "지문에서 수업으로" (v2, M0 반영) |
 | **M0** 축 확정 + K1 킬 실험 | **완료 2026-09-13** | `experiments/M0-text-type/RESULTS.md` ← **재개는 이것부터** |
-| M1 판정 엔진 | 첫 커밋만 | `lessons.ts` 죽은 키 경로 수리 (아래) |
+| M1 판정 엔진 | **엔진 완료 2026-09-14**, UI 탭 미착수 | `lib/text-type/` (아래) · 서버 액션 `app/actions/text-type.ts` |
 | M2~M6 | 미착수 | 계획서 §8 |
+
+## M1 엔진 (2026-09-14) — `lib/text-type/`
+
+```text
+measure.ts    ① 재기      낱말·문장·FK. AI 없음.  (①~⑤ 문장삽입 표지도 문장 경계로 본다)
+forms.ts      ② 겉모양    편지·대화·안내·광고를 표지로 잡는다. AI 없음.
+judge.ts      ③ 판정자    3인(2.5-flash·2.5-pro·3.8-flash), 서로 못 봄, 선택지 순서 섞음. M0 프롬프트 그대로.
+aggregate.ts  ④ 모으기    목적 다수결 · 전개 방식 전원 동의 집합 · 근거는 지문에 실재하는 것만. AI 없음.
+fit.ts        ⑤ 적합성    grade-bounds(abc framework 사본) 대조. AI 없음. Lexile 은 안 잼.
+standards.ts  성취기준     kcsdb_standards 에서 verified 만, 읽기·이해, 문구는 원문 그대로.
+index.ts      analyzePassage(text, {grade}) → 전부
+```
+
+권장안 그대로다: **편지·대화·안내·광고는 겉모양이 활동을 정하고, 겉모양이 잡히면 목적이
+갈려도 되묻지 않는다.** 표지 없는 편지는 AI 목적 판정이 뒷그물.
+
+실측(2026-09-14): 형식 탐지 — 2차 편지 층 8편 중 7, 4차 친교 9편 중 9(편지 7·대화 2),
+수능·교과서 산문은 none. 실호출 3편 — 편지 form-led·되물음 없음, 대화 social 3/3,
+산문 argumentative 3/3 + 방식 집합 4개. 편지·대화는 방식 집합이 비었다(예상대로 → 축 A 활동).
+단위 테스트 `lib/__tests__/text-type.test.ts` 18개. tsc·vitest 66/66.
+
+`callGemini` 에 `model` 옵션이 생겼다(판정자별 모델).
 
 브랜치 `feat/m0-text-type` (main 에서 분기). main 에는 아직 아무것도 안 들어갔다.
 
@@ -48,15 +70,16 @@
 ## 다음에 할 일 (M1)
 
 ```text
-1. lib/text-type.ts  — 판정 엔진. experiments/M0-text-type/scripts/raters_multi.py 의
-   프롬프트를 그대로 옮긴다. 3인 호출(2.5-flash·2.5-pro·3.8-flash), 선택지 순서 섞기.
-   축 A 다수결 / 축 B 교집합 / 근거 문장 결정론 검증(지문에 실재하는지 substr 확인).
-2. lib/grade-fit.ts  — abc-english-framework grade-bounds 로 학년 적합성. AI 없음.
-3. 성취기준 후보 — kcsdb 미러에서 verified 만. 문구는 DB 원문 그대로.
-4. app/lesson-planner 에 '지문' 탭 (기존 '주제' 탭은 그대로).
+1. (완료) lib/text-type/ 판정 엔진 · fit · standards · 서버 액션 analyzeTextType
+2. app/lesson-planner 에 '지문' 탭 — 기존 '주제' 탭은 그대로. 결과 화면:
+   겉모양 배지 → 목적(되물음이면 a/b 선택) → 방식 집합 칩(상세화·인과는 흐리게) →
+   학년 적합 경고 → 성취기준 후보. 지문 원문은 저장하지 않는다(해시만).
+3. M2 레시피 원장: content/recipes/*.json + 무의존 검증기.
+   worksWith(방식 집합) / worksWithForm(편지·대화·안내·광고) / worksWithPurpose.
+   상세화·인과 전용 레시피는 만들지 않는다.
 ```
 
-M2(레시피 원장) 시작 전에 사람에게 물을 것 하나 — **"민원·요청 편지를 친교글과 같은 활동으로 다루십니까, 정보글과 같은 활동으로 다루십니까?"** 갈래의 정답이 아니라 활동을 가를 기준을 묻는 것이다.
+편지 질문은 답이 났다 — 겉모양(편지)이 활동을 정한다. 교사에게 묻지 않는다.
 
 ## 재현 명령
 
