@@ -1,0 +1,20 @@
+{
+  "id": "comparison-venn",
+  "titleKo": "겹치는 것과 다른 것",
+  "titleEn": "Same and different (Venn)",
+  "stage": "while",
+  "skill": "reading",
+  "grades": ["middle1", "middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 12,
+  "grouping": "pair",
+  "materials": ["벤 다이어그램 학습지"],
+  "layer": "structure",
+  "hooks": { "forms": [], "purposes": [], "methods": ["comparison", "contrast"] },
+  "slots": [
+    { "key": "things", "kind": "phrase_list", "n": 2, "from": "passage", "rule": "견주어지는 두 대상의 이름. 원문 표현 그대로." },
+    { "key": "points", "kind": "phrase_list", "n": 6, "from": "passage", "rule": "두 대상에 대해 글이 말한 특징 6개. 원문 표현 그대로. 어느 쪽 것인지 표시하지 않고 섞어 제시한다." }
+  ],
+  "studentText": "이 글은 {{things}}을(를) 견줍니다. 아래 특징을 벤 다이어그램에 넣으세요 — 한쪽만의 것은 바깥, 둘 다의 것은 가운데.\n{{points}}",
+  "teacherNote": "가운데(공통)에 하나도 못 넣으면 대조만 읽은 것이고, 바깥에 못 넣으면 비교만 읽은 것이다. 둘 다 있어야 한다.",
+  "source": { "inventoryId": "msal-match-sort", "repo": "MSAL" }
+}
