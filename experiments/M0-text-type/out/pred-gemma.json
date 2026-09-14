@@ -1,0 +1,277 @@
+{
+  "judge": "gemma",
+  "model": "gemma-4-31b-it",
+  "option_seed": 303,
+  "predictions": [
+    {
+      "gid": "G01",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G02",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G03",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G04",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G05",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G06",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G07",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G08",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G09",
+      "purpose": "argumentative",
+      "method": "exemplification",
+      "second": null,
+      "confidence": "high",
+      "evidence_grounded": 3,
+      "evidence_total": 3
+    },
+    {
+      "gid": "G10",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G11",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G12",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G13",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G14",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G15",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G16",
+      "purpose": "informative",
+      "method": "contrast",
+      "second": null,
+      "confidence": "high",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "G17",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G18",
+      "purpose": "informative",
+      "method": "exemplification",
+      "second": "contrast",
+      "confidence": "ask",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "G19",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G20",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G21",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G22",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G23",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G24",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G25",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G26",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G27",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G28",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G29",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    },
+    {
+      "gid": "G30",
+      "purpose": null,
+      "method": null,
+      "second": null,
+      "confidence": null,
+      "evidence_grounded": 0,
+      "evidence_total": 0
+    }
+  ]
+}

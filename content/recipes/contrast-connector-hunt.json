@@ -1,0 +1,19 @@
+{
+  "id": "contrast-connector-hunt",
+  "titleKo": "방향 바꾸는 말 찾기",
+  "titleEn": "Find the turn signals",
+  "stage": "while",
+  "skill": "reading",
+  "grades": ["middle1", "middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 10,
+  "grouping": "individual",
+  "layer": "cohesion",
+  "hooks": { "forms": [], "purposes": [], "methods": ["contrast"] },
+  "slots": [
+    { "key": "connectors", "kind": "phrase_list", "n": 4, "from": "passage", "rule": "글의 방향을 바꾸는 연결어·표현 (however, but, in contrast, unlike, on the other hand, whereas 등). 원문 그대로, 최대 4개." },
+    { "key": "turn", "kind": "sentence", "from": "passage", "rule": "그중 가장 중요한 전환이 일어나는 문장 하나. 원문 그대로." }
+  ],
+  "studentText": "글에서 방향을 바꾸는 말을 찾아 동그라미 치세요 ({{connectors.n}}개). 그 말의 앞 문장과 뒤 문장이 어떻게 반대인지 각각 한 줄로 쓰세요.\n힌트: {{connectors}}",
+  "teacherNote": "가장 중요한 전환은 \"{{turn}}\" 이다. 여기 앞뒤를 못 대면 글의 요지를 놓친 것이다. 수능 '요지·주제' 문항이 거의 이 자리에서 나온다.",
+  "source": { "inventoryId": "cra-click-connector", "repo": "CRA" }
+}

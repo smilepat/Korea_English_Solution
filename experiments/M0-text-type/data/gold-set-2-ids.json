@@ -1,0 +1,276 @@
+{
+  "_note": "표본의 id 와 층만. 본문은 gold-set-2.json (gitignore) — 이 파일과 seed 로 재현한다.",
+  "seed": 20260913,
+  "labels": [
+    {
+      "gid": "H01",
+      "kes_text_id": "L900-ARG-101-001",
+      "stratum": "notice",
+      "grade_band": "middle",
+      "genre_ai": "Argumentative",
+      "lexile": 1008,
+      "license": "original"
+    },
+    {
+      "gid": "H02",
+      "kes_text_id": "L1100-EXP-156-001",
+      "stratum": "expository",
+      "grade_band": "high",
+      "genre_ai": "Expository",
+      "lexile": 1139,
+      "license": "original"
+    },
+    {
+      "gid": "H03",
+      "kes_text_id": "L900-PRO-110-001",
+      "stratum": "social",
+      "grade_band": "middle",
+      "genre_ai": "Procedural",
+      "lexile": 962,
+      "license": "original"
+    },
+    {
+      "gid": "H04",
+      "kes_text_id": "L900-EXP-109-001",
+      "stratum": "notice",
+      "grade_band": "middle",
+      "genre_ai": "Expository",
+      "lexile": 1004,
+      "license": "original"
+    },
+    {
+      "gid": "H05",
+      "kes_text_id": "L1100-EXP-157-003",
+      "stratum": "expository",
+      "grade_band": "high",
+      "genre_ai": "Expository",
+      "lexile": 1117,
+      "license": "original"
+    },
+    {
+      "gid": "H06",
+      "kes_text_id": "L900-EXP-116-001",
+      "stratum": "social",
+      "grade_band": "middle",
+      "genre_ai": "Expository",
+      "lexile": 973,
+      "license": "original"
+    },
+    {
+      "gid": "H07",
+      "kes_text_id": "L900-EXP-155-001",
+      "stratum": "expository",
+      "grade_band": "middle",
+      "genre_ai": "Expository",
+      "lexile": 1086,
+      "license": "original"
+    },
+    {
+      "gid": "H08",
+      "kes_text_id": "L900-LIT-082-001",
+      "stratum": "notice",
+      "grade_band": "middle",
+      "genre_ai": "Literary",
+      "lexile": 1013,
+      "license": "original"
+    },
+    {
+      "gid": "H09",
+      "kes_text_id": "L900-PRO-104-001",
+      "stratum": "social",
+      "grade_band": "middle",
+      "genre_ai": "Procedural",
+      "lexile": 956,
+      "license": "original"
+    },
+    {
+      "gid": "H10",
+      "kes_text_id": "L900-NAR-122-001",
+      "stratum": "social",
+      "grade_band": "middle",
+      "genre_ai": "Narrative",
+      "lexile": 975,
+      "license": "original"
+    },
+    {
+      "gid": "H11",
+      "kes_text_id": "L900-EXP-112-001",
+      "stratum": "social",
+      "grade_band": "middle",
+      "genre_ai": "Expository",
+      "lexile": 961,
+      "license": "original"
+    },
+    {
+      "gid": "H12",
+      "kes_text_id": "L900-ARG-093-001",
+      "stratum": "notice",
+      "grade_band": "middle",
+      "genre_ai": "Argumentative",
+      "lexile": 1001,
+      "license": "original"
+    },
+    {
+      "gid": "H13",
+      "kes_text_id": "L1100-NAR-163-001",
+      "stratum": "narrative",
+      "grade_band": "high",
+      "genre_ai": "Narrative",
+      "lexile": 1112,
+      "license": "original"
+    },
+    {
+      "gid": "H14",
+      "kes_text_id": "L900-EXP-105-001",
+      "stratum": "expository",
+      "grade_band": "middle",
+      "genre_ai": "Expository",
+      "lexile": 971,
+      "license": "original"
+    },
+    {
+      "gid": "H15",
+      "kes_text_id": "L900-NAR-111-001",
+      "stratum": "social",
+      "grade_band": "middle",
+      "genre_ai": "Narrative",
+      "lexile": 953,
+      "license": "original"
+    },
+    {
+      "gid": "H16",
+      "kes_text_id": "L900-EXP-103-001",
+      "stratum": "notice",
+      "grade_band": "middle",
+      "genre_ai": "Expository",
+      "lexile": 986,
+      "license": "original"
+    },
+    {
+      "gid": "H17",
+      "kes_text_id": "L1100-ARG-164-001",
+      "stratum": "argumentative",
+      "grade_band": "high",
+      "genre_ai": "Argumentative",
+      "lexile": 1100,
+      "license": "original"
+    },
+    {
+      "gid": "H18",
+      "kes_text_id": "L900-NAR-346-001",
+      "stratum": "narrative",
+      "grade_band": "middle",
+      "genre_ai": "Narrative",
+      "lexile": 1090,
+      "license": "original"
+    },
+    {
+      "gid": "H19",
+      "kes_text_id": "L900-ARG-097-001",
+      "stratum": "notice",
+      "grade_band": "middle",
+      "genre_ai": "Argumentative",
+      "lexile": 1017,
+      "license": "original"
+    },
+    {
+      "gid": "H20",
+      "kes_text_id": "L1100-EXP-146-001",
+      "stratum": "expository",
+      "grade_band": "high",
+      "genre_ai": "Expository",
+      "lexile": 1125,
+      "license": "original"
+    },
+    {
+      "gid": "H21",
+      "kes_text_id": "L900-ARG-200-001",
+      "stratum": "argumentative",
+      "grade_band": "high",
+      "genre_ai": "Argumentative",
+      "lexile": 1040,
+      "license": "original"
+    },
+    {
+      "gid": "H22",
+      "kes_text_id": "L1100-NAR-187-001",
+      "stratum": "narrative",
+      "grade_band": "high",
+      "genre_ai": "Narrative",
+      "lexile": 1164,
+      "license": "original"
+    },
+    {
+      "gid": "H23",
+      "kes_text_id": "L1100-ARG-210-001",
+      "stratum": "argumentative",
+      "grade_band": "high",
+      "genre_ai": "Argumentative",
+      "lexile": 1156,
+      "license": "original"
+    },
+    {
+      "gid": "H24",
+      "kes_text_id": "L1100-NAR-162-001",
+      "stratum": "narrative",
+      "grade_band": "high",
+      "genre_ai": "Narrative",
+      "lexile": 1140,
+      "license": "original"
+    },
+    {
+      "gid": "H25",
+      "kes_text_id": "L900-ARG-120-002",
+      "stratum": "notice",
+      "grade_band": "middle",
+      "genre_ai": "Argumentative",
+      "lexile": 1001,
+      "license": "original"
+    },
+    {
+      "gid": "H26",
+      "kes_text_id": "L900-ARG-144-001",
+      "stratum": "argumentative",
+      "grade_band": "middle",
+      "genre_ai": "Argumentative",
+      "lexile": 1013,
+      "license": "original"
+    },
+    {
+      "gid": "H27",
+      "kes_text_id": "L700-ARG-200-002",
+      "stratum": "argumentative",
+      "grade_band": "middle",
+      "genre_ai": "Argumentative",
+      "lexile": 840,
+      "license": "original"
+    },
+    {
+      "gid": "H28",
+      "kes_text_id": "L900-NAR-132-001",
+      "stratum": "narrative",
+      "grade_band": "middle",
+      "genre_ai": "Narrative",
+      "lexile": 1066,
+      "license": "original"
+    },
+    {
+      "gid": "H29",
+      "kes_text_id": "L1100-EXP-179-001",
+      "stratum": "social",
+      "grade_band": "high",
+      "genre_ai": "Expository",
+      "lexile": 1128,
+      "license": "original"
+    },
+    {
+      "gid": "H30",
+      "kes_text_id": "L900-ARG-105-001",
+      "stratum": "social",
+      "grade_band": "middle",
+      "genre_ai": "Argumentative",
+      "lexile": 947,
+      "license": "original"
+    }
+  ]
+}

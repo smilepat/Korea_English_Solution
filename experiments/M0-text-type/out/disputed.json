@@ -1,0 +1,111 @@
+{
+  "_note": "판정자들이 갈린 지문. 사람이 볼 자리는 여기뿐이다.",
+  "n_total": 27,
+  "n_disputed": 13,
+  "items": [
+    {
+      "gid": "O04",
+      "votes": {
+        "flash": "problem_solution",
+        "pro": "problem_solution",
+        "g38": "narration"
+      }
+    },
+    {
+      "gid": "O09",
+      "votes": {
+        "flash": "problem_solution",
+        "pro": "contrast",
+        "g38": "contrast"
+      }
+    },
+    {
+      "gid": "O11",
+      "votes": {
+        "flash": "problem_solution",
+        "pro": "problem_solution",
+        "g38": "cause_effect"
+      }
+    },
+    {
+      "gid": "O14",
+      "votes": {
+        "flash": "narration",
+        "pro": "exemplification",
+        "g38": "narration"
+      }
+    },
+    {
+      "gid": "O15",
+      "votes": {
+        "flash": "problem_solution",
+        "pro": "cause_effect",
+        "g38": "cause_effect"
+      }
+    },
+    {
+      "gid": "O17",
+      "votes": {
+        "flash": "narration",
+        "pro": "narration",
+        "g38": "elaboration"
+      }
+    },
+    {
+      "gid": "O18",
+      "votes": {
+        "flash": "elaboration",
+        "pro": "exemplification",
+        "g38": "elaboration"
+      }
+    },
+    {
+      "gid": "O19",
+      "votes": {
+        "flash": "elaboration",
+        "pro": "classification",
+        "g38": "classification"
+      }
+    },
+    {
+      "gid": "O20",
+      "votes": {
+        "flash": "elaboration",
+        "pro": "exemplification",
+        "g38": "elaboration"
+      }
+    },
+    {
+      "gid": "O22",
+      "votes": {
+        "flash": "problem_solution",
+        "pro": "contrast",
+        "g38": "contrast"
+      }
+    },
+    {
+      "gid": "O23",
+      "votes": {
+        "flash": "contrast",
+        "pro": "exemplification",
+        "g38": "contrast"
+      }
+    },
+    {
+      "gid": "O26",
+      "votes": {
+        "flash": "elaboration",
+        "pro": "cause_effect",
+        "g38": "elaboration"
+      }
+    },
+    {
+      "gid": "O27",
+      "votes": {
+        "flash": "problem_solution",
+        "pro": "exemplification",
+        "g38": "elaboration"
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "definition-own-words",
+  "titleKo": "내 말로 정의하기",
+  "titleEn": "Define it in your own words",
+  "stage": "home",
+  "skill": "writing",
+  "grades": ["middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 10,
+  "grouping": "individual",
+  "layer": "summary",
+  "hooks": { "forms": [], "purposes": [], "methods": ["definition"] },
+  "slots": [
+    { "key": "term", "kind": "word_list", "n": 1, "from": "passage", "rule": "글이 정의한 용어 하나." },
+    { "key": "original", "kind": "sentence", "from": "passage", "rule": "그 용어를 정의한 원문 문장." }
+  ],
+  "studentText": "\"{{term}}\"을(를) 글을 보지 않고 영어 한 문장으로 정의하세요. 'X is a ___ that ___.' 틀을 써도 됩니다. 다 쓴 뒤 원문과 비교하세요.\n원문: \"{{original}}\"",
+  "teacherNote": "부류(a ___)와 차이(that ___)가 둘 다 있으면 통과. 한쪽만 있으면 그 쪽을 짚어 준다.",
+  "selfCheck": "내 문장에 '어느 부류인지'와 '무엇이 다른지'가 둘 다 있으면 됩니다. 원문과 낱말이 달라도 괜찮습니다."
+}
