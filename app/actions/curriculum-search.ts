@@ -298,8 +298,19 @@ export async function searchReference(query: string, version?: string): Promise<
   ])
   const functions: RefFunction[] = []
   for (const f of fns.rows as any[]) {
-    const ex = await turso.execute({ sql: `SELECT example_en FROM kcsdb_comm_function_examples WHERE function_id = ? LIMIT 5`, args: [f.id] })
-    const examples = (ex.rows as any[]).map((r) => String(r.example_en || "")).filter((e) => /[A-Za-z]/.test(e) && e.length < 90).slice(0, 3)
+    // 쓸 수 있는 예시문만 DB 에서 고른다. 예전에는 앞 5행을 먼저 가져온 뒤 JS 에서 걸렀는데,
+    // 그 5행이 전부 못 쓰는 줄이면 남는 것이 0이 되어 아래 `if (examples.length)` 에서
+    // **기능이 통째로 결과에서 빠졌다**. 상류 정본(Korea-curri-standards-db)의 2022 [별표2]
+    // 파싱 결함으로 실제로 일어났다 — `CF-2022-1-4 질문하고 답하기` 는 앞 5행이
+    // `질문하고 답하기 / Ⅱ. / 태도 / 및 / 의견` 이라 검색에서 사라져 있었다(그 레포 이슈 #6).
+    // 조건을 SQL 로 내려 LIMIT 이 "쓸 수 있는 줄"에만 걸리게 한다.
+    const ex = await turso.execute({
+      sql: `SELECT example_en FROM kcsdb_comm_function_examples
+            WHERE function_id = ? AND example_en GLOB '*[A-Za-z]*' AND length(example_en) < 90
+            LIMIT 3`,
+      args: [f.id],
+    })
+    const examples = (ex.rows as any[]).map((r) => String(r.example_en || "")).filter((e) => e)
     if (examples.length) functions.push({ category: f.category_l1, description: f.description_ko, version: f.curriculum_version, examples })
   }
   const grammar: RefGrammar[] = (gr.rows as any[]).map((r) => ({ item: String(r.item_name_ko || ""), category: r.category || null, example: String(r.example_en || ""), labelSource: String(r.label_source || "llm") })).filter((g) => g.item)
