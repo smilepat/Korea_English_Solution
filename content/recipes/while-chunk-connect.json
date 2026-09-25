@@ -1,0 +1,18 @@
+{
+  "id": "while-chunk-connect",
+  "titleKo": "가리키는 말 잇기",
+  "titleEn": "Connect the pointers",
+  "stage": "while",
+  "skill": "reading",
+  "grades": ["middle1", "middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 8,
+  "grouping": "individual",
+  "layer": "cohesion",
+  "hooks": { "forms": [], "purposes": [], "methods": [] },
+  "slots": [
+    { "key": "pointers", "kind": "phrase_list", "n": 4, "from": "passage", "rule": "앞의 무엇을 가리키는 말 4개 — 대명사(it, they, this), 지시어(this idea, such …), 대용 표현. 원문 그대로, 위치를 알 수 있게 앞뒤 두세 낱말과 함께." }
+  ],
+  "studentText": "아래 말들이 글에서 무엇을 가리키는지 화살표로 이으세요.\n{{pointers}}\n하나라도 두 군데를 가리킬 수 있으면 짝과 어느 쪽인지 정하세요.",
+  "teacherNote": "두 군데를 가리킬 수 있는 자리가 있으면 그것이 이 글에서 가장 어려운 자리다. 거기서 멈춰 문장 앞뒤를 같이 읽는다.",
+  "source": { "inventoryId": "irc-connect", "repo": "IRC" }
+}

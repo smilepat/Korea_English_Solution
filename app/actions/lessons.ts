@@ -1,7 +1,16 @@
 "use server"
 
 import { turso, type LessonCase } from "@/lib/turso"
-import { anthropic } from "@/lib/ai"
+import { getProvider, type ModelName } from "@/lib/models"
+
+interface GeneratedLesson {
+  objectives?: string
+  activity?: string
+  material?: string
+  lexile_range?: string
+  outcome?: string
+  teacher_notes?: string
+}
 
 // ============================================================
 // 수업 설계 AI 생성
@@ -49,17 +58,12 @@ ${lexileRange ? `학생 Lexile 범위: ${lexileRange}L` : ""}
   "teacher_notes": "교사 참고사항 및 유의점"
 }`
 
-    const message = await anthropic.messages.create({
-      model: "claude-sonnet-4-6",
-      max_tokens: 1024,
-      messages: [{ role: "user", content: prompt }],
-    })
-
-    const text = message.content[0].type === "text" ? message.content[0].text : "{}"
-    const jsonMatch = text.match(/\{[\s\S]*\}/)
-    if (!jsonMatch) throw new Error("JSON 파싱 실패")
-
-    const generated = JSON.parse(jsonMatch[0])
+    // 예전에는 anthropic 을 직접 불렀다. 그 키는 죽어 있다(2026-09-13 실제 호출로
+    // authentication_error 확인). models.ts 의 provider 를 거쳐야 Gemini 로 백킹된다.
+    // maxTokens 는 넉넉히. gemini-2.5-flash 는 생각 토큰이 상한을 갉아먹어
+    // 200 에서는 JSON 이 중간에 잘렸다(2026-09-13 실측). 6개 필드 한국어면 1024 도 아슬하다.
+    const generated = await getProvider(params.model as ModelName | undefined)
+      .generateJSON<GeneratedLesson>(prompt, { maxTokens: 4096 })
 
     const result = await turso.execute({
       sql: `INSERT INTO lesson_cases (grade, skill, topic, objectives, activity, material, lexile_range, duration, outcome, teacher_notes)

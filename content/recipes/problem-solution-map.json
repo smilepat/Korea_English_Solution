@@ -1,0 +1,19 @@
+{
+  "id": "problem-solution-map",
+  "titleKo": "문제 → 해결 지도",
+  "titleEn": "Problem → solution map",
+  "stage": "while",
+  "skill": "reading",
+  "grades": ["middle1", "middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 12,
+  "grouping": "pair",
+  "layer": "structure",
+  "hooks": { "forms": [], "purposes": [], "methods": ["problem_solution"] },
+  "slots": [
+    { "key": "problem", "kind": "sentence", "from": "passage", "rule": "문제를 세우는 문장 하나. 원문 그대로." },
+    { "key": "solutions", "kind": "sentence_list", "n": 3, "from": "passage", "rule": "해결책이나 대응을 말하는 문장들. 원문 그대로. 1~3개." }
+  ],
+  "studentText": "왼쪽 상자에 문제를, 오른쪽 상자에 해결책을 씁니다. 화살표 위에는 '왜 이 해결책이 이 문제에 맞는가'를 한 줄로.\n문제: \"{{problem}}\"\n해결 후보: {{solutions}}",
+  "teacherNote": "화살표 위의 한 줄이 핵심이다. 문제와 해결을 옮겨 적는 것은 누구나 하지만, 둘을 잇는 이유는 읽어야 나온다.",
+  "source": { "inventoryId": "bridge-skeleton", "repo": "BRIDGE" }
+}

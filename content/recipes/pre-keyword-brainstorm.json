@@ -1,0 +1,18 @@
+{
+  "id": "pre-keyword-brainstorm",
+  "titleKo": "낱말 여섯 개로 줄거리 짓기",
+  "titleEn": "Six words, one story",
+  "stage": "pre",
+  "skill": "speaking",
+  "grades": ["middle1", "middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 6,
+  "grouping": "group",
+  "layer": "decode",
+  "hooks": { "forms": [], "purposes": [], "methods": [] },
+  "slots": [
+    { "key": "words", "kind": "word_list", "n": 6, "from": "passage", "rule": "글의 내용어 6개 — 화제와 전개를 드러내는 명사·동사. 너무 흔한 낱말은 피한다." }
+  ],
+  "studentText": "이 글에서 뽑은 낱말입니다: {{words}}\n모둠에서 이 여섯 낱말을 모두 써서 글의 내용을 짐작해 두 문장으로 말하세요. 읽은 뒤 어느 낱말을 잘못 짐작했는지 찾습니다.",
+  "teacherNote": "낱말의 뜻을 가르치는 활동이 아니다. 낱말들의 관계를 미리 세워 두면 읽을 때 그 관계를 확인하며 읽게 된다.",
+  "source": { "inventoryId": "eflt-vocab-selector", "repo": "EFLT" }
+}
