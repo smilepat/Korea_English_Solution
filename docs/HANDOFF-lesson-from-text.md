@@ -1,9 +1,10 @@
-# 인계장 — 지문에서 수업으로 (2026-09-14)
+# 인계장 — 지문에서 수업으로 (2026-09-14, 갱신 2026-11-05)
 
 이 한 장으로 다른 PC·다른 세션에서 이어서 할 수 있게 쓴다. 정본은 이 파일 하나다.
 
-> **세션 종료 2026-09-14.** 코드는 전부 커밋·푸시됨. draft PR 이 열려 있다(아래).
-> **새 세션은 §3 화면 확인부터 시작한다.** 재개 프롬프트:
+> **세션 종료 2026-11-05.** 코드는 전부 커밋·푸시됨. draft PR [#11](https://github.com/smilepat/Korea_English_Solution/pull/11) 이 열려 있다.
+> 11-05 에 화면 확인 **사전 점검**(검사 재실행 + 표본 3편 실호출)을 끝냈고 따옴표 버그 1건을 고쳤다(§3-1).
+> **남은 것은 사람이 화면을 눈으로 보는 것 하나다.** 그 답이 오기 전에는 draft 를 풀지 않는다. 재개 프롬프트:
 > `docs/HANDOFF-lesson-from-text.md 읽고 §3 화면 확인부터 이어서 하자 (브랜치 feat/m0-text-type)`
 
 ## 한 문장
@@ -19,9 +20,10 @@
 | M1 판정 엔진 + 지문 탭 | 완료 09-14 | `lib/text-type/` · `components/text-type-panel.tsx` |
 | M2 레시피 원장 33개 + K2 | 완료 09-14 | `content/recipes/` · `docs/RECIPE-SPEC.md` · `lib/recipes/select.ts` |
 | M3 빈칸 채우기·조립·인쇄 | 완료 09-14 | `lib/recipes/fill.ts` · `app/actions/lesson-build.ts` · `app/lesson-planner/print` |
+| 화면 확인 사전 점검 | 완료 11-05 (실호출 3편, 버그 1건 수리) | 아래 §3-1 |
 | **화면 확인** | **대기 — 사람 눈으로 한 번도 안 봄** | 아래 §3 |
 | M4 자료실 저장 | 미착수 | |
-| main PR | 미착수 (화면 확인 뒤) | 브랜치 `feat/m0-text-type`, main 에서 분기, 14 커밋 |
+| main PR | draft #11 열림. 화면 확인 뒤 draft 해제, 머지는 사람이 "머지해줘" 할 때만 | 브랜치 `feat/m0-text-type`. main 이 1커밋 앞섬(09-19 `7c0d8b7` curriculum-search 수정) — 머지 전 브랜치 갱신 후 CI 재확인 |
 | M5 배정·루브릭 · M6 실사용 K3 | 미착수 | 계획서 §8 |
 
 빌드·검사: `validate:recipes` 33 · `vitest` 87/87 · `tsc` · `next build` 22쪽 — 전부 통과 (09-14).
@@ -64,6 +66,24 @@ cd C:/tmp/Korea_English_Solution && npm run dev      # http://localhost:3000
 - 표본 지문(공유영역 3편) = `C:/tmp/kes-lesson-from-text/sample-passages.md`. 없으면 `experiments/M0-text-type/data/gold-set-4.json` 을 `build_gold_set_4` 산출물에서(에이전트 보고서에 본문 있음) 다시 만든다.
 
 볼 것 셋: ⓐ 활동지 문장이 **지문에 있는 문장인가** ⓑ 그 지문으로 **실제 수업에 쓸 만한가**(K3 의 첫 감) ⓒ 편지형에서 목적이 갈려도 **되묻지 않고 넘어가는가**.
+
+### 3-1. 사전 점검 결과 (2026-11-05, 사람 화면 확인을 대신하지 않는다)
+
+에이전트는 이 환경에서 브라우저를 열지 못해 화면 자체는 보지 못했다. 대신 화면이 부르는 것과 같은 경로(`analyzePassage` → `selectLesson` → `fillRecipe`)를 표본 3편에 실제로 돌렸다.
+
+- 검사: `validate:recipes` 33 · `vitest` 88/88 · `tsc` 통과. `npm run dev` 기동, `/login` 200, `/lesson-planner` 는 로그인으로 넘김(정상).
+- 실호출: 판정자 3인 전부 응답(모델 살아 있음). 편당 판정 23~26초 · 채우기 12~18초.
+
+| 표본 | 겉모양 | 목적 | 활동 5개 중 complete | 메모 |
+|---|---|---|---|---|
+| 편지형 (VOA) · 중3 | letter | informative 3/3, formLed | 3 (수리 전) | 벤 다이어그램 6개 중 5개가 따옴표 버그로 버려짐 · 답장 쓰기는 부탁 1개라 미완성 |
+| 설명문 (NASA) · 중2 | none | informative 3/3 | 5 | |
+| 주장문 (오바마) · 고1 | none | argumentative 3/3 | 5 | |
+
+- **ⓐ** 실린 문장은 전부 지문에 있었다. **ⓒ** 편지는 겉모양으로 잡혀 되묻지 않았다 — 다만 세 판정자의 목적이 갈리지 않아 "갈려도 넘어가는" 경우는 **시험되지 않았다**. **ⓑ** 는 사람 몫, 안 봄.
+- **고친 것**: `fill.ts` 의 `norm` 이 굽은/곧은 따옴표만 맞추고 작은/큰 따옴표는 다르게 봤다. 모델이 `"nearby"` 를 `'nearby'` 로 옮기면 지문에 있는 문장이 버려졌다. 따옴표 종류를 가리지 않게 고침 + `fill.test.ts` 에 실제 문장으로 검사 1개(수정을 되돌리면 실패하는 것 확인). 수리 뒤 편지형을 **다시 실호출하지는 않았다** — 화면에서 편지형 벤 다이어그램에 특징이 여러 개 차는지로 확인한다.
+- **안 고친 것 (결정 필요)**: `letter-reply` 의 `asks` 는 규칙이 "1~3개"인데 `isComplete` 는 n(3)의 절반=2개 이상을 요구한다. 부탁이 하나뿐인 편지는 쓸 수 있는데도 "미완성"으로 뜬다. a) 최소 개수를 slot 에 따로 두어 1개로 / c) 그대로. 에이전트 권장 a, 사용자 답 대기.
+- 사전 점검을 다시 돌리려면: 임시 `lib/__tests__/_tmp-*.test.ts` 를 만들어 `node --env-file=.env.local node_modules/vitest/vitest.mjs run <파일>` (vitest 는 `.env.local` 을 스스로 읽지 않는다). 끝나면 지운다.
 
 ## 4. 파일 지도
 
@@ -109,7 +129,9 @@ docs/RECIPE-SPEC.md             레시피 계약
 - gemini-2.5-flash 는 생각 토큰이 출력 상한을 갉아먹는다. `maxOutputTokens` 200 에서 JSON 이 잘렸다 → 4096.
 - Anthropic 키는 죽어 있다(`authentication_error`). `models.ts` 가 Gemini 로 백킹.
 - `kes_passages.genre` 는 AI 라벨 — 믿지 말 것.
-- Playwright MCP 가 이 환경에서 연결 실패 → 화면 자동 확인 못 함.
+- Playwright MCP 가 이 환경에서 연결 실패 → 화면 자동 확인 못 함. (11-05 세션도 브라우저 도구 없음.)
+- 실재 검증은 글자 비교다. 모델이 따옴표·기호를 바꿔 옮기면 있는 문장도 버려진다 — `dropped` 가 많으면 지어낸 것인지 표기만 다른 것인지 먼저 본다(11-05 따옴표 건).
+- 살아남은 항목은 **모델이 옮긴 표기**로 실린다(예: 원문 큰따옴표 → 작은따옴표). 원문 표기로 되돌려 싣지는 않는다.
 
 ## 7. 지문 공급원 (Fable 5 조사 09-13)
 
@@ -119,11 +141,12 @@ docs/RECIPE-SPEC.md             레시피 계약
 
 ## 8. 다음
 
-1. §3 화면 확인 → 어긋난 곳 수리
-2. main PR (`gh pr create` — 본문 끝에 `🤖 Generated with Claude Code`)
-3. M4: 만든 활동 저장·다시 열기 (`lesson_cases` 확장 또는 새 표, 지문은 해시만)
-4. M5: 학생 배정(`assignments.ts`) · 루브릭 축(`rubric-maker-v2`)
-5. M6: 본인 수업 2차시 실사용 → 활동당 수정률(K3). 절반 넘는 레시피는 원장에서 뺀다.
+1. §3 화면 확인(사람). 편지형 표본을 꼭 한 번 — 벤 다이어그램에 특징이 여러 개 차면 11-05 따옴표 수리가 화면에서도 확인된 것이다. 어긋난 곳이 있으면 수리.
+2. §3-1 의 `letter-reply` 미완성 표시 — 사용자 답(a/c) 받아 처리.
+3. 사용자가 "괜찮다"고 하면 PR #11 브랜치를 main 최신으로 갱신 → CI 초록 확인 → draft 해제. **머지는 "머지해줘" 가 있을 때만.**
+4. M4: 만든 활동 저장·다시 열기 (`lesson_cases` 확장 또는 새 표, 지문은 해시만)
+5. M5: 학생 배정(`assignments.ts`) · 루브릭 축(`rubric-maker-v2`)
+6. M6: 본인 수업 2차시 실사용 → 활동당 수정률(K3). 절반 넘는 레시피는 원장에서 뺀다.
 
 ## 9. 재현 명령
 

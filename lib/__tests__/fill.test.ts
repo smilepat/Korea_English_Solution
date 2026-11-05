@@ -30,6 +30,14 @@ describe("groundedIn", () => {
   it("따옴표 모양과 공백 차이는 봐준다", () => {
     expect(groundedIn("We  would be grateful for a guided tour.", TEXT, "sentence")).toBe(true)
   })
+  it("작은따옴표로 옮겨도 큰따옴표 원문과 같은 문장으로 본다 (화면 확인 11-05, VOA 편지)", () => {
+    const voa = `Both words can mean "close in distance to something." We can also use "nearby" as an adjective before a noun. That’s the teacher's answer.`
+    expect(groundedIn("We can also use 'nearby' as an adjective before a noun", voa, "phrase_list")).toBe(true)
+    expect(groundedIn("Both words can mean 'close in distance to something.'", voa, "sentence")).toBe(true)
+    expect(groundedIn("the teacher's answer", voa, "phrase_list")).toBe(true)
+    // 낱말이 다르면 여전히 거른다
+    expect(groundedIn("We can also use 'near' as an adjective before a noun", voa, "phrase_list")).toBe(false)
+  })
 })
 
 describe("groundValues", () => {

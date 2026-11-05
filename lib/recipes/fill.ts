@@ -22,7 +22,8 @@ export interface FilledRecipe {
   teacherNote: string
 }
 
-const norm = (s: string) => s.replace(/\s+/g, " ").replace(/[“”]/g, '"').replace(/[‘’]/g, "'").trim().toLowerCase()
+// 따옴표는 모양(곧은·굽은)과 종류(작은·큰)를 가리지 않는다 — 모델이 "nearby" 를 'nearby' 로 옮겨도 같은 문장이다.
+const norm = (s: string) => s.replace(/\s+/g, " ").replace(/[“”‘’"]/g, "'").trim().toLowerCase()
 
 /** 문장 급은 앞 60자, 어구·낱말 급은 통째로 — 지문에 실재하는가 */
 export function groundedIn(item: string, text: string, kind: Slot["kind"]): boolean {
