@@ -1,0 +1,18 @@
+{
+  "id": "argumentative-counter",
+  "titleKo": "반론 한 문단",
+  "titleEn": "One paragraph against",
+  "stage": "home",
+  "skill": "writing",
+  "grades": ["middle3", "high1", "high2", "high3"],
+  "minutes": 15,
+  "grouping": "individual",
+  "layer": "practice",
+  "hooks": { "forms": [], "purposes": ["argumentative"], "methods": [] },
+  "slots": [
+    { "key": "claim", "kind": "sentence", "from": "passage", "rule": "필자의 주장 문장 하나. 원문 그대로." }
+  ],
+  "studentText": "필자는 이렇게 주장합니다: \"{{claim}}\"\n이 주장에 반대하는 문단을 영어로 쓰세요 (4~5문장). 첫 문장은 'Some people may think …, but …' 로 시작하고, 이유를 하나 이상 대세요.",
+  "teacherNote": "동의하는 글은 받지 않는다. 반대 입장에 서 봐야 필자의 이유가 얼마나 강한지 보인다.",
+  "selfCheck": "첫 문장에 'but' 이 있고, 그 뒤에 필자와 다른 입장이 있고, 'because' 나 'For example' 로 이유가 하나 이상 있으면 됩니다."
+}

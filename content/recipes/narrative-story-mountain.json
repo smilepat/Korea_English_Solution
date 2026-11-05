@@ -1,0 +1,18 @@
+{
+  "id": "narrative-story-mountain",
+  "titleKo": "이야기 산 그리기",
+  "titleEn": "Story mountain",
+  "stage": "post",
+  "skill": "reading",
+  "grades": ["middle1", "middle2", "middle3", "high1"],
+  "minutes": 8,
+  "grouping": "individual",
+  "layer": "structure",
+  "hooks": { "forms": [], "purposes": ["narrative"], "methods": [] },
+  "slots": [
+    { "key": "turning", "kind": "sentence", "from": "passage", "rule": "이야기의 전환점(문제가 생기거나 가장 긴장되는 순간) 문장 하나. 원문 그대로." }
+  ],
+  "studentText": "산 모양을 그리고 왼쪽 기슭에 '처음', 꼭대기에 '가장 긴장된 순간', 오른쪽 기슭에 '끝'을 한 줄씩 영어로 쓰세요. 꼭대기에는 이 문장이 들어가야 합니다: \"{{turning}}\"",
+  "teacherNote": "꼭대기가 맞으면 이야기를 읽은 것이다. 처음과 끝은 대개 쉽고, 전환점을 짚는 것이 서사 읽기의 핵심이다.",
+  "source": { "inventoryId": "bridge-skeleton", "repo": "BRIDGE" }
+}

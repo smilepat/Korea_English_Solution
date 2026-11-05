@@ -1,0 +1,18 @@
+{
+  "id": "dialogue-next-line",
+  "titleKo": "다음 대사 쓰기",
+  "titleEn": "Write the next line",
+  "stage": "post",
+  "skill": "writing",
+  "grades": ["middle1", "middle2", "middle3", "high1"],
+  "minutes": 8,
+  "grouping": "individual",
+  "layer": "anticipation",
+  "hooks": { "forms": ["dialogue"], "purposes": [], "methods": [] },
+  "slots": [
+    { "key": "lastLines", "kind": "sentence_list", "n": 2, "from": "passage", "rule": "대화의 마지막 두 대사. 원문 그대로, 화자 표시 포함." }
+  ],
+  "studentText": "대화가 이렇게 끝났습니다.\n{{lastLines}}\n이 다음에 올 대사를 두 사람 몫으로 두 줄 쓰세요. 앞 대화의 흐름(부탁이면 승낙/거절, 물음이면 답)과 맞아야 합니다.",
+  "teacherNote": "앞 대화의 기능을 이어받았는가만 본다. 부탁 뒤에 엉뚱한 화제가 오면 흐름을 놓친 것이다.",
+  "source": { "inventoryId": "snow-predict-loop", "repo": "SNOW" }
+}

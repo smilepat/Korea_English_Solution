@@ -1,0 +1,155 @@
+{
+  "_warning": "AI(fable-5) 라벨. 정답 아님. 채점 때 비교용으로만 연다.",
+  "labels": [
+    {
+      "gid": "G01",
+      "aku_passage_id": "P-EX-d98c656daea6",
+      "aku_representation": "R-ARGUMENT"
+    },
+    {
+      "gid": "G02",
+      "aku_passage_id": "P-EX-4c0d4c91dec6",
+      "aku_representation": "R-NARRATIVE"
+    },
+    {
+      "gid": "G03",
+      "aku_passage_id": "P-EX-e38756cefe9b",
+      "aku_representation": "R-DESCRIPTION"
+    },
+    {
+      "gid": "G04",
+      "aku_passage_id": "P-EX-d3f56e8a73f6",
+      "aku_representation": "R-ARGUMENT"
+    },
+    {
+      "gid": "G05",
+      "aku_passage_id": "P-EX-ef5669b3241b",
+      "aku_representation": "R-ARGUMENT"
+    },
+    {
+      "gid": "G06",
+      "aku_passage_id": "P-EX-c6ce0d65b81d",
+      "aku_representation": "R-EXPLANATION"
+    },
+    {
+      "gid": "G07",
+      "aku_passage_id": "P-EX-959913fd9c3b",
+      "aku_representation": "R-DESCRIPTION"
+    },
+    {
+      "gid": "G08",
+      "aku_passage_id": "P-EX-1bd48be48600",
+      "aku_representation": "R-DESCRIPTION"
+    },
+    {
+      "gid": "G09",
+      "aku_passage_id": "P-EX-1c051c77dd89",
+      "aku_representation": "R-EXAMPLE"
+    },
+    {
+      "gid": "G10",
+      "aku_passage_id": "P-EX-d28618d3dbdf",
+      "aku_representation": "R-ARGUMENT"
+    },
+    {
+      "gid": "G11",
+      "aku_passage_id": "P-EX-b083ba1621eb",
+      "aku_representation": "R-ARGUMENT"
+    },
+    {
+      "gid": "G12",
+      "aku_passage_id": "P-EX-20ab5179687d",
+      "aku_representation": "R-NARRATIVE"
+    },
+    {
+      "gid": "G13",
+      "aku_passage_id": "P-EX-12990e0f0e38",
+      "aku_representation": "R-EXPLANATION"
+    },
+    {
+      "gid": "G14",
+      "aku_passage_id": "P-EX-e8b2abc4cf60",
+      "aku_representation": "R-EXPLANATION"
+    },
+    {
+      "gid": "G15",
+      "aku_passage_id": "P-EX-e613302e13c9",
+      "aku_representation": "R-NARRATIVE"
+    },
+    {
+      "gid": "G16",
+      "aku_passage_id": "P-EX-1b1cb5d9b701",
+      "aku_representation": "R-ARGUMENT"
+    },
+    {
+      "gid": "G17",
+      "aku_passage_id": "P-EX-36fed2f1ca41",
+      "aku_representation": "R-EXPERIMENT"
+    },
+    {
+      "gid": "G18",
+      "aku_passage_id": "P-EX-8d2f6a3c3766",
+      "aku_representation": "R-EXPLANATION"
+    },
+    {
+      "gid": "G19",
+      "aku_passage_id": "P-EX-f0a295a4354f",
+      "aku_representation": "R-EXAMPLE"
+    },
+    {
+      "gid": "G20",
+      "aku_passage_id": "P-EX-7d8e2d6d5e7c",
+      "aku_representation": "R-HISTORICAL"
+    },
+    {
+      "gid": "G21",
+      "aku_passage_id": "P-EX-83c5e7d52de8",
+      "aku_representation": "R-EXPLANATION"
+    },
+    {
+      "gid": "G22",
+      "aku_passage_id": "P-EX-dcc379d8be5d",
+      "aku_representation": "R-DESCRIPTION"
+    },
+    {
+      "gid": "G23",
+      "aku_passage_id": "P-EX-6b6f17df60b4",
+      "aku_representation": "R-DESCRIPTION"
+    },
+    {
+      "gid": "G24",
+      "aku_passage_id": "P-EX-a7814e27a59d",
+      "aku_representation": "R-EXPERIMENT"
+    },
+    {
+      "gid": "G25",
+      "aku_passage_id": "P-EX-c662cc806e91",
+      "aku_representation": "R-HISTORICAL"
+    },
+    {
+      "gid": "G26",
+      "aku_passage_id": "P-EX-2ddbb1ecae9e",
+      "aku_representation": "R-NARRATIVE"
+    },
+    {
+      "gid": "G27",
+      "aku_passage_id": "P-EX-5af5de0cc002",
+      "aku_representation": "R-EXPLANATION"
+    },
+    {
+      "gid": "G28",
+      "aku_passage_id": "P-EX-15994d3a4837",
+      "aku_representation": "R-ANALOGY"
+    },
+    {
+      "gid": "G29",
+      "aku_passage_id": "P-EX-385aaf12cd9c",
+      "aku_representation": "R-DESCRIPTION"
+    },
+    {
+      "gid": "G30",
+      "aku_passage_id": "P-EX-15dd451ac159",
+      "aku_representation": "R-NARRATIVE"
+    }
+  ]
+}

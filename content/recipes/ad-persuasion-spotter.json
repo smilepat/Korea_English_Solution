@@ -1,0 +1,18 @@
+{
+  "id": "ad-persuasion-spotter",
+  "titleKo": "사게 만드는 말 찾기",
+  "titleEn": "Spot the persuasion",
+  "stage": "while",
+  "skill": "reading",
+  "grades": ["middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 8,
+  "grouping": "pair",
+  "layer": "inference",
+  "hooks": { "forms": ["advertisement"], "purposes": [], "methods": [] },
+  "slots": [
+    { "key": "hooks", "kind": "phrase_list", "n": 4, "from": "passage", "rule": "읽는 이를 움직이려는 표현 (Don't miss, only $, free, limited, join us, today 등). 원문 그대로." }
+  ],
+  "studentText": "광고에서 읽는 이를 움직이려는 말을 찾아 밑줄 치세요 ({{hooks.n}}개 이상). 각각 어떤 마음을 건드리는지 짝과 말해 보세요 — 급함? 손해 볼까 봐? 남들도 하니까?",
+  "teacherNote": "표현과 '건드리는 마음'을 짝짓는 것이 활동이다. 광고는 정보글의 탈을 쓴 설득글이라는 것을 여기서 알게 된다.",
+  "source": { "inventoryId": "bridge-distractor", "repo": "BRIDGE" }
+}

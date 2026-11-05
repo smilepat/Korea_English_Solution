@@ -1,0 +1,17 @@
+{
+  "id": "social-say-it-politely",
+  "titleKo": "같은 말, 더 부드럽게",
+  "titleEn": "Say it politely",
+  "stage": "post",
+  "skill": "speaking",
+  "grades": ["middle1", "middle2", "middle3", "high1"],
+  "minutes": 7,
+  "grouping": "pair",
+  "layer": "practice",
+  "hooks": { "forms": [], "purposes": ["social"], "methods": [] },
+  "slots": [
+    { "key": "acts", "kind": "sentence_list", "n": 3, "from": "passage", "rule": "부탁·거절·초대·감사 같은 의사소통 기능이 드러나는 문장 3개. 원문 그대로." }
+  ],
+  "studentText": "아래 문장이 각각 무엇을 하는 말인지(부탁·거절·초대·감사) 짝과 정하고, 같은 뜻을 더 부드럽게 또는 더 짧게 말하는 법을 하나씩 만들어 보세요.\n{{acts}}",
+  "teacherNote": "겉모양(편지·대화) 표지가 없는데 판정이 '친교' 로 나온 글에 걸린다. 의사소통 기능을 이름 붙이는 것이 첫 단계다."
+}

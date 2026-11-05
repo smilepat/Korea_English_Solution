@@ -1,0 +1,19 @@
+{
+  "id": "narration-timeline-rebuild",
+  "titleKo": "사건 순서 다시 세우기",
+  "titleEn": "Rebuild the timeline",
+  "stage": "while",
+  "skill": "reading",
+  "grades": ["middle1", "middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 12,
+  "grouping": "pair",
+  "materials": ["문장 조각 카드 (잘라서 배부)"],
+  "layer": "structure",
+  "hooks": { "forms": [], "purposes": [], "methods": ["narration"] },
+  "slots": [
+    { "key": "events", "kind": "sentence_list", "n": 6, "from": "passage", "rule": "일이 일어난 차례를 담은 문장만 고른다. 원문 그대로 옮기고, 지문에 나온 순서를 섞어서 제시한다." }
+  ],
+  "studentText": "아래 {{events.n}}개 문장은 순서가 섞여 있습니다. 일이 일어난 차례대로 번호를 붙이세요. 그렇게 정한 근거가 되는 낱말(then, after, finally, 시간 표현)에 밑줄을 그으세요.",
+  "teacherNote": "순서를 정한 근거를 말하게 하면 시간 연결어 학습으로 이어진다. 짝이 다르게 놓은 자리가 있으면 그 두 문장만 다시 읽힌다.",
+  "source": { "inventoryId": "msal-order", "repo": "MSAL" }
+}

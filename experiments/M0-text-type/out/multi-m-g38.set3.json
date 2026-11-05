@@ -1,0 +1,189 @@
+{
+  "judge": "m-g38.set3",
+  "model": "gemini-3.8-flash",
+  "option_seed": 333,
+  "methods": [
+    "narration",
+    "classification",
+    "cause_effect",
+    "definition",
+    "elaboration",
+    "exemplification",
+    "comparison",
+    "contrast",
+    "problem_solution"
+  ],
+  "predictions": [
+    {
+      "gid": "T01",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": false,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": true,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": true
+      },
+      "dominant": "exemplification",
+      "n_present": 3,
+      "evidence_grounded": 3,
+      "evidence_total": 3,
+      "ok": true
+    },
+    {
+      "gid": "T02",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": false,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": true,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": false
+      },
+      "dominant": "elaboration",
+      "n_present": 2,
+      "evidence_grounded": 2,
+      "evidence_total": 2,
+      "ok": true
+    },
+    {
+      "gid": "T03",
+      "present": {
+        "narration": false,
+        "classification": true,
+        "cause_effect": true,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": true,
+        "comparison": true,
+        "contrast": true,
+        "problem_solution": true
+      },
+      "dominant": "cause_effect",
+      "n_present": 7,
+      "evidence_grounded": 7,
+      "evidence_total": 7,
+      "ok": true
+    },
+    {
+      "gid": "T04",
+      "present": {
+        "narration": true,
+        "classification": false,
+        "cause_effect": true,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": false,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": false
+      },
+      "dominant": "narration",
+      "n_present": 3,
+      "evidence_grounded": 3,
+      "evidence_total": 3,
+      "ok": true
+    },
+    {
+      "gid": "T05",
+      "present": {
+        "narration": true,
+        "classification": false,
+        "cause_effect": true,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": false,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": true
+      },
+      "dominant": "narration",
+      "n_present": 4,
+      "evidence_grounded": 4,
+      "evidence_total": 4,
+      "ok": true
+    },
+    {
+      "gid": "T06",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": true,
+        "definition": true,
+        "elaboration": true,
+        "exemplification": false,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": false
+      },
+      "dominant": "elaboration",
+      "n_present": 3,
+      "evidence_grounded": 3,
+      "evidence_total": 3,
+      "ok": true
+    },
+    {
+      "gid": "T07",
+      "present": {
+        "narration": true,
+        "classification": false,
+        "cause_effect": false,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": false,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": false
+      },
+      "dominant": "narration",
+      "n_present": 2,
+      "evidence_grounded": 2,
+      "evidence_total": 2,
+      "ok": true
+    },
+    {
+      "gid": "T08",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": true,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": true,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": true
+      },
+      "dominant": "cause_effect",
+      "n_present": 4,
+      "evidence_grounded": 4,
+      "evidence_total": 4,
+      "ok": true
+    },
+    {
+      "gid": "T09",
+      "present": {
+        "narration": true,
+        "classification": false,
+        "cause_effect": true,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": true,
+        "comparison": false,
+        "contrast": true,
+        "problem_solution": false
+      },
+      "dominant": "narration",
+      "n_present": 5,
+      "evidence_grounded": 5,
+      "evidence_total": 5,
+      "ok": true
+    }
+  ]
+}

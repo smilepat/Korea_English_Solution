@@ -1,0 +1,18 @@
+{
+  "id": "letter-who-to-whom-why",
+  "titleKo": "누가 · 누구에게 · 왜",
+  "titleEn": "Who, to whom, and why",
+  "stage": "pre",
+  "skill": "reading",
+  "grades": ["middle1", "middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 5,
+  "grouping": "individual",
+  "layer": "anticipation",
+  "hooks": { "forms": ["letter"], "purposes": [], "methods": [] },
+  "slots": [
+    { "key": "opening", "kind": "sentence", "from": "passage", "rule": "편지의 첫 문장(인사말 다음 문장). 원문 그대로." }
+  ],
+  "studentText": "편지의 첫 줄만 읽습니다: \"{{opening}}\"\n누가 누구에게 쓰는지, 무엇을 바라고 쓰는지 예상해 세 칸에 적으세요. 그런 뒤 끝까지 읽고 맞았는지 표시하세요.",
+  "teacherNote": "예상이 틀려도 좋다. 틀린 예상을 고치는 순간이 편지의 '목적' 학습이다. 수능 18번(글의 목적)이 바로 이 물음이다.",
+  "source": { "inventoryId": "irc-flow-anticipation", "repo": "IRC" }
+}

@@ -1,0 +1,17 @@
+{
+  "id": "classification-name-the-groups",
+  "titleKo": "기준 한 줄로 말하기",
+  "titleEn": "Name the criterion",
+  "stage": "post",
+  "skill": "writing",
+  "grades": ["middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 7,
+  "grouping": "individual",
+  "layer": "summary",
+  "hooks": { "forms": [], "purposes": [], "methods": ["classification"] },
+  "slots": [
+    { "key": "frame", "kind": "text", "from": "generated", "rule": "'The writer divides ___ into ___ according to ___.' 꼴의 빈칸 문장 틀. 지문의 낱말을 쓰되 빈칸은 비워 둔다." }
+  ],
+  "studentText": "이 글이 무엇을, 몇 갈래로, 무슨 기준으로 나누는지 한 문장으로 쓰세요.\n{{frame}}",
+  "teacherNote": "기준(according to …)이 정답의 핵심이다. 갈래 이름만 나열한 답은 반쪽이다."
+}

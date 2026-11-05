@@ -1,0 +1,68 @@
+{
+  "_note": "실제 교과서 견본. 본문은 gold-set-3.json (gitignore). 출판사 공개 견본에서 측정용 소량 인용, 재배포 금지.",
+  "labels": [
+    {
+      "gid": "T01",
+      "agent_id": "P1",
+      "source": "미래엔 중학 영어1 Unit 1",
+      "title": "What's in Your School Survival Kit?",
+      "words": 166
+    },
+    {
+      "gid": "T02",
+      "agent_id": "P2",
+      "source": "미래엔 중학 영어1 Unit 1 Wrap Up Reading",
+      "title": "",
+      "words": 41
+    },
+    {
+      "gid": "T03",
+      "agent_id": "P3",
+      "source": "미래엔 공통영어1 Lesson 3",
+      "title": "Tuning Out: The Science of Noise-Cancellation (도입+1·2절)",
+      "words": 405
+    },
+    {
+      "gid": "T04",
+      "agent_id": "P4",
+      "source": "미래엔 공통영어1 Lesson 3 Write & Share",
+      "title": "Magic Rainbow Milk (project description)",
+      "words": 133
+    },
+    {
+      "gid": "T05",
+      "agent_id": "P5",
+      "source": "미래엔 영어I Lesson 1",
+      "title": "Endurance on the Endurance (pp.16-18 부분)",
+      "words": 341
+    },
+    {
+      "gid": "T06",
+      "agent_id": "P6",
+      "source": "미래엔 영어I Lesson 1 Read More",
+      "title": "Wounded Healer",
+      "words": 172
+    },
+    {
+      "gid": "T07",
+      "agent_id": "P7",
+      "source": "미래엔 영어I Lesson 1 Writing Workshop",
+      "title": "Malala biography (sample)",
+      "words": 84
+    },
+    {
+      "gid": "T08",
+      "agent_id": "P8",
+      "source": "NE능률 공통영어1(민) Lesson 1",
+      "title": "Don't Let Anger Be Your Boss (도입+1·2절)",
+      "words": 260
+    },
+    {
+      "gid": "T09",
+      "agent_id": "P9",
+      "source": "NE능률 공통영어1(오) Lesson 1",
+      "title": "Discovering Yourself through Challenges (도입+Challenge 1)",
+      "words": 304
+    }
+  ]
+}

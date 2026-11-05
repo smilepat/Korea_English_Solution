@@ -24,6 +24,8 @@ import Link from "next/link"
 import { exportToPDF } from "@/lib/pdf-export"
 import { generateLessonPlan, getLessonCases } from "@/app/actions/lessons"
 import type { LessonCase } from "@/lib/turso"
+import { TextTypePanel } from "@/components/text-type-panel"
+import { FileText } from "lucide-react"
 
 const GRADES = [
   { value: "middle1", label: "중1" },
@@ -134,7 +136,7 @@ export default function LessonPlannerPage() {
                 AI 수업 설계 도우미
               </h1>
               <p className="text-slate-500 text-sm mt-0.5">
-                학년·기능·주제를 입력하면 Claude AI가 수업 지도안을 생성합니다
+                주제로 시작하거나, 지문을 붙여 넣어 글의 종류부터 판정합니다
               </p>
             </div>
           </div>
@@ -162,11 +164,20 @@ export default function LessonPlannerPage() {
               <Sparkles className="h-4 w-4" />
               AI 수업 설계
             </TabsTrigger>
+            <TabsTrigger value="passage" className="gap-2">
+              <FileText className="h-4 w-4" />
+              지문으로 시작
+            </TabsTrigger>
             <TabsTrigger value="saved" className="gap-2">
               <BookOpen className="h-4 w-4" />
               저장된 수업
             </TabsTrigger>
           </TabsList>
+
+          {/* ── 지문 탭 (M1) ── */}
+          <TabsContent value="passage">
+            <TextTypePanel />
+          </TabsContent>
 
           {/* ── AI 수업 설계 탭 ── */}
           <TabsContent value="create">

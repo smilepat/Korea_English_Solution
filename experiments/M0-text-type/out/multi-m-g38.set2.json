@@ -1,0 +1,588 @@
+{
+  "judge": "m-g38.set2",
+  "model": "gemini-3.8-flash",
+  "option_seed": 333,
+  "methods": [
+    "narration",
+    "classification",
+    "cause_effect",
+    "definition",
+    "elaboration",
+    "exemplification",
+    "comparison",
+    "contrast",
+    "problem_solution"
+  ],
+  "predictions": [
+    {
+      "gid": "H01",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": false,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": false,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": false
+      },
+      "dominant": "elaboration",
+      "n_present": 1,
+      "evidence_grounded": 1,
+      "evidence_total": 1,
+      "ok": true
+    },
+    {
+      "gid": "H02",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": false,
+        "definition": true,
+        "elaboration": true,
+        "exemplification": true,
+        "comparison": false,
+        "contrast": true,
+        "problem_solution": false
+      },
+      "dominant": "definition",
+      "n_present": 4,
+      "evidence_grounded": 4,
+      "evidence_total": 4,
+      "ok": true
+    },
+    {
+      "gid": "H03",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": false,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": false,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": false
+      },
+      "dominant": "elaboration",
+      "n_present": 1,
+      "evidence_grounded": 1,
+      "evidence_total": 1,
+      "ok": true
+    },
+    {
+      "gid": "H04",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": false,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": true,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": false
+      },
+      "dominant": "elaboration",
+      "n_present": 2,
+      "evidence_grounded": 2,
+      "evidence_total": 2,
+      "ok": true
+    },
+    {
+      "gid": "H05",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": true,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": true,
+        "comparison": false,
+        "contrast": true,
+        "problem_solution": false
+      },
+      "dominant": "exemplification",
+      "n_present": 4,
+      "evidence_grounded": 4,
+      "evidence_total": 4,
+      "ok": true
+    },
+    {
+      "gid": "H06",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": true,
+        "definition": false,
+        "elaboration": false,
+        "exemplification": false,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": false
+      },
+      "dominant": "cause_effect",
+      "n_present": 1,
+      "evidence_grounded": 1,
+      "evidence_total": 1,
+      "ok": true
+    },
+    {
+      "gid": "H07",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": false,
+        "definition": true,
+        "elaboration": true,
+        "exemplification": false,
+        "comparison": true,
+        "contrast": true,
+        "problem_solution": false
+      },
+      "dominant": "contrast",
+      "n_present": 4,
+      "evidence_grounded": 4,
+      "evidence_total": 4,
+      "ok": true
+    },
+    {
+      "gid": "H08",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": false,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": false,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": false
+      },
+      "dominant": "elaboration",
+      "n_present": 1,
+      "evidence_grounded": 1,
+      "evidence_total": 1,
+      "ok": true
+    },
+    {
+      "gid": "H09",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": false,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": false,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": true
+      },
+      "dominant": "problem_solution",
+      "n_present": 2,
+      "evidence_grounded": 2,
+      "evidence_total": 2,
+      "ok": true
+    },
+    {
+      "gid": "H10",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": false,
+        "definition": false,
+        "elaboration": false,
+        "exemplification": false,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": true
+      },
+      "dominant": "problem_solution",
+      "n_present": 1,
+      "evidence_grounded": 1,
+      "evidence_total": 1,
+      "ok": true
+    },
+    {
+      "gid": "H11",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": false,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": false,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": false
+      },
+      "dominant": "elaboration",
+      "n_present": 1,
+      "evidence_grounded": 1,
+      "evidence_total": 1,
+      "ok": true
+    },
+    {
+      "gid": "H12",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": false,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": false,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": false
+      },
+      "dominant": "elaboration",
+      "n_present": 1,
+      "evidence_grounded": 1,
+      "evidence_total": 1,
+      "ok": true
+    },
+    {
+      "gid": "H13",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": false,
+        "definition": true,
+        "elaboration": true,
+        "exemplification": false,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": false
+      },
+      "dominant": "elaboration",
+      "n_present": 2,
+      "evidence_grounded": 1,
+      "evidence_total": 2,
+      "ok": true
+    },
+    {
+      "gid": "H14",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": true,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": true,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": true
+      },
+      "dominant": "problem_solution",
+      "n_present": 4,
+      "evidence_grounded": 4,
+      "evidence_total": 4,
+      "ok": true
+    },
+    {
+      "gid": "H15",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": false,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": false,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": true
+      },
+      "dominant": "problem_solution",
+      "n_present": 2,
+      "evidence_grounded": 2,
+      "evidence_total": 2,
+      "ok": true
+    },
+    {
+      "gid": "H16",
+      "present": {
+        "narration": false,
+        "classification": true,
+        "cause_effect": false,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": false,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": false
+      },
+      "dominant": "elaboration",
+      "n_present": 2,
+      "evidence_grounded": 2,
+      "evidence_total": 2,
+      "ok": true
+    },
+    {
+      "gid": "H17",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": true,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": false,
+        "comparison": false,
+        "contrast": true,
+        "problem_solution": false
+      },
+      "dominant": "elaboration",
+      "n_present": 3,
+      "evidence_grounded": 3,
+      "evidence_total": 3,
+      "ok": true
+    },
+    {
+      "gid": "H18",
+      "present": {
+        "narration": true,
+        "classification": false,
+        "cause_effect": false,
+        "definition": false,
+        "elaboration": false,
+        "exemplification": false,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": true
+      },
+      "dominant": "narration",
+      "n_present": 2,
+      "evidence_grounded": 2,
+      "evidence_total": 2,
+      "ok": true
+    },
+    {
+      "gid": "H19",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": false,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": false,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": false
+      },
+      "dominant": "elaboration",
+      "n_present": 1,
+      "evidence_grounded": 1,
+      "evidence_total": 1,
+      "ok": true
+    },
+    {
+      "gid": "H20",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": true,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": true,
+        "comparison": false,
+        "contrast": true,
+        "problem_solution": false
+      },
+      "dominant": "contrast",
+      "n_present": 4,
+      "evidence_grounded": 4,
+      "evidence_total": 4,
+      "ok": true
+    },
+    {
+      "gid": "H21",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": true,
+        "definition": true,
+        "elaboration": true,
+        "exemplification": true,
+        "comparison": false,
+        "contrast": true,
+        "problem_solution": false
+      },
+      "dominant": "contrast",
+      "n_present": 5,
+      "evidence_grounded": 5,
+      "evidence_total": 5,
+      "ok": true
+    },
+    {
+      "gid": "H22",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": true,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": false,
+        "comparison": false,
+        "contrast": true,
+        "problem_solution": false
+      },
+      "dominant": "contrast",
+      "n_present": 3,
+      "evidence_grounded": 3,
+      "evidence_total": 3,
+      "ok": true
+    },
+    {
+      "gid": "H23",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": false,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": true,
+        "comparison": false,
+        "contrast": true,
+        "problem_solution": false
+      },
+      "dominant": "contrast",
+      "n_present": 3,
+      "evidence_grounded": 3,
+      "evidence_total": 3,
+      "ok": true
+    },
+    {
+      "gid": "H24",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": false,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": true,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": false
+      },
+      "dominant": "exemplification",
+      "n_present": 2,
+      "evidence_grounded": 2,
+      "evidence_total": 2,
+      "ok": true
+    },
+    {
+      "gid": "H25",
+      "present": {
+        "narration": false,
+        "classification": true,
+        "cause_effect": false,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": false,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": false
+      },
+      "dominant": "elaboration",
+      "n_present": 2,
+      "evidence_grounded": 2,
+      "evidence_total": 2,
+      "ok": true
+    },
+    {
+      "gid": "H26",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": false,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": false,
+        "comparison": true,
+        "contrast": false,
+        "problem_solution": true
+      },
+      "dominant": "problem_solution",
+      "n_present": 3,
+      "evidence_grounded": 3,
+      "evidence_total": 3,
+      "ok": true
+    },
+    {
+      "gid": "H27",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": true,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": false,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": true
+      },
+      "dominant": "problem_solution",
+      "n_present": 3,
+      "evidence_grounded": 3,
+      "evidence_total": 3,
+      "ok": true
+    },
+    {
+      "gid": "H28",
+      "present": {
+        "narration": true,
+        "classification": false,
+        "cause_effect": false,
+        "definition": false,
+        "elaboration": false,
+        "exemplification": false,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": false
+      },
+      "dominant": "narration",
+      "n_present": 1,
+      "evidence_grounded": 1,
+      "evidence_total": 1,
+      "ok": true
+    },
+    {
+      "gid": "H29",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": false,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": true,
+        "comparison": false,
+        "contrast": true,
+        "problem_solution": false
+      },
+      "dominant": "contrast",
+      "n_present": 3,
+      "evidence_grounded": 3,
+      "evidence_total": 3,
+      "ok": true
+    },
+    {
+      "gid": "H30",
+      "present": {
+        "narration": false,
+        "classification": false,
+        "cause_effect": false,
+        "definition": false,
+        "elaboration": true,
+        "exemplification": true,
+        "comparison": false,
+        "contrast": false,
+        "problem_solution": false
+      },
+      "dominant": "elaboration",
+      "n_present": 2,
+      "evidence_grounded": 2,
+      "evidence_total": 2,
+      "ok": true
+    }
+  ]
+}

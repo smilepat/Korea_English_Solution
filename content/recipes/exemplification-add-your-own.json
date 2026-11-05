@@ -1,0 +1,17 @@
+{
+  "id": "exemplification-add-your-own",
+  "titleKo": "내 보기 하나 더",
+  "titleEn": "Add one example of your own",
+  "stage": "post",
+  "skill": "speaking",
+  "grades": ["middle1", "middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 8,
+  "grouping": "group",
+  "layer": "practice",
+  "hooks": { "forms": [], "purposes": [], "methods": ["exemplification"] },
+  "slots": [
+    { "key": "claim", "kind": "sentence", "from": "passage", "rule": "보기들이 받치는 일반 진술 문장 하나. 원문 그대로." }
+  ],
+  "studentText": "글은 이렇게 말합니다: \"{{claim}}\"\n모둠에서 이 말을 받쳐 줄 보기를 각자 하나씩 영어로 말하세요 (For example, …). 글에 없는 것이어야 합니다. 가장 설득력 있는 보기를 모둠이 하나 고르세요.",
+  "teacherNote": "글의 보기를 되풀이하면 다시 시킨다. 새 보기를 만드는 것이 이해의 증거다."
+}

@@ -1,0 +1,17 @@
+{
+  "id": "home-reread-and-mark",
+  "titleKo": "다시 읽고 세 군데 표시",
+  "titleEn": "Reread and mark three spots",
+  "stage": "home",
+  "skill": "reading",
+  "grades": ["middle1", "middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 10,
+  "grouping": "individual",
+  "layer": "fluency",
+  "hooks": { "forms": [], "purposes": [], "methods": [] },
+  "slots": [],
+  "studentText": "글을 소리 내어 두 번 읽으세요. 두 번째 읽을 때 ① 가장 중요한 문장 ② 가장 어려웠던 문장 ③ 수업에서 배운 것이 나오는 문장 에 각각 다른 표시를 하고, ②에 왜 어려웠는지 한 줄을 씁니다.",
+  "teacherNote": "②의 한 줄이 다음 수업의 재료다. 학생들이 같은 문장을 어렵다고 하면 그 문장을 다음 시간에 다룬다.",
+  "selfCheck": "표시가 세 개 다 있고, ②에 한 줄이 있으면 됩니다. 두 번째 읽기가 첫 번째보다 빨랐으면 더 좋습니다.",
+  "source": { "inventoryId": "irc-fluency-rounds", "repo": "IRC" }
+}

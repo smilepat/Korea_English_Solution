@@ -1,0 +1,17 @@
+{
+  "id": "problem-solution-pitch",
+  "titleKo": "30초 해결책 제안",
+  "titleEn": "30-second pitch",
+  "stage": "post",
+  "skill": "speaking",
+  "grades": ["middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 8,
+  "grouping": "group",
+  "layer": "practice",
+  "hooks": { "forms": [], "purposes": [], "methods": ["problem_solution"] },
+  "slots": [
+    { "key": "problem", "kind": "sentence", "from": "passage", "rule": "문제를 세우는 문장 하나. 원문 그대로." }
+  ],
+  "studentText": "글의 문제는 이것입니다: \"{{problem}}\"\n모둠에서 글에 없는 새 해결책을 하나 정하고, 30초 안에 영어로 제안하세요. 'The problem is … One way to solve it is … because …' 틀을 쓰세요.",
+  "teacherNote": "'because' 뒤가 있어야 통과. 해결책만 말하고 이유가 없으면 다시 시킨다."
+}

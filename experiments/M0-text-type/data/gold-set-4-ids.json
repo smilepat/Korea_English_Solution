@@ -1,0 +1,302 @@
+{
+  "_note": "개방 라이선스 표본. 본문은 gold-set-4.json (gitignore).",
+  "labels": [
+    {
+      "gid": "O01",
+      "agent_id": "N1",
+      "source": "Three Hundred Aesop's Fables (G. F. Townsend 역), Project Gutenberg #21 - The Hare and the Tortoise",
+      "url": "https://www.gutenberg.org/cache/epub/21/pg21.txt",
+      "license": "Project Gutenberg 머리말: 'for the use of anyone anywhere ... at no cost and with almost no restrictions whatsoever' (원문 공유영역)",
+      "purpose_guess": "narrative",
+      "grade_guess": "중3",
+      "words": 134,
+      "caveat": "1867년 역문, 고어(assented 등) 손질 필요"
+    },
+    {
+      "gid": "O02",
+      "agent_id": "N2",
+      "source": "Three Hundred Aesop's Fables, Project Gutenberg #21 - The Lion and the Mouse",
+      "url": "https://www.gutenberg.org/cache/epub/21/pg21.txt",
+      "license": "Project Gutenberg 머리말: 'for the use of anyone anywhere ... at no cost and with almost no restrictions whatsoever' (원문 공유영역)",
+      "purpose_guess": "narrative",
+      "grade_guess": "중3",
+      "words": 133,
+      "caveat": "고어(entreated, confer benefits) 손질 필요"
+    },
+    {
+      "gid": "O03",
+      "agent_id": "N3",
+      "source": "Three Hundred Aesop's Fables, Project Gutenberg #21 - The Ants and the Grasshopper",
+      "url": "https://www.gutenberg.org/cache/epub/21/pg21.txt",
+      "license": "Project Gutenberg 머리말: 'for the use of anyone anywhere ... at no cost and with almost no restrictions whatsoever' (원문 공유영역)",
+      "purpose_guess": "narrative",
+      "grade_guess": "중2~중3",
+      "words": 80,
+      "caveat": ""
+    },
+    {
+      "gid": "O04",
+      "agent_id": "N4",
+      "source": "Three Hundred Aesop's Fables, Project Gutenberg #21 - The Crow and the Pitcher",
+      "url": "https://www.gutenberg.org/cache/epub/21/pg21.txt",
+      "license": "Project Gutenberg 머리말: 'for the use of anyone anywhere ... at no cost and with almost no restrictions whatsoever' (원문 공유영역)",
+      "purpose_guess": "narrative",
+      "grade_guess": "중2~중3",
+      "words": 101,
+      "caveat": ""
+    },
+    {
+      "gid": "O05",
+      "agent_id": "N5",
+      "source": "Three Hundred Aesop's Fables, Project Gutenberg #21 - The North Wind and the Sun",
+      "url": "https://www.gutenberg.org/cache/epub/21/pg21.txt",
+      "license": "Project Gutenberg 머리말: 'for the use of anyone anywhere ... at no cost and with almost no restrictions whatsoever' (원문 공유영역)",
+      "purpose_guess": "narrative",
+      "grade_guess": "중3~고1",
+      "words": 128,
+      "caveat": ""
+    },
+    {
+      "gid": "O06",
+      "agent_id": "N6",
+      "source": "VOA Learning English, American Stories - 'The Gift of the Magi' by O. Henry (Karen Leggett 각색), 도입부 발췌",
+      "url": "https://learningenglish.voanews.com/a/the-gift-of-the-magi-by-o-henry/4656574.html",
+      "license": "VOA 이용약관: 'All text, audio and video material produced exclusively by the Voice of America is in the public domain. Credit ... should be given to VOA'; 제3자(AP 등) 자료 예외; 원작 O. Henry 1905 공유영역",
+      "purpose_guess": "narrative",
+      "grade_guess": "고1",
+      "words": 387,
+      "caveat": "전체 이야기 중 도입부만 발췌"
+    },
+    {
+      "gid": "O07",
+      "agent_id": "S1",
+      "source": "VOA Learning English, Let's Learn English Level 1, Lesson 1: Welcome! (대화 대본)",
+      "url": "https://learningenglish.voanews.com/a/lets-learn-english-lesson-one/3111026.html",
+      "license": "VOA 이용약관: 'All text, audio and video material produced exclusively by the Voice of America is in the public domain. Credit ... should be given to VOA'; 제3자(AP 등) 자료 예외",
+      "purpose_guess": "social",
+      "grade_guess": "중1",
+      "words": 57,
+      "caveat": "58낱말, 하한 60 근접"
+    },
+    {
+      "gid": "O08",
+      "agent_id": "S2",
+      "source": "VOA Learning English, Let's Learn English Level 1, Lesson 2: Hello, I'm Anna! (대화 대본)",
+      "url": "https://learningenglish.voanews.com/a/lets-learn-english-lesson-2-hello/3113733.html",
+      "license": "VOA 이용약관: 'All text, audio and video material produced exclusively by the Voice of America is in the public domain. Credit ... should be given to VOA'; 제3자(AP 등) 자료 예외",
+      "purpose_guess": "social",
+      "grade_guess": "중1",
+      "words": 106,
+      "caveat": ""
+    },
+    {
+      "gid": "O09",
+      "agent_id": "S3",
+      "source": "VOA Learning English, Ask a Teacher - 'Near and Nearby' (Andrew Smith), 독자 편지 + 답장",
+      "url": "https://learningenglish.voanews.com/a/near-and-nearby/7842145.html",
+      "license": "VOA 이용약관: 'All text, audio and video material produced exclusively by the Voice of America is in the public domain. Credit ... should be given to VOA'; 제3자(AP 등) 자료 예외",
+      "purpose_guess": "social",
+      "grade_guess": "중3~고1",
+      "words": 311,
+      "caveat": "독자 질문 부분은 VOA가 게재한 투고"
+    },
+    {
+      "gid": "O10",
+      "agent_id": "S4",
+      "source": "VOA Learning English, Ask a Teacher - 'Thinking in English' (Andrew Smith), 독자 편지 + 답장 앞부분",
+      "url": "https://learningenglish.voanews.com/a/thinking-in-english/7829311.html",
+      "license": "VOA 이용약관: 'All text, audio and video material produced exclusively by the Voice of America is in the public domain. Credit ... should be given to VOA'; 제3자(AP 등) 자료 예외",
+      "purpose_guess": "social",
+      "grade_guess": "고1",
+      "words": 316,
+      "caveat": "답장 뒷부분('Steps for thinking in English' 이후) 생략; 독자 질문 부분은 투고"
+    },
+    {
+      "gid": "O11",
+      "agent_id": "S5",
+      "source": "Grace Bedell -> Abraham Lincoln, 1860-10-15 (원본 Detroit Public Library; LOC 사본 mal.0402800), 전사문 abrahamlincolnonline.org",
+      "url": "https://www.abrahamlincolnonline.org/lincoln/speeches/gracebedell.htm",
+      "license": "공유영역(연령; 1860년 서한)",
+      "purpose_guess": "social",
+      "grade_guess": "중2~중3",
+      "words": 263,
+      "caveat": "원문 철자·구두점 오류 있음; LOC 원본 페이지는 JS 차단으로 미열람, 전사문은 Wikipedia와 대조"
+    },
+    {
+      "gid": "O12",
+      "agent_id": "S6",
+      "source": "Abraham Lincoln -> Grace Bedell, 1860-10-19 (LOC mal.0404000), 전사문 abrahamlincolnonline.org",
+      "url": "https://www.abrahamlincolnonline.org/lincoln/speeches/gracebedell.htm",
+      "license": "공유영역(연령; 1860년 서한)",
+      "purpose_guess": "social",
+      "grade_guess": "중3",
+      "words": 85,
+      "caveat": "전사문 2차 출처 대조"
+    },
+    {
+      "gid": "O13",
+      "agent_id": "S7",
+      "source": "Jean Webster, Daddy-Long-Legs (1912), Project Gutenberg #157 - 12th November 편지",
+      "url": "https://www.gutenberg.org/cache/epub/157/pg157.txt",
+      "license": "Project Gutenberg 머리말: 'for the use of anyone anywhere ... at no cost and with almost no restrictions whatsoever' (원문 공유영역); 저자 1916 사망",
+      "purpose_guess": "social",
+      "grade_guess": "고1",
+      "words": 173,
+      "caveat": "1910년대 문체"
+    },
+    {
+      "gid": "O14",
+      "agent_id": "S8",
+      "source": "Jean Webster, Daddy-Long-Legs (1912), Project Gutenberg #157 - 17th October 편지",
+      "url": "https://www.gutenberg.org/cache/epub/157/pg157.txt",
+      "license": "Project Gutenberg 머리말: 'for the use of anyone anywhere ... at no cost and with almost no restrictions whatsoever' (원문 공유영역); 저자 1916 사망",
+      "purpose_guess": "social",
+      "grade_guess": "고1~고2",
+      "words": 283,
+      "caveat": "말미 프랑스어 인사 포함"
+    },
+    {
+      "gid": "O15",
+      "agent_id": "I2",
+      "source": "NASA Space Place, 'What Are the Moon's Phases?'",
+      "url": "https://spaceplace.nasa.gov/moon-phases/en/",
+      "license": "NASA 브랜드센터: 'NASA content ... generally are not subject to copyright in the United States', 교육 목적 사용 시 NASA 출처 표기, 제3자 표시 자료 예외",
+      "purpose_guess": "informative",
+      "grade_guess": "중2~중3",
+      "words": 360,
+      "caveat": "8상 목록 부분 제외"
+    },
+    {
+      "gid": "O16",
+      "agent_id": "I3",
+      "source": "Wikijunior: Solar System/Moon (Wikibooks), 앞 4절",
+      "url": "https://en.wikibooks.org/wiki/Wikijunior:Solar_System/Moon",
+      "license": "페이지 푸터: 'Text is available under the Creative Commons Attribution-ShareAlike License' (CC BY-SA) - 출처·저작자 표기 + 동일조건",
+      "purpose_guess": "informative",
+      "grade_guess": "중1~중2",
+      "words": 357,
+      "caveat": "CC BY-SA: 재배포 시 동일 라이선스 필요"
+    },
+    {
+      "gid": "O17",
+      "agent_id": "I4",
+      "source": "NPS, 'Become A Junior Ranger' (절차 안내)",
+      "url": "https://www.nps.gov/kids/become-a-junior-ranger.htm",
+      "license": "NPS 면책 페이지: NPS 제작물은 'generally considered in the public domain', 출처 표기 권장, 제3자 자료·상표 예외",
+      "purpose_guess": "informative",
+      "grade_guess": "중3",
+      "words": 306,
+      "caveat": "안내문"
+    },
+    {
+      "gid": "O18",
+      "agent_id": "I5",
+      "source": "NPS Congaree National Park, News Release 2026-09-03 (초대·공지)",
+      "url": "https://www.nps.gov/cong/learn/news/congaree-national-park-invites-public-to-commemorate-its-50th-anniversary.htm",
+      "license": "NPS 면책 페이지: NPS 제작물은 'generally considered in the public domain', 출처 표기 권장, 제3자 자료·상표 예외",
+      "purpose_guess": "informative",
+      "grade_guess": "고1",
+      "words": 218,
+      "caveat": "초대장/공지 성격"
+    },
+    {
+      "gid": "O19",
+      "agent_id": "I6",
+      "source": "NPS Yellowstone, 'Current Conditions' (2026-08-31 갱신), 항목 발췌 (공지·알림)",
+      "url": "https://www.nps.gov/yell/planyourvisit/conditions.htm",
+      "license": "NPS 면책 페이지: NPS 제작물은 'generally considered in the public domain', 출처 표기 권장, 제3자 자료·상표 예외",
+      "purpose_guess": "informative",
+      "grade_guess": "중3~고1",
+      "words": 181,
+      "caveat": "공지 항목만 발췌"
+    },
+    {
+      "gid": "O20",
+      "agent_id": "I7",
+      "source": "NPS, 'Volunteer with Us' (모집·광고형)",
+      "url": "https://www.nps.gov/getinvolved/volunteer.htm",
+      "license": "NPS 면책 페이지: NPS 제작물은 'generally considered in the public domain', 출처 표기 권장, 제3자 자료·상표 예외",
+      "purpose_guess": "informative",
+      "grade_guess": "중2",
+      "words": 81,
+      "caveat": "광고/모집 성격"
+    },
+    {
+      "gid": "O21",
+      "agent_id": "S9",
+      "source": "CDC Healthy Schools, 'Newsletters - Toolkit for Schools' 학부모 통신문 샘플 (편지형 공지)",
+      "url": "https://archive.cdc.gov/www_cdc_gov/healthyschools/connectedness/newletters.htm",
+      "license": "미 연방정부 저작물(17 U.S.C. §105); CDC 사이트 자체 저작권 문구는 직접 미확인",
+      "purpose_guess": "social",
+      "grade_guess": "고2",
+      "words": 395,
+      "caveat": "편지 형식 + 공지 내용(②/③ 경계); 중간 '학교 조치' 목록 절 생략; 템플릿 대괄호 [insert ...] 포함"
+    },
+    {
+      "gid": "O22",
+      "agent_id": "A1",
+      "source": "Abraham Lincoln, Gettysburg Address (Bliss본, Basler 편), NPS Lincoln Home",
+      "url": "https://www.nps.gov/liho/learn/historyculture/gettysburgaddress.htm",
+      "license": "공유영역(1863)",
+      "purpose_guess": "argumentative",
+      "grade_guess": "고2",
+      "words": 272,
+      "caveat": ""
+    },
+    {
+      "gid": "O23",
+      "agent_id": "A2",
+      "source": "Sojourner Truth, 'Ain't I a Woman?' (1851; Frances Gage 1863 기록본), NPS",
+      "url": "https://www.nps.gov/articles/sojourner-truth.htm",
+      "license": "공유영역(1851/1863)",
+      "purpose_guess": "argumentative",
+      "grade_guess": "고2",
+      "words": 353,
+      "caveat": "방언·역사 어휘; NPS도 기록본 판본 논란 명시"
+    },
+    {
+      "gid": "O24",
+      "agent_id": "A3",
+      "source": "Prepared Remarks of President Barack Obama: Back to School Event, 2009-09-08 (발췌 1)",
+      "url": "https://obamawhitehouse.archives.gov/mediaresources/PreparedSchoolRemarks",
+      "license": "미 연방정부 저작물(17 U.S.C. §105); 페이지 별도 문구 없음",
+      "purpose_guess": "argumentative",
+      "grade_guess": "중3~고1",
+      "words": 410,
+      "caveat": "410낱말, 상한 400 약간 초과"
+    },
+    {
+      "gid": "O25",
+      "agent_id": "A4",
+      "source": "Prepared Remarks of President Barack Obama: Back to School Event, 2009-09-08 (발췌 2)",
+      "url": "https://obamawhitehouse.archives.gov/mediaresources/PreparedSchoolRemarks",
+      "license": "미 연방정부 저작물(17 U.S.C. §105); 페이지 별도 문구 없음",
+      "purpose_guess": "argumentative",
+      "grade_guess": "중3~고1",
+      "words": 359,
+      "caveat": ""
+    },
+    {
+      "gid": "O26",
+      "agent_id": "A5",
+      "source": "NASA, 'Why Go to Space' (기관 입장 주장문)",
+      "url": "https://www.nasa.gov/humans-in-space/why-go-to-space/",
+      "license": "NASA 브랜드센터: 'NASA content ... generally are not subject to copyright in the United States', 교육 목적 사용 시 NASA 출처 표기, 제3자 표시 자료 예외",
+      "purpose_guess": "argumentative",
+      "grade_guess": "고1~고2",
+      "words": 267,
+      "caveat": ""
+    },
+    {
+      "gid": "O27",
+      "agent_id": "A6",
+      "source": "VOA Editorials, 'The United State's Growing Partnership With Ecuador' (앞부분 발췌)",
+      "url": "https://editorials.voa.gov/a/the-united-state-s-growing-partnership-with-ecuador/8197145.html",
+      "license": "VOA 이용약관: 'All text, audio and video material produced exclusively by the Voice of America is in the public domain. Credit ... should be given to VOA'; 제3자(AP 등) 자료 예외; 페이지 표제 'Reflecting the Views of the U.S. Government'",
+      "purpose_guess": "argumentative",
+      "grade_guess": "고2",
+      "words": 247,
+      "caveat": "정치·마약 조직 소재, 교실 적합성 별도 판단; 앞부분 발췌"
+    }
+  ]
+}

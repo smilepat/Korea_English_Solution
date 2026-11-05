@@ -24,6 +24,8 @@ export interface GeminiOpts {
   json?: boolean
   temperature?: number
   maxOutputTokens?: number
+  /** 호출별 모델 교체. 유형 판정은 서로 다른 모델 3개를 판정자로 쓴다(M0 설계). */
+  model?: string
 }
 
 export async function callGemini(
@@ -50,7 +52,10 @@ export async function callGemini(
     body.systemInstruction = { parts: [{ text: systemInstruction }] }
   }
 
-  const res = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+  const url = opts?.model
+    ? `https://generativelanguage.googleapis.com/v1beta/models/${opts.model}:generateContent`
+    : GEMINI_API_URL
+  const res = await fetch(`${url}?key=${GEMINI_API_KEY}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),

@@ -1,0 +1,18 @@
+{
+  "id": "pre-title-predict",
+  "titleKo": "첫 문장으로 내다보기",
+  "titleEn": "Predict from the first sentence",
+  "stage": "pre",
+  "skill": "reading",
+  "grades": ["middle1", "middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 5,
+  "grouping": "whole",
+  "layer": "anticipation",
+  "hooks": { "forms": [], "purposes": [], "methods": [] },
+  "slots": [
+    { "key": "first", "kind": "sentence", "from": "passage", "rule": "글의 첫 문장. 원문 그대로." }
+  ],
+  "studentText": "글의 첫 문장만 봅니다: \"{{first}}\"\n이 글이 무엇에 대해, 어떻게(이야기? 설명? 주장?) 이어질지 한 줄로 적으세요. 읽은 뒤 맞았는지 표시합니다.",
+  "teacherNote": "'어떻게 이어질지' 가 핵심이다. 화제 예측은 쉽고 전개 예측이 어렵다. 틀린 예측이 더 좋은 대화 재료다.",
+  "source": { "inventoryId": "irc-flow-anticipation", "repo": "IRC" }
+}

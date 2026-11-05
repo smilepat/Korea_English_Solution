@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>K1 정답지 만들기 — 지문 30편</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap">
+<style>
+  :root{
+    --ground:#F3F5F3; --surface:#fff; --surface-2:#E9EEEB;
+    --ink:#14201B; --ink-2:#3E4F47; --ink-3:#6E7F77;
+    --rule:#D6DEDA; --rule-strong:#B8C4BE;
+    --accent:#0B6B53; --accent-soft:#E1EFE9; --warn:#A8451C; --warn-soft:#F7E9E1;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --ground:#0F1412; --surface:#161D1A; --surface-2:#1E2723;
+    --ink:#E7EDE9; --ink-2:#AFBDB6; --ink-3:#7F8F87;
+    --rule:#2A3531; --rule-strong:#3C4A45;
+    --accent:#4FB392; --accent-soft:#16302A; --warn:#E0865C; --warn-soft:#2F211B;
+  }}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);
+    font-family:"IBM Plex Sans KR",system-ui,sans-serif;font-size:15px;line-height:1.7;
+    padding:0 20px 120px}
+  .wrap{max-width:920px;margin:0 auto}
+  header{padding:40px 0 24px;border-bottom:2px solid var(--ink)}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+  h1{font-family:"Gowun Batang",serif;font-size:clamp(28px,5vw,42px);margin:0 0 14px;line-height:1.15}
+  .intro{color:var(--ink-2);max-width:60ch;margin:0 0 6px}
+  .intro strong{color:var(--ink)}
+
+  .bar{position:sticky;top:0;z-index:10;background:var(--ground);
+    border-bottom:1px solid var(--rule);padding:12px 0;display:flex;gap:16px;
+    align-items:center;flex-wrap:wrap}
+  .prog{flex:1;min-width:180px;height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden}
+  .prog i{display:block;height:100%;background:var(--accent);width:0}
+  .count{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink-2);
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  button{font-family:inherit;font-size:13px;padding:8px 14px;border-radius:3px;cursor:pointer;
+    border:1px solid var(--rule-strong);background:var(--surface);color:var(--ink)}
+  button.primary{background:var(--accent);border-color:var(--accent);color:var(--ground);font-weight:500}
+  button:disabled{opacity:.45;cursor:not-allowed}
+
+  .card{background:var(--surface);border:1px solid var(--rule);margin-top:22px}
+  .card.done{border-left:3px solid var(--accent)}
+  .card-head{display:flex;gap:12px;align-items:baseline;padding:14px 18px;
+    border-bottom:1px solid var(--rule);flex-wrap:wrap}
+  .gid{font-family:"IBM Plex Mono",monospace;font-weight:500;color:var(--accent)}
+  .wc{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-3);
+    font-variant-numeric:tabular-nums}
+  .passage{padding:20px 22px;font-size:15.5px;line-height:1.85;max-width:68ch;
+    font-family:"IBM Plex Sans KR",Georgia,serif}
+  fieldset{border:none;margin:0;padding:16px 18px;border-top:1px solid var(--rule)}
+  legend{padding:0;font-size:12.5px;color:var(--ink-3);font-weight:500}
+  .q{font-size:13px;color:var(--ink-2);margin:0 0 10px}
+  .opts{display:flex;flex-wrap:wrap;gap:8px}
+  .opt{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--rule-strong);
+    background:var(--surface);padding:7px 12px;border-radius:3px;cursor:pointer;font-size:13.5px}
+  .opt:hover{border-color:var(--accent)}
+  .opt input{margin:0}
+  .opt.sel{background:var(--accent-soft);border-color:var(--accent);font-weight:500}
+  .opt .key{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-3)}
+  .opt.sel .key{color:var(--accent)}
+  .gloss{font-size:11.5px;color:var(--ink-3)}
+  .row2{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-top:12px}
+  .chk{display:inline-flex;gap:7px;align-items:center;font-size:13px;color:var(--ink-2);cursor:pointer}
+  input[type=text]{font-family:inherit;font-size:13px;padding:7px 10px;border:1px solid var(--rule-strong);
+    background:var(--surface);color:var(--ink);border-radius:3px;flex:1;min-width:200px}
+  .note{background:var(--warn-soft);border-left:3px solid var(--warn);padding:14px 16px;
+    font-size:13.5px;line-height:1.65;margin-top:18px}
+  .note b{color:var(--warn)}
+  footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--rule);
+    font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink-3)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">K1 킬 실험 · M0 · 정답지 만들기</p>
+  <h1>이 글은 어떤 글입니까</h1>
+  <p class="intro">지문 30편에 <strong>선생님이 먼저</strong> 라벨을 붙입니다. 이것이 정답지가 됩니다. 판정기는 그 다음에 돌리고, 정답지와 얼마나 맞는지를 잽니다.</p>
+  <p class="intro">두 가지를 고릅니다 — <strong>무엇을 하려는 글인가</strong>(목적 4개 중 하나)와 <strong>어떻게 펼쳐 가는가</strong>(전개 방식 9개 중 하나). 둘 다 2022 개정 교육과정 고시가 직접 나열한 것입니다.</p>
+  <div class="note">
+    <p style="margin:0"><b>지금은 판정기를 보지 마세요.</b> AI 판정을 먼저 보면 정답지가 그쪽으로 끌려갑니다. 30편을 다 붙인 뒤에 채점합니다. 답은 브라우저에 자동 저장되니 중간에 닫아도 됩니다.</p>
+  </div>
+</header>
+
+<div class="bar">
+  <span class="count" id="count">0 / 30</span>
+  <span class="prog"><i id="progbar"></i></span>
+  <button id="save" class="primary" disabled>정답지 내려받기</button>
+  <button id="reset">처음부터</button>
+</div>
+
+<div id="cards"></div>
+
+<footer>
+  저장 위치 · 이 브라우저 · 내려받은 파일은 experiments/M0-text-type/data/gold-labels.json 으로 옮기세요
+</footer>
+</div>
+
+<script src="gold-set.js"></script>
+<script>
+const PURPOSES = [
+  {id:"narrative",     key:"a", ko:"이야기·서사·운문", gloss:"겪은 일이나 지어낸 일을 들려준다"},
+  {id:"social",        key:"b", ko:"친교·사회적",      gloss:"사람 사이 관계를 맺고 이어 간다"},
+  {id:"informative",   key:"c", ko:"정보 전달·교환",   gloss:"사실·절차·자료를 알려 준다"},
+  {id:"argumentative", key:"d", ko:"의견·주장",        gloss:"의견을 내세우고 설득한다"}
+];
+const METHODS = [
+  {id:"narration",        key:"1", ko:"서사",        gloss:"일이 일어난 차례로"},
+  {id:"classification",   key:"2", ko:"분류",        gloss:"갈래로 나눠서"},
+  {id:"cause_effect",     key:"3", ko:"인과",        gloss:"원인과 결과로"},
+  {id:"definition",       key:"4", ko:"정의",        gloss:"무엇인지 규정해서"},
+  {id:"elaboration",      key:"5", ko:"상세화",      gloss:"하나를 더 자세히"},
+  {id:"exemplification",  key:"6", ko:"예시",        gloss:"보기를 들어서"},
+  {id:"comparison",       key:"7", ko:"비교",        gloss:"닮은 점을 견줘서"},
+  {id:"contrast",         key:"8", ko:"대조",        gloss:"다른 점을 맞세워서"},
+  {id:"problem_solution", key:"9", ko:"문제와 해결", gloss:"문제를 세우고 답을"}
+];
+const KEY = "k1-gold-labels-v1";
+let DATA = null, answers = {};
+
+try { answers = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { answers = {}; }
+
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(answers)); } catch (e) {}
+  refresh();
+}
+
+function done(gid) {
+  const a = answers[gid];
+  return !!(a && a.purpose && a.method);
+}
+
+function refresh() {
+  const n = DATA.passages.filter(p => done(p.gid)).length;
+  document.getElementById("count").textContent = n + " / " + DATA.passages.length;
+  document.getElementById("progbar").style.width = (n / DATA.passages.length * 100) + "%";
+  document.getElementById("save").disabled = n === 0;
+  DATA.passages.forEach(p => {
+    const el = document.getElementById("card-" + p.gid);
+    if (el) el.classList.toggle("done", done(p.gid));
+  });
+}
+
+function optionSet(gid, field, list, current) {
+  return list.map(o => {
+    const sel = current === o.id ? " sel" : "";
+    return `<label class="opt${sel}" data-gid="${gid}" data-field="${field}" data-val="${o.id}">
+      <span class="key">${o.key}</span><span>${o.ko}</span><span class="gloss">${o.gloss}</span>
+    </label>`;
+  }).join("");
+}
+
+function render() {
+  document.getElementById("cards").innerHTML = DATA.passages.map((p, i) => {
+    const a = answers[p.gid] || {};
+    return `<article class="card${done(p.gid) ? " done" : ""}" id="card-${p.gid}">
+      <div class="card-head">
+        <span class="gid">${p.gid}</span>
+        <span class="wc">${p.words} 낱말</span>
+        <span class="wc">${i + 1} / ${DATA.passages.length}</span>
+      </div>
+      <div class="passage">${p.text.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</div>
+      <fieldset>
+        <p class="q"><strong>무엇을 하려는 글입니까</strong> — 목적</p>
+        <div class="opts">${optionSet(p.gid, "purpose", PURPOSES, a.purpose)}</div>
+      </fieldset>
+      <fieldset>
+        <p class="q"><strong>어떻게 펼쳐 갑니까</strong> — 전개 방식. 가장 두드러진 것 하나</p>
+        <div class="opts">${optionSet(p.gid, "method", METHODS, a.method)}</div>
+        <div class="row2">
+          <label class="chk"><input type="checkbox" data-gid="${p.gid}" data-field="ambiguous"
+            ${a.ambiguous ? "checked" : ""}> 하나로 고르기 애매하다</label>
+          <input type="text" id="note-${p.gid}" data-gid="${p.gid}" placeholder="메모 (선택)"
+            value="${(a.note || "").replace(/"/g, "&quot;")}">
+        </div>
+      </fieldset>
+    </article>`;
+  }).join("");
+
+  refresh();
+}
+
+// 리스너는 딱 한 번만 붙인다. render() 안에 두면 '처음부터'를 누를 때마다
+// 핸들러가 겹쳐 붙어 클릭이 두 번 처리되고 선택이 곧바로 취소된다.
+function bind() {
+  document.getElementById("cards").addEventListener("click", e => {
+    const lab = e.target.closest(".opt");
+    if (!lab) return;
+    const { gid, field, val } = lab.dataset;
+    answers[gid] = answers[gid] || {};
+    answers[gid][field] = answers[gid][field] === val ? null : val;
+    lab.parentElement.querySelectorAll(".opt").forEach(o =>
+      o.classList.toggle("sel", o.dataset.val === answers[gid][field]));
+    save();
+  });
+  document.getElementById("cards").addEventListener("change", e => {
+    if (e.target.type !== "checkbox") return;
+    const gid = e.target.dataset.gid;
+    answers[gid] = answers[gid] || {};
+    answers[gid].ambiguous = e.target.checked;
+    save();
+  });
+  document.getElementById("cards").addEventListener("input", e => {
+    if (e.target.type !== "text") return;
+    const gid = e.target.dataset.gid;
+    answers[gid] = answers[gid] || {};
+    answers[gid].note = e.target.value;
+    save();
+  });
+}
+
+document.getElementById("save").addEventListener("click", () => {
+  const out = {
+    labeled_by: "teacher",
+    labeled_at: new Date().toISOString(),
+    seed: DATA.seed,
+    labels: DATA.passages.map(p => ({
+      gid: p.gid,
+      purpose: (answers[p.gid] || {}).purpose || null,
+      method: (answers[p.gid] || {}).method || null,
+      ambiguous: !!(answers[p.gid] || {}).ambiguous,
+      note: (answers[p.gid] || {}).note || ""
+    }))
+  };
+  const blob = new Blob([JSON.stringify(out, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "gold-labels.json";
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+});
+
+document.getElementById("reset").addEventListener("click", () => {
+  if (!confirm("붙인 라벨을 전부 지웁니다. 계속할까요?")) return;
+  answers = {};
+  save();
+  render();
+});
+
+// gold-set.js 가 곁에 있으면 그대로 쓴다 (file:// 로 열어도 동작한다).
+// 없으면 data/gold-set.json 을 가져온다.
+if (window.GOLD_SET) {
+  DATA = window.GOLD_SET;
+  render();
+  bind();
+} else {
+  fetch("../data/gold-set.json")
+    .then(r => r.json())
+    .then(d => { DATA = d; render(); bind(); })
+    .catch(() => {
+      document.getElementById("cards").innerHTML =
+        '<div class="note"><p style="margin:0"><b>지문을 못 읽었습니다.</b> ' +
+        'out/gold-set.js 가 이 파일 옆에 있는지 확인하세요. ' +
+        '없으면 <code>python scripts/build_gold_set.py</code> 를 다시 돌리세요.</p></div>';
+    });
+}
+</script>
+</body>
+</html>
