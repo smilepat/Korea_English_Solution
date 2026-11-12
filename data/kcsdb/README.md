@@ -10,4 +10,4 @@
 
 교육과정 기본어휘 판 기록: 6e5e528 이전 판은 원문 파싱 결함으로 2015 2,977 · 2022 2,862 였다 (able·agree·body 등 161 누락).
 
-**사본을 바꾼 뒤 운영 DB 반영은 따로 한다**: `node scripts/seed-kcsdb.mjs` (`.env.local` 의 Turso 값 필요). 2026-11-12 교체분은 아직 DB 에 넣지 않았다.
+**사본을 바꾼 뒤 운영 DB 반영은 따로 한다**: `node scripts/seed-kcsdb.mjs` (`.env.local` 의 Turso 값 필요). 2026-11-12 교체분은 같은 날 `kcsdb_vocab` 표만 다시 넣었다 (5,839 → 6,000, 다른 표는 그대로). 바꾸기 전 내용 백업 = 그 PC `C:/Users/eltko/backups/kes_turso_kcsdb_vocab_before_2026-11-12.json`.
