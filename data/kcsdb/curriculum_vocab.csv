@@ -1,29 +1,6 @@
 ﻿id,word,base_form,derivations,level_marker,curriculum_version,notes
-1839,A,A,,,2015,
-2053,B,B,,,2015,
-2224,C,C,,,2015,
-2546,D,D,,,2015,
-2731,E,E,,,2015,
-2872,F,F,,,2015,
-3024,G,G,,,2015,
-3112,H,H,,,2015,
-3201,I,I,,,2015,
-3314,J,J,,,2015,
-3335,K,K,,,2015,
-3351,L,L,,,2015,
-3445,M,M,,,2015,
-3576,N,N,,,2015,
-3642,O,O,,,2015,
-3710,P,P,,,2015,
-3943,Q,Q,,,2015,
-3956,R,R,,,2015,
-4114,S,S,,,2015,
-4451,T,T,,,2015,
-4610,U,U,,,2015,
-4642,V,V,,,2015,
-4689,W,W,,,2015,
-4783,Y,Y,,,2015,
-4792,Z,Z,,,2015,
+1839,a,a,,*,2015,
+3201,I,I,,*,2015,
 1840,abandon,abandon,,,2015,
 1841,able,able,,,2015,
 1842,aboard,aboard,,,2015,
@@ -238,7 +215,7 @@
 2051,awful,awful,,,2015,
 2052,awkward,awkward,,,2015,
 2054,baby,baby,,*,2015,
-1831,back,back,,,2015,"pos=adv, n, v"
+1831,back,back,,*,2015,"pos=adv, n, v"
 2055,background,background,,*,2015,
 2056,bad,bad,,*,2015,
 2057,bake,bake,,*,2015,
@@ -262,13 +239,13 @@
 2075,basis,basis,,,2015,
 2076,basket,basket,,*,2015,
 2077,basketball,basketball,,*,2015,
-1832,bat,bat,,,2015,"pos=n, v"
+1832,bat,bat,,*,2015,"pos=n, v"
 2078,bath,bath,,*,2015,
 2079,bathroom,bathroom,,*,2015,
 2080,battery,battery,,*,2015,
 2081,battle,battle,,*,2015,
 2082,bay,bay,,,2015,
-1820,be,be,"am, are, is, was, were, been, being",,2015,
+1820,be,be,"am, are, is, was, were, been, being",*,2015,
 2083,beach,beach,,*,2015,
 2084,beam,beam,,,2015,
 2085,bean,bean,,*,2015,
@@ -344,7 +321,7 @@
 2155,bomb,bomb,,*,2015,
 2156,bond,bond,,,2015,
 2157,bone,bone,,*,2015,
-1822,book,book,"books, booked, booking",,2015,
+1822,book,book,"books, booked, booking",*,2015,
 2158,boom,boom,,,2015,
 2159,boost,boost,,,2015,
 2160,boot,boot,,*,2015,
@@ -469,7 +446,7 @@
 2280,challenge,challenge,,,2015,
 2281,chamber,chamber,,**,2015,
 2282,chance,chance,,*,2015,
-1833,change,change,,,2015,"pos=n, v"
+1833,change,change,,*,2015,"pos=n, v"
 2283,chaos,chaos,,,2015,
 2284,character,character,,,2015,
 2285,characteristic,characteristic,,,2015,
@@ -528,7 +505,7 @@
 2338,clinic,clinic,,,2015,
 2339,clip,clip,,*,2015,
 2340,clock,clock,,*,2015,
-1834,close,close,,,2015,"pos=adj, adv, v"
+1834,close,close,,*,2015,"pos=adj, adv, v"
 2341,cloth,cloth,,*,2015,
 2342,cloud,cloud,,*,2015,
 2343,club,club,,*,2015,
@@ -1151,7 +1128,7 @@
 2962,fond,fond,,**,2015,
 2963,food,food,,*,2015,
 2964,fool,fool,,*,2015,
-1823,foot,foot,feet,,2015,
+1823,foot,foot,feet,*,2015,
 2965,football,football,,*,2015,
 2966,for,for,,*,2015,
 2967,forbid,forbid,,,2015,
@@ -1311,7 +1288,7 @@
 3123,handsome,handsome,,*,2015,
 3124,hang,hang,,*,2015,
 3125,happen,happen,,,2015,
-1830,happy,happy,"happily, happiness, unhappy",,2015,
+1830,happy,happy,"happily, happiness, unhappy",*,2015,
 3126,hard,hard,,*,2015,
 3127,hardly,hardly,,,2015,
 3128,harm,harm,,,2015,
@@ -1321,10 +1298,10 @@
 3132,hat,hat,,*,2015,
 3133,hate,hate,,*,2015,
 3134,haunt,haunt,,**,2015,
-1821,have,have,"has, had, having",,2015,
+1821,have,have,"has, had, having",*,2015,
 3135,hazard,hazard,,,2015,
 3136,he,he,,*,2015,
-1836,head,head,,,2015,"pos=n, v"
+1836,head,head,,*,2015,"pos=n, v"
 3137,headache,headache,,*,2015,
 3138,headquarters,headquarters,,**,2015,
 3139,heal,heal,,,2015,
@@ -1527,7 +1504,7 @@
 3339,kick,kick,,*,2015,
 3340,kid,kid,,*,2015,
 3341,kill,kill,,*,2015,
-1837,kind,kind,,,2015,"pos=adj, n"
+1837,kind,kind,,*,2015,"pos=adj, n"
 3342,king,king,,*,2015,
 3343,kit,kit,,,2015,
 3344,kitchen,kitchen,,*,2015,
@@ -1563,7 +1540,7 @@
 3375,layer,layer,,,2015,
 3376,lazy,lazy,,*,2015,
 3377,lead,lead,,,2015,
-1824,leaf,leaf,leaves,,2015,
+1824,leaf,leaf,leaves,*,2015,
 3378,leak,leak,,,2015,
 3379,lean,lean,,,2015,
 3380,leap,leap,,,2015,
@@ -2048,7 +2025,7 @@
 3863,prepare,prepare,,,2015,
 3864,prescribe,prescribe,,,2015,
 3865,presence,presence,,,2015,
-1838,present,present,,,2015,"pos=n, v"
+1838,present,present,,*,2015,"pos=n, v"
 3866,preserve,preserve,,,2015,
 3867,president,president,,,2015,
 3868,press,press,,,2015,
@@ -2460,7 +2437,7 @@
 4277,society,society,,,2015,
 4278,sociology,sociology,,,2015,
 4279,sock,sock,,*,2015,
-1829,soft,soft,"softly, softness",,2015,
+1829,soft,soft,"softly, softness",*,2015,
 4280,software,software,,,2015,
 4281,soil,soil,,,2015,
 4282,soldier,soldier,,,2015,
@@ -2640,7 +2617,7 @@
 4457,tale,tale,,,2015,
 4458,talent,talent,,,2015,
 4459,talk,talk,,*,2015,
-1825,tall,tall,"taller, tallest",,2015,
+1825,tall,tall,"taller, tallest",*,2015,
 4460,tap,tap,,,2015,
 4461,tape,tape,,*,2015,
 4462,target,target,,,2015,
@@ -2649,7 +2626,7 @@
 4465,tattoo,tattoo,,,2015,
 4466,tax,tax,,,2015,
 4467,tea,tea,,,2015,
-1827,teach,teach,"teaches, taught, teaching, teacher",,2015,
+1827,teach,teach,"teaches, taught, teaching, teacher",*,2015,
 4468,tear,tear,,,2015,
 4469,tease,tease,,**,2015,
 4470,teen,teen,,*,2015,
@@ -2686,7 +2663,7 @@
 4501,therapy,therapy,,**,2015,
 4502,there,there,,*,2015,
 4503,therefore,therefore,,,2015,
-1826,they,they,"their, them, theirs, themselves",,2015,
+1826,they,they,"their, them, theirs, themselves",*,2015,
 4504,thick,thick,,,2015,
 4505,thief,thief,,,2015,
 4506,thin,thin,,,2015,
@@ -2738,7 +2715,7 @@
 4552,total,total,,,2015,
 4553,touch,touch,,*,2015,
 4554,tough,tough,,,2015,
-1828,tour,tour,tourist,,2015,
+1828,tour,tour,tourist,*,2015,
 4555,tower,tower,,*,2015,
 4556,town,town,,*,2015,
 4557,toxic,toxic,,,2015,
@@ -2963,7 +2940,7 @@
 4779,wound,wound,,,2015,
 4780,wrap,wrap,,,2015,
 4781,wreck,wreck,,**,2015,
-1819,write,write,"writes, wrote, written, writing",,2015,
+1819,write,write,"writes, wrote, written, writing",*,2015,
 4782,wrong,wrong,,*,2015,
 4784,year,year,,*,2015,
 4785,yell,yell,,,2015,
@@ -2976,31 +2953,54 @@
 4793,zebra,zebra,,*,2015,
 4794,zone,zone,,,2015,
 4795,zoo,zoo,,*,2015,
-4796,A,A,,,2022,
-4988,B,B,,,2022,
-5162,C,C,,,2022,
-5464,D,D,,,2022,
-5631,E,E,,,2022,
-5758,F,F,,,2022,
-5908,G,G,,,2022,
-5992,H,H,,,2022,
-6083,I,I,,,2022,
-6188,J,J,,,2022,
-6209,K,K,,,2022,
-6228,L,L,,,2022,
-6320,M,M,,,2022,
-6453,N,N,,,2022,
-6513,O,O,,,2022,
-6574,P,P,,,2022,
-6796,Q,Q,,,2022,
-6808,R,R,,,2022,
-6958,S,S,,,2022,
-7301,T,T,,,2022,
-7474,U,U,,,2022,
-7501,V,V,,,2022,
-7550,W,W,,,2022,
-7644,Y,Y,,,2022,
-7653,Z,Z,,,2022,
+7660,A.M.,A.M.,,*,2015,alt=a.m.
+7658,advertize,advertize,,,2015,alt=advertise
+7659,airplane,airplane,,*,2015,alt=plane|aeroplane
+7661,analyze,analyze,,,2015,alt=analyse
+7662,behavior,behavior,,,2015,alt=behaviour
+7663,check,check,,*,2015,alt=cheque
+7664,color,color,,*,2015,alt=colour
+7665,cookie,cookie,,*,2015,alt=cooky
+7666,criticize,criticize,,,2015,alt=criticise
+7667,defense,defense,,,2015,alt=defence
+7668,dialogue,dialogue,,*,2015,alt=dialog
+7669,enroll,enroll,,**,2015,alt=enrol
+7670,etc,etc,,,2015,alt=et cetera
+7671,exam,exam,,*,2015,alt=examination
+7672,favor,favor,,,2015,alt=favour
+7673,favorite,favorite,,*,2015,alt=favourite
+7674,fiber,fiber,,,2015,alt=fibre
+7675,flavor,flavor,,,2015,alt=flavour
+7676,gasoline,gasoline,,**,2015,alt=petrol
+7677,grey,grey,,*,2015,alt=gray
+7678,gymnasium,gymnasium,,,2015,alt=gym
+7679,harbor,harbor,,,2015,alt=harbour
+7680,hello,hello,,*,2015,alt=hey|hi
+7681,honor,honor,,,2015,alt=honour
+7682,humor,humor,,*,2015,alt=humour
+7683,inquire,inquire,,**,2015,alt=enquire
+7684,labor,labor,,,2015,alt=labour
+7685,laboratory,laboratory,,,2015,alt=lab
+7686,license,license,,,2015,alt=licence
+7687,mathematics,mathematics,,*,2015,alt=maths|math
+7688,neighbor,neighbor,,,2015,alt=neighbour
+7689,no,no,,*,2015,alt=nope|nay
+7690,organize,organize,,,2015,alt=organise
+7691,oversea,oversea,,,2015,alt=overseas
+7692,P.M.,P.M.,,*,2015,alt=p.m.
+7693,practice,practice,,,2015,alt=practise
+7694,realize,realize,,,2015,alt=realise
+7695,refrigerator,refrigerator,,,2015,alt=fridge
+7696,rumor,rumor,,,2015,alt=rumour
+7697,sculpture,sculpture,,**,2015,alt=sculpt
+7698,theater,theater,,,2015,alt=theatre
+7699,tire,tire,,,2015,alt=tyre
+7700,toward,toward,,,2015,alt=towards
+7701,upward,upward,,,2015,alt=upwards
+7702,utilize,utilize,,**,2015,alt=utilise
+7703,yes,yes,,*,2015,alt=yeah|yep
+4796,a,a,an,*,2022,
+6083,I,I,,*,2022,
 4797,abandon,abandon,,,2022,
 4798,aboard,aboard,,,2022,
 4799,abort,abort,abortion,,2022,
@@ -3041,7 +3041,7 @@
 4834,address,address,,*,2022,
 4835,adequate,adequate,,,2022,
 4836,adjust,adjust,,,2022,
-4837,administer,administer,,,2022,
+4837,administer,administer,administration,,2022,
 4838,admire,admire,,**,2022,
 4839,adolescent,adolescent,,,2022,
 4840,adopt,adopt,,**,2022,
@@ -3619,7 +3619,7 @@
 5414,county,county,,**,2022,
 5415,couple,couple,,*,2022,
 5416,coupon,coupon,,,2022,
-5417,courage,courage,"discourage,        encourage",,2022,
+5417,courage,courage,"discourage, encourage",,2022,
 5418,course,course,,*,2022,
 5419,court,court,,*,2022,
 5420,cousin,cousin,,*,2022,
@@ -4741,7 +4741,7 @@
 6548,orbit,orbit,,,2022,
 6549,orchestra,orchestra,,,2022,
 6550,ordinary,ordinary,,**,2022,
-6551,organ,organ,"organic, organize /   organise",,2022,
+6551,organ,organ,"organic, organize / organise",,2022,
 6552,orient,orient,orientation,,2022,
 6553,origin,origin,original,,2022,
 6554,other,other,,**,2022,
@@ -5838,3 +5838,164 @@
 7655,zero,zero,,**,2022,
 7656,zone,zone,,,2022,
 7657,zoo,zoo,,*,2022,
+7704,able,able,disabled,**,2022,
+7705,act,act,"actual, interact",*,2022,
+7706,admit,admit,admission,**,2022,
+7707,advantage,advantage,disadvantage,**,2022,
+7708,advertize,advertize,,**,2022,alt=advertise
+7709,affect,affect,affection,**,2022,
+7710,agree,agree,disagree,*,2022,
+7711,airplane,airplane,,*,2022,alt=aeroplane
+7712,analyze,analyze,,,2022,alt=analyse
+7713,appear,appear,disappear,**,2022,
+7714,apply,apply,applicant,**,2022,
+7715,assign,assign,assignment,**,2022,
+7716,assist,assist,assistant,**,2022,
+7717,aware,aware,unaware,**,2022,
+7718,behave,behave,behavior / behaviour,,2022,
+7719,body,body,embody,*,2022,
+7720,calculate,calculate,calculator,**,2022,
+7721,case,case,casual,*,2022,
+7722,catalogue,catalogue,,**,2022,alt=catalog
+7723,cause,cause,causal,**,2022,
+7724,charge,charge,discharge,**,2022,
+7725,check,check,,*,2022,alt=cheque
+7726,class,class,"classic, classify",*,2022,
+7727,clear,clear,clarify,*,2022,
+7728,close,close,"disclose, enclose",*,2022,
+7729,color,color,,*,2022,alt=colour
+7730,comfort,comfort,comfortable,**,2022,
+7731,communicate,communicate,communication,**,2022,
+7732,complex,complex,complexity,**,2022,
+7733,compute,compute,computer,*,2022,
+7734,consume,consume,"consumer, consumption",**,2022,
+7735,convene,convene,"convenient, convention",,2022,
+7736,converse,converse,conversation,**,2022,
+7737,cookie,cookie,,*,2022,alt=cooky
+7738,count,count,"discount, counter",**,2022,
+7739,cover,cover,discover,*,2022,
+7740,create,create,creature,**,2022,
+7741,crime,crime,criminal,**,2022,
+7742,critic,critic,"criticize / criticise, criticism",,2022,
+7743,curious,curious,curiosity,**,2022,
+7744,cycle,cycle,"recycle, cyclist",**,2022,
+7745,decide,decide,decision,*,2022,
+7746,defense,defense,,**,2022,alt=defence
+7747,depart,depart,"department, departure",,2022,
+7748,depend,depend,"dependence, independent",**,2022,
+7749,describe,describe,description,**,2022,
+7750,dialogue,dialogue,,*,2022,alt=dialog
+7751,dirt,dirt,dirty,**,2022,
+7752,disc,disc,disk,**,2022,
+7753,draw,draw,drawer,*,2022,
+7754,ease,ease,"disease, easy",**,2022,
+7755,effect,effect,effective,**,2022,
+7756,element,element,elementary,**,2022,
+7757,especial,especial,especially,**,2022,
+7758,event,event,eventually,**,2022,
+7759,examine,examine,examination / exam,**,2022,
+7760,expense,expense,expensive,**,2022,
+7761,fact,fact,factual,*,2022,
+7762,father,father,"dad, daddy",*,2022,
+7763,favor,favor,,**,2022,alt=favour
+7764,favorite,favorite,,*,2022,alt=favourite
+7765,fiber,fiber,,,2022,alt=fibre
+7766,flavor,flavor,,,2022,alt=flavour
+7767,force,force,enforce,**,2022,
+7768,form,form,"formal, formation, informal",*,2022,
+7769,found,found,foundation,**,2022,
+7770,friend,friend,friendship,*,2022,
+7771,gasoline,gasoline,,,2022,alt=petrol
+7772,good,good,goods,*,2022,
+7773,goodbye,goodbye,bye,*,2022,
+7774,govern,govern,government,**,2022,
+7775,grade,grade,gradual,**,2022,
+7776,graph,graph,graphic,**,2022,
+7777,gray,gray,,*,2022,alt=grey
+7778,guilt,guilt,guilty,**,2022,
+7779,gymnasium,gymnasium,,,2022,alt=gym
+7780,harbor,harbor,,,2022,alt=harbour
+7781,hard,hard,hardly,*,2022,
+7782,health,health,healthy,**,2022,
+7783,hello,hello,,*,2022,alt=hey|hi
+7784,honor,honor,,**,2022,alt=honour
+7785,humor,humor,,**,2022,alt=humour
+7786,hunger,hunger,hungry,**,2022,
+7787,identity,identity,identify,**,2022,
+7788,inquire,inquire,,,2022,alt=enquire
+7789,insure,insure,insurance,**,2022,
+7790,intent,intent,intention,**,2022,
+7791,invent,invent,inventor,**,2022,
+7792,joy,joy,enjoy,**,2022,
+7793,labor,labor,,**,2022,alt=labour
+7794,laboratory,laboratory,,**,2022,alt=lab
+7795,lay,lay,layer,**,2022,
+7796,letter,letter,literal,*,2022,
+7797,license,license,,**,2022,alt=licence
+7798,like,like,likely,*,2022,
+7799,major,major,majority,**,2022,
+7800,mathematics,mathematics,,*,2022,alt=maths|math
+7801,matter,matter,material,**,2022,
+7802,member,member,membership,*,2022,
+7803,moon,moon,halfmoon,*,2022,
+7804,mother,mother,"mom, mommy",*,2022,
+7805,nation,nation,international,*,2022,
+7806,neighbor,neighbor,,**,2022,alt=neighbour
+7807,nerve,nerve,nervous,**,2022,
+7808,no,no,,*,2022,alt=nope|nay
+7809,note,note,notion,*,2022,
+7810,object,object,objective,**,2022,
+7811,occur,occur,occurrence,**,2022,
+7812,office,office,official,*,2022,
+7813,okay,okay,,*,2022,alt=okey|OK
+7814,order,order,disorder,**,2022,
+7815,oversea,oversea,,,2022,alt=overseas
+7816,particular,particular,particularly,**,2022,
+7817,peace,peace,peaceful,**,2022,
+7818,person,person,personality,**,2022,
+7819,photograph,photograph,,**,2022,alt=photo
+7820,place,place,displace,*,2022,
+7821,please,please,"pleasant, pleasure",*,2022,
+7822,pole,pole,polar,**,2022,
+7823,post,post,poster,**,2022,
+7824,practice,practice,,**,2022,alt=practise
+7825,prime,prime,primary,**,2022,
+7826,probable,probable,probably,**,2022,
+7827,proceed,proceed,procedure,**,2022,
+7828,program,program,programmatic,*,2022,alt=programme
+7829,pronounce,pronounce,pronunciation,**,2022,
+7830,quality,quality,qualify,**,2022,
+7831,race,race,racial,*,2022,
+7832,real,real,realize / realise,**,2022,
+7833,reason,reason,reasonable,**,2022,
+7834,receive,receive,reception,**,2022,
+7835,relate,relate,"relative, relation, relationship",**,2022,
+7836,respect,respect,respective,**,2022,
+7837,roll,roll,enroll / enrol,**,2022,
+7838,rub,rub,rubber,**,2022,
+7839,rumor,rumor,,,2022,alt=rumour
+7840,second,second,secondary,*,2022,
+7841,sense,sense,sensation,**,2022,
+7842,sign,sign,significant,**,2022,
+7843,situate,situate,situation,**,2022,
+7844,species,species,special,**,2022,
+7845,study,study,student,*,2022,
+7846,subject,subject,subjective,**,2022,
+7847,sum,sum,summary,**,2022,
+7848,sure,sure,ensure,*,2022,
+7849,take,take,mistake,*,2022,
+7850,technique,technique,,**,2022,alt=technic
+7851,telephone,telephone,,*,2022,alt=phone
+7852,theater,theater,,**,2022,alt=theatre
+7853,tide,tide,tidy,**,2022,
+7854,tire,tire,tired,*,2022,
+7855,title,title,entitle,**,2022,
+7856,toward,toward,,**,2022,alt=towards
+7857,transport,transport,transportation,**,2022,
+7858,try,try,trial,*,2022,
+7859,unite,unite,union,**,2022,
+7860,upward,upward,,,2022,alt=upwards
+7861,use,use,usual,*,2022,
+7862,utilize,utilize,,,2022,alt=utilise
+7863,view,view,"interview, review",**,2022,
+7864,yes,yes,,*,2022,alt=yeah|yep

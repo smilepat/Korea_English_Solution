@@ -1,29 +1,6 @@
 ﻿curriculum_vocab_id,curriculum_word,curriculum_version,master_word,cefr,freq_rank,freq_grade,meaning_ko,match_type
-1839,A,2015,A,A1,6,고빈도,에이 (알파벳),exact
-2053,B,2015,,,,,,none
-2224,C,2015,,,,,,none
-2546,D,2015,,,,,,none
-2731,E,2015,,,,,,none
-2872,F,2015,,,,,,none
-3024,G,2015,,,,,,none
-3112,H,2015,,,,,,none
+1839,a,2015,A,A1,6,고빈도,에이 (알파벳),exact
 3201,I,2015,I,A1,3,고빈도,"나, 저",exact
-3314,J,2015,,,,,,none
-3335,K,2015,,,,,,none
-3351,L,2015,,,,,,none
-3445,M,2015,,,,,,none
-3576,N,2015,,,,,,none
-3642,O,2015,,,,,,none
-3710,P,2015,,,,,,none
-3943,Q,2015,,,,,,none
-3956,R,2015,,,,,,none
-4114,S,2015,,,,,,none
-4451,T,2015,,,,,,none
-4610,U,2015,,,,,,none
-4642,V,2015,,,,,,none
-4689,W,2015,,,,,,none
-4783,Y,2015,,,,,,none
-4792,Z,2015,,,,,,none
 1840,abandon,2015,Abandon,B1,1669,고빈도,"버리다, 포기하다",exact
 1841,able,2015,Able,A1,200,고빈도,할 수 있는,exact
 1842,aboard,2015,Aboard,A2,3500,중빈도,"승선하여, 탑승하여",exact
@@ -2976,31 +2953,54 @@
 4793,zebra,2015,Zebra,A1,3000,중빈도,얼룩말,exact
 4794,zone,2015,Zone,A2,1200,중빈도,"구역, 지대",exact
 4795,zoo,2015,Zoo,A1,800,고빈도,동물원,exact
-4796,A,2022,A,A1,6,고빈도,에이 (알파벳),exact
-4988,B,2022,,,,,,none
-5162,C,2022,,,,,,none
-5464,D,2022,,,,,,none
-5631,E,2022,,,,,,none
-5758,F,2022,,,,,,none
-5908,G,2022,,,,,,none
-5992,H,2022,,,,,,none
+7660,A.M.,2015,,,,,,none
+7658,advertize,2015,,,,,,none
+7659,airplane,2015,Airplane,A1,900,고빈도,비행기,exact
+7661,analyze,2015,Analyze,B1,2598,중빈도,분석하다,exact
+7662,behavior,2015,,,,,,none
+7663,check,2015,Check,A1,2694,고빈도,확인하다,exact
+7664,color,2015,Color,A1,6740,최고빈도,색칠하다,exact
+7665,cookie,2015,Cookie,A1,800,고빈도,쿠키,exact
+7666,criticize,2015,Criticize,B1,2436,중빈도,비판하다,exact
+7667,defense,2015,,,,,,none
+7668,dialogue,2015,Dialogue,A2,1800,중빈도,대화,exact
+7669,enroll,2015,Enroll,B1,3120,중빈도,등록하다,exact
+7670,etc,2015,,,,,,none
+7671,exam,2015,Exam,A1,500,고빈도,시험,exact
+7672,favor,2015,Favor,B1,4725,중빈도,선호하다,exact
+7673,favorite,2015,favorite,A1,,,가장 좋아하는,exact
+7674,fiber,2015,,,,,,none
+7675,flavor,2015,,,,,,none
+7676,gasoline,2015,Gasoline,A1,900,고빈도,휘발유,exact
+7677,grey,2015,Grey,A1,900,고빈도,회색의,exact
+7678,gymnasium,2015,,,,,,none
+7679,harbor,2015,Harbor,A2,3500,중빈도,"항구, 피난처; 숨겨주다, 품다",exact
+7680,hello,2015,Hello,A1,100,고빈도,안녕하세요,exact
+7681,honor,2015,Honor,B1,7617,중빈도,존경하다,exact
+7682,humor,2015,,,,,,none
+7683,inquire,2015,Inquire,B1,2111,중빈도,문의하다,exact
+7684,labor,2015,,,,,,none
+7685,laboratory,2015,Laboratory,A2,2500,중빈도,"실험실, 연구소",exact
+7686,license,2015,,,,,,none
+7687,mathematics,2015,Mathematics,A2,1500,중빈도,수학,exact
+7688,neighbor,2015,,,,,,none
+7689,no,2015,No,A1,40,고빈도,아니오,exact
+7690,organize,2015,Organize,A2,2406,고빈도,정리하다,exact
+7691,oversea,2015,,,,,,none
+7692,P.M.,2015,,,,,,none
+7693,practice,2015,Practice,A2,2605,고빈도,연습하다,exact
+7694,realize,2015,Realize,A2,2614,고빈도,깨닫다,exact
+7695,refrigerator,2015,Refrigerator,A1,1500,고빈도,냉장고,exact
+7696,rumor,2015,,,,,,none
+7697,sculpture,2015,,,,,,none
+7698,theater,2015,,,,,,none
+7699,tire,2015,Tire,A2,2500,중빈도,"피곤하게 하다, 싫증나게 하다",exact
+7700,toward,2015,Toward,A1,600,고빈도,"~쪽으로, ~을 향하여",exact
+7701,upward,2015,,,,,,none
+7702,utilize,2015,Utilize,B2,3112,저빈도,활용하다,exact
+7703,yes,2015,Yes,A1,50,고빈도,"네, 예",exact
+4796,a,2022,A,A1,6,고빈도,에이 (알파벳),exact
 6083,I,2022,I,A1,3,고빈도,"나, 저",exact
-6188,J,2022,,,,,,none
-6209,K,2022,,,,,,none
-6228,L,2022,,,,,,none
-6320,M,2022,,,,,,none
-6453,N,2022,,,,,,none
-6513,O,2022,,,,,,none
-6574,P,2022,,,,,,none
-6796,Q,2022,,,,,,none
-6808,R,2022,,,,,,none
-6958,S,2022,,,,,,none
-7301,T,2022,,,,,,none
-7474,U,2022,,,,,,none
-7501,V,2022,,,,,,none
-7550,W,2022,,,,,,none
-7644,Y,2022,,,,,,none
-7653,Z,2022,,,,,,none
 4797,abandon,2022,Abandon,B1,1669,고빈도,"버리다, 포기하다",exact
 4798,aboard,2022,Aboard,A2,3500,중빈도,"승선하여, 탑승하여",exact
 4799,abort,2022,Abort,B2,4000,중빈도,"중단하다, 낙태하다",exact
@@ -5838,3 +5838,164 @@
 7655,zero,2022,Zero,A1,500,고빈도,"영, 제로",exact
 7656,zone,2022,Zone,A2,1200,중빈도,"구역, 지대",exact
 7657,zoo,2022,Zoo,A1,800,고빈도,동물원,exact
+7704,able,2022,Able,A1,200,고빈도,할 수 있는,exact
+7705,act,2022,Act,A2,4092,최고빈도,연기하다,exact
+7706,admit,2022,Admit,B1,2666,중빈도,인정하다,exact
+7707,advantage,2022,Advantage,A2,456,고빈도,"이점, 장점",exact
+7708,advertize,2022,,,,,,none
+7709,affect,2022,Affect,B1,2991,중빈도,영향을 미치다,exact
+7710,agree,2022,Agree,A2,2454,고빈도,동의하다,exact
+7711,airplane,2022,Airplane,A1,900,고빈도,비행기,exact
+7712,analyze,2022,Analyze,B1,2598,중빈도,분석하다,exact
+7713,appear,2022,Appear,A2,2997,고빈도,나타나다,exact
+7714,apply,2022,Apply,A2,2938,고빈도,지원하다,exact
+7715,assign,2022,Assign,B1,1844,중빈도,"할당하다, 배정하다",exact
+7716,assist,2022,Assist,B1,2517,중빈도,돕다,exact
+7717,aware,2022,Aware,A2,2000,중빈도,"알고 있는, 인지하는",exact
+7718,behave,2022,Behave,A1,1200,중빈도,"행동하다, 처신하다",exact
+7719,body,2022,Body,A1,150,고빈도,"몸, 신체; 시체; 단체",exact
+7720,calculate,2022,Calculate,B1,2391,중빈도,계산하다,exact
+7721,case,2022,Case,A2,300,고빈도,"경우, 사례, 상자",exact
+7722,catalogue,2022,Catalogue,A2,3500,중빈도,"목록, 카탈로그",exact
+7723,cause,2022,Cause,A2,2993,고빈도,야기하다,exact
+7724,charge,2022,Charge,A2,2378,고빈도,충전하다,exact
+7725,check,2022,Check,A1,2694,고빈도,확인하다,exact
+7726,class,2022,Class,A1,150,고빈도,수업|계층|등급,exact
+7727,clear,2022,Clear,A2,4435,고빈도,치우다,exact
+7728,close,2022,Close,A1,2856,최고빈도,닫다,exact
+7729,color,2022,Color,A1,6740,최고빈도,색칠하다,exact
+7730,comfort,2022,Comfort,A1,1531,고빈도,"편안함, 안락, 위안",exact
+7731,communicate,2022,Communicate,B1,2470,중빈도,소통하다,exact
+7732,complex,2022,Complex,B1,900,고빈도,복잡한,exact
+7733,compute,2022,Compute,B2,3104,저빈도,계산하다,exact
+7734,consume,2022,Consume,B2,3782,고빈도,소비하다,exact
+7735,convene,2022,,,,,,none
+7736,converse,2022,,,,,,none
+7737,cookie,2022,Cookie,A1,800,고빈도,쿠키,exact
+7738,count,2022,Count,A2,2395,고빈도,세다,exact
+7739,cover,2022,Cover,A2,2588,고빈도,덮다,exact
+7740,create,2022,Create,A2,2860,고빈도,창조하다,exact
+7741,crime,2022,Crime,B1,1200,중빈도,범죄,exact
+7742,critic,2022,Critic,B1,2000,중빈도,"비평가, 평론가",exact
+7743,curious,2022,Curious,A2,1800,고빈도,"호기심 있는, 궁금한",exact
+7744,cycle,2022,Cycle,A2,1536,고빈도,"순환, 주기",exact
+7745,decide,2022,Decide,A1,2716,고빈도,결정하다,exact
+7746,defense,2022,,,,,,none
+7747,depart,2022,Depart,B1,2846,중빈도,출발하다,exact
+7748,depend,2022,Depend,A2,3003,고빈도,의존하다,exact
+7749,describe,2022,Describe,A2,2461,고빈도,묘사하다,exact
+7750,dialogue,2022,Dialogue,A2,1800,중빈도,대화,exact
+7751,dirt,2022,,,,,,none
+7752,disc,2022,Disc,A2,2200,중빈도,"원반, 디스크",exact
+7753,draw,2022,Draw,A1,2864,고빈도,그리다,exact
+7754,ease,2022,Ease,B1,1500,중빈도,"쉬움, 용이함, 편안함, 완화하다",exact
+7755,effect,2022,Effect,B1,500,고빈도,"결과, 영향, 효과",exact
+7756,element,2022,Element,B1,900,고빈도,"요소, 원소",exact
+7757,especial,2022,,,,,,none
+7758,event,2022,Event,A1,100,고빈도,"사건, 행사",exact
+7759,examine,2022,Examine,B1,2597,중빈도,조사하다,exact
+7760,expense,2022,Expense,A2,1508,고빈도,비용,exact
+7761,fact,2022,Fact,A2,200,고빈도,"사실, 진실",exact
+7762,father,2022,Father,A1,150,고빈도,아버지,exact
+7763,favor,2022,Favor,B1,4725,중빈도,선호하다,exact
+7764,favorite,2022,favorite,A1,,,가장 좋아하는,exact
+7765,fiber,2022,,,,,,none
+7766,flavor,2022,,,,,,none
+7767,force,2022,Force,B1,800,고빈도,"힘, 폭력, 군대",exact
+7768,form,2022,Form,A2,2956,고빈도,형성하다,exact
+7769,found,2022,Found,B1,2955,중빈도,설립하다,exact
+7770,friend,2022,Friend,A1,123,고빈도,친구,exact
+7771,gasoline,2022,Gasoline,A1,900,고빈도,휘발유,exact
+7772,good,2022,Good,A1,50,고빈도,"좋은, 잘하는, 착한",exact
+7773,goodbye,2022,Goodbye,A1,400,고빈도,"안녕, 작별",exact
+7774,govern,2022,Govern,B1,3000,중빈도,"통치하다, 다스리다",exact
+7775,grade,2022,Grade,B1,3866,고빈도,채점하다,exact
+7776,graph,2022,Graph,B1,5633,중빈도,그래프로 나타내다,exact
+7777,gray,2022,,,,,,none
+7778,guilt,2022,guilt,B1,,,"죄책감, 유죄",exact
+7779,gymnasium,2022,,,,,,none
+7780,harbor,2022,Harbor,A2,3500,중빈도,"항구, 피난처; 숨겨주다, 품다",exact
+7781,hard,2022,Hard,A1,200,고빈도,"단단한, 어려운, 힘든",exact
+7782,health,2022,Health,A1,800,고빈도,건강,exact
+7783,hello,2022,Hello,A1,100,고빈도,안녕하세요,exact
+7784,honor,2022,Honor,B1,7617,중빈도,존경하다,exact
+7785,humor,2022,,,,,,none
+7786,hunger,2022,Hunger,A2,1800,중빈도,"배고픔, 기아",exact
+7787,identity,2022,Identity,B1,1200,중빈도,"정체성, 신원",exact
+7788,inquire,2022,Inquire,B1,2111,중빈도,문의하다,exact
+7789,insure,2022,Insure,B1,5608,중빈도,보험에 들다,exact
+7790,intent,2022,intent,B2,8879,중빈도,"의도, 목적",exact
+7791,invent,2022,Invent,B1,3670,고빈도,발명하다,exact
+7792,joy,2022,Joy,A1,1800,중빈도,"기쁨, 즐거움",exact
+7793,labor,2022,,,,,,none
+7794,laboratory,2022,Laboratory,A2,2500,중빈도,"실험실, 연구소",exact
+7795,lay,2022,Lay,A2,3064,고빈도,눕히다,exact
+7796,letter,2022,Letter,A1,150,고빈도,"편지, 문자",exact
+7797,license,2022,,,,,,none
+7798,like,2022,Like,A1,40,고빈도,"좋아하다, ~처럼, ~와 같이",exact
+7799,major,2022,Major,B1,500,고빈도,"주요한, 중대한; (음악) 장조의; (군대) 소령",exact
+7800,mathematics,2022,Mathematics,A2,1500,중빈도,수학,exact
+7801,matter,2022,Matter,A2,200,고빈도,"물질, 문제, 중요하다",exact
+7802,member,2022,Member,A1,500,고빈도,"회원, 구성원",exact
+7803,moon,2022,Moon,A1,150,고빈도,달,exact
+7804,mother,2022,Mother,A1,200,고빈도,어머니,exact
+7805,nation,2022,Nation,A2,800,고빈도,"국가, 민족",exact
+7806,neighbor,2022,,,,,,none
+7807,nerve,2022,Nerve,B1,1800,중빈도,"신경; 용기, 담력",exact
+7808,no,2022,No,A1,40,고빈도,아니오,exact
+7809,note,2022,Note,A2,5372,고빈도,주목하다,exact
+7810,object,2022,Object,A1,500,고빈도,"물건, 대상",exact
+7811,occur,2022,Occur,B1,2996,중빈도,발생하다,exact
+7812,office,2022,Office,A1,50,고빈도,사무실|직책,exact
+7813,okay,2022,,,,,,none
+7814,order,2022,Order,A2,2918,고빈도,주문하다,exact
+7815,oversea,2022,,,,,,none
+7816,particular,2022,Particular,B1,900,중빈도,"특정한, 특별한",exact
+7817,peace,2022,Peace,A1,500,고빈도,평화,exact
+7818,person,2022,Person,A1,150,고빈도,"사람, 인간",exact
+7819,photograph,2022,Photograph,A2,2355,고빈도,사진을 찍다,exact
+7820,place,2022,Place,A1,3061,고빈도,놓다,exact
+7821,please,2022,Please,A1,5441,최고빈도,기쁘게 하다,exact
+7822,pole,2022,Pole,A1,2800,중빈도,"기둥, 장대, 극",exact
+7823,post,2022,Post,A2,2969,고빈도,게시하다,exact
+7824,practice,2022,Practice,A2,2605,고빈도,연습하다,exact
+7825,prime,2022,Prime,B1,1500,중빈도,"최고의, 주된, 으뜸가는",exact
+7826,probable,2022,,,,,,none
+7827,proceed,2022,Proceed,B1,1970,중빈도,진행하다,exact
+7828,program,2022,Program,B1,2385,중빈도,프로그래밍하다,exact
+7829,pronounce,2022,Pronounce,B1,2465,중빈도,발음하다,exact
+7830,quality,2022,Quality,A2,500,고빈도,"질, 품질",exact
+7831,race,2022,Race,A2,3752,고빈도,경주하다,exact
+7832,real,2022,Real,A1,150,고빈도,"진짜의, 실제의",exact
+7833,reason,2022,Reason,A2,400,고빈도,"이유, 까닭",exact
+7834,receive,2022,Receive,A2,2779,고빈도,받다,exact
+7835,relate,2022,Relate,B1,3195,중빈도,관련시키다,exact
+7836,respect,2022,Respect,A2,3532,고빈도,존경하다,exact
+7837,roll,2022,Roll,A1,3077,고빈도,구르다,exact
+7838,rub,2022,Rub,A1,1831,고빈도,문지르다,exact
+7839,rumor,2022,,,,,,none
+7840,second,2022,Second,A1,200,고빈도,초 (시간 단위),exact
+7841,sense,2022,Sense,B1,2626,중빈도,감지하다,exact
+7842,sign,2022,Sign,A2,2936,고빈도,서명하다,exact
+7843,situate,2022,,,,,,none
+7844,species,2022,Species,B1,1809,중빈도,종,exact
+7845,study,2022,Study,A1,2599,고빈도,공부하다,exact
+7846,subject,2022,Subject,A1,250,고빈도,"주제, 과목, 대상",exact
+7847,sum,2022,Sum,B1,3025,중빈도,합산하다,exact
+7848,sure,2022,Sure,A1,100,고빈도,"확실한, 물론",exact
+7849,take,2022,Take,A1,60,고빈도,"가지다, 잡다, 데려가다",exact
+7850,technique,2022,Technique,B1,1200,중빈도,"기술, 기법",exact
+7851,telephone,2022,Telephone,A1,800,고빈도,전화,exact
+7852,theater,2022,,,,,,none
+7853,tide,2022,Tide,A2,2800,중빈도,"조수, 밀물, 썰물",exact
+7854,tire,2022,Tire,A2,2500,중빈도,"피곤하게 하다, 싫증나게 하다",exact
+7855,title,2022,Title,B1,3184,중빈도,제목을 붙이다,exact
+7856,toward,2022,Toward,A1,600,고빈도,"~쪽으로, ~을 향하여",exact
+7857,transport,2022,Transport,B1,4640,중빈도,운송하다,exact
+7858,try,2022,Try,A1,360,고빈도,"시도하다, 노력하다",exact
+7859,unite,2022,Unite,B1,3380,고빈도,통합하다,exact
+7860,upward,2022,,,,,,none
+7861,use,2022,Use,A1,335,고빈도,사용하다,exact
+7862,utilize,2022,Utilize,B2,3112,저빈도,활용하다,exact
+7863,view,2022,View,A2,2691,고빈도,보다,exact
+7864,yes,2022,Yes,A1,50,고빈도,"네, 예",exact
