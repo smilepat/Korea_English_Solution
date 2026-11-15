@@ -1,0 +1,19 @@
+{
+  "id": "informative-cause-chain",
+  "titleKo": "원인-결과 사슬 잇기",
+  "titleEn": "Build the cause chain",
+  "stage": "while",
+  "skill": "reading",
+  "grades": ["middle1", "middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 10,
+  "grouping": "pair",
+  "materials": ["문장 조각 카드 (잘라서 배부)"],
+  "layer": "structure",
+  "hooks": { "forms": [], "purposes": ["informative"], "methods": [] },
+  "slots": [
+    { "key": "links", "kind": "sentence_list", "n": 4, "from": "passage", "rule": "앞 문장의 일이 다음 문장의 일을 일으키는 문장 4개 (예: 운동한다 → 근육에 작은 상처가 난다 → 쉬는 동안 회복한다 → 근육이 강해진다). 원문 그대로 옮기고, 지문에 나온 순서를 섞어서 제시한다. 글에 이런 사슬이 3고리 이상 없으면 채우지 않는다." }
+  ],
+  "studentText": "아래 {{links.n}}개 문장은 순서가 섞여 있습니다. 한 일이 다음 일을 일으키도록 화살표(→)로 이어 사슬을 만드세요.\n{{links}}\n다 이은 뒤, 사슬의 두 고리 사이에 so 를 넣어 읽어 보세요. 말이 되지 않는 자리가 있으면 짝과 다시 정하세요.",
+  "teacherNote": "시간 순서가 아니라 까닭과 결과의 순서다. 학생이 '먼저 나온 문장'으로 놓으면 '이것 때문에 저것이 일어났나?'를 물어 되돌린다. 문장에 because·so 같은 말이 없어도 사슬은 있다 — so 를 넣어 읽어 보는 것이 그 확인이다.",
+  "source": { "inventoryId": "ETA-trial-2026-11-14", "repo": "English-teacher-agent" }
+}
