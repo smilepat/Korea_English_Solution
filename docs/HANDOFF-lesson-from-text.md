@@ -18,7 +18,7 @@
 | 계획 | 완료 09-12 | `docs/PLAN-lesson-from-text.md` · 아티팩트 "지문에서 수업으로" v2 |
 | M0 축 확정 + K1 | 완료 09-13 | `experiments/M0-text-type/RESULTS.md` |
 | M1 판정 엔진 + 지문 탭 | 완료 09-14 | `lib/text-type/` · `components/text-type-panel.tsx` |
-| M2 레시피 원장 33개 + K2 | 완료 09-14 | `content/recipes/` · `docs/RECIPE-SPEC.md` · `lib/recipes/select.ts` |
+| M2 레시피 원장 33개 + K2 (11-15 에 37개: #14 반영, 9e5b731) | 완료 09-14 | `content/recipes/` · `docs/RECIPE-SPEC.md` · `lib/recipes/select.ts` |
 | M3 빈칸 채우기·조립·인쇄 | 완료 09-14 | `lib/recipes/fill.ts` · `app/actions/lesson-build.ts` · `app/lesson-planner/print` |
 | 화면 확인 사전 점검 | 완료 11-05 (실호출 3편, 버그 1건 수리) | 아래 §3-1 |
 | **화면 확인** | **대기 — 사람 눈으로 한 번도 안 봄** | 아래 §3 |
@@ -37,7 +37,7 @@
   ③ judge     판정자 3인  목적 하나 고르기 + 전개 방식 있다/없다 ×9                 AI
               (2.5-flash · 2.5-pro · 3.8-flash, 서로 못 봄, 선택지 순서 판정자마다 섞음)
   ④ aggregate 모으기      목적 다수결 · 방식 전원 동의 집합 · 근거는 지문에 실재하는 것만   AI 없음
-  ⑤ select    고르기      레시피 33개에서 seed(지문 해시) 고정으로 도입1·전개1~2·정리1·숙제1   AI 없음
+  ⑤ select    고르기      레시피 37개에서 seed(지문 해시) 고정으로 도입1·전개1~2·정리1·숙제1   AI 없음
   ⑥ fill      채우기      from:passage 는 채운 뒤 지문 실재 검증, from:generated 만 AI 작문   AI
   → 교사 보기 / 학생 보기 → /lesson-planner/print?view=student|teacher (Ctrl+P → PDF)
 ```
@@ -94,7 +94,7 @@ lib/text-type/
   measure.ts forms.ts judge.ts aggregate.ts fit.ts standards.ts index.ts
 lib/recipes/
   types.ts select.ts load.ts fill.ts
-content/recipes/*.json          레시피 33개 (파일 = 활동). 계약 docs/RECIPE-SPEC.md
+content/recipes/*.json          레시피 37개 (파일 = 활동). 계약 docs/RECIPE-SPEC.md
 scripts/validate-recipes.mjs    무의존 검증기. npm run validate:recipes
 app/actions/text-type.ts        analyzeTextType (레이트리밋 kcsdb-guard)
 app/actions/lesson-build.ts     buildLesson
