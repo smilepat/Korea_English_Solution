@@ -1,0 +1,196 @@
+{
+  "grades": [
+    {
+      "grade": "초3",
+      "school_level": "elementary",
+      "lexile_min": 50,
+      "lexile_max": 380,
+      "fk_min": 0,
+      "fk_max": 2.0,
+      "words_min": 20,
+      "words_max": 60,
+      "sentences_min": 3,
+      "sentences_max": 12,
+      "sentence_max_words": 8,
+      "wf_max_level": 2,
+      "gsl_avg_rank_max": 800,
+      "hard_reject_on": [
+        "lexile",
+        "wf_level"
+      ],
+      "soft_warn_on": [
+        "sentence_max_words"
+      ]
+    },
+    {
+      "grade": "초4",
+      "school_level": "elementary",
+      "lexile_min": 80,
+      "lexile_max": 450,
+      "fk_min": 0,
+      "fk_max": 2.5,
+      "words_min": 30,
+      "words_max": 100,
+      "sentences_min": 4,
+      "sentences_max": 14,
+      "sentence_max_words": 10,
+      "wf_max_level": 2,
+      "gsl_avg_rank_max": 820,
+      "hard_reject_on": [
+        "lexile",
+        "wf_level"
+      ],
+      "soft_warn_on": [
+        "sentence_max_words"
+      ]
+    },
+    {
+      "grade": "초5",
+      "school_level": "elementary",
+      "lexile_min": 280,
+      "lexile_max": 520,
+      "fk_min": 1.0,
+      "fk_max": 4.0,
+      "words_min": 40,
+      "words_max": 120,
+      "sentences_min": 6,
+      "sentences_max": 14,
+      "sentence_max_words": 12,
+      "wf_max_level": 3,
+      "gsl_avg_rank_max": 850,
+      "hard_reject_on": [
+        "lexile",
+        "wf_level"
+      ],
+      "soft_warn_on": [
+        "sentence_max_words"
+      ]
+    },
+    {
+      "grade": "초6",
+      "school_level": "elementary",
+      "lexile_min": 340,
+      "lexile_max": 560,
+      "fk_min": 1.0,
+      "fk_max": 4.5,
+      "words_min": 50,
+      "words_max": 110,
+      "sentences_min": 7,
+      "sentences_max": 14,
+      "sentence_max_words": 14,
+      "wf_max_level": 3,
+      "gsl_avg_rank_max": 870,
+      "hard_reject_on": [
+        "lexile",
+        "wf_level"
+      ],
+      "soft_warn_on": [
+        "sentence_max_words"
+      ]
+    },
+    {
+      "grade": "중1",
+      "school_level": "middle",
+      "lexile_min": 400,
+      "lexile_max": 620,
+      "fk_min": 2.5,
+      "fk_max": 7.5,
+      "words_min": 60,
+      "words_max": 180,
+      "sentences_min": 5,
+      "sentences_max": 16,
+      "sentence_max_words": 18,
+      "wf_max_level": 4,
+      "gsl_avg_rank_max": 870,
+      "hard_reject_on": [
+        "lexile"
+      ],
+      "soft_warn_on": [
+        "wf_level",
+        "sentence_max_words"
+      ]
+    },
+    {
+      "grade": "중2",
+      "school_level": "middle",
+      "lexile_min": 470,
+      "lexile_max": 720,
+      "fk_min": 2.5,
+      "fk_max": 9.0,
+      "words_min": 55,
+      "words_max": 220,
+      "sentences_min": 3,
+      "sentences_max": 18,
+      "sentence_max_words": 20,
+      "wf_max_level": 4,
+      "gsl_avg_rank_max": 900,
+      "hard_reject_on": [
+        "lexile"
+      ],
+      "soft_warn_on": [
+        "wf_level",
+        "sentence_max_words"
+      ]
+    },
+    {
+      "grade": "중3",
+      "school_level": "middle",
+      "lexile_min": 530,
+      "lexile_max": 800,
+      "fk_min": 4.0,
+      "fk_max": 11.0,
+      "words_min": 50,
+      "words_max": 240,
+      "sentences_min": 3,
+      "sentences_max": 18,
+      "sentence_max_words": 22,
+      "wf_max_level": 4,
+      "gsl_avg_rank_max": 940,
+      "hard_reject_on": [
+        "lexile"
+      ],
+      "soft_warn_on": [
+        "wf_level",
+        "sentence_max_words"
+      ]
+    },
+    {
+      "grade": "고1",
+      "school_level": "high",
+      "lexile_min": 580,
+      "lexile_max": 960,
+      "fk_min": 6.0,
+      "fk_max": 14.0,
+      "words_min": 60,
+      "words_max": 280,
+      "sentences_min": 3,
+      "sentences_max": 20,
+      "sentence_max_words": 25,
+      "wf_max_level": 4,
+      "gsl_avg_rank_max": 990,
+      "hard_reject_on": [
+        "lexile"
+      ],
+      "soft_warn_on": [
+        "wf_level",
+        "sentence_max_words"
+      ]
+    }
+  ],
+  "metrics_description": {
+    "lexile": "문장 길이 + 어휘 빈도 기반 readability 지수 (L 단위). 학년이 올라갈수록 범위 상승.",
+    "fk_grade": "Flesch-Kincaid Grade Level — 미국 학년 기준 readability. 학년 매핑이 직관적.",
+    "wf_max_level": "Word Family 레벨 (1~4). 1=가장 빈번한 1,000 word families, 4=학술 어휘까지 허용.",
+    "gsl_avg_rank_max": "General Service List 500 기준 평균 rank. 낮을수록 빈번 어휘 = 학년 적합도 ↑.",
+    "sentence_max_words": "가독성 가드. 학년 한도를 초과하는 문장은 soft reject."
+  },
+  "validation_rules": {
+    "hard_reject": "측정값이 범위 밖이면 즉시 rejected 처리 (사람 검토 없이)",
+    "soft_warn": "측정값이 범위를 초과하지만 허용 — 검토 화면에 경고 표시"
+  },
+  "_role": "words_min/max·sentences_min/max 는 '합격 허용 범위'(검증 커트라인 — 이 범위 밖이면 탈락)다. 생성 시 지향할 '권장(목표) 범위'는 grammar-scope.json 의 passage_structure_by_grade 를 따른다(허용 범위 안의 좁은 범위). 시각자료(visual_aid)는 본 파일에서 제외 — 교육과정 성취기준·EBS-demo 근거를 가진 grammar-scope.json 의 passage_structure_by_grade(초3~초6 필수)를 단일 출처로 한다.",
+  "_source": "첨부 2. EBS 영어 AI 지문·문항 자동생성 개발 가이드라인 + ADR-0006 Tier-1 v1",
+  "_version": "2026.1.0",
+  "_last_updated": "2026-05-28",
+  "_vendored_from": "smilepat/abc-english-framework data/grade-bounds.json (2026-09-14 복사). 원본이 정본, 여기는 사본."
+}

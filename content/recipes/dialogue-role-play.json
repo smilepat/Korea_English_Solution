@@ -1,0 +1,18 @@
+{
+  "id": "dialogue-role-play",
+  "titleKo": "역할 바꿔 읽기",
+  "titleEn": "Role play, then swap",
+  "stage": "while",
+  "skill": "speaking",
+  "grades": ["middle1", "middle2", "middle3", "high1"],
+  "minutes": 10,
+  "grouping": "pair",
+  "layer": "fluency",
+  "hooks": { "forms": ["dialogue"], "purposes": [], "methods": [] },
+  "slots": [
+    { "key": "speakers", "kind": "word_list", "n": 2, "from": "passage", "rule": "화자 이름 둘 (많으면 주된 둘)." },
+    { "key": "keyLines", "kind": "sentence_list", "n": 4, "from": "passage", "rule": "대화에서 의사소통 기능이 드러나는 대사 4개 (인사·소개·부탁·제안·거절 등). 원문 그대로." }
+  ],
+  "studentText": "짝과 {{speakers}} 역할을 맡아 대화를 읽습니다. 두 번째는 역할을 바꿉니다. 세 번째는 대본을 덮고 아래 네 대사만 보고 이어 갑니다.\n{{keyLines}}",
+  "teacherNote": "세 번째 읽기(대본 덮고)가 목표다. 정확한 문장보다 대화가 끊기지 않는 것을 칭찬한다. 각 대사가 무슨 기능(인사·부탁·제안)인지 한 번 짚어 준다."
+}

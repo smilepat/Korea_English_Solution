@@ -1,0 +1,18 @@
+{
+  "id": "notice-make-your-own",
+  "titleKo": "우리 학교 안내문",
+  "titleEn": "Make your own notice",
+  "stage": "home",
+  "skill": "writing",
+  "grades": ["middle1", "middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 15,
+  "grouping": "individual",
+  "layer": "practice",
+  "hooks": { "forms": ["notice", "advertisement"], "purposes": [], "methods": [] },
+  "slots": [
+    { "key": "headings", "kind": "phrase_list", "n": 4, "from": "passage", "rule": "안내문이 쓴 항목 이름 (Date, Place, Fee, How to sign up 등). 원문 표현 그대로. 최대 4개." }
+  ],
+  "studentText": "이 안내문과 같은 틀({{headings}})로 우리 학교 행사 안내문을 영어로 쓰세요. 항목마다 한 줄. 마지막에 'For more information, …' 한 줄을 넣으세요.",
+  "teacherNote": "틀을 베끼는 것이 목적이다. 안내문은 창의보다 형식이다 — 항목이 다 있고 각 줄이 그 항목의 정보이면 통과.",
+  "selfCheck": "원본 안내문의 항목({{headings}})이 내 안내문에도 다 있는지, 각 줄에 날짜·장소 같은 구체 정보가 있는지 확인하세요."
+}

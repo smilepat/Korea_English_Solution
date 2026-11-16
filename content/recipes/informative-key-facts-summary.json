@@ -1,0 +1,18 @@
+{
+  "id": "informative-key-facts-summary",
+  "titleKo": "핵심 사실 세 줄",
+  "titleEn": "Three key facts",
+  "stage": "home",
+  "skill": "writing",
+  "grades": ["middle1", "middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 10,
+  "grouping": "individual",
+  "layer": "summary",
+  "hooks": { "forms": [], "purposes": ["informative"], "methods": [] },
+  "slots": [
+    { "key": "topic", "kind": "phrase_list", "n": 1, "from": "passage", "rule": "글의 화제를 나타내는 어구 하나. 원문 표현 그대로." }
+  ],
+  "studentText": "\"{{topic}}\" 에 대해 이 글에서 새로 알게 된 사실을 영어 세 줄로 쓰세요. 한 줄에 사실 하나. 글의 문장을 그대로 베끼지 말고 짧게 줄이세요.",
+  "teacherNote": "베낀 줄은 다시 쓰게 한다. 줄이는 과정에서 무엇이 핵심인지 고르게 된다.",
+  "selfCheck": "세 줄이 서로 다른 사실이고, 글에서 근거 문장을 각각 찾을 수 있고, 어느 줄도 원문과 똑같지 않으면 됩니다."
+}

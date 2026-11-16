@@ -1,0 +1,49 @@
+{
+  "raters": [
+    "m-flash",
+    "m-pro",
+    "m-g38"
+  ],
+  "n": 27,
+  "unanimous_per_passage": [
+    3,
+    2,
+    3,
+    3,
+    3,
+    2,
+    1,
+    2,
+    5,
+    5,
+    2,
+    1,
+    2,
+    4,
+    5,
+    4,
+    2,
+    2,
+    5,
+    1,
+    5,
+    3,
+    4,
+    3,
+    4,
+    3,
+    3
+  ],
+  "mean_unanimous": 3.037037037037037,
+  "unanimous_by_method": {
+    "cause_effect": 11,
+    "contrast": 13,
+    "narration": 10,
+    "problem_solution": 8,
+    "elaboration": 20,
+    "definition": 4,
+    "exemplification": 13,
+    "classification": 2,
+    "comparison": 1
+  }
+}

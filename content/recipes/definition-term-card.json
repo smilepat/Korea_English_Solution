@@ -1,0 +1,19 @@
+{
+  "id": "definition-term-card",
+  "titleKo": "정의 문장 해부",
+  "titleEn": "Take the definition apart",
+  "stage": "while",
+  "skill": "reading",
+  "grades": ["middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 10,
+  "grouping": "pair",
+  "layer": "decode",
+  "hooks": { "forms": [], "purposes": [], "methods": ["definition"] },
+  "slots": [
+    { "key": "definition", "kind": "sentence", "from": "passage", "rule": "무엇인지 규정하는 문장 하나를 원문 그대로 (is defined as / refers to / is a kind of / means 가 든 문장)." },
+    { "key": "terms", "kind": "word_list", "n": 3, "from": "passage", "rule": "그 문장이 정의하는 용어와, 정의에 쓰인 핵심 낱말 2개." }
+  ],
+  "studentText": "아래 문장은 무엇을 정의합니다.\n\"{{definition}}\"\n① 정의되는 말에 동그라미 ② 어느 부류인지(a kind of …)에 네모 ③ 무엇이 다른지(that/which …)에 밑줄. 그런 뒤 자기 말로 다시 쓰세요.\n핵심 낱말: {{terms}}",
+  "teacherNote": "정의는 '부류 + 차이'로 되어 있다. 이 틀을 한 번 보여 주면 다른 글의 정의문도 스스로 읽는다.",
+  "source": { "inventoryId": "bridge-gloss", "repo": "BRIDGE" }
+}

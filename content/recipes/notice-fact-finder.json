@@ -1,0 +1,18 @@
+{
+  "id": "notice-fact-finder",
+  "titleKo": "안내문 정보 찾기",
+  "titleEn": "Find the facts",
+  "stage": "while",
+  "skill": "reading",
+  "grades": ["middle1", "middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 8,
+  "grouping": "individual",
+  "layer": "comprehension-check",
+  "hooks": { "forms": ["notice", "advertisement"], "purposes": [], "methods": [] },
+  "slots": [
+    { "key": "questions", "kind": "question_list", "n": 5, "from": "generated", "rule": "안내문의 사실 정보를 묻는 영어 물음 5개 — When / Where / Who can / How much / What to bring 중에서. 답이 글에 있어야 하고, 하나는 글에 없는 정보를 묻는 함정으로 만들어 'Not given' 을 답하게 한다." }
+  ],
+  "studentText": "안내문을 읽고 답하세요. 글에 없는 정보면 'Not given' 이라고 쓰세요.\n{{questions}}",
+  "teacherNote": "'Not given' 을 맞히는 것이 핵심이다. 안내문은 있는 정보를 찾는 글이지만, 없는 정보를 없다고 아는 것이 진짜 읽기다. 수능 '내용 불일치' 문항의 뼈대다.",
+  "source": { "inventoryId": "cra-short-passage", "repo": "CRA" }
+}

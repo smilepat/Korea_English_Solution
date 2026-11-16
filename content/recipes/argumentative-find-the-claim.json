@@ -1,0 +1,18 @@
+{
+  "id": "argumentative-find-the-claim",
+  "titleKo": "주장 한 문장, 이유 하나 찾기",
+  "titleEn": "One claim, one reason",
+  "stage": "while",
+  "skill": "reading",
+  "grades": ["middle1", "middle2"],
+  "minutes": 10,
+  "grouping": "pair",
+  "layer": "inference",
+  "hooks": { "forms": [], "purposes": ["argumentative"], "methods": [] },
+  "slots": [
+    { "key": "choices", "kind": "sentence_list", "n": 3, "from": "passage", "rule": "글의 주장 문장 1개와, 주장이 아닌 문장 2개(이유나 배경 설명). 원문 그대로, 순서를 섞어서 제시한다." }
+  ],
+  "studentText": "아래 {{choices.n}}개 문장 가운데 글쓴이가 가장 하고 싶은 말(주장)은 어느 것인가요? 하나에 동그라미 하세요.\n{{choices}}\n그다음 글에서 그 주장의 이유가 되는 문장 하나에 밑줄을 긋고, 짝에게 '왜냐하면 …' 으로 시작해 우리말로 설명하세요.",
+  "teacherNote": "중3 이상의 '주장과 이유 갈라내기'를 쉽게 줄인 판이다. 셋 중 하나를 고르게 해 부담을 줄였다. 이유는 하나만 찾게 한다. 학생이 이유를 주장으로 고르면 '이 문장이 없어도 글쓴이의 바람이 남는가?'를 묻는다.",
+  "source": { "inventoryId": "ETA-trial-2026-11-14", "repo": "English-teacher-agent" }
+}

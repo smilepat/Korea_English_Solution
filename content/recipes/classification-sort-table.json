@@ -1,0 +1,19 @@
+{
+  "id": "classification-sort-table",
+  "titleKo": "갈래 표 채우기",
+  "titleEn": "Sort into the table",
+  "stage": "while",
+  "skill": "reading",
+  "grades": ["middle1", "middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 10,
+  "grouping": "pair",
+  "layer": "practice",
+  "hooks": { "forms": [], "purposes": [], "methods": ["classification"] },
+  "slots": [
+    { "key": "groups", "kind": "phrase_list", "n": 3, "from": "passage", "rule": "글이 나눈 갈래(범주)의 이름을 원문 표현 그대로. 2~4개." },
+    { "key": "items", "kind": "phrase_list", "n": 6, "from": "passage", "rule": "각 갈래에 속하는 구체 항목·예를 원문 표현 그대로. 갈래 순서를 섞어 제시한다." }
+  ],
+  "studentText": "이 글은 여럿을 {{groups.n}}갈래로 나눕니다. 표의 머리칸에 갈래 이름을 쓰고, 아래 항목을 알맞은 칸에 넣으세요.\n갈래: {{groups}}\n항목: {{items}}",
+  "teacherNote": "나누는 기준(criterion)이 무엇인지 한 줄로 말하게 한다. 기준을 못 말하면 갈래를 외운 것이지 이해한 것이 아니다.",
+  "source": { "inventoryId": "msal-match-sort", "repo": "MSAL" }
+}

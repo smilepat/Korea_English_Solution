@@ -1,0 +1,18 @@
+{
+  "id": "contrast-flip-the-side",
+  "titleKo": "반대쪽에서 말해 보기",
+  "titleEn": "Argue the other side",
+  "stage": "post",
+  "skill": "speaking",
+  "grades": ["middle3", "high1", "high2", "high3"],
+  "minutes": 8,
+  "grouping": "pair",
+  "layer": "practice",
+  "hooks": { "forms": [], "purposes": [], "methods": ["contrast"] },
+  "slots": [
+    { "key": "sideA", "kind": "sentence", "from": "passage", "rule": "대조되는 두 입장 중 글이 먼저 말한 쪽의 문장. 원문 그대로." },
+    { "key": "sideB", "kind": "sentence", "from": "passage", "rule": "대조되는 두 입장 중 글이 나중에 말한 쪽(대개 필자가 편드는 쪽)의 문장. 원문 그대로." }
+  ],
+  "studentText": "짝과 한 쪽씩 맡습니다.\nA: \"{{sideA}}\"\nB: \"{{sideB}}\"\n각자 자기 쪽을 두 문장으로 말한 뒤 역할을 바꿉니다. 바꾼 뒤가 더 어렵습니다 — 글이 편들지 않은 쪽을 말해 보세요.",
+  "teacherNote": "역할 교대 뒤의 발화만 평가한다. 글이 편든 쪽은 글을 베끼면 되지만, 반대쪽은 스스로 만들어야 한다."
+}

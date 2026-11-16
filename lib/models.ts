@@ -50,9 +50,13 @@ class GeminiProvider implements AIProvider {
   }
 
   async generateJSON<T>(prompt: string, options?: AIOptions): Promise<T> {
-    const text = await this.generateText(prompt, options)
-    const cleaned = text.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim()
-    return JSON.parse(cleaned) as T
+    // json:true 로 responseMimeType 을 강제한다. 지시만으로는 서두가 붙어 파싱이 깨진다.
+    const text = await callGemini(prompt, options?.systemPrompt ?? TEACHER_SYSTEM, {
+      maxOutputTokens: options?.maxTokens ?? 2048,
+      temperature: options?.temperature,
+      json: true,
+    })
+    return parseGeminiJson<T>(text)
   }
 }
 

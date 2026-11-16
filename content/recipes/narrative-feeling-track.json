@@ -1,0 +1,18 @@
+{
+  "id": "narrative-feeling-track",
+  "titleKo": "인물의 마음 따라가기",
+  "titleEn": "Track the feelings",
+  "stage": "while",
+  "skill": "reading",
+  "grades": ["middle1", "middle2", "middle3", "high1"],
+  "minutes": 10,
+  "grouping": "individual",
+  "layer": "inference",
+  "hooks": { "forms": [], "purposes": ["narrative"], "methods": [] },
+  "slots": [
+    { "key": "moments", "kind": "sentence_list", "n": 3, "from": "passage", "rule": "주인공의 마음이 드러나거나 바뀌는 문장 3개 (처음 · 가운데 · 끝에서 하나씩). 원문 그대로, 지문에 나온 순서대로." }
+  ],
+  "studentText": "아래 세 문장에서 주인공의 마음을 나타내는 낱말 하나를 찾아 동그라미 하고, 그 옆에 우리말로 마음을 적으세요 (예: 걱정, 기쁨, 미안함).\n{{moments}}\n마음이 가장 크게 바뀐 곳은 어디인가요? 그렇게 바뀐 까닭을 글에서 찾아 밑줄을 그으세요.",
+  "teacherNote": "마음을 나타내는 낱말이 문장에 직접 없으면(행동으로만 보이면) 그 행동에 밑줄을 긋게 한다. '까닭'을 찾는 것이 이 활동의 값이다 — 이야기의 사건과 인물의 마음을 잇는 연습이다.",
+  "source": { "inventoryId": "ETA-trial-2026-11-14", "repo": "English-teacher-agent" }
+}

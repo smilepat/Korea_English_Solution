@@ -1,0 +1,473 @@
+{
+  "judge": "ai",
+  "model": "gemini-2.5-flash",
+  "predictions": [
+    {
+      "gid": "G01",
+      "purpose": "argumentative",
+      "method": "problem_solution",
+      "second": null,
+      "confidence": "high",
+      "evidence": [
+        "often our self-care activities are the first thing to be given up.",
+        "But it’s important to recognize the cumulative impact of not prioritizing self-care and to make sure that in the long term, this is the exception rather than the norm."
+      ],
+      "evidence_grounded": 2,
+      "evidence_total": 2,
+      "off_list": false
+    },
+    {
+      "gid": "G02",
+      "purpose": "narrative",
+      "method": "narration",
+      "second": null,
+      "confidence": "high",
+      "evidence": [
+        "I had volunteered for the charity picnic, and I needed to be there on time.",
+        "My voice was growing louder with each sentence."
+      ],
+      "evidence_grounded": 2,
+      "evidence_total": 2,
+      "off_list": false
+    },
+    {
+      "gid": "G03",
+      "purpose": "argumentative",
+      "method": "exemplification",
+      "second": null,
+      "confidence": "high",
+      "evidence": [
+        "Help us by joining today, and enjoy all the benefits of membership for only $50 per year.",
+        "Members receive: ∙Our monthly magazine, Nature World, for one year. ∙A weekly newsletter about upcoming events held by the Foundation. ∙Invitations to special lectures on natural history and environmental science.",
+        "Members also get: ∙A 10% discount on books published by the Foundation. ∙A 20% discount on our other magazines like Nature Kids. ∙Discounted admission to national parks."
+      ],
+      "evidence_grounded": 3,
+      "evidence_total": 3,
+      "off_list": false
+    },
+    {
+      "gid": "G04",
+      "purpose": "argumentative",
+      "method": "cause_effect",
+      "second": null,
+      "confidence": "high",
+      "evidence": [
+        "In the case of climate change, however, the sharp division of time into past, present, and future has been desperately misleading and has, most importantly, hidden from view the extent of the responsibility of those of us alive now.",
+        "The narrowing of our consciousness of time smooths the way to divorcing ourselves from responsibility for developments in the past and the future with which our lives are in fact deeply intertwined."
+      ],
+      "evidence_grounded": 2,
+      "evidence_total": 2,
+      "off_list": false
+    },
+    {
+      "gid": "G05",
+      "purpose": "argumentative",
+      "method": "contrast",
+      "second": "cause_effect",
+      "confidence": "high",
+      "evidence": [
+        "In all other contexts, though, it seems to be a common motorist’s error.",
+        "Unless you’re comfortable planning your life around a particular scheduled trip, speed is worthless without frequency, so a transit map that screams about speed and whispers about frequency may simply be planting confusion.",
+        "Roads are there all the time, so their speed is the most important fact that distinguishes them. But transit is only there if it’s coming soon.",
+        "If you have a car, you can use a road whenever you want and experience its speed. But transit has to exist when you need it (span), and it needs to be coming soon (frequency)."
+      ],
+      "evidence_grounded": 4,
+      "evidence_total": 4,
+      "off_list": false
+    },
+    {
+      "gid": "G06",
+      "purpose": "informative",
+      "method": "definition",
+      "second": "exemplification",
+      "confidence": "ask",
+      "evidence": [
+        "New media can be defined by four characteristics simultaneously: they are media at the turn of the 20th and 21st centuries which are both integrated and interactive and use digital code and hypertext as technical means.",
+        "By using this definition, it is easy to identify media as old or new.",
+        "traditional television is integrated as it contains images, sound and text, but it is not interactive or based on digital code.",
+        "The plain old telephone was interactive, but not integrated as it only transmitted speech and sounds and it did not work with digital code.",
+        "In contrast, the new medium of interactive television adds interactivity and digital code.",
+        "the new generations of mobile or fixed telephony are fully digitalized and integrated as they add text, pictures or video and they are connected to the Internet."
+      ],
+      "evidence_grounded": 6,
+      "evidence_total": 6,
+      "off_list": false
+    },
+    {
+      "gid": "G07",
+      "purpose": "argumentative",
+      "method": "problem_solution",
+      "second": null,
+      "confidence": "high",
+      "evidence": [
+        "Over the last few semesters, there have been requests for more diverse school clubs.",
+        "Therefore, I am encouraging you to submit a proposal for a new club that you would like to create."
+      ],
+      "evidence_grounded": 2,
+      "evidence_total": 2,
+      "off_list": false
+    },
+    {
+      "gid": "G08",
+      "purpose": "informative",
+      "method": "elaboration",
+      "second": null,
+      "confidence": "high",
+      "evidence": [
+        "All donations this year go toward purchasing new books for the children’s library!",
+        "∙Date: Saturday, December 2, 2017",
+        "∙Place: Peterson National Park",
+        "How to Participate",
+        "What to Bring"
+      ],
+      "evidence_grounded": 5,
+      "evidence_total": 5,
+      "off_list": false
+    },
+    {
+      "gid": "G09",
+      "purpose": "informative",
+      "method": "exemplification",
+      "second": null,
+      "confidence": "high",
+      "evidence": [
+        "Many disciplines are better learned by entering into the doing than by mere abstract study.",
+        "For example, within the philosophical disciplines, logic must be learned through the use of examples and actual problem solving.",
+        "For instance, only after a good deal of observation do the sparks in the bubble chamber become recognizable as the specific movements of identifiable particles."
+      ],
+      "evidence_grounded": 3,
+      "evidence_total": 3,
+      "off_list": false
+    },
+    {
+      "gid": "G10",
+      "purpose": "argumentative",
+      "method": "problem_solution",
+      "second": "exemplification",
+      "confidence": "high",
+      "evidence": [
+        "it is easy to argue that basic science is not worth the effort and expense because it has no known practical use.",
+        "Of course, the problem is that we have no way of knowing what knowledge will be of use until we acquire that knowledge.",
+        "In the middle of the 19th century, Queen Victoria is supposed to have asked physicist Michael Faraday what good his experiments with electricity and magnetism were.",
+        "He answered, “Madam, what good is a baby?”",
+        "Of course, Faraday’s experiments were the beginning of the electronic age.",
+        "Many of the practical uses of scientific knowledge that fill our world―transistors, vaccines, plastics―began as basic research.",
+        "Science tells us where we are and what we are, and that knowledge is beyond value."
+      ],
+      "evidence_grounded": 7,
+      "evidence_total": 7,
+      "off_list": false
+    },
+    {
+      "gid": "G11",
+      "purpose": "argumentative",
+      "method": "contrast",
+      "second": null,
+      "confidence": "high",
+      "evidence": [
+        "Mathematics will attract those it can attract, but it will do nothing to overcome resistance to science.",
+        "Science is universal in principle but in practice it speaks to very few.",
+        "Mathematics may be considered a communication skill of the highest type, frictionless so to speak; and at the opposite pole from mathematics, the fruits of science show the practical benefits of science without the use of words.",
+        "But those fruits are ambivalent.",
+        "Science as science does not speak; ideally, all scientific concepts are mathematized when scientists communicate with one another, and when science displays its products to non-scientists it need not, and indeed is not able to, resort to salesmanship.",
+        "When science speaks to others, it is no longer science, and the scientist becomes or has to hire a publicist who dilutes the exactness of mathematics."
+      ],
+      "evidence_grounded": 6,
+      "evidence_total": 6,
+      "off_list": false
+    },
+    {
+      "gid": "G12",
+      "purpose": "narrative",
+      "method": "problem_solution",
+      "second": "narration",
+      "confidence": "ask",
+      "evidence": [
+        "But when Erik introduced Keith and his producer Manfred to the piano on the stage that afternoon, it didn’t go well.",
+        "Desperate, the German teenager caught up with Keith and begged the jazz pianist to play."
+      ],
+      "evidence_grounded": 1,
+      "evidence_total": 2,
+      "off_list": false
+    },
+    {
+      "gid": "G13",
+      "purpose": "informative",
+      "method": "cause_effect",
+      "second": "exemplification",
+      "confidence": "high",
+      "evidence": [
+        "Sometimes all the outcomes customers are trying to achieve in one area have a negative effect on other outcomes.",
+        "the added feature turns out to be worthless because of the problems it causes."
+      ],
+      "evidence_grounded": 2,
+      "evidence_total": 2,
+      "off_list": false
+    },
+    {
+      "gid": "G14",
+      "purpose": "informative",
+      "method": "elaboration",
+      "second": "contrast",
+      "confidence": "ask",
+      "evidence": [
+        "In reality, objects do not conform to a linear lifecycle model; instead, they undergo breakdowns, await repairs, are stored away, or find themselves relegated to the basement, only to be rediscovered and repurposed later.",
+        "By their very nature, the concepts of maintenance and repair are predominantly examined from a process-oriented perspective.",
+        "In this context, maintenance and repair are considered practices that have the potential to prolong the existence of objects, ensuring their sustained utilization over an extended period.",
+        "Krebs and Weber critically engage with anthropomorphic metaphors that imply a biography of things, appropriately highlighting that conventional understanding of the lifecycle of a technology, from its acquisition to its disposal from the household, provides an incomplete definition."
+      ],
+      "evidence_grounded": 4,
+      "evidence_total": 4,
+      "off_list": false
+    },
+    {
+      "gid": "G15",
+      "purpose": "narrative",
+      "method": "narration",
+      "second": null,
+      "confidence": "high",
+      "evidence": [
+        "“Where could it be?” Sophie asked herself.",
+        "She walked the narrow streets of the village, unsure about which way to go.",
+        "Suddenly, Sophie saw a familiar sight.",
+        "At last, she had finally found the house she had grown up in."
+      ],
+      "evidence_grounded": 4,
+      "evidence_total": 4,
+      "off_list": false
+    },
+    {
+      "gid": "G16",
+      "purpose": "argumentative",
+      "method": "cause_effect",
+      "second": "contrast",
+      "confidence": "ask",
+      "evidence": [
+        "In retrospect, they probably made a poor choice, for the expression “multitasking” is inherently deceptive.",
+        "Multitasking is about multiple tasks alternately sharing one resource (the CPU), but in time the context was flipped and it became interpreted to mean multiple tasks being done simultaneously by one resource (a person).",
+        "The speed with which computers tackle multiple tasks that everything happens at the same time, so comparing computers to humans can be confusing."
+      ],
+      "evidence_grounded": 3,
+      "evidence_total": 3,
+      "off_list": false
+    },
+    {
+      "gid": "G17",
+      "purpose": "informative",
+      "method": "cause_effect",
+      "second": null,
+      "confidence": "high",
+      "evidence": [
+        "Studies in psychology have reported cases in which competitive incentives resulted in lower task effort, and their focus was on the psychological underpinnings of the reduction in motivation.",
+        "For example, competition presents an inevitable conflict between the motivation to achieve one’s personal goal and the ①desire to maintain good relationships with others.",
+        "When the maintenance of interpersonal relationships is important, with their counterparts in particular or with others generally, competitors experience an ②internal conflict that can harm their desire to achieve their goal and taint the good feeling brought about by winning.",
+        "Consequences of this emotional state include lower task motivation in a competition and preferences for"
+      ],
+      "evidence_grounded": 4,
+      "evidence_total": 4,
+      "off_list": false
+    },
+    {
+      "gid": "G18",
+      "purpose": "informative",
+      "method": "exemplification",
+      "second": "cause_effect",
+      "confidence": "ask",
+      "evidence": [
+        "In many situations, however, the boundary between good and bad is a reference point that changes over time and depends on the immediate circumstances.",
+        "Imagine that you are out in the country on a cold night, inadequately dressed for the pouring rain, your clothes soaked.",
+        "The biologist Michel Cabanac would call the experience of that moment intensely pleasurable because it functions, as pleasure normally does, to indicate the direction of ."
+      ],
+      "evidence_grounded": 3,
+      "evidence_total": 3,
+      "off_list": false
+    },
+    {
+      "gid": "G19",
+      "purpose": "informative",
+      "method": "exemplification",
+      "second": null,
+      "confidence": "high",
+      "evidence": [
+        "①One team told repeated stories about a dumpster fire, something that does not seem funny on its face, but the reactions of workers motivated to preserve safety sparked laughter as the stories were shared multiple times by multiple parties in the workplace.",
+        "②Shared events that cause laughter can indicate a sense of belonging since “you had to be there” to see the humor in them, and non-members were not and do not."
+      ],
+      "evidence_grounded": 2,
+      "evidence_total": 2,
+      "off_list": false
+    },
+    {
+      "gid": "G20",
+      "purpose": "narrative",
+      "method": "narration",
+      "second": null,
+      "confidence": "high",
+      "evidence": [
+        "In 1493, Christopher Columbus sent one of the earliest and most famous bottled messages.",
+        "He was returning to Spain to tell the king and queen about what he had discovered, when his ship got caught in a bad storm.",
+        "So he wrote the news on a piece of paper.",
+        "He put it in a wooden bottle and tossed it overboard.",
+        "More than 300 years later, it was found by the captain of an American ship off the coast of Africa, near Morocco."
+      ],
+      "evidence_grounded": 5,
+      "evidence_total": 5,
+      "off_list": false
+    },
+    {
+      "gid": "G21",
+      "purpose": "informative",
+      "method": "problem_solution",
+      "second": "cause_effect",
+      "confidence": "ask",
+      "evidence": [
+        "There is an obvious problem with the history of dress in all of its displays and that is, although textiles survive from early periods and cultures of recorded history, actual garments do not provide an an uninterrupted flow of evidence across the same long time-span.",
+        "Therefore, to give the study of dress equal significance to other areas such as architecture, painting, prints, drawings and sculpture, it was (a) inevitable that these other areas would provide much of the source material.",
+        "Fortunately, in the period after 1660, when more items of dress survive to enrich our understanding of the history of the subject, there are also many painted, printed, photographed and filmed sources of evidence of people in clothing, caught in movement."
+      ],
+      "evidence_grounded": 3,
+      "evidence_total": 3,
+      "off_list": false
+    },
+    {
+      "gid": "G22",
+      "purpose": "informative",
+      "method": "elaboration",
+      "second": null,
+      "confidence": "high",
+      "evidence": [
+        "Therefore, we will be renovating some areas of the resort, according to the schedule below.",
+        "Renovation Period: November 21 to December 18, 2022 ∙Renovations will take place every day from 9:00 a.m. to 5:00 p.m."
+      ],
+      "evidence_grounded": 2,
+      "evidence_total": 2,
+      "off_list": false
+    },
+    {
+      "gid": "G23",
+      "purpose": "informative",
+      "method": "classification",
+      "second": "contrast",
+      "confidence": "high",
+      "evidence": [
+        "(B) Wilderness dining has two extremes: gourmet eaters and survival eaters.",
+        "The first like to make camp at lunchtime so they have several hours to set up field ovens; they bake cakes and bread and cook multi-course dinners."
+      ],
+      "evidence_grounded": 2,
+      "evidence_total": 2,
+      "off_list": false
+    },
+    {
+      "gid": "G24",
+      "purpose": "informative",
+      "method": "elaboration",
+      "second": "exemplification",
+      "confidence": "ask",
+      "evidence": [
+        "People don’t usually think of touch as a temporal phenomenon, but it is every bit as time-based as it is spatial.",
+        "You can carry out an experiment to see for yourself.",
+        "Your ability to make complex use of touch, such as buttoning your shirt or unlocking your front door in the dark, depends on continuous time-varying patterns of touch sensation."
+      ],
+      "evidence_grounded": 3,
+      "evidence_total": 3,
+      "off_list": false
+    },
+    {
+      "gid": "G25",
+      "purpose": "informative",
+      "method": "exemplification",
+      "second": "cause_effect",
+      "confidence": "ask",
+      "evidence": [
+        "How the bandwagon effect occurs is demonstrated by the history of measurements of the speed of light.",
+        "This kind of error, where results are always on one side of the real value, is called “bias.”",
+        "It probably happened because over time, experimenters subconsciously adjusted their results to match what they expected to find."
+      ],
+      "evidence_grounded": 3,
+      "evidence_total": 3,
+      "off_list": false
+    },
+    {
+      "gid": "G26",
+      "purpose": "narrative",
+      "method": "problem_solution",
+      "second": "narration",
+      "confidence": "ask",
+      "evidence": [
+        "In my office, I have a framed letterfrom a couple of children I have never met.",
+        "A few years back, he took my positive psychology class in college.",
+        "Even after spending many hours each day preparing lesson plans, it became clear that his methods were not working.",
+        "Many students didn’t even look at the exam. They just put their heads on their desks and slept.",
+        "Jeremy knew something had to change.",
+        "That’s when he decided to focus more on building positive attitudes within the classroom. He borrowed lessons from my positive psychology class and even mentioned my name to his students.",
+        "As the students’ attitudes became more optimistic, their confidence with math grew too. At the end of the school year, 80 percent of Jeremy’s students passed the state’s math test."
+      ],
+      "evidence_grounded": 7,
+      "evidence_total": 7,
+      "off_list": false
+    },
+    {
+      "gid": "G27",
+      "purpose": "argumentative",
+      "method": "problem_solution",
+      "second": "cause_effect",
+      "confidence": "ask",
+      "evidence": [
+        "In order to successfully release himself from the control of his parents, a child must be secure in his parents’ power, as represented by their loving authority.",
+        "it is impossible for a child to successfully release himself unless he knows exactly where his parents stand, both literally and figuratively.",
+        "The more effectively they communicate that authority, the more secure the child feels, and the better able he is to move away from them toward a life of his own.",
+        "If they don’t know where they stand―if, in other words, they are insecure in their authority―they cannot communicate security to their child, and he cannot move successfully away from them."
+      ],
+      "evidence_grounded": 4,
+      "evidence_total": 4,
+      "off_list": false
+    },
+    {
+      "gid": "G28",
+      "purpose": "argumentative",
+      "method": "exemplification",
+      "second": "cause_effect",
+      "confidence": "ask",
+      "evidence": [
+        "One exercise in teamwork I do at a company retreat is to put the group in a circle.",
+        "The purpose of the exercise is to demonstrate the importance of an individual’s action.",
+        "What this demonstrates is that it’s equally important to the success of the exercise that the person you’re throwing to catches the ball as that you are able to catch the ball.",
+        "Why? Because it’s almost impossible to throw and catch at the same time.",
+        "If you’re less concerned about how you deliver information than with how you receive it, you’ll ultimately fail at delegation.",
+        "You have to be equally skilled at both."
+      ],
+      "evidence_grounded": 6,
+      "evidence_total": 6,
+      "off_list": false
+    },
+    {
+      "gid": "G29",
+      "purpose": "informative",
+      "method": "narration",
+      "second": null,
+      "confidence": "high",
+      "evidence": [
+        "Marjorie Kinnan Rawlings, an American author born in Washington, D.C. in 1896, wrote novels with rural themes and settings.",
+        "In 1939, The Yearling, which was about a boy and an orphaned baby deer, won the Pulitzer Prize for Fiction."
+      ],
+      "evidence_grounded": 2,
+      "evidence_total": 2,
+      "off_list": false
+    },
+    {
+      "gid": "G30",
+      "purpose": "narrative",
+      "method": "narration",
+      "second": "problem_solution",
+      "confidence": "ask",
+      "evidence": [
+        "Mom once said that my grandmother came to America as a poor uneducated Greek immigrant at eighteen.",
+        "One day, when I saw my grandmother on the street by chance, I noticed that (b)she had difficulty in reading an English sign.",
+        "Right at that moment, it hit upon me to teach her to read English in return for all she had taught me.",
+        "My efforts were rewarded only a month later on the morning of my eighteenth birthday."
+      ],
+      "evidence_grounded": 4,
+      "evidence_total": 4,
+      "off_list": false
+    }
+  ]
+}

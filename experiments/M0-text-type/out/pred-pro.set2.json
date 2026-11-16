@@ -1,0 +1,277 @@
+{
+  "judge": "pro.set2",
+  "model": "gemini-2.5-pro",
+  "option_seed": 202,
+  "predictions": [
+    {
+      "gid": "H01",
+      "purpose": "informative",
+      "method": "classification",
+      "second": null,
+      "confidence": "high",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "H02",
+      "purpose": "informative",
+      "method": "contrast",
+      "second": "exemplification",
+      "confidence": "ask",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "H03",
+      "purpose": "social",
+      "method": "problem_solution",
+      "second": null,
+      "confidence": "high",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "H04",
+      "purpose": "informative",
+      "method": "elaboration",
+      "second": null,
+      "confidence": "high",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "H05",
+      "purpose": "informative",
+      "method": "exemplification",
+      "second": "cause_effect",
+      "confidence": "ask",
+      "evidence_grounded": 3,
+      "evidence_total": 3
+    },
+    {
+      "gid": "H06",
+      "purpose": "informative",
+      "method": "cause_effect",
+      "second": "problem_solution",
+      "confidence": "ask",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "H07",
+      "purpose": "argumentative",
+      "method": "contrast",
+      "second": "problem_solution",
+      "confidence": "ask",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "H08",
+      "purpose": "informative",
+      "method": "elaboration",
+      "second": null,
+      "confidence": "high",
+      "evidence_grounded": 4,
+      "evidence_total": 4
+    },
+    {
+      "gid": "H09",
+      "purpose": "social",
+      "method": "problem_solution",
+      "second": null,
+      "confidence": "high",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "H10",
+      "purpose": "social",
+      "method": "problem_solution",
+      "second": null,
+      "confidence": "high",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "H11",
+      "purpose": "social",
+      "method": "problem_solution",
+      "second": null,
+      "confidence": "high",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "H12",
+      "purpose": "informative",
+      "method": "classification",
+      "second": null,
+      "confidence": "high",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "H13",
+      "purpose": "argumentative",
+      "method": "cause_effect",
+      "second": "elaboration",
+      "confidence": "ask",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "H14",
+      "purpose": "argumentative",
+      "method": "cause_effect",
+      "second": "contrast",
+      "confidence": "ask",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "H15",
+      "purpose": "informative",
+      "method": "problem_solution",
+      "second": null,
+      "confidence": "high",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "H16",
+      "purpose": "informative",
+      "method": "elaboration",
+      "second": null,
+      "confidence": "high",
+      "evidence_grounded": 3,
+      "evidence_total": 3
+    },
+    {
+      "gid": "H17",
+      "purpose": "argumentative",
+      "method": "contrast",
+      "second": null,
+      "confidence": "high",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "H18",
+      "purpose": "narrative",
+      "method": "narration",
+      "second": "problem_solution",
+      "confidence": "ask",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "H19",
+      "purpose": "informative",
+      "method": "elaboration",
+      "second": null,
+      "confidence": "high",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "H20",
+      "purpose": "argumentative",
+      "method": "contrast",
+      "second": null,
+      "confidence": "high",
+      "evidence_grounded": 1,
+      "evidence_total": 2
+    },
+    {
+      "gid": "H21",
+      "purpose": "argumentative",
+      "method": "contrast",
+      "second": null,
+      "confidence": "high",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "H22",
+      "purpose": "argumentative",
+      "method": "contrast",
+      "second": null,
+      "confidence": "high",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "H23",
+      "purpose": "informative",
+      "method": "contrast",
+      "second": null,
+      "confidence": "high",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "H24",
+      "purpose": "argumentative",
+      "method": "problem_solution",
+      "second": null,
+      "confidence": "high",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "H25",
+      "purpose": "informative",
+      "method": "classification",
+      "second": null,
+      "confidence": "high",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "H26",
+      "purpose": "argumentative",
+      "method": "problem_solution",
+      "second": null,
+      "confidence": "high",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "H27",
+      "purpose": "argumentative",
+      "method": "problem_solution",
+      "second": "cause_effect",
+      "confidence": "ask",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    },
+    {
+      "gid": "H28",
+      "purpose": "narrative",
+      "method": "narration",
+      "second": null,
+      "confidence": "high",
+      "evidence_grounded": 3,
+      "evidence_total": 3
+    },
+    {
+      "gid": "H29",
+      "purpose": "argumentative",
+      "method": "contrast",
+      "second": "exemplification",
+      "confidence": "ask",
+      "evidence_grounded": 3,
+      "evidence_total": 3
+    },
+    {
+      "gid": "H30",
+      "purpose": "informative",
+      "method": "elaboration",
+      "second": null,
+      "confidence": "high",
+      "evidence_grounded": 2,
+      "evidence_total": 2
+    }
+  ]
+}

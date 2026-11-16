@@ -1,3 +1,5 @@
+> **지문→수업 기능(2026-09 lesson-from-text)의 인계장은 `docs/HANDOFF-lesson-from-text.md` 한 장이다.**
+
 # HANDOFF — Korea English Solution (다른 PC 재개용)
 
 > 이 문서 하나로 다른 PC/세션에서 재개 가능. 마지막 작업: **2026-07-21 · main HEAD `b9a023b`**.

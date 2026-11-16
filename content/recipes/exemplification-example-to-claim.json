@@ -1,0 +1,19 @@
+{
+  "id": "exemplification-example-to-claim",
+  "titleKo": "보기가 받치는 주장 찾기",
+  "titleEn": "Which claim does this example support?",
+  "stage": "while",
+  "skill": "reading",
+  "grades": ["middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 10,
+  "grouping": "pair",
+  "layer": "inference",
+  "hooks": { "forms": [], "purposes": [], "methods": ["exemplification"] },
+  "slots": [
+    { "key": "examples", "kind": "sentence_list", "n": 3, "from": "passage", "rule": "보기(예시)를 드는 문장들. for example / for instance / such as 가 있거나 구체 사례를 말하는 문장. 원문 그대로." },
+    { "key": "claim", "kind": "sentence", "from": "passage", "rule": "그 보기들이 받치는 일반 진술(주장·원리) 문장 하나. 원문 그대로." }
+  ],
+  "studentText": "아래 {{examples.n}}개 문장은 보기입니다. 이 보기들이 무엇을 보여 주려는지 — 글 속에서 그 문장을 찾아 쓰세요. 그런 뒤 보기 하나를 지우고도 주장이 서는지 말해 보세요.\n{{examples}}",
+  "teacherNote": "정답 문장은 \"{{claim}}\" 이다. 보기를 하나 빼도 주장이 서는지 묻는 것이 핵심 — 보기는 증명이 아니라 예시임을 알게 된다.",
+  "source": { "inventoryId": "irc-bridge", "repo": "IRC" }
+}

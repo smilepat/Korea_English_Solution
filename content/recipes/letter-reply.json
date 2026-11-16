@@ -1,0 +1,19 @@
+{
+  "id": "letter-reply",
+  "titleKo": "답장 쓰기",
+  "titleEn": "Write the reply",
+  "stage": "post",
+  "skill": "writing",
+  "grades": ["middle1", "middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 12,
+  "grouping": "individual",
+  "layer": "practice",
+  "hooks": { "forms": ["letter"], "purposes": [], "methods": [] },
+  "slots": [
+    { "key": "asks", "kind": "sentence_list", "n": 3, "from": "passage", "rule": "편지가 받는 이에게 바라는 것(부탁·물음·초대·제안)을 담은 문장들. 원문 그대로. 1~3개." },
+    { "key": "sender", "kind": "word_list", "n": 1, "from": "passage", "rule": "보낸 이의 이름 또는 서명." }
+  ],
+  "studentText": "당신이 이 편지를 받았습니다. {{sender}}에게 답장을 쓰세요. 편지가 바란 것 — {{asks}} — 에 하나씩 답해야 합니다. 인사말과 맺음말을 갖추세요 (5~7문장).",
+  "teacherNote": "편지가 바란 것에 빠짐없이 답했는지가 평가 기준이다. 문법보다 '답이 되는가'를 먼저 본다. 민원 편지든 안부 편지든 이 활동은 같다 — 형식이 활동을 정한다.",
+  "source": { "inventoryId": "msal-short-answer", "repo": "MSAL" }
+}

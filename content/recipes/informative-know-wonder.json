@@ -1,0 +1,18 @@
+{
+  "id": "informative-know-wonder",
+  "titleKo": "아는 것 · 궁금한 것",
+  "titleEn": "Know and wonder",
+  "stage": "pre",
+  "skill": "speaking",
+  "grades": ["middle1", "middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 5,
+  "grouping": "pair",
+  "layer": "anticipation",
+  "hooks": { "forms": [], "purposes": ["informative"], "methods": [] },
+  "slots": [
+    { "key": "topic", "kind": "phrase_list", "n": 1, "from": "passage", "rule": "글의 화제를 나타내는 어구 하나. 원문 표현 그대로." }
+  ],
+  "studentText": "이 글의 화제는 {{topic}} 입니다. 짝과 함께 이 화제에 대해 이미 아는 것 두 가지, 궁금한 것 한 가지를 우리말이나 영어로 적으세요. 다 읽은 뒤 궁금한 것의 답이 글에 있었는지 확인합니다.",
+  "teacherNote": "아는 것이 틀려도 고치지 않는다. 읽은 뒤에 학생이 스스로 고치게 하는 것이 이 활동의 값이다. 궁금한 것의 답이 글에 없으면 '글이 다루지 않은 것'으로 남겨 둔다.",
+  "source": { "inventoryId": "ETA-trial-2026-11-14", "repo": "English-teacher-agent" }
+}

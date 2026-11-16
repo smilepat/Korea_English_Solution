@@ -1,0 +1,20 @@
+{
+  "id": "argumentative-claim-and-reasons",
+  "titleKo": "주장과 이유 갈라내기",
+  "titleEn": "Claim vs. reasons",
+  "stage": "while",
+  "skill": "reading",
+  "grades": ["middle3", "high1", "high2", "high3"],
+  "minutes": 12,
+  "grouping": "pair",
+  "layer": "inference",
+  "hooks": { "forms": [], "purposes": ["argumentative"], "methods": [] },
+  "slots": [
+    { "key": "claim", "kind": "sentence", "from": "passage", "rule": "필자의 주장 문장 하나. 원문 그대로." },
+    { "key": "reasons", "kind": "sentence_list", "n": 3, "from": "passage", "rule": "그 주장을 받치는 이유·근거 문장들. 원문 그대로. 2~3개." },
+    { "key": "decoy", "kind": "sentence", "from": "passage", "rule": "주장도 이유도 아닌 문장 하나 (배경 설명이나 예시). 원문 그대로." }
+  ],
+  "studentText": "아래 문장들을 '주장' 한 개, '이유' 여러 개, '어느 쪽도 아님' 으로 가르세요.\n{{claim}}\n{{reasons}}\n{{decoy}}\n다 가른 뒤, 이유 중 가장 약한 것을 하나 고르고 왜 약한지 말하세요.",
+  "teacherNote": "'어느 쪽도 아님' 을 골라내는 것과 '가장 약한 이유' 를 고르는 것이 이 활동의 값이다. 주장 찾기만 하면 수능 요지 문항의 연습에 그친다.",
+  "source": { "inventoryId": "bridge-graph-reconstruct", "repo": "BRIDGE" }
+}

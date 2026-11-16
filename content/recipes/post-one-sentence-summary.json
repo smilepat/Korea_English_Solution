@@ -1,0 +1,18 @@
+{
+  "id": "post-one-sentence-summary",
+  "titleKo": "한 문장 요약",
+  "titleEn": "One-sentence summary",
+  "stage": "post",
+  "skill": "writing",
+  "grades": ["middle1", "middle2", "middle3", "high1", "high2", "high3"],
+  "minutes": 7,
+  "grouping": "individual",
+  "layer": "summary",
+  "hooks": { "forms": [], "purposes": [], "methods": [] },
+  "slots": [
+    { "key": "model", "kind": "text", "from": "generated", "rule": "글 전체를 20낱말 이내 영어 한 문장으로 요약한 모범답. 교사만 본다." }
+  ],
+  "studentText": "이 글을 영어 한 문장(20낱말 이내)으로 요약하세요. 'This text is about …' 로 시작하지 마세요 — 글이 무엇을 말하는지를 바로 쓰세요.",
+  "teacherNote": "모범답: {{model}}\n학생 요약이 화제만 말하고 글의 주장·전개를 안 담으면 'about' 요약이다. 다시 쓰게 한다.",
+  "source": { "inventoryId": "irc-summary", "repo": "IRC" }
+}
