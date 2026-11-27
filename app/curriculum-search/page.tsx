@@ -154,7 +154,7 @@ export default function CurriculumSearchPage() {
         </div>
       </div>
       <p style={{ color: "#666", marginBottom: 16, fontSize: 14 }}>
-        성취기준 672 · 성취수준(A~E/상·중·하) · 기본어휘 5,839 — 4가지 방법으로 검색 (2015·2022 개정)
+        성취기준 673 · 성취수준(A~E/상·중·하) · 기본어휘 6,000 — 4가지 방법으로 검색 (2015·2022 개정)
       </p>
 
       <div className="kcs-noprint" style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "flex-start", marginBottom: 10 }}>

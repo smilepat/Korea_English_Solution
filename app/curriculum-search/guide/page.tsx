@@ -16,7 +16,7 @@ export default function CurriculumSearchGuide() {
       </div>
       <h1 style={{ fontSize: 26, fontWeight: 800, margin: "6px 0 4px" }}>성취기준 검색 사용 가이드</h1>
       <p style={{ color: "#64748b", fontSize: 14, marginBottom: 20 }}>
-        2015·2022 개정 영어 교육과정 <b>성취기준 672개</b>와 성취수준·어휘·문항 생성까지, 이 페이지 하나로 사용법을 익힐 수 있습니다.
+        2015·2022 개정 영어 교육과정 <b>성취기준 673개</b>와 성취수준·어휘·문항 생성까지, 이 페이지 하나로 사용법을 익힐 수 있습니다.
       </p>
 
       {/* 30초 요약 */}
